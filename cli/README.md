@@ -66,7 +66,43 @@ Then you can run it from anywhere:
 
 ```bash
 pondorasti
+
+# Get help
+pondorasti --help
 ```
+
+## Command Line Options
+
+- `-h, --help` - Show help message
+
+## Logging
+
+All installation commands and their outputs are automatically logged to `~/.pondorasti/install.log`.
+
+To monitor the installation progress in real-time:
+
+```bash
+tail -f ~/.pondorasti/install.log
+```
+
+## Troubleshooting
+
+### Installation Appears Stuck
+
+If the installation appears stuck (especially with packages like neovim that compile from source):
+
+1. Check the log file to see what's happening:
+
+   ```bash
+   tail -f ~/.pondorasti/install.log
+   ```
+
+2. Some packages (like neovim) compile from source and can take 5-10 minutes
+
+3. If needed, you can always install packages manually:
+   ```bash
+   brew install neovim
+   ```
 
 ## What It Does
 

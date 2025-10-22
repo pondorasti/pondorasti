@@ -37,126 +37,110 @@ struct HomebrewPackageInstaller {
     let isInstalled = HomebrewManager.isPackageInstalled(package.formula, isCask: package.isCask)
 
     if isInstalled {
-      // Package is installed, try to upgrade it
-      ConsoleOutput.step("Checking for updates...")
+      ConsoleOutput.progress("Checking \(package.name) for updates...")
+      return upgradePackage(package, brew: brew)
+    } else {
+      ConsoleOutput.progress("Installing \(package.name)...")
+      return installPackage(package, brew: brew)
+    }
+  }
 
-      let upgradeCommand =
-        package.isCask
-        ? "\(brew) upgrade --cask \(package.formula)" : "\(brew) upgrade \(package.formula)"
-      let upgradeResult = Shell.execute(upgradeCommand)
+  /// Install a new package
+  private static func installPackage(_ package: HomebrewPackage, brew: String) -> InstallResult {
+    let command =
+      package.isCask
+      ? "\(brew) install --cask \(package.formula)"
+      : "\(brew) install \(package.formula)"
 
-      if upgradeResult.success {
-        // Check if it was actually upgraded or already latest
-        if upgradeResult.output.contains("already installed") {
-          ConsoleOutput.info("\(package.name) is already at the latest version")
+    let result = executeBrewCommand(command, for: package, action: "install")
+
+    switch result.status {
+    case .installed:
+      ConsoleOutput.success("\(package.name) installed successfully")
+    case .failed:
+      ConsoleOutput.error("Failed to install \(package.name): \(result.message ?? "")")
+    default:
+      break
+    }
+
+    return result
+  }
+
+  /// Upgrade an existing package
+  private static func upgradePackage(_ package: HomebrewPackage, brew: String) -> InstallResult {
+    let command =
+      package.isCask
+      ? "\(brew) upgrade --cask \(package.formula)"
+      : "\(brew) upgrade \(package.formula)"
+
+    let result = executeBrewCommand(command, for: package, action: "upgrade")
+
+    switch result.status {
+    case .updated:
+      ConsoleOutput.success("\(package.name) updated successfully")
+    case .alreadyLatest:
+      ConsoleOutput.info("\(package.name) is already at the latest version")
+    case .failed:
+      ConsoleOutput.warning("Failed to update \(package.name): \(result.message ?? "")")
+    default:
+      break
+    }
+
+    return result
+  }
+
+  /// Execute a brew command with retry logic for locked processes
+  private static func executeBrewCommand(
+    _ command: String, for package: HomebrewPackage, action: String
+  ) -> InstallResult {
+    let result = Shell.execute(command)
+
+    if result.success {
+      // For upgrades, check if already at latest
+      if action == "upgrade" && result.output.contains("already installed") {
+        return InstallResult(
+          package: package,
+          status: .alreadyLatest,
+          message: nil
+        )
+      }
+
+      return InstallResult(
+        package: package,
+        status: action == "install" ? .installed : .updated,
+        message: nil
+      )
+    }
+
+    // Handle locked process error
+    if result.error.contains("process has already locked") {
+      ConsoleOutput.warning("Detected locked Homebrew process, attempting to resolve...")
+
+      if handleLockedBrewProcess(for: package.formula) {
+        ConsoleOutput.step("Retrying \(action)...")
+        let retryResult = Shell.execute(command)
+
+        if retryResult.success {
           return InstallResult(
             package: package,
-            status: .alreadyLatest,
+            status: action == "install" ? .installed : .updated,
             message: nil
           )
         } else {
-          ConsoleOutput.success("\(package.name) updated successfully")
           return InstallResult(
             package: package,
-            status: .updated,
-            message: nil
+            status: .failed,
+            message: retryResult.error
           )
         }
-      } else {
-        // Check if the error is due to a locked process
-        if upgradeResult.error.contains("process has already locked") {
-          ConsoleOutput.warning("Detected locked Homebrew process, attempting to resolve...")
-
-          if handleLockedBrewProcess(for: package.formula) {
-            // Retry the upgrade
-            ConsoleOutput.step("Retrying update...")
-            let retryCommand =
-              package.isCask
-              ? "\(brew) upgrade --cask \(package.formula)" : "\(brew) upgrade \(package.formula)"
-            let retryResult = Shell.execute(retryCommand)
-
-            if retryResult.success {
-              ConsoleOutput.success("\(package.name) updated successfully after resolving lock")
-              return InstallResult(
-                package: package,
-                status: .updated,
-                message: nil
-              )
-            } else {
-              ConsoleOutput.error(
-                "Failed to update \(package.name) after resolving lock: \(retryResult.error)")
-              return InstallResult(
-                package: package,
-                status: .failed,
-                message: retryResult.error
-              )
-            }
-          }
-        }
-
-        ConsoleOutput.warning("Failed to update \(package.name): \(upgradeResult.error)")
-        return InstallResult(
-          package: package,
-          status: .failed,
-          message: upgradeResult.error
-        )
-      }
-    } else {
-      // Package not installed, install it
-      ConsoleOutput.step("Installing \(package.name)...")
-
-      let installCommand =
-        package.isCask
-        ? "\(brew) install --cask \(package.formula)" : "\(brew) install \(package.formula)"
-      let installResult = Shell.execute(installCommand)
-
-      if installResult.success {
-        ConsoleOutput.success("\(package.name) installed successfully")
-        return InstallResult(
-          package: package,
-          status: .installed,
-          message: nil
-        )
-      } else {
-        // Check if the error is due to a locked process
-        if installResult.error.contains("process has already locked") {
-          ConsoleOutput.warning("Detected locked Homebrew process, attempting to resolve...")
-
-          if handleLockedBrewProcess(for: package.formula) {
-            // Retry the install
-            ConsoleOutput.step("Retrying installation...")
-            let retryCommand =
-              package.isCask
-              ? "\(brew) install --cask \(package.formula)" : "\(brew) install \(package.formula)"
-            let retryResult = Shell.execute(retryCommand)
-
-            if retryResult.success {
-              ConsoleOutput.success("\(package.name) installed successfully after resolving lock")
-              return InstallResult(
-                package: package,
-                status: .installed,
-                message: nil
-              )
-            } else {
-              ConsoleOutput.error(
-                "Failed to install \(package.name) after resolving lock: \(retryResult.error)")
-              return InstallResult(
-                package: package,
-                status: .failed,
-                message: retryResult.error
-              )
-            }
-          }
-        }
-
-        ConsoleOutput.error("Failed to install \(package.name): \(installResult.error)")
-        return InstallResult(
-          package: package,
-          status: .failed,
-          message: installResult.error
-        )
       }
     }
+
+    return InstallResult(
+      package: package,
+      status: .failed,
+      message: result.error
+    )
   }
 
   /// Handle locked Homebrew process by finding and killing it

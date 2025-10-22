@@ -3,8 +3,35 @@ import Foundation
 @main
 struct Pondorasti {
   static func main() {
+    let args = CommandLine.arguments
+
+    // Check for help flag
+    if args.contains("-h") || args.contains("--help") {
+      printHelp()
+      exit(0)
+    }
+
+    // Initialize logging
+    Shell.initializeLogging()
+
     let setup = Pondorasti()
     setup.run()
+  }
+
+  static func printHelp() {
+    print(
+      """
+      Pondorasti - Automated macOS setup and configuration tool
+
+      Usage: pondorasti [OPTIONS]
+
+      Options:
+        -h, --help      Show this help message
+
+      Logs:
+        Installation logs are saved to ~/.pondorasti/install.log
+        Use 'tail -f ~/.pondorasti/install.log' to monitor progress
+      """)
   }
 
   func run() {
@@ -47,6 +74,9 @@ struct Pondorasti {
       updated: summary.updated,
       failed: summary.failed
     )
+
+    // Show log location
+    ConsoleOutput.info("Installation log saved to: ~/.pondorasti/install.log")
 
     // Exit with appropriate code
     if !summary.failed.isEmpty {

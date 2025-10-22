@@ -35,7 +35,7 @@ struct HomebrewManager {
 
   /// Install Homebrew
   static func install() -> Bool {
-    ConsoleOutput.step("Installing Homebrew...")
+    ConsoleOutput.progress("Installing Homebrew...")
 
     // Official Homebrew installation script
     let installScript =
@@ -66,7 +66,7 @@ struct HomebrewManager {
       return false
     }
 
-    ConsoleOutput.step("Updating Homebrew...")
+    ConsoleOutput.progress("Updating Homebrew...")
 
     let result = Shell.execute("\(brew) update")
 
@@ -140,7 +140,11 @@ struct HomebrewManager {
   static func isPackageInstalled(_ package: String, isCask: Bool = false) -> Bool {
     guard let brew = brewPath() else { return false }
 
-    let command = isCask ? "\(brew) list --cask \(package)" : "\(brew) list \(package)"
+    // Redirect output to /dev/null to avoid buffer issues with packages that have many files
+    let command =
+      isCask
+      ? "\(brew) list --cask \(package) > /dev/null 2>&1"
+      : "\(brew) list \(package) > /dev/null 2>&1"
     let result = Shell.execute(command)
     return result.success
   }
@@ -171,33 +175,81 @@ struct Shell {
     let error: String
   }
 
+  private static let logPath = NSHomeDirectory() + "/.pondorasti/install.log"
+  private nonisolated(unsafe) static var logFileHandle: FileHandle?
+
+  /// Initialize logging
+  static func initializeLogging() {
+    let logDir = NSHomeDirectory() + "/.pondorasti"
+    try? FileManager.default.createDirectory(atPath: logDir, withIntermediateDirectories: true)
+
+    // Create or append to log file
+    if !FileManager.default.fileExists(atPath: logPath) {
+      FileManager.default.createFile(atPath: logPath, contents: nil)
+    }
+
+    logFileHandle = FileHandle(forWritingAtPath: logPath)
+    logFileHandle?.seekToEndOfFile()
+
+    // Write session header
+    let timestamp = ISO8601DateFormatter().string(from: Date())
+    writeToLog("\n\n=== Pondorasti Session Started: \(timestamp) ===\n")
+  }
+
+  /// Write to log file
+  private static func writeToLog(_ message: String) {
+    guard let data = (message + "\n").data(using: .utf8) else { return }
+    logFileHandle?.write(data)
+  }
+
   @discardableResult
   static func execute(_ command: String, showOutput: Bool = false) -> Result {
-    let task = Process()
-    let outputPipe = Pipe()
-    let errorPipe = Pipe()
+    // Log the command
+    writeToLog("[EXEC] \(command)")
 
-    task.standardOutput = outputPipe
-    task.standardError = errorPipe
+    let task = Process()
     task.arguments = ["-c", command]
     task.launchPath = "/bin/bash"
     task.standardInput = nil
 
+    var outputPipe: Pipe?
+    var errorPipe: Pipe?
+
     if showOutput {
-      // For interactive commands like Homebrew installation
+      // For interactive commands, output goes directly to console
       task.standardOutput = FileHandle.standardOutput
       task.standardError = FileHandle.standardError
+    } else {
+      // For non-interactive commands, capture output
+      outputPipe = Pipe()
+      errorPipe = Pipe()
+      task.standardOutput = outputPipe
+      task.standardError = errorPipe
     }
 
     do {
       try task.run()
       task.waitUntilExit()
 
-      let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
-      let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+      var output = ""
+      var error = ""
 
-      let output = String(data: outputData, encoding: .utf8) ?? ""
-      let error = String(data: errorData, encoding: .utf8) ?? ""
+      if !showOutput {
+        // Only read from pipes if we set them up
+        let outputData = outputPipe!.fileHandleForReading.readDataToEndOfFile()
+        let errorData = errorPipe!.fileHandleForReading.readDataToEndOfFile()
+        output = String(data: outputData, encoding: .utf8) ?? ""
+        error = String(data: errorData, encoding: .utf8) ?? ""
+      }
+
+      // Log results
+      writeToLog("[EXIT] \(task.terminationStatus)")
+      if !output.isEmpty {
+        writeToLog("[OUT] \(output)")
+      }
+      if !error.isEmpty {
+        writeToLog("[ERR] \(error)")
+      }
 
       return Result(
         success: task.terminationStatus == 0,
@@ -205,6 +257,7 @@ struct Shell {
         error: error
       )
     } catch {
+      writeToLog("[ERROR] Failed to execute: \(error.localizedDescription)")
       return Result(
         success: false,
         output: "",

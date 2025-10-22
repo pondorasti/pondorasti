@@ -102,4 +102,9 @@ struct ConsoleOutput {
 
     separator()
   }
+
+  /// Simple progress indicator (not animated to keep things simple)
+  static func progress(_ message: String) {
+    print("\(Color.cyan.rawValue)⏳ \(message)\(Color.reset.rawValue)")
+  }
 }
