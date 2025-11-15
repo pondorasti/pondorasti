@@ -136,34 +136,6 @@ struct HomebrewManager {
     Shell.execute("find \(cacheDir) -name '*.incomplete' -delete")
   }
 
-  /// Check if a package is installed
-  static func isPackageInstalled(_ package: String, isCask: Bool = false) -> Bool {
-    guard let brew = brewPath() else { return false }
-
-    // Redirect output to /dev/null to avoid buffer issues with packages that have many files
-    let command =
-      isCask
-      ? "\(brew) list --cask \(package) > /dev/null 2>&1"
-      : "\(brew) list \(package) > /dev/null 2>&1"
-    let result = Shell.execute(command)
-    return result.success
-  }
-
-  /// Get installed version of a package
-  static func getInstalledVersion(_ package: String) -> String? {
-    guard let brew = brewPath() else { return nil }
-
-    let result = Shell.execute("\(brew) list --versions \(package)")
-    if result.success {
-      let output = result.output.trimmingCharacters(in: .whitespacesAndNewlines)
-      // Output format: "package version1 version2..."
-      let components = output.components(separatedBy: " ")
-      if components.count >= 2 {
-        return components[1]  // Return the first version
-      }
-    }
-    return nil
-  }
 }
 
 // MARK: - Shell Execution Helper

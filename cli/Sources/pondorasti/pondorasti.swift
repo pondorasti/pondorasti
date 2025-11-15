@@ -63,24 +63,35 @@ struct Pondorasti {
       }
     }
 
-    // Step 2: Install/Update packages
-    let packages = HomebrewPackage.defaultPackages
-    let results = HomebrewPackageInstaller.installAll(packages)
+    // Step 2: Install packages from Brewfile
+    ConsoleOutput.header("Installing Packages")
+    ConsoleOutput.info("Installing packages from Brewfile...")
 
-    // Step 3: Show summary
-    let summary = HomebrewPackageInstaller.generateSummary(from: results)
-    ConsoleOutput.summary(
-      installed: summary.installed,
-      updated: summary.updated,
-      failed: summary.failed
-    )
+    if let brewPath = HomebrewManager.brewPath() {
+      let brewfileDir = FileManager.default.currentDirectoryPath
+      let result = Shell.execute("\(brewPath) bundle --file=\(brewfileDir)/Brewfile")
+
+      if result.success {
+        ConsoleOutput.success("All packages installed/updated successfully")
+        ConsoleOutput.info("Run 'brew bundle cleanup' to remove unlisted packages")
+      } else {
+        ConsoleOutput.error("Failed to install packages: \(result.error)")
+        ConsoleOutput.info("Installation log saved to: ~/.pondorasti/install.log")
+        exit(1)
+      }
+    } else {
+      ConsoleOutput.error("Homebrew not found in PATH")
+      exit(1)
+    }
+
+    // Step 3: Future setup tasks
+    // TODO: Add additional setup tasks here:
+    // - Dotfiles management (symlink from git repo)
+    // - macOS system preferences configuration
+    // - Development environment setup (git config, ssh keys, etc.)
+    // - Shell configuration (zsh plugins, aliases, etc.)
 
     // Show log location
     ConsoleOutput.info("Installation log saved to: ~/.pondorasti/install.log")
-
-    // Exit with appropriate code
-    if !summary.failed.isEmpty {
-      exit(1)
-    }
   }
 }

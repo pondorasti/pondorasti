@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:pondorasti}/cli",
+      "name": "Debug pondorasti (cli)",
+      "program": "${workspaceFolder:pondorasti}/cli/.build/debug/pondorasti",
+      "preLaunchTask": "swift: Build Debug pondorasti (cli)"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:pondorasti}/cli",
+      "name": "Release pondorasti (cli)",
+      "program": "${workspaceFolder:pondorasti}/cli/.build/release/pondorasti",
+      "preLaunchTask": "swift: Build Release pondorasti (cli)"
+    }
+  ]
+}

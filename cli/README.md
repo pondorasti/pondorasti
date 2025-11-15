@@ -1,23 +1,17 @@
 # Pondorasti - macOS Setup CLI
 
-A Swift-based command-line tool that automates the setup of a new macOS machine with essential developer tools.
+A Swift-based command-line tool that automates the setup of a new macOS machine with essential developer tools and configurations.
 
 ## Features
 
 - **Automated Homebrew Installation**: Checks for Homebrew and installs it if not present
-- **Tool Installation/Updates**: Installs and keeps the following tools up to date:
-  - **lazygit**: Terminal UI for git commands (makes git operations visual and intuitive)
-  - **lazydocker**: Terminal UI for Docker (manage containers, images, and volumes easily)
-  - **fastfetch**: System information tool (displays system info with style)
-  - **btop**: Resource monitor (beautiful and powerful alternative to htop/top)
-  - **fzf**: Command-line fuzzy finder (search through files, history, processes, and more)
-  - **gh**: GitHub CLI (work with issues, PRs, releases, and more from the terminal)
-  - **neovim**: Hyperextensible Vim-based text editor (modern fork with better plugin support)
-  - **Ghostty**: Fast, native terminal emulator with GPU acceleration and modern features
-- **Idempotent**: Can be run multiple times safely - will update existing tools to latest versions
+- **Brewfile-based Package Management**: Uses Homebrew's native Brewfile format for declarative package management
+- **Tool Installation/Updates**: Installs packages defined in the Brewfile using `brew bundle`
 - **Beautiful Output**: Color-coded terminal output with clear status indicators
 - **Apple Silicon Optimized**: Designed specifically for M1/M2/M3 and newer Macs
 - **Automatic Lock Resolution**: Detects and resolves stuck Homebrew processes automatically
+- **Extensible**: Easy to add new packages by editing the Brewfile
+- **Future-Ready**: Placeholder for dotfiles management, system preferences, and more
 
 ## Installation
 
@@ -111,26 +105,102 @@ If the installation appears stuck (especially with packages like neovim that com
    - Checks if Homebrew is installed
    - Installs Homebrew if missing
    - Updates Homebrew to latest version
-3. **Tool Installation**:
-   - For each tool, shows name, category, and description
-   - Installs tools that aren't present
-   - Updates tools that are already installed
+3. **Package Installation**:
+   - Runs `brew bundle` to install/update all packages defined in the Brewfile
    - Shows clear success/failure status
-4. **Summary**: Displays what was installed, updated, or failed
+   - Suggests running `brew bundle cleanup` to remove unlisted packages
+
+## Default Packages
+
+The Brewfile includes these packages by default:
+
+### CLI Tools
+
+#### Development Tools
+
+- **lazygit**: Terminal UI for git commands
+- **lazydocker**: Terminal UI for Docker
+- **neovim**: Modern Vim-based text editor
+- **gh**: GitHub CLI
+- **tmux**: Terminal multiplexer - multiple terminal sessions in one window
+- **pnpm**: Fast, disk space efficient package manager for Node.js
+
+#### System Monitoring
+
+- **fastfetch**: System information tool
+- **btop**: Resource monitor
+
+#### Utilities
+
+- **fzf**: Command-line fuzzy finder
+- **ffmpeg**: Multimedia framework for converting audio, video, and streaming
+- **mas**: Mac App Store command-line interface
+
+### GUI Applications (Casks)
+
+#### Terminal & Development
+
+- **ghostty**: Fast, native terminal emulator
+- **Visual Studio Code**: Powerful, extensible code editor
+- **Cursor**: AI-powered code editor built to make you extraordinarily productive
+- **Zed**: High-performance code editor designed for collaboration with humans and AI
+- **Android Studio**: Official IDE for Android app development
+- **TablePlus**: Modern database management tool
+- **Xcode**: Apple's IDE for developing apps for Apple platforms (via Mac App Store)
+- **WiFi Explorer**: WiFi network scanner and analyzer (via Mac App Store)
+
+#### Productivity
+
+- **Raycast**: Productivity launcher with extensions
+- **1Password**: Password manager and secure wallet
+- **CleanShot**: Advanced screenshot and screen recording tool
+- **Flighty**: Live flight tracker with detailed flight data and notifications (via Mac App Store)
+
+#### Communication
+
+- **Slack**: Team communication and collaboration
+- **Discord**: Voice, video, and text communication
+- **WhatsApp Messenger**: Messaging app for text, voice, and video calls (via Mac App Store)
+
+#### Browsers
+
+- **Google Chrome**: Fast, secure web browser
+- **Firefox**: Privacy-focused web browser
+- **uBlock Origin Lite**: Lightweight ad blocker for Safari (via Mac App Store)
+
+#### Design
+
+- **Figma**: Collaborative design and prototyping tool
+- **Sketch**: Native macOS design toolkit for UI/UX designers
+- **PixelSnap**: Measure anything on your screen with pixel precision
+
+#### Games
+
+- **The Powder Toy**: Physics sandbox game - blow things up, simulate physics, build machines
 
 ## Extending
 
-To add more packages, edit `Sources/pondorasti/Homebrew/HomebrewPackage.swift` and add entries to the `defaultPackages` array:
+To add more packages, simply edit the `Brewfile`:
 
-```swift
-HomebrewPackage(
-    name: "package-name",
-    formula: "brew-formula-name", // Optional, defaults to name
-    description: "What this package does",
-    category: .development, // or .monitoring, .utility, .productivity, .application
-    isCask: false // true for GUI apps, false for CLI tools
-)
+```ruby
+# Add a formula (CLI tool)
+brew "package-name"
+
+# Add a cask (GUI application)
+cask "app-name"
+
+# Add a tap
+tap "homebrew/cask-fonts"
+
+# Add from Mac App Store (mas is already included in our Brewfile)
+mas "App Name", id: 123456789
+
+# Examples from our Brewfile:
+mas "WhatsApp Messenger", id: 310633997
+mas "Xcode", id: 497799835
 ```
+
+For more Brewfile options, see the [Homebrew Bundle documentation](https://github.com/Homebrew/homebrew-bundle).
 
 ## Requirements
 
@@ -147,19 +217,22 @@ HomebrewPackage(
 ## Project Structure
 
 ```
-Sources/pondorasti/
-├── pondorasti.swift                 # Main entry point
-├── ConsoleOutput.swift              # Terminal output formatting
-└── Homebrew/                        # Homebrew-specific functionality
-    ├── HomebrewManager.swift        # Homebrew installation and management
-    ├── HomebrewPackage.swift        # Package definitions and configuration
-    └── HomebrewPackageInstaller.swift # Package installation logic
+.
+├── Brewfile                         # Homebrew package definitions
+├── Package.swift                    # Swift package manifest
+├── README.md                        # This file
+└── Sources/pondorasti/
+    ├── pondorasti.swift             # Main entry point
+    ├── ConsoleOutput.swift          # Terminal output formatting
+    └── Homebrew/
+        └── HomebrewManager.swift    # Homebrew installation and management
 ```
 
 ## Future Enhancements
 
-- Configuration file support (JSON/YAML)
+- Dotfiles management (automatic symlinking from git repository)
+- macOS system preferences configuration
+- Development environment setup (git config, ssh keys, etc.)
+- Shell configuration (zsh plugins, aliases, etc.)
 - Installation profiles (minimal, developer, full)
-- Integration with other package managers (Mac App Store, etc.)
 - Dry-run mode for testing
-- Support for more Homebrew Casks and custom taps
