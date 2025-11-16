@@ -1,4 +1,5 @@
 import * as fs from "fs"
+import { $ } from "bun"
 
 const BREW_PATH_M1 = "/opt/homebrew/bin/brew"
 
@@ -12,10 +13,7 @@ class HomebrewManager {
     }
 
     try {
-      const result = Bun.spawnSync(["which", "brew"], {
-        stdout: "pipe",
-        stderr: "pipe",
-      })
+      const result = Bun.spawnSync(["which", "brew"], { stdout: "pipe", stderr: "pipe" })
 
       if (result.exitCode === 0 && result.stdout) {
         this.brewPath = result.stdout.toString().trim()
@@ -37,10 +35,7 @@ class HomebrewManager {
     }
 
     try {
-      const result = Bun.spawnSync(["which", "brew"], {
-        stdout: "pipe",
-        stderr: "pipe",
-      })
+      const result = Bun.spawnSync(["which", "brew"], { stdout: "pipe", stderr: "pipe" })
 
       if (result.exitCode === 0 && result.stdout) {
         this.brewPath = result.stdout.toString().trim()
@@ -49,6 +44,10 @@ class HomebrewManager {
     } catch {}
 
     return null
+  }
+
+  static async runBundle(): Promise<void> {
+    await $`brew bundle`
   }
 }
 
