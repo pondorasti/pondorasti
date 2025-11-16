@@ -1,10 +1,11 @@
 {
   "name": "@pondorasti/cli",
   "version": "0.1.0",
-  "description": "CLI for pondorasti - Mission control for macOS setup",
+  "description": "Mission control for pondorasti",
   "main": "src/index.ts",
   "bin": {
-    "pondorasti": "./src/index.ts"
+    "pondorasti": "./src/index.ts",
+    "pd": "./src/index.ts"
   },
   "scripts": {
     "start": "bun run src/index.ts",
