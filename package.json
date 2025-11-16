@@ -7,8 +7,8 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "bun run packages/cli/src/index.ts",
-    "dev": "bun --watch packages/cli/src/index.ts"
+    "start": "bun -F @pondorasti/cli start",
+    "dev": "bun --watch -F @pondorasti/cli dev"
   },
   "keywords": [
     "cli",
