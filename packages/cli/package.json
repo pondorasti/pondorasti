@@ -1,0 +1,33 @@
+{
+  "name": "@pondorasti/cli",
+  "version": "0.1.0",
+  "description": "CLI for pondorasti - Mission control for macOS setup",
+  "main": "src/index.ts",
+  "bin": {
+    "pondorasti": "./src/index.ts"
+  },
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "dev": "bun --watch src/index.ts"
+  },
+  "keywords": [
+    "cli",
+    "macos",
+    "homebrew",
+    "dotfiles",
+    "setup"
+  ],
+  "author": "Alexandru Ţurcanu",
+  "license": "MIT",
+  "dependencies": {
+    "ink": "^5.0.1",
+    "ink-gradient": "^3.0.0",
+    "ink-spinner": "^5.0.0",
+    "react": "^18.2.0",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/yargs": "^17.0.32"
+  }
+}
