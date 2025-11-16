@@ -27,3 +27,6 @@ yarn-error.log*
 # Temporary files
 *.tmp
 *.temp
+
+# Raycast
+script-commands/
