@@ -3,7 +3,7 @@ import { $ } from "bun"
 
 const BREW_PATH_M1 = "/opt/homebrew/bin/brew"
 
-class HomebrewManager {
+class Homebrew {
   private static brewPath: string | null = null
 
   static isInstalled(): boolean {
@@ -46,9 +46,13 @@ class HomebrewManager {
     return null
   }
 
-  static async runBundle(): Promise<void> {
-    await $`brew bundle`
+  static async runBundle(brewfilePath?: string): Promise<void> {
+    if (brewfilePath) {
+      await $`brew bundle --file=${brewfilePath}`
+    } else {
+      await $`brew bundle`
+    }
   }
 }
 
-export { HomebrewManager }
+export { Homebrew }

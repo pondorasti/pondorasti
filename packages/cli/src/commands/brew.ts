@@ -1,17 +1,20 @@
 import type { CommandModule } from "yargs"
 import { $ } from "bun"
-import { HomebrewManager } from "../managers/homebrew"
+import { Homebrew } from "../tools/homebrew"
 import { failHandler } from "../utils/cli-helpers"
 import * as path from "path"
 import * as fs from "fs"
 
+// -------------------------------------------------------------------------------------------------------------------
 // Subcommands
+// -------------------------------------------------------------------------------------------------------------------
+
 const installCommand: CommandModule = {
   command: "install",
   describe: "Install Homebrew",
   handler: async () => {
-    if (HomebrewManager.isInstalled()) {
-      const brewPath = HomebrewManager.getBrewPath()
+    if (Homebrew.isInstalled()) {
+      const brewPath = Homebrew.getBrewPath()
       console.log(`✓ Homebrew is already installed at ${brewPath}`)
 
       try {
@@ -23,21 +26,8 @@ const installCommand: CommandModule = {
       return
     }
 
-    console.log("Installing Homebrew...")
     try {
-      // Show native installer output
       await $`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
-
-      // Configure for Apple Silicon
-      const zprofilePath = path.join(process.env.HOME!, ".zprofile")
-      const exportCommand = 'eval "$(/opt/homebrew/bin/brew shellenv)"'
-
-      const content = fs.existsSync(zprofilePath) ? fs.readFileSync(zprofilePath, "utf8") : ""
-
-      if (!content.includes(exportCommand)) {
-        fs.appendFileSync(zprofilePath, `\n${exportCommand}\n`)
-        console.log("✓ Added Homebrew to shell profile")
-      }
     } catch (error) {
       console.error("✗ Failed to install Homebrew")
       process.exit(1)
@@ -49,19 +39,22 @@ const bundleCommand: CommandModule = {
   command: "bundle",
   describe: "Run brew bundle from Brewfile",
   handler: async () => {
-    if (!HomebrewManager.isInstalled()) {
+    if (!Homebrew.isInstalled()) {
       console.error("✗ Homebrew is not installed. Run 'pondorasti brew install' first.")
       process.exit(1)
     }
 
-    const brewfilePath = path.join(process.cwd(), "Brewfile")
+    // Brewfile is always at the root of the pondorasti repo
+    const brewfilePath = path.join(__dirname, "..", "..", "..", "..", "Brewfile")
+
     if (!fs.existsSync(brewfilePath)) {
-      console.error("✗ No Brewfile found in current directory")
+      console.error("✗ Brewfile not found at expected location:", brewfilePath)
+      console.error("This is likely a bug in the CLI configuration.")
       process.exit(1)
     }
 
     try {
-      await HomebrewManager.runBundle()
+      await Homebrew.runBundle(brewfilePath)
     } catch (error) {
       console.error("✗ Failed to run brew bundle")
       process.exit(1)
@@ -69,7 +62,10 @@ const bundleCommand: CommandModule = {
   },
 }
 
+// -------------------------------------------------------------------------------------------------------------------
 // Main brew command
+// -------------------------------------------------------------------------------------------------------------------
+
 const brewCommand: CommandModule = {
   command: "brew",
   describe: "Manage Homebrew and install packages",
@@ -87,5 +83,7 @@ const brewCommand: CommandModule = {
     // But the fail handler above will handle it
   },
 }
+
+// -------------------------------------------------------------------------------------------------------------------
 
 export default brewCommand
