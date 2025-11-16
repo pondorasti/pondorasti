@@ -5,6 +5,11 @@ brew "neovim"         # Hyperextensible Vim-based text editor - modern fork with
 brew "gh"             # GitHub CLI - work with issues, PRs, releases, and more from the terminal
 brew "tmux"           # Terminal multiplexer - multiple terminal sessions in one window
 brew "pnpm"           # Fast, disk space efficient package manager for Node.js
+brew "bun"            # Fast all-in-one JavaScript runtime, bundler, test runner, and package manager
+brew "node"           # JavaScript runtime built on Chrome's V8 JavaScript engine
+brew "stripe"         # Stripe CLI for testing and managing Stripe resources
+brew "supabase"       # Supabase CLI for local development and deployment
+brew "mysql"          # Open source relational database management system
 
 # System Monitoring
 brew "fastfetch"      # System information tool - displays system info with style
@@ -14,6 +19,7 @@ brew "btop"           # Resource monitor - beautiful and powerful alternative to
 brew "fzf"            # Command-line fuzzy finder - search through files, history, processes, and more
 brew "ffmpeg"         # Multimedia framework for converting audio, video, and streaming
 brew "mas"            # Mac App Store command-line interface
+brew "powerlevel10k"  # A fast reimplementation of Powerlevel9k ZSH theme with even more features
 
 # Applications
 
@@ -31,6 +37,7 @@ mas "WiFi Explorer", id: 494803304  # WiFi network scanner and analyzer
 cask "raycast"                # Productivity launcher with extensions - replaces Spotlight with superpowers
 cask "1password"              # Password manager and secure wallet
 cask "cleanshot"              # Advanced screenshot and screen recording tool
+cask "linear-linear"          # Modern project management and issue tracking for product teams
 mas "Flighty", id: 1358823008 # Live flight tracker with detailed flight data and notifications
 
 ## Communication
