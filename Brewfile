@@ -10,6 +10,7 @@ brew "node"           # JavaScript runtime built on Chrome's V8 JavaScript engin
 brew "stripe"         # Stripe CLI for testing and managing Stripe resources
 brew "supabase"       # Supabase CLI for local development and deployment
 brew "mysql"          # Open source relational database management system
+brew "opencode"       # Open source code editor/IDE
 
 # System Monitoring
 brew "fastfetch"      # System information tool - displays system info with style
@@ -28,6 +29,8 @@ cask "ghostty"                # Fast, native terminal emulator with GPU accelera
 cask "visual-studio-code"     # Powerful, extensible code editor
 cask "cursor"                 # AI-powered code editor built to make you extraordinarily productive
 cask "zed"                    # High-performance code editor designed for collaboration with humans and AI
+cask "claude"                 # Claude AI assistant desktop application
+cask "codex"                  # Code editor and IDE
 cask "android-studio"         # Official IDE for Android app development
 cask "tableplus"              # Modern, native database management tool
 mas "Xcode", id: 497799835    # Apple's IDE for developing apps for Apple platforms
