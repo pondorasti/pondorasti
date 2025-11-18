@@ -7,6 +7,14 @@ function failHandler(msg: string | undefined | null, err: Error | undefined, yar
     process.exit(0)
   }
 
+  // Handle unknown arguments - show error in red but help in normal color
+  if (!err && msg && msg.includes("Unknown argument")) {
+    console.error(msg)
+    console.log()
+    yargs.showHelp("log")
+    process.exit(1)
+  }
+
   if (err) {
     console.error("Error:", err.message)
   } else if (msg) {
