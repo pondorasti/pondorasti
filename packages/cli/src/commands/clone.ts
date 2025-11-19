@@ -17,6 +17,9 @@ const cloneCommand: CommandModule<{}, { url: string }> = {
   handler: async (argv) => {
     const { url } = argv
 
+    // Normalize URL by removing trailing slashes and whitespace
+    const normalizedUrl = url.trim().replace(/\/+$/, "")
+
     // Parse GitHub URL to extract owner and repo
     const patterns = [
       /github\.com[:/]([^/]+)\/([^/.]+)(\.git)?$/, // Handles https and SSH formats
@@ -27,7 +30,7 @@ const cloneCommand: CommandModule<{}, { url: string }> = {
     let repo: string | null = null
 
     for (const pattern of patterns) {
-      const match = url.match(pattern)
+      const match = normalizedUrl.match(pattern)
       if (match) {
         owner = match[1]
         repo = match[2]
