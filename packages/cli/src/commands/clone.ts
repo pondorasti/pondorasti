@@ -1,8 +1,20 @@
 import type { CommandModule } from "yargs"
-import { $ } from "bun"
+import { $, spawn } from "bun"
 import * as path from "path"
 import * as fs from "fs"
 import * as os from "os"
+
+const openShell = async (cwd: string) => {
+  console.log(`\nOpening shell in ${cwd}...`)
+  const shell = process.env.SHELL || "/bin/zsh"
+  const proc = spawn([shell], {
+    cwd,
+    stdin: "inherit",
+    stdout: "inherit",
+    stderr: "inherit",
+  })
+  await proc.exited
+}
 
 const cloneCommand: CommandModule<{}, { url: string }> = {
   command: "clone <url>",
@@ -63,7 +75,7 @@ const cloneCommand: CommandModule<{}, { url: string }> = {
     // Check if repo already exists
     if (fs.existsSync(targetDir)) {
       console.log(`✓ Repository already exists at ${targetDir}`)
-      console.log(`\ncd ${targetDir}`)
+      await openShell(targetDir)
       return
     }
 
@@ -77,7 +89,7 @@ const cloneCommand: CommandModule<{}, { url: string }> = {
     try {
       await $`gh repo clone ${owner}/${repo} ${targetDir}`
       console.log(`\n✓ Successfully cloned to ${targetDir}`)
-      console.log(`\nRun: cd ${targetDir}`)
+      await openShell(targetDir)
     } catch (error) {
       console.error(`\n✗ Failed to clone repository`)
       process.exit(1)
