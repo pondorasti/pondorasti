@@ -2,25 +2,9 @@
   "name": "pondorasti",
   "version": "0.1.0",
   "description": "Mission control for pondorasti",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "scripts": {
-    "start": "bun -F @pondorasti/cli start",
-    "dev": "bun --watch -F @pondorasti/cli dev"
-  },
-  "keywords": [
-    "cli",
-    "macos",
-    "homebrew",
-    "dotfiles",
-    "setup"
-  ],
   "author": "Alexandru Ţurcanu",
   "license": "MIT",
-  "devDependencies": {
-    "@types/bun": "^1.0.0",
-    "@types/node": "^20.10.0"
-  }
+  "workspaces": [
+    "packages/*"
+  ]
 }

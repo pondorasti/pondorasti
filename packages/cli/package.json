@@ -1,8 +1,17 @@
 {
   "name": "@pondorasti/cli",
   "version": "0.1.0",
-  "description": "Mission control for pondorasti",
+  "description": "CLI for pondorasti",
+  "author": "Alexandru Ţurcanu",
+  "license": "MIT",
   "main": "src/index.ts",
+  "keywords": [
+    "cli",
+    "macos",
+    "homebrew",
+    "dotfiles",
+    "setup"
+  ],
   "bin": {
     "pondorasti": "./src/index.ts",
     "pd": "./src/index.ts"
@@ -12,24 +21,15 @@
     "dev": "bun --watch src/index.ts",
     "test": "bun test"
   },
-  "keywords": [
-    "cli",
-    "macos",
-    "homebrew",
-    "dotfiles",
-    "setup"
-  ],
-  "author": "Alexandru Ţurcanu",
-  "license": "MIT",
   "dependencies": {
-    "ink": "^5.0.1",
+    "ink": "^6.5.1",
     "ink-gradient": "^3.0.0",
     "ink-spinner": "^5.0.0",
-    "react": "^18.2.0",
-    "yargs": "^17.7.2"
+    "react": "^19.2.0",
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.0",
-    "@types/yargs": "^17.0.32"
+    "@types/react": "^19.2.7",
+    "@types/yargs": "^17.0.35"
   }
 }
