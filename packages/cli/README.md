@@ -1,4 +1,4 @@
-# Pondorasti
+# Pondorasti CLI
 
 🖥️ Mission control for pondorasti - A command-line tool for automated macOS setup and configuration.
 
@@ -7,8 +7,8 @@ Built with [Bun](https://bun.sh), [Yargs](https://yargs.js.org/) for command par
 ## Features
 
 - 🍺 **Homebrew Management**: Install, update, and manage Homebrew packages
+- 📂 **Smart Cloning**: Clone GitHub repos to organized `~/repos/<owner>/<repo>` structure
 - 📦 **Native Output**: Shows real brew output for transparency
-- 🎨 **Rich UI**: Available for commands that benefit from it
 - 🚀 **Fast**: Powered by Bun for blazing-fast execution
 - 🔧 **Extensible**: Easy to add new commands
 
@@ -16,6 +16,7 @@ Built with [Bun](https://bun.sh), [Yargs](https://yargs.js.org/) for command par
 
 - macOS (optimized for Apple Silicon)
 - [Bun](https://bun.sh) runtime
+- [GitHub CLI](https://cli.github.com/) (`gh`) for clone command
 
 ## Installation
 
@@ -31,64 +32,49 @@ cd pondorasti
 bun install
 
 # Run commands
-bun run src/index.ts <command>
+bun run packages/cli/src/index.ts <command>
 
 # Or install globally
 bun link
 pondorasti <command>
+# or use the short alias
+pd <command>
 ```
 
 ## Usage
 
 ### Commands
 
+#### `clone` - Clone GitHub repositories
+
+Clones repositories to `~/repos/<owner>/<repo>` and opens a shell in the directory.
+
+```bash
+# Clone using various URL formats
+pd clone https://github.com/owner/repo
+pd clone git@github.com:owner/repo.git
+pd clone owner/repo
+
+# Also works with tree/blob URLs (branch/file paths are stripped)
+pd clone https://github.com/owner/repo/tree/main
+pd clone https://github.com/owner/repo/blob/main/src/file.ts
+```
+
 #### `brew` - Manage Homebrew
 
 ```bash
-# Install Homebrew (if needed) and run brew bundle
-pondorasti brew
+# Install Homebrew
+pd brew install
 
-# Just install Homebrew
-pondorasti brew install
-
-# Run brew bundle without installing Homebrew
-pondorasti brew bundle
-
-# Check Homebrew status
-pondorasti brew status
+# Run brew bundle from Brewfile
+pd brew bundle
 ```
 
 ### Global Options
 
 ```bash
 --help, -h      Show help
---version       Show version
---dry-run       Simulate actions without making changes
---verbose, -v   Enable verbose output
-```
-
-## Brewfile
-
-The `Brewfile` in your project root defines which packages to install. It supports:
-
-- `brew` - Command-line tools and libraries
-- `cask` - GUI applications
-- `mas` - Mac App Store applications
-
-Example:
-
-```ruby
-# Development Tools
-brew "neovim"
-brew "tmux"
-brew "fzf"
-
-# Applications
-cask "visual-studio-code"
-cask "firefox"
-
-# Mac App Store
-mas "Xcode", id: 497799835
+--version, -v   Show version
 ```
 
 ## Development
@@ -107,17 +93,20 @@ bun build --compile --outfile=pondorasti src/index.ts
 ## Architecture
 
 ```
-pondorasti/
+packages/cli/
 ├── src/
 │   ├── index.ts           # CLI entry with yargs
 │   ├── commands/          # Command implementations
-│   │   └── brew.ts       # Homebrew management
-│   ├── managers/          # Business logic
-│   │   └── homebrew.ts   # Homebrew operations
-│   └── utils/            # Utilities
-│       └── logger.ts     # File logging
-├── Brewfile              # Package definitions
-└── package.json          # Project configuration
+│   │   ├── brew.ts        # Homebrew management
+│   │   └── clone.ts       # GitHub repo cloning
+│   ├── tools/             # External tool wrappers
+│   │   └── homebrew.ts    # Homebrew operations
+│   └── utils/             # Utilities
+│       ├── cli-helpers.ts # CLI utilities
+│       ├── github.ts      # GitHub URL parsing
+│       └── github.test.ts # Tests for GitHub utils
+├── Brewfile               # Package definitions (at repo root)
+└── package.json           # Project configuration
 ```
 
 ## Future Commands
@@ -125,16 +114,6 @@ pondorasti/
 - `dotfiles` - Manage dotfiles and configurations
 - `macos` - Configure macOS system preferences
 - `setup` - Full system setup wizard
-
-## Logging
-
-Installation logs are saved to `~/.pondorasti/install.log`
-
-View logs:
-
-```bash
-tail -f ~/.pondorasti/install.log
-```
 
 ## Contributing
 
