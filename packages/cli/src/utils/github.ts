@@ -18,5 +18,3 @@ export const parseGitHubUrl = (url: string): { owner: string; repo: string } | n
 
   return null
 }
-
-
