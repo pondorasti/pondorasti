@@ -3,6 +3,7 @@ import { $, spawn } from "bun"
 import * as path from "path"
 import * as fs from "fs"
 import * as os from "os"
+import { parseGitHubUrl } from "../utils/github"
 
 const openShell = async (cwd: string) => {
   console.log(`\nOpening shell in ${cwd}...`)
@@ -29,28 +30,8 @@ const cloneCommand: CommandModule<{}, { url: string }> = {
   handler: async (argv) => {
     const { url } = argv
 
-    // Normalize URL by removing trailing slashes and whitespace
-    const normalizedUrl = url.trim().replace(/\/+$/, "")
-
-    // Parse GitHub URL to extract owner and repo
-    const patterns = [
-      /github\.com[:/]([^/]+)\/([^/.]+)(\.git)?$/, // Handles https and SSH formats
-      /^([^/]+)\/([^/.]+)(\.git)?$/, // Handles owner/repo format
-    ]
-
-    let owner: string | null = null
-    let repo: string | null = null
-
-    for (const pattern of patterns) {
-      const match = normalizedUrl.match(pattern)
-      if (match) {
-        owner = match[1]
-        repo = match[2]
-        break
-      }
-    }
-
-    if (!owner || !repo) {
+    const parsed = parseGitHubUrl(url)
+    if (!parsed) {
       console.error("✗ Invalid GitHub URL format")
       console.error("  Expected formats:")
       console.error("    https://github.com/owner/repo")
@@ -58,6 +39,8 @@ const cloneCommand: CommandModule<{}, { url: string }> = {
       console.error("    owner/repo")
       process.exit(1)
     }
+
+    const { owner, repo } = parsed
 
     // Check if gh CLI is installed
     try {
