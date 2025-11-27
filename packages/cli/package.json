@@ -20,9 +20,8 @@
     "pd": "./src/index.ts"
   },
   "scripts": {
-    "start": "bun run src/index.ts",
-    "dev": "bun --watch src/index.ts",
-    "test": "bun test"
+    "test": "bun test",
+    "prepublishOnly": "bun test"
   },
   "dependencies": {
     "ink": "^6.5.1",
