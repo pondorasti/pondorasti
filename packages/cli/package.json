@@ -1,6 +1,6 @@
 {
-  "name": "@pondorasti/cli",
-  "version": "0.1.0",
+  "name": "pondorasti",
+  "version": "0.1.1",
   "description": "CLI for pondorasti",
   "author": "Alexandru Ţurcanu",
   "license": "MIT",
@@ -12,6 +12,9 @@
     "dotfiles",
     "setup"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "pondorasti": "./src/index.ts",
     "pd": "./src/index.ts"
