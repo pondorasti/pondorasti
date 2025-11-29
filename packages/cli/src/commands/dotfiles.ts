@@ -217,4 +217,3 @@ const dotfilesCommand: CommandModule = {
 // -------------------------------------------------------------------------------------------------------------------
 
 export default dotfilesCommand
-
