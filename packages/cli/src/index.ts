@@ -3,6 +3,7 @@ import yargs from "yargs"
 import { hideBin } from "yargs/helpers"
 import brewCommand from "./commands/brew"
 import cloneCommand from "./commands/clone"
+import dotfilesCommand from "./commands/dotfiles"
 import { failHandler } from "./utils/cli-helpers"
 
 yargs(hideBin(process.argv))
@@ -10,6 +11,7 @@ yargs(hideBin(process.argv))
   .usage("$0 <command> [options]")
   .command(brewCommand)
   .command(cloneCommand)
+  .command(dotfilesCommand)
   .demandCommand(1)
   .recommendCommands()
   .strict()
