@@ -1,13 +1,6 @@
 [user]
   name = Alexandru Ţurcanu
   email = pondorasti@gmail.com
-  signingkey = 1651B42D006940AA
-
-[commit]
-  gpgsign = false
-
-[gpg]
-  program = gpg
 
 [pull]
   rebase = true
