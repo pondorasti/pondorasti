@@ -64,7 +64,7 @@ class Homebrew {
   static async install(): Promise<void> {
     if (this.isInstalled()) {
       console.log(`✓ Homebrew is already installed at ${this.getBrewPath()}`)
-      await $`brew --version`
+      await $`zsh -l -c "brew --version"`
       return
     }
 
@@ -80,7 +80,7 @@ class Homebrew {
 
     const brewfilePath = await this.getBrewfile()
     console.log(`Using Brewfile: ${brewfilePath}\n`)
-    await $`brew bundle --file=${brewfilePath}`
+    await $`zsh -l -c "brew bundle --file=${brewfilePath}"`
   }
 }
 

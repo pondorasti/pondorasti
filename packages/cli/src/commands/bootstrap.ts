@@ -1,5 +1,6 @@
 import type { CommandModule } from "yargs"
 import { Homebrew } from "../tools/homebrew"
+import { OhMyZsh } from "../tools/ohmyzsh"
 
 // -------------------------------------------------------------------------------------------------------------------
 // Bootstrap Command - Bootstraps a fresh machine
@@ -11,9 +12,20 @@ const bootstrapCommand: CommandModule = {
   handler: async () => {
     console.log("🚀 Bootstrapping fresh machine...\n")
 
-    // Step 1: Install Homebrew
+    // Step 1: Install Oh My Zsh
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    console.log("Step 1/2: Homebrew")
+    console.log("Step 1/3: Oh My Zsh")
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    try {
+      await OhMyZsh.install()
+    } catch (error) {
+      console.error("✗ Failed to install Oh My Zsh")
+      process.exit(1)
+    }
+
+    // Step 2: Install Homebrew
+    console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    console.log("Step 2/3: Homebrew")
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       await Homebrew.install()
@@ -22,9 +34,9 @@ const bootstrapCommand: CommandModule = {
       process.exit(1)
     }
 
-    // Step 2: Run brew bundle (installs everything including Bun)
+    // Step 3: Install packages from Brewfile
     console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    console.log("Step 2/2: Install Packages (Brewfile)")
+    console.log("Step 3/3: Install Packages (Brewfile)")
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       await Homebrew.bundle()
