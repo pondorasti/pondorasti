@@ -6,6 +6,7 @@ node_modules/
 
 # Bun
 bun.lockb
+*.bun-build
 
 # Logs
 *.log
@@ -30,3 +31,5 @@ yarn-error.log*
 
 # Raycast
 script-commands/
+
+dist

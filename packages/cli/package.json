@@ -21,7 +21,10 @@
   },
   "scripts": {
     "test": "bun test",
-    "prepublishOnly": "bun test"
+    "prepublishOnly": "bun test",
+    "build": "bun run build:compile && bun run build:sign",
+    "build:compile": "bun build --compile --minify --outfile=dist/pd src/index.ts",
+    "build:sign": "codesign --deep --force --sign - --entitlements entitlements.plist dist/pd"
   },
   "dependencies": {
     "ink": "^6.5.1",

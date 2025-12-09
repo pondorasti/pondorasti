@@ -4,11 +4,13 @@ import { hideBin } from "yargs/helpers"
 import brewCommand from "./commands/brew"
 import cloneCommand from "./commands/clone"
 import dotfilesCommand from "./commands/dotfiles"
+import bootstrapCommand from "./commands/bootstrap"
 import { failHandler } from "./utils/cli-helpers"
 
 yargs(hideBin(process.argv))
   .scriptName("pondorasti")
   .usage("$0 <command> [options]")
+  .command(bootstrapCommand)
   .command(brewCommand)
   .command(cloneCommand)
   .command(dotfilesCommand)

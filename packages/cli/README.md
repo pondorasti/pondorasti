@@ -8,17 +8,26 @@ Built with [Bun](https://bun.sh), [Yargs](https://yargs.js.org/) for command par
 
 - 🍺 **Homebrew Management**: Install, update, and manage Homebrew packages
 - 📂 **Smart Cloning**: Clone GitHub repos to organized `~/repos/<owner>/<repo>` structure
-- 📦 **Native Output**: Shows real brew output for transparency
-- 🚀 **Fast**: Powered by Bun for blazing-fast execution
+- 📦 **Standalone Binary**: Compiles to a single executable with embedded Brewfile
+- 🚀 **Fresh Machine Setup**: Bootstrap a new Mac with a single command
 - 🔧 **Extensible**: Easy to add new commands
 
-## Prerequisites
+## Fresh Machine Setup
 
-- macOS (optimized for Apple Silicon)
-- [Bun](https://bun.sh) runtime
-- [GitHub CLI](https://cli.github.com/) (`gh`) for clone command
+On a brand new Mac, download and run the standalone binary:
 
-## Installation
+```bash
+# Download the binary (Apple Silicon)
+curl -fsSL https://github.com/pondorasti/pondorasti/releases/latest/download/pd-darwin-arm64 -o pd
+chmod +x pd
+
+# Run the full bootstrap (installs Homebrew, then all packages from Brewfile)
+./pd bootstrap
+```
+
+The compiled binary includes the Brewfile embedded, so it works without any dependencies.
+
+## Installation (Development)
 
 ```bash
 # Install Bun if you haven't already
@@ -31,7 +40,7 @@ cd pondorasti
 # Install dependencies
 bun install
 
-# Run commands
+# Run commands directly
 bun run packages/cli/src/index.ts <command>
 
 # Or install globally
@@ -44,6 +53,14 @@ pd <command>
 ## Usage
 
 ### Commands
+
+#### `bootstrap` - Bootstrap a fresh machine
+
+Installs Homebrew and runs brew bundle (which installs everything including Bun):
+
+```bash
+pd bootstrap
+```
 
 #### `clone` - Clone GitHub repositories
 
@@ -77,17 +94,37 @@ pd brew bundle
 --version, -v   Show version
 ```
 
-## Development
+## Building
+
+### Standalone Binary
+
+The CLI compiles to a standalone executable that includes the Bun runtime and embedded Brewfile:
 
 ```bash
-# Run in development mode
-bun dev
+cd packages/cli
 
+# Build for current platform
+bun run build
+
+# Build for all macOS platforms
+bun run build:all
+
+# Output binaries in dist/
+ls dist/
+# pd-darwin-arm64  (Apple Silicon)
+# pd-darwin-x64    (Intel)
+```
+
+The compiled binary is ~57MB and requires no dependencies to run.
+
+### Development
+
+```bash
 # Run tests
 bun test
 
-# Build for production
-bun build --compile --outfile=pondorasti src/index.ts
+# Run in development mode
+bun run packages/cli/src/index.ts <command>
 ```
 
 ## Architecture
@@ -98,22 +135,18 @@ packages/cli/
 │   ├── index.ts           # CLI entry with yargs
 │   ├── commands/          # Command implementations
 │   │   ├── brew.ts        # Homebrew management
-│   │   └── clone.ts       # GitHub repo cloning
+│   │   ├── clone.ts       # GitHub repo cloning
+│   │   └── bootstrap.ts   # Fresh machine bootstrap
 │   ├── tools/             # External tool wrappers
-│   │   └── homebrew.ts    # Homebrew operations
+│   │   ├── homebrew.ts    # Homebrew operations
+│   │   └── bun.ts         # Bun runtime operations
 │   └── utils/             # Utilities
+│       ├── brewfile.ts    # Brewfile embedding & extraction
 │       ├── cli-helpers.ts # CLI utilities
-│       ├── github.ts      # GitHub URL parsing
-│       └── github.test.ts # Tests for GitHub utils
-├── Brewfile               # Package definitions (at repo root)
+│       └── github.ts      # GitHub URL parsing
+├── Brewfile               # Package definitions (at repo root, embedded in binary)
 └── package.json           # Project configuration
 ```
-
-## Future Commands
-
-- `dotfiles` - Manage dotfiles and configurations
-- `macos` - Configure macOS system preferences
-- `setup` - Full system setup wizard
 
 ## Contributing
 
