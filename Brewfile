@@ -5,7 +5,7 @@ brew "neovim"         # Hyperextensible Vim-based text editor - modern fork with
 brew "gh"             # GitHub CLI - work with issues, PRs, releases, and more from the terminal
 brew "tmux"           # Terminal multiplexer - multiple terminal sessions in one window
 brew "pnpm"           # Fast, disk space efficient package manager for Node.js
-brew "bun"            # Fast all-in-one JavaScript runtime, bundler, test runner, and package manager
+brew "oven-sh/bun/bun"            # Fast all-in-one JavaScript runtime, bundler, test runner, and package manager
 brew "node"           # JavaScript runtime built on Chrome's V8 JavaScript engine
 brew "fnm"            # Fast Node Manager - simple, fast Node.js version manager built in Rust
 brew "stripe"         # Stripe CLI for testing and managing Stripe resources
