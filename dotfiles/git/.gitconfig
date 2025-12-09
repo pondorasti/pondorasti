@@ -9,9 +9,6 @@
 [gpg]
   program = gpg
 
-[init]
-  defaultBranch = main
-
 [pull]
   rebase = true
 
