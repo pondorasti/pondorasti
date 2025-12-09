@@ -20,6 +20,5 @@
   updateRefs = true
 
 [alias]
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
   autorebase = "!f() { git fetch origin $1 && git rebase origin/$1; }; f"
   bclean = "!f() { git branch --no-color | fzf -m | xargs -I {} git branch -D '{}'; }; f"
