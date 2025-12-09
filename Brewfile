@@ -44,6 +44,8 @@ cask "raycast"                            # Productivity launcher with extension
 cask "1password"                          # Password manager and secure wallet
 cask "cleanshot"                          # Advanced screenshot and screen recording tool
 cask "linear-linear"                      # Modern project management and issue tracking for product teams
+cask "notion"                             # All-in-one workspace for notes, docs, and collaboration
+cask "notion-calendar"                    # Calendar app integrated with Notion
 mas "Things 3", id: 904280696             # Award-winning personal task manager
 mas "Copilot", id: 1447330651             # Smart personal finance tracker
 mas "Flighty", id: 1358823008             # Live flight tracker with detailed flight data and notifications
@@ -57,6 +59,7 @@ mas "WhatsApp Messenger", id: 310633997   # Messaging app for text, voice, and v
 ## Browsers
 cask "google-chrome"                      # Fast, secure web browser
 cask "firefox"                            # Privacy-focused web browser
+cask "cloudflare-warp"                    # Fast, secure VPN and DNS resolver
 mas "uBlock Origin Lite", id: 6745342698  # Lightweight ad blocker for Safari
 
 ## Design
