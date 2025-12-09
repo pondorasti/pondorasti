@@ -34,19 +34,24 @@ cask "claude"                 # Claude AI assistant desktop application
 cask "codex"                  # Code editor and IDE
 cask "android-studio"         # Official IDE for Android app development
 cask "tableplus"              # Modern, native database management tool
-mas "Xcode", id: 497799835    # Apple's IDE for developing apps for Apple platforms
-mas "WiFi Explorer", id: 494803304  # WiFi network scanner and analyzer
+mas "Xcode", id: 497799835              # Apple's IDE for developing apps for Apple platforms
+mas "TestFlight", id: 899247664           # Beta testing for apps before App Store release
+mas "Apple Developer", id: 640199958      # WWDC sessions, documentation, and developer news
+mas "WiFi Explorer", id: 494803304        # WiFi network scanner and analyzer
 
 ## Productivity
-cask "raycast"                # Productivity launcher with extensions - replaces Spotlight with superpowers
-cask "1password"              # Password manager and secure wallet
-cask "cleanshot"              # Advanced screenshot and screen recording tool
-cask "linear-linear"          # Modern project management and issue tracking for product teams
-mas "Flighty", id: 1358823008 # Live flight tracker with detailed flight data and notifications
+cask "raycast"                           # Productivity launcher with extensions - replaces Spotlight with superpowers
+cask "1password"                         # Password manager and secure wallet
+cask "cleanshot"                         # Advanced screenshot and screen recording tool
+cask "linear-linear"                     # Modern project management and issue tracking for product teams
+mas "Things 3", id: 904280696            # Award-winning personal task manager
+mas "Copilot", id: 1447330651            # Smart personal finance tracker
+mas "Flighty", id: 1358823008            # Live flight tracker with detailed flight data and notifications
 
 ## Communication
-cask "slack"                  # Team communication and collaboration
-cask "discord"                # Voice, video, and text communication
+mas "Slack", id: 803453959               # Team communication and collaboration
+cask "discord"                           # Voice, video, and text communication
+mas "Telegram", id: 747648890            # Fast, secure cloud-based messaging
 mas "WhatsApp Messenger", id: 310633997  # Messaging app for text, voice, and video calls
 
 ## Browsers
@@ -56,8 +61,22 @@ mas "uBlock Origin Lite", id: 6745342698  # Lightweight ad blocker for Safari
 
 ## Design
 cask "figma"                  # Collaborative design and prototyping tool
-cask "sketch"                 # Native macOS design toolkit for UI/UX designers
+mas "Sketch", id: 1667260533  # Native macOS design toolkit for UI/UX designers
 cask "pixelsnap"              # Measure anything on your screen with pixel precision
+
+## Apple Suite
+mas "Final Cut Pro", id: 424389933        # Professional video editing software
+mas "Logic Pro", id: 634148309            # Professional music production and audio editing
+mas "Motion", id: 434290957               # Motion graphics and visual effects for Final Cut Pro
+# mas "Compressor", id: 424390742           # Video and audio encoding for Final Cut Pro
+mas "MainStage", id: 634159523            # Live performance audio workstation
+mas "GarageBand", id: 682658836           # Music creation studio for beginners
+mas "iMovie", id: 408981434               # Simple video editing for home movies
+mas "Keynote", id: 409183694              # Presentation software with stunning animations
+mas "Pages", id: 409201541                # Word processor with beautiful templates
+mas "Numbers", id: 409203825              # Spreadsheet app with powerful visualizations
+mas "Photomator", id: 1444636541          # Professional photo editor with AI-powered tools
+mas "Pixelmator Pro", id: 1289583905      # Professional image editing with ML-powered tools
 
 ## Games
 cask "powder"                 # The Powder Toy - physics sandbox game
