@@ -1,27 +1,34 @@
 [user]
-	signingkey = 1651B42D006940AA
-	name = Alexandru Ţurcanu
-	email = pondorasti@gmail.com
+  name = Alexandru Ţurcanu
+  email = pondorasti@gmail.com
+  signingkey = 1651B42D006940AA
+
 [commit]
-	gpgsign = false
+  gpgsign = false
+
 [gpg]
-	program = gpg
+  program = gpg
+
 [init]
   defaultBranch = main
-[alias]
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>$'
-  autorebase = "!f() { git fetch origin $1 && git rebase origin/$1; }; f"
-  bclean = "!f() { git branch --no-color | fzf -m | xargs -I {} git branch -D '{}'; }; f"
+
 [pull]
   rebase = true
+
 [push]
   default = current
-	autoSetupRemote = true
-[rebase]
-	updateRefs = true
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  autoSetupRemote = true
 
+[rebase]
+  updateRefs = true
+
+[alias]
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+  autorebase = "!f() { git fetch origin $1 && git rebase origin/$1; }; f"
+  bclean = "!f() { git branch --no-color | fzf -m | xargs -I {} git branch -D '{}'; }; f"
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
