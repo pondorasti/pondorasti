@@ -16,6 +16,8 @@ brew "opencode"                           # Open source code editor/IDE
 # System Monitoring
 brew "fastfetch"                          # System information tool - displays system info with style
 brew "btop"                               # Resource monitor - beautiful and powerful alternative to htop/top
+cask "stats"                              # Menu bar system monitor - CPU, GPU, RAM, disk, network, battery
+cask "bartender"                          # Menu bar manager - hide and organize menu bar icons
 
 # Utilities
 brew "fzf"                                # Command-line fuzzy finder - search through files, history, processes, and more
