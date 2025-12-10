@@ -69,12 +69,28 @@ class Defaults {
       value: { gregorian: 2 },
       description: "First day of week - Monday",
     },
+
+    // Keyboard
     {
       domain: "NSGlobalDomain",
-      key: "AppleICUForce24HourTime",
+      key: "KeyRepeat",
+      type: "int",
+      value: 2,
+      description: "Key repeat rate - Fast",
+    },
+    {
+      domain: "NSGlobalDomain",
+      key: "InitialKeyRepeat",
+      type: "int",
+      value: 15,
+      description: "Delay until repeat - Short",
+    },
+    {
+      domain: "NSGlobalDomain",
+      key: "ApplePressAndHoldEnabled",
       type: "bool",
-      value: true,
-      description: "24-hour time format",
+      value: false,
+      description: "Disable press-and-hold for accent characters, enable key repeat",
     },
 
     // Desktop & Dock
