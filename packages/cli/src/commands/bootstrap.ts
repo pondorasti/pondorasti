@@ -1,4 +1,5 @@
 import type { CommandModule } from "yargs"
+import { Dock } from "../tools/dock"
 import { Homebrew } from "../tools/homebrew"
 import { OhMyZsh } from "../tools/ohmyzsh"
 
@@ -12,9 +13,16 @@ const bootstrapCommand: CommandModule = {
   handler: async () => {
     console.log("🚀 Bootstrapping fresh machine...\n")
 
-    // Step 1: Install Oh My Zsh
+    // Step 1: Clear Dock
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    console.log("Step 1/3: Oh My Zsh")
+    console.log("Step 1/4: Clear Dock")
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    Dock.clear()
+    console.log("✓ Dock cleared")
+
+    // Step 2: Install Oh My Zsh
+    console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    console.log("Step 2/4: Oh My Zsh")
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       await OhMyZsh.install()
@@ -23,9 +31,9 @@ const bootstrapCommand: CommandModule = {
       process.exit(1)
     }
 
-    // Step 2: Install Homebrew
+    // Step 3: Install Homebrew
     console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    console.log("Step 2/3: Homebrew")
+    console.log("Step 3/4: Homebrew")
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       await Homebrew.install()
@@ -34,9 +42,9 @@ const bootstrapCommand: CommandModule = {
       process.exit(1)
     }
 
-    // Step 3: Install packages from Brewfile
+    // Step 4: Install packages from Brewfile
     console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    console.log("Step 3/3: Install Packages (Brewfile)")
+    console.log("Step 4/4: Install Packages (Brewfile)")
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       await Homebrew.bundle()
