@@ -24,6 +24,7 @@ brew "fzf"                                # Command-line fuzzy finder - search t
 brew "ffmpeg"                             # Multimedia framework for converting audio, video, and streaming
 brew "mas"                                # Mac App Store command-line interface
 brew "powerlevel10k"                      # A fast reimplementation of Powerlevel9k ZSH theme with even more features
+cask "handbrake"                          # Video transcoder for converting video formats
 
 # Applications
 
