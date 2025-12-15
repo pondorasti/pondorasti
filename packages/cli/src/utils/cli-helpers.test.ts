@@ -65,6 +65,18 @@ describe("failHandler", () => {
     expect(mockShowHelp).toHaveBeenCalledWith("log")
   })
 
+  test("shows suggestion in normal color for 'Did you mean' message", () => {
+    const msg = "Did you mean brew?"
+
+    expect(() => {
+      failHandler(msg, undefined, mockYargs)
+    }).toThrow("process.exit(1)")
+
+    expect(mockConsoleLog).toHaveBeenCalledWith(msg)
+    expect(mockConsoleError).not.toHaveBeenCalled()
+    expect(mockShowHelp).toHaveBeenCalledWith("log")
+  })
+
   test("shows error message and exits 1 when error provided", () => {
     const error = new Error("Something went wrong")
 

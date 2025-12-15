@@ -15,6 +15,14 @@ function failHandler(msg: string | undefined | null, err: Error | undefined, yar
     process.exit(1)
   }
 
+  // Handle "Did you mean X?" suggestions - show in normal color since it's helpful
+  if (!err && msg && msg.includes("Did you mean")) {
+    console.log(msg)
+    console.log()
+    yargs.showHelp("log")
+    process.exit(1)
+  }
+
   if (err) {
     console.error("Error:", err.message)
   } else if (msg) {
