@@ -51,4 +51,4 @@ const brewCommand: CommandModule = {
 
 // -------------------------------------------------------------------------------------------------------------------
 
-export default brewCommand
+export { brewCommand }

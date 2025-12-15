@@ -126,4 +126,4 @@ const defaultsCommand: CommandModule = {
 
 // -------------------------------------------------------------------------------------------------------------------
 
-export default defaultsCommand
+export { defaultsCommand }

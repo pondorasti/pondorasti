@@ -66,4 +66,4 @@ const bootstrapCommand: CommandModule = {
 
 // -------------------------------------------------------------------------------------------------------------------
 
-export default bootstrapCommand
+export { bootstrapCommand }

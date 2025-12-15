@@ -82,4 +82,4 @@ const cloneCommand: CommandModule<{}, { url: string }> = {
 
 // -------------------------------------------------------------------------------------------------------------------
 
-export default cloneCommand
+export { cloneCommand }

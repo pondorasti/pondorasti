@@ -212,4 +212,4 @@ const dotfilesCommand: CommandModule = {
 
 // -------------------------------------------------------------------------------------------------------------------
 
-export default dotfilesCommand
+export { dotfilesCommand }

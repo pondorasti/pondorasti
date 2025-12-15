@@ -31,4 +31,4 @@ const dockCommand: CommandModule = {
 
 // -------------------------------------------------------------------------------------------------------------------
 
-export default dockCommand
+export { dockCommand }
