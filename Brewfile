@@ -1,6 +1,7 @@
 # Development Tools
 brew "lazygit"                            # Terminal UI for git commands - makes git operations visual and intuitive
 brew "docker"                              # Docker CLI - command-line interface for interacting with Docker
+cask "orbstack"                            # Fast, lightweight Docker & Linux VM runtime for macOS
 brew "lazydocker"                         # Terminal UI for Docker - manage containers, images, and volumes easily
 brew "neovim"                             # Hyperextensible Vim-based text editor - modern fork with better plugin support
 brew "gh"                                 # GitHub CLI - work with issues, PRs, releases, and more from the terminal
