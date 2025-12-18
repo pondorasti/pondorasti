@@ -105,14 +105,6 @@ cd packages/cli
 
 # Build for current platform
 bun run build
-
-# Build for all macOS platforms
-bun run build:all
-
-# Output binaries in dist/
-ls dist/
-# pd-darwin-arm64  (Apple Silicon)
-# pd-darwin-x64    (Intel)
 ```
 
 The compiled binary is ~57MB and requires no dependencies to run.
@@ -147,14 +139,6 @@ packages/cli/
 ├── Brewfile               # Package definitions (at repo root, embedded in binary)
 └── package.json           # Project configuration
 ```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## License
 
