@@ -109,16 +109,6 @@ bun run build
 
 The compiled binary is ~57MB and requires no dependencies to run.
 
-### Development
-
-```bash
-# Run tests
-bun test
-
-# Run in development mode
-bun run packages/cli/src/index.ts <command>
-```
-
 ## Architecture
 
 ```

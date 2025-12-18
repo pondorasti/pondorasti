@@ -17,18 +17,25 @@ const openShell = async (cwd: string) => {
   await proc.exited
 }
 
-const cloneCommand: CommandModule<{}, { url: string }> = {
+const cloneCommand: CommandModule<{}, { url: string; open: boolean }> = {
   command: "clone <url>",
   describe: "Clone a GitHub repository to ~/repos/<owner>/<repo>",
   builder: (yargs) => {
-    return yargs.positional("url", {
-      describe: "GitHub repository URL",
-      type: "string",
-      demandOption: true,
-    })
+    return yargs
+      .positional("url", {
+        describe: "GitHub repository URL",
+        type: "string",
+        demandOption: true,
+      })
+      .option("open", {
+        alias: "o",
+        describe: "Open the repository in Cursor after cloning",
+        type: "boolean",
+        default: false,
+      })
   },
   handler: async (argv) => {
-    const { url } = argv
+    const { url, open } = argv
 
     const parsed = parseGitHubUrl(url)
     if (!parsed) {
@@ -58,6 +65,10 @@ const cloneCommand: CommandModule<{}, { url: string }> = {
     // Check if repo already exists
     if (fs.existsSync(targetDir)) {
       console.log(`✓ Repository already exists at ${targetDir}`)
+      if (open) {
+        console.log(`Opening Cursor...`)
+        await $`cursor ${targetDir}`.quiet()
+      }
       await openShell(targetDir)
       return
     }
@@ -72,6 +83,10 @@ const cloneCommand: CommandModule<{}, { url: string }> = {
     try {
       await $`gh repo clone ${owner}/${repo} ${targetDir}`
       console.log(`\n✓ Successfully cloned to ${targetDir}`)
+      if (open) {
+        console.log(`Opening Cursor...`)
+        await $`cursor ${targetDir}`.quiet()
+      }
       await openShell(targetDir)
     } catch (error) {
       console.error(`\n✗ Failed to clone repository`)
