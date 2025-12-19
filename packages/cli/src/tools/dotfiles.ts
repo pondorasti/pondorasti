@@ -3,6 +3,24 @@ import * as fs from "fs"
 import * as os from "os"
 
 // -------------------------------------------------------------------------------------------------------------------
+// Package Definitions
+// -------------------------------------------------------------------------------------------------------------------
+
+enum DotfilesPackage {
+  Git = "git",
+  Zsh = "zsh",
+  Cursor = "cursor",
+}
+
+const PACKAGE_TARGET_PATHS: Partial<Record<DotfilesPackage, string>> = {
+  [DotfilesPackage.Cursor]: "~/Library/Application Support/Cursor/User",
+}
+
+function isDotfilesPackage(value: string): value is DotfilesPackage {
+  return Object.values(DotfilesPackage).includes(value as DotfilesPackage)
+}
+
+// -------------------------------------------------------------------------------------------------------------------
 // Types
 // -------------------------------------------------------------------------------------------------------------------
 
@@ -39,11 +57,29 @@ interface UnlinkResult {
 
 class Dotfiles {
   static getPath(): string {
-    return path.join(__dirname, "..", "..", "..", "..", "dotfiles")
+    return path.join(__dirname, "..", "..", "dotfiles")
   }
 
   private static getHomePath(): string {
     return os.homedir()
+  }
+
+  private static getPackageTargetPath(packageName: string): string {
+    if (!isDotfilesPackage(packageName)) {
+      return this.getHomePath()
+    }
+
+    const customPath = PACKAGE_TARGET_PATHS[packageName]
+
+    if (customPath) {
+      // Expand ~ to home directory
+      if (customPath.startsWith("~/")) {
+        return path.join(os.homedir(), customPath.slice(2))
+      }
+      return customPath
+    }
+
+    return this.getHomePath()
   }
 
   static getPackages(): string[] {
@@ -90,7 +126,7 @@ class Dotfiles {
 
   private static getFileStatus(packageName: string, relativePath: string): FileStatus {
     const source = path.join(this.getPath(), packageName, relativePath)
-    const target = path.join(this.getHomePath(), relativePath)
+    const target = path.join(this.getPackageTargetPath(packageName), relativePath)
 
     if (!fs.existsSync(target)) {
       return { source, target, status: "unlinked" }
@@ -134,6 +170,7 @@ class Dotfiles {
   static link(packageName: string, options: { force?: boolean } = {}): LinkResult {
     const { force = false } = options
     const files = this.getPackageFiles(packageName)
+    const targetBasePath = this.getPackageTargetPath(packageName)
     const linked: string[] = []
     const skipped: string[] = []
     const backedUp: string[] = []
@@ -141,7 +178,7 @@ class Dotfiles {
 
     for (const file of files) {
       const source = path.join(this.getPath(), packageName, file)
-      const target = path.join(this.getHomePath(), file)
+      const target = path.join(targetBasePath, file)
 
       if (fs.existsSync(target)) {
         const targetStat = fs.lstatSync(target)
@@ -194,13 +231,14 @@ class Dotfiles {
 
   static unlink(packageName: string): UnlinkResult {
     const files = this.getPackageFiles(packageName)
+    const targetBasePath = this.getPackageTargetPath(packageName)
     const unlinked: string[] = []
     const skipped: string[] = []
     const errors: string[] = []
 
     for (const file of files) {
       const source = path.join(this.getPath(), packageName, file)
-      const target = path.join(this.getHomePath(), file)
+      const target = path.join(targetBasePath, file)
 
       if (!fs.existsSync(target)) {
         skipped.push(file)

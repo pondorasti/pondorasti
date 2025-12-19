@@ -126,7 +126,7 @@ packages/cli/
 │       ├── brewfile.ts    # Brewfile embedding & extraction
 │       ├── cli-helpers.ts # CLI utilities
 │       └── github.ts      # GitHub URL parsing
-├── Brewfile               # Package definitions (at repo root, embedded in binary)
+├── Brewfile               # Package definitions (embedded in binary)
 └── package.json           # Project configuration
 ```
 

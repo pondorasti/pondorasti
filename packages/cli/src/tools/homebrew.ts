@@ -4,7 +4,7 @@ import { $ } from "bun"
 
 // Embed the Brewfile directly into the compiled binary
 // @ts-expect-error- Bun's file embedding syntax
-import embeddedBrewfile from "../../../../Brewfile" with { type: "file" }
+import embeddedBrewfile from "../../Brewfile" with { type: "file" }
 
 const BREW_PATH_M1 = "/opt/homebrew/bin/brew"
 
