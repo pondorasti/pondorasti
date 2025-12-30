@@ -1,6 +1,6 @@
 {
   "name": "pondorasti",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "CLI for pondorasti",
   "author": "Alexandru Ţurcanu",
   "license": "MIT",
@@ -27,10 +27,10 @@
     "build:sign": "codesign --deep --force --sign - --entitlements entitlements.plist dist/pd"
   },
   "dependencies": {
-    "ink": "^6.5.1",
+    "ink": "^6.6.0",
     "ink-gradient": "^3.0.0",
     "ink-spinner": "^5.0.0",
-    "react": "^19.2.0",
+    "react": "^19.2.3",
     "yargs": "^18.0.0"
   },
   "devDependencies": {

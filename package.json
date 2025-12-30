@@ -9,6 +9,6 @@
   ],
   "private": true,
   "devDependencies": {
-    "@types/bun": "^1.3.3"
+    "@types/bun": "^1.3.5"
   }
 }
