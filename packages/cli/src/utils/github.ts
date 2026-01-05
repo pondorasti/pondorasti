@@ -5,8 +5,8 @@ export const parseGitHubUrl = (url: string): { owner: string; repo: string } | n
   const withoutTree = normalized.replace(/\/(tree|blob)\/.*$/, "")
 
   const patterns = [
-    /github\.com[:/]([^/]+)\/([^/.]+)(\.git)?$/, // Handles https and SSH formats
-    /^([^/]+)\/([^/.]+)(\.git)?$/, // Handles owner/repo format
+    /github\.com[:/]([^/]+)\/(.+?)(?:\.git)?$/, // Handles https and SSH formats
+    /^([^/:]+)\/([^/]+?)(?:\.git)?$/, // Handles owner/repo format (no colons in owner, no slashes in repo)
   ]
 
   for (const pattern of patterns) {

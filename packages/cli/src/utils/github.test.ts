@@ -90,4 +90,18 @@ describe("parseGitHubUrl", () => {
   test("returns null for URLs without owner/repo", () => {
     expect(parseGitHubUrl("https://github.com/")).toBeNull()
   })
+
+  test("parses repos with dots in name", () => {
+    expect(parseGitHubUrl("https://github.com/calcom/cal.com")).toEqual({
+      owner: "calcom",
+      repo: "cal.com",
+    })
+  })
+
+  test("parses repos with dots in name and .git suffix", () => {
+    expect(parseGitHubUrl("https://github.com/calcom/cal.com.git")).toEqual({
+      owner: "calcom",
+      repo: "cal.com",
+    })
+  })
 })
