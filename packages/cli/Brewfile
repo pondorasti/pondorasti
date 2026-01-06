@@ -19,6 +19,7 @@ brew "opencode"                           # Open source code editor/IDE
 brew "fastfetch"                          # System information tool - displays system info with style
 brew "btop"                               # Resource monitor - beautiful and powerful alternative to htop/top
 cask "stats"                              # Menu bar system monitor - CPU, GPU, RAM, disk, network, battery
+cask "daisydisk"                          # Disk space analyzer - visualize and clean up disk usage
 cask "bartender"                          # Menu bar manager - hide and organize menu bar icons
 
 # Utilities
