@@ -37,6 +37,7 @@ cask "visual-studio-code"                 # Powerful, extensible code editor
 cask "cursor"                             # AI-powered code editor built to make you extraordinarily productive
 cask "zed"                                # High-performance code editor designed for collaboration with humans and AI
 cask "claude"                             # Claude AI assistant desktop application
+cask "claude-code"                        # Claude AI coding assistant for the terminal
 cask "codex"                              # Code editor and IDE
 cask "android-studio"                     # Official IDE for Android app development
 cask "tableplus"                          # Modern, native database management tool
