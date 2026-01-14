@@ -43,5 +43,7 @@ jobs:
           generate_release_notes: true
 
       - name: Publish to npm
-        run: npm publish --provenance --access public
+        run: |
+          npm install -g npm@latest
+          npm publish --provenance --access public
         working-directory: packages/cli
