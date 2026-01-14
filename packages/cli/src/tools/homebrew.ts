@@ -80,7 +80,7 @@ class Homebrew {
 
     const brewfilePath = await this.getBrewfile()
     console.log(`Using Brewfile: ${brewfilePath}\n`)
-    await $`zsh -l -c "brew bundle --file=${brewfilePath}"`
+    await $`zsh -l -c "brew bundle --verbose --file=${brewfilePath}"`
   }
 }
 
