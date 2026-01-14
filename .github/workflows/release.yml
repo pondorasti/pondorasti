@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run tests
+        run: bun test
+        working-directory: packages/cli
+
+      - name: Build binary
+        run: bun run build
+        working-directory: packages/cli
+
+      - name: Rename binary
+        run: mv packages/cli/dist/pd packages/cli/dist/pd-darwin-arm64
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: packages/cli/dist/pd-darwin-arm64
+          generate_release_notes: true
