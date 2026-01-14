@@ -3,6 +3,9 @@ set -e
 
 cd "$(dirname "$0")/../packages/cli"
 
+# Run tests before releasing
+bun test
+
 # Get current version and bump patch
 current=$(jq -r .version package.json)
 IFS='.' read -r major minor patch <<< "$current"

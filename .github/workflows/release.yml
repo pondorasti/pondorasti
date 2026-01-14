@@ -10,11 +10,17 @@ jobs:
     runs-on: macos-latest
     permissions:
       contents: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
 
       - uses: oven-sh/setup-bun@v2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: bun install
@@ -35,3 +41,7 @@ jobs:
         with:
           files: packages/cli/dist/pd-darwin-arm64
           generate_release_notes: true
+
+      - name: Publish to npm
+        run: npm publish --provenance --access public
+        working-directory: packages/cli
