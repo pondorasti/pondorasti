@@ -9,6 +9,10 @@
   "editor.formatOnSave": true,
   "editor.lightbulb.enabled": "off",
   "editor.lineNumbers": "relative",
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
 
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
@@ -18,7 +22,7 @@
   "window.autoDetectColorScheme": true,
   "window.confirmBeforeClose": "keyboardOnly",
 
-  "workbench.colorTheme": "Cursor Dark Midnight",
+  "workbench.colorTheme": "Default Dark Modern",
   "workbench.preferredDarkColorTheme": "Default Dark Modern",
   "workbench.preferredLightColorTheme": "Default Light Modern",
   "workbench.sideBar.location": "right",
@@ -33,20 +37,11 @@
 
   "git.blame.editorDecoration.enabled": true,
 
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "prettier.printWidth": 120,
-  "prettier.semi": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
 
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  "cursor.composer.shouldChimeAfterChatFinishes": true,
+
+  "claudeCode.preferredLocation": "panel"
 }
