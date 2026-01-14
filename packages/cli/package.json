@@ -4,6 +4,10 @@
   "description": "CLI for pondorasti",
   "author": "Alexandru Ţurcanu",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pondorasti/pondorasti"
+  },
   "main": "src/index.ts",
   "keywords": [
     "cli",
