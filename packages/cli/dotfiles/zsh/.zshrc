@@ -128,3 +128,4 @@ eval "$(fnm env --use-on-cd --shell zsh)"
 alias gpr='ggl main && git push -u origin HEAD && gh pr create -a @me -w'
 alias pn='pnpm'
 alias oc='opencode'
+alias cc='claude --dangerously-skip-permissions'
