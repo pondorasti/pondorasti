@@ -67,6 +67,7 @@ mas "WhatsApp Messenger", id: 310633997   # Messaging app for text, voice, and v
 cask "google-chrome"                      # Fast, secure web browser
 cask "firefox"                            # Privacy-focused web browser
 cask "cloudflare-warp"                    # Fast, secure VPN and DNS resolver
+cask "tailscale"                          # Zero config VPN for secure networking between devices
 mas "uBlock Origin Lite", id: 6745342698  # Lightweight ad blocker for Safari
 
 ## Design
