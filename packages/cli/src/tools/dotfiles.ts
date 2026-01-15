@@ -169,6 +169,26 @@ class Dotfiles {
     return this.getPackages().map((pkg) => this.getPackageStatus(pkg))
   }
 
+  static linkAll(options: { force?: boolean } = {}): void {
+    for (const pkg of this.getPackages()) {
+      console.log(`Linking ${pkg}...`)
+      const result = this.link(pkg, options)
+
+      for (const file of result.linked) {
+        console.log(`  \x1b[32m✓\x1b[0m ${file}`)
+      }
+      for (const file of result.backedUp) {
+        console.log(`  \x1b[32m✓\x1b[0m ${file} (backed up original)`)
+      }
+      for (const file of result.skipped) {
+        console.log(`  \x1b[90m○\x1b[0m ${file} (already linked)`)
+      }
+      for (const error of result.errors) {
+        console.log(`  \x1b[31m✗\x1b[0m ${error}`)
+      }
+    }
+  }
+
   static link(packageName: string, options: { force?: boolean } = {}): LinkResult {
     const { force = false } = options
     const files = this.getPackageFiles(packageName)
