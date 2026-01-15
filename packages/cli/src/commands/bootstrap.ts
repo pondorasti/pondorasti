@@ -111,6 +111,14 @@ const bootstrapCommand: CommandModule = {
       console.log("Linking pd from source...")
       await $`bun link`.cwd(cliDir)
       console.log("  \x1b[32m✓\x1b[0m pd linked from source")
+
+      // Clean up the downloaded binary if running from one
+      const execPath = process.execPath
+      const isCompiledBinary = !execPath.includes("bun") && !execPath.includes(repoDir)
+      if (isCompiledBinary && fs.existsSync(execPath)) {
+        fs.unlinkSync(execPath)
+        console.log("  \x1b[32m✓\x1b[0m Cleaned up downloaded binary")
+      }
     } catch (error) {
       console.error("✗ Failed to setup pd from source")
       process.exit(1)
