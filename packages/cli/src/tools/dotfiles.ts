@@ -58,7 +58,12 @@ interface UnlinkResult {
 // -------------------------------------------------------------------------------------------------------------------
 
 class Dotfiles {
+  static basePath: string | null = null
+
   static getPath(): string {
+    if (this.basePath) {
+      return this.basePath
+    }
     return path.join(__dirname, "..", "..", "dotfiles")
   }
 
