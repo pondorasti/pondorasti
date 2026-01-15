@@ -10,10 +10,12 @@ enum DotfilesPackage {
   Git = "git",
   Zsh = "zsh",
   Cursor = "cursor",
+  Claude = "claude",
 }
 
 const PACKAGE_TARGET_PATHS: Partial<Record<DotfilesPackage, string>> = {
   [DotfilesPackage.Cursor]: "~/Library/Application Support/Cursor/User",
+  [DotfilesPackage.Claude]: "~/.claude",
 }
 
 function isDotfilesPackage(value: string): value is DotfilesPackage {
