@@ -102,7 +102,7 @@ const bootstrapCommand: CommandModule = {
         console.log("Cloning pondorasti/pondorasti...")
         const reposDir = path.join(os.homedir(), "repos", "pondorasti")
         fs.mkdirSync(reposDir, { recursive: true })
-        await $`gh repo clone pondorasti/pondorasti ${repoDir}`
+        await $`git clone https://github.com/pondorasti/pondorasti.git ${repoDir}`
         console.log("  \x1b[32m✓\x1b[0m Repository cloned")
       } else {
         console.log("  \x1b[90m✓ Repository already exists\x1b[0m")
