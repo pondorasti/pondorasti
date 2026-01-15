@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-cd "$(dirname "$0")/../packages/cli"
+cd "$(dirname "$0")/.."
 
 # Run tests before releasing
 bun test

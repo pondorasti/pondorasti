@@ -9,7 +9,7 @@
   ],
   "private": true,
   "scripts": {
-    "cli:release": "./scripts/release.sh"
+    "cli:release": "./packages/cli/scripts/release.sh"
   },
   "devDependencies": {
     "@types/bun": "^1.3.5"
