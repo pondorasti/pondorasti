@@ -42,7 +42,7 @@ cask "codex"                              # Code editor and IDE
 cask "android-studio"                     # Official IDE for Android app development
 cask "tableplus"                          # Modern, native database management tool
 mas "Xcode", id: 497799835                # Apple's IDE for developing apps for Apple platforms
-mas "TestFlight", id: 899247664           # Beta testing for apps before App Store release
+# mas "TestFlight", id: 899247664         # Requires App Management permission in System Settings → Privacy & Security
 mas "Apple Developer", id: 640199958      # WWDC sessions, documentation, and developer news
 mas "WiFi Explorer", id: 494803304        # WiFi network scanner and analyzer
 
