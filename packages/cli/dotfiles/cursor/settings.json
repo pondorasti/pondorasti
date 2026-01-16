@@ -46,5 +46,8 @@
   "claudeCode.preferredLocation": "panel",
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "cursor.cpp.disabledLanguages": [
+    "plaintext"
+  ]
 }
