@@ -76,15 +76,6 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# Unlock Keychain for SSH sessions (fixes Claude Code auth over SSH)
-# https://github.com/anthropics/claude-code/issues/1222
-if [ -n "$SSH_CONNECTION" ]; then
-  keychain_status=$(security show-keychain-info ~/Library/Keychains/login.keychain-db 2>&1)
-  if echo "$keychain_status" | grep -q "User interaction is not allowed"; then
-    security unlock-keychain ~/Library/Keychains/login.keychain-db
-  fi
-fi
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -133,6 +124,16 @@ export PATH="$JAVA_HOME/bin:$PATH"
 # fnm
 eval "$(fnm env --use-on-cd --shell zsh)"
 # fnm end
+
+# Claude keychain wrapper for SSH sessions (prompts only when claude is used)
+# https://phoenixtrap.com/2025/10/26/claude-code-cli-over-ssh-on-macos-fixing-keychain-access/
+claude() {
+  if [ -n "$SSH_CONNECTION" ] && [ -z "$KEYCHAIN_UNLOCKED" ]; then
+    security unlock-keychain ~/Library/Keychains/login.keychain-db
+    export KEYCHAIN_UNLOCKED=true
+  fi
+  command claude "$@"
+}
 
 alias gpr='ggl main && git push -u origin HEAD && gh pr create -a @me -w'
 alias pn='pnpm'
