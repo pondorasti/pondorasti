@@ -76,6 +76,15 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# Unlock Keychain for SSH sessions (fixes Claude Code auth over SSH)
+# https://github.com/anthropics/claude-code/issues/1222
+if [ -n "$SSH_CONNECTION" ]; then
+  keychain_status=$(security show-keychain-info ~/Library/Keychains/login.keychain-db 2>&1)
+  if echo "$keychain_status" | grep -q "User interaction is not allowed"; then
+    security unlock-keychain ~/Library/Keychains/login.keychain-db
+  fi
+fi
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
