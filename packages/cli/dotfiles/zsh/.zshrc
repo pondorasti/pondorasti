@@ -138,5 +138,6 @@ claude() {
 alias gpr='ggl main && git push -u origin HEAD && gh pr create -a @me -w'
 alias pn='pnpm'
 alias oc='opencode'
+alias occ='opencode --continue'
 alias cc='claude --dangerously-skip-permissions'
 alias ccc='claude --dangerously-skip-permissions --continue'
