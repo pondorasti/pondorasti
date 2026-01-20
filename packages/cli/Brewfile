@@ -14,7 +14,7 @@ brew "rbenv"                              # Ruby version manager - simple, light
 brew "stripe/stripe-cli/stripe"                             # Stripe CLI for testing and managing Stripe resources
 brew "supabase"                           # Supabase CLI for local development and deployment
 brew "mysql"                              # Open source relational database management system
-brew "opencode"                           # Open source code editor/IDE
+brew "anomalyco/tap/opencode"             # Open source code editor/IDE
 
 # System Monitoring
 brew "fastfetch"                          # System information tool - displays system info with style
