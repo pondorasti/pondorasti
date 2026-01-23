@@ -1,3 +1,7 @@
+# Taps
+tap "851-labs/tap"                         # 851 Labs tap for casks
+tap "anomalyco/tap"                        # Tap for opencode and related tools
+
 # Development Tools
 brew "lazygit"                            # Terminal UI for git commands - makes git operations visual and intuitive
 brew "docker"                              # Docker CLI - command-line interface for interacting with Docker
