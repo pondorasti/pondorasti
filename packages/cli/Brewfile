@@ -1,4 +1,5 @@
 # Development Tools
+tap "851-labs/tap"                         # Tap for Char and other 851-labs tools
 brew "lazygit"                            # Terminal UI for git commands - makes git operations visual and intuitive
 brew "docker"                              # Docker CLI - command-line interface for interacting with Docker
 cask "orbstack"                            # Fast, lightweight Docker & Linux VM runtime for macOS
