@@ -49,6 +49,7 @@ mas "WiFi Explorer", id: 494803304        # WiFi network scanner and analyzer
 
 ## Productivity
 cask "raycast"                            # Productivity launcher with extensions - replaces Spotlight with superpowers
+cask "char"                               # Word counter tool
 cask "1password"                          # Password manager and secure wallet
 cask "cleanshot"                          # Advanced screenshot and screen recording tool
 cask "linear-linear"                      # Modern project management and issue tracking for product teams
