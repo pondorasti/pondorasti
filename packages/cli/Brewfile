@@ -1,5 +1,4 @@
 # Development Tools
-tap "851-labs/tap"                         # Tap for Char and other 851-labs tools
 brew "lazygit"                            # Terminal UI for git commands - makes git operations visual and intuitive
 brew "docker"                              # Docker CLI - command-line interface for interacting with Docker
 cask "orbstack"                            # Fast, lightweight Docker & Linux VM runtime for macOS
@@ -50,7 +49,7 @@ mas "WiFi Explorer", id: 494803304        # WiFi network scanner and analyzer
 
 ## Productivity
 cask "raycast"                            # Productivity launcher with extensions - replaces Spotlight with superpowers
-cask "char"                               # Word counter tool
+cask "851-labs/tap/char"                  # Word counter tool
 cask "1password"                          # Password manager and secure wallet
 cask "cleanshot"                          # Advanced screenshot and screen recording tool
 cask "linear-linear"                      # Modern project management and issue tracking for product teams
