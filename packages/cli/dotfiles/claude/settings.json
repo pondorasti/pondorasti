@@ -2,5 +2,8 @@
   "permissions": {
     "defaultMode": "dontAsk"
   },
-  "model": "opus"
+  "model": "opus",
+  "enabledPlugins": {
+    "swift-lsp@claude-plugins-official": true
+  }
 }
