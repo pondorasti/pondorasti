@@ -56,6 +56,7 @@ cask "raycast"                            # Productivity launcher with extension
 cask "851-labs/tap/char"                  # Word counter tool
 cask "851-labs/tap/window-in-picture"     # Menubar picture-in-picture window mirror
 cask "1password"                          # Password manager and secure wallet
+cask "1password-cli"                      # 1Password CLI for scripting and automation
 cask "cleanshot"                          # Advanced screenshot and screen recording tool
 cask "linear-linear"                      # Modern project management and issue tracking for product teams
 cask "notion"                             # All-in-one workspace for notes, docs, and collaboration
