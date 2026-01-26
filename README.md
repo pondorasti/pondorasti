@@ -14,6 +14,7 @@ working on [emojis.com](https://www.emojis.com/), and vibe coding out the kazoo
 
 - [GardenBridge](https://github.com/851-labs/GardenBridge)
 - [Window-in-Picture](https://github.com/851-labs/Window-in-Picture/tree/main)
+- [AppDrop](https://github.com/851-labs/appdrop)
 
 ## legacy
 
