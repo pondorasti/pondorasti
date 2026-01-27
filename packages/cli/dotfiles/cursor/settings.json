@@ -35,6 +35,8 @@
     "sound": "on"
   },
 
+  "git.autofetch": true,
+  "git.confirmSync": false,
   "git.blame.editorDecoration.enabled": true,
 
   "javascript.updateImportsOnFileMove.enabled": "always",
