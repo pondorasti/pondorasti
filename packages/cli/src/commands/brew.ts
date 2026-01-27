@@ -21,7 +21,7 @@ const installCommand: CommandModule = {
 
 const bundleCommand: CommandModule = {
   command: "bundle",
-  describe: "Run brew bundle from Brewfile",
+  describe: "Install core packages (taps, formulae, casks) from Brewfile",
   handler: async () => {
     try {
       await Homebrew.bundle()
@@ -36,6 +36,23 @@ const bundleCommand: CommandModule = {
   },
 }
 
+const masCommand: CommandModule = {
+  command: "mas",
+  describe: "Install Mac App Store apps from Brewfile.mas",
+  handler: async () => {
+    try {
+      await Homebrew.mas()
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(`✗ ${error.message}`)
+      } else {
+        console.error("✗ Failed to install Mac App Store apps")
+      }
+      process.exit(1)
+    }
+  },
+}
+
 // -------------------------------------------------------------------------------------------------------------------
 // Main brew command
 // -------------------------------------------------------------------------------------------------------------------
@@ -44,7 +61,14 @@ const brewCommand: CommandModule = {
   command: "brew",
   describe: "Manage Homebrew and install packages",
   builder: (yargs) => {
-    return yargs.command(installCommand).command(bundleCommand).demandCommand(1).help().strict().fail(failHandler)
+    return yargs
+      .command(installCommand)
+      .command(bundleCommand)
+      .command(masCommand)
+      .demandCommand(1)
+      .help()
+      .strict()
+      .fail(failHandler)
   },
   handler: () => {},
 }

@@ -2,9 +2,11 @@ import * as fs from "fs"
 import * as os from "os"
 import { $ } from "bun"
 
-// Embed the Brewfile directly into the compiled binary
-// @ts-expect-error- Bun's file embedding syntax
+// Embed the Brewfiles directly into the compiled binary
+// @ts-expect-error - Bun's file embedding syntax
 import embeddedBrewfile from "../../Brewfile" with { type: "file" }
+// @ts-expect-error - Bun's file embedding syntax
+import embeddedBrewfileMas from "../../Brewfile.mas" with { type: "file" }
 
 const BREW_PATH_M1 = "/opt/homebrew/bin/brew"
 
@@ -61,6 +63,16 @@ class Homebrew {
     return tempPath
   }
 
+  private static async getBrewfileMas(): Promise<string> {
+    const tempDir = `${os.tmpdir()}/pondorasti`
+    const tempPath = `${tempDir}/Brewfile.mas`
+
+    fs.mkdirSync(tempDir, { recursive: true })
+    fs.writeFileSync(tempPath, await Bun.file(embeddedBrewfileMas).text())
+
+    return tempPath
+  }
+
   static async install(): Promise<void> {
     if (this.isInstalled()) {
       console.log(`✓ Homebrew is already installed at ${this.getBrewPath()}`)
@@ -79,6 +91,16 @@ class Homebrew {
     }
 
     const brewfilePath = await this.getBrewfile()
+    console.log(`Using Brewfile: ${brewfilePath}\n`)
+    await $`zsh -l -c "brew bundle --verbose --file=${brewfilePath}"`
+  }
+
+  static async mas(): Promise<void> {
+    if (!this.isInstalled()) {
+      throw new Error("Homebrew is not installed. Run 'pd brew install' first.")
+    }
+
+    const brewfilePath = await this.getBrewfileMas()
     console.log(`Using Brewfile: ${brewfilePath}\n`)
     await $`zsh -l -c "brew bundle --verbose --file=${brewfilePath}"`
   }
