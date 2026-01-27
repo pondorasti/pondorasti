@@ -61,7 +61,7 @@ Confirm the tag was pushed:
 git tag --list | tail -5
 ```
 
-Wait for all CI/CD checks to complete before proceeding to the next step.
+Poll untill all CI/CD checks finish. Do not continue to the next step until all checks are completed.
 
 ## Step 6: Smoke Test Published Package
 
