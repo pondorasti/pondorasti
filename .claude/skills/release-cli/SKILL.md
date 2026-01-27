@@ -53,15 +53,20 @@ git push origin main
 git push origin vX.Y.Z
 ```
 
-## Step 5: Verify Release
+## Step 5: Monitor CI
 
-Confirm the tag was pushed:
+Watch the release workflow and wait for it to finish before continuing:
 
 ```bash
-git tag --list | tail -5
+gh run list --workflow Release --limit 1
+gh run watch
 ```
 
-Poll untill all CI/CD checks finish. Do not continue to the next step until all checks are completed.
+If the workflow fails, inspect logs:
+
+```bash
+gh run view --log-failed
+```
 
 ## Step 6: Smoke Test Published Package
 
