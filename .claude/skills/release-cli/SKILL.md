@@ -61,7 +61,20 @@ Confirm the tag was pushed:
 git tag --list | tail -5
 ```
 
-Poll until all CI/CD checks finish, then report the final result. Do not return to the user until checks are completed.
+Wait for all CI/CD checks to complete before proceeding to the next step.
+
+## Step 6: Smoke Test Published Package
+
+Run a quick smoke test from the registry:
+
+```bash
+bunx pondorasti@X.Y.Z --help
+bun pm view pondorasti version
+```
+
+Confirm `bun pm view` returns `X.Y.Z`.
+
+Note: the public package name is `pondorasti` (unscoped), not `@pondorasti/cli`.
 
 ## Troubleshooting
 
