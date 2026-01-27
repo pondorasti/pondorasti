@@ -56,6 +56,7 @@ mas "WiFi Explorer", id: 494803304        # WiFi network scanner and analyzer
 cask "raycast"                            # Productivity launcher with extensions - replaces Spotlight with superpowers
 cask "851-labs/tap/char"                  # Word counter tool
 cask "851-labs/tap/window-in-picture"     # Menubar picture-in-picture window mirror
+cask "851-labs/tap/gardenbridge"          # Drag and drop content between Mac and Vision Pro
 cask "1password"                          # Password manager and secure wallet
 cask "1password-cli"                      # 1Password CLI for scripting and automation
 cask "cleanshot"                          # Advanced screenshot and screen recording tool
