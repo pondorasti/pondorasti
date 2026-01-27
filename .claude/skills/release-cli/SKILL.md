@@ -62,6 +62,13 @@ gh run list --workflow Release --limit 1
 gh run watch
 ```
 
+If no run shows up yet, wait a moment and retry until it appears:
+
+```bash
+sleep 10
+gh run list --workflow Release --limit 1
+```
+
 If the workflow fails, inspect logs:
 
 ```bash
