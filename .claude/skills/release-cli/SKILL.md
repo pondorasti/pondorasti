@@ -61,11 +61,7 @@ Confirm the tag was pushed:
 git tag --list | tail -5
 ```
 
-Verify all CI/CD checks pass:
-
-```bash
-gh api repos/pondorasti/pondorasti/commits/HEAD/check-runs --jq '.check_runs[] | "\(.name): \(.conclusion)"'
-```
+Poll until all CI/CD checks finish, then report the final result. Do not return to the user until checks are completed.
 
 ## Troubleshooting
 
