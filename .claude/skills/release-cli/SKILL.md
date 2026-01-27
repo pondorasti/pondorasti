@@ -1,8 +1,6 @@
 ---
 name: release-cli
 description: Release a new version of the pd CLI. Runs tests, bumps version, creates git tag, and pushes to remote. Use when releasing a new CLI version.
-metadata:
-  author: pondorasti
 ---
 
 # CLI Release Process
