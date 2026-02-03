@@ -35,7 +35,7 @@ type PackageStatus = "linked" | "partial" | "unlinked"
 interface FileStatus {
   source: string
   target: string
-  status: "linked" | "unlinked" | "conflict"
+  status: "linked" | "unlinked" | "conflict" | "dangling"
 }
 
 interface PackageInfo {
@@ -47,6 +47,7 @@ interface PackageInfo {
 interface LinkResult {
   linked: string[]
   skipped: string[]
+  pruned: string[]
   backedUp: string[]
   errors: string[]
 }
@@ -155,23 +156,124 @@ class Dotfiles {
     return { source, target, status: "conflict" }
   }
 
+  private static isWithinDir(targetPath: string, dirPath: string): boolean {
+    const relative = path.relative(dirPath, targetPath)
+    return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative))
+  }
+
+  private static findDanglingSymlinks(packageName: string): FileStatus[] {
+    const packagePath = path.join(this.getPath(), packageName)
+    const targetBasePath = this.getPackageTargetPath(packageName)
+    const homePath = this.getHomePath()
+
+    if (!fs.existsSync(targetBasePath)) {
+      return []
+    }
+
+    const packageFiles = this.getPackageFiles(packageName)
+    if (packageFiles.length === 0) {
+      return []
+    }
+
+    const scanRoots = new Set<string>()
+    for (const file of packageFiles) {
+      scanRoots.add(path.dirname(path.join(targetBasePath, file)))
+    }
+
+    const results: FileStatus[] = []
+    const visited = new Set<string>()
+
+    const walkDir = (dir: string, maxDepth: number, depth: number = 0) => {
+      if (visited.has(dir)) {
+        return
+      }
+      visited.add(dir)
+
+      let entries: fs.Dirent[] = []
+      try {
+        entries = fs.readdirSync(dir, { withFileTypes: true })
+      } catch {
+        return
+      }
+
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name)
+
+        if (entry.isDirectory()) {
+          if (depth < maxDepth) {
+            walkDir(fullPath, maxDepth, depth + 1)
+          }
+          continue
+        }
+
+        if (!entry.isSymbolicLink()) {
+          continue
+        }
+
+        let rawTarget: string
+        try {
+          rawTarget = fs.readlinkSync(fullPath)
+        } catch {
+          continue
+        }
+
+        const resolvedTarget = path.resolve(path.dirname(fullPath), rawTarget)
+
+        if (!this.isWithinDir(resolvedTarget, packagePath)) {
+          continue
+        }
+
+        if (fs.existsSync(resolvedTarget)) {
+          continue
+        }
+
+        results.push({
+          source: resolvedTarget,
+          target: fullPath,
+          status: "dangling",
+        })
+      }
+    }
+
+    for (const root of scanRoots) {
+      if (!fs.existsSync(root)) {
+        continue
+      }
+      const maxDepth = root === homePath ? 0 : Number.POSITIVE_INFINITY
+      walkDir(root, maxDepth)
+    }
+
+    return results
+  }
+
   static getPackageStatus(packageName: string): PackageInfo {
     const files = this.getPackageFiles(packageName)
     const fileStatuses = files.map((file) => this.getFileStatus(packageName, file))
+    const danglingStatuses = this.findDanglingSymlinks(packageName)
+
+    const combined = new Map<string, FileStatus>()
+    for (const status of fileStatuses) {
+      combined.set(status.target, status)
+    }
+    for (const status of danglingStatuses) {
+      combined.set(status.target, status)
+    }
 
     let status: PackageStatus = "unlinked"
 
-    if (fileStatuses.length > 0) {
-      const linkedCount = fileStatuses.filter((f) => f.status === "linked").length
+    const combinedStatuses = Array.from(combined.values())
 
-      if (linkedCount === fileStatuses.length) {
+    if (combinedStatuses.length > 0) {
+      const linkedCount = combinedStatuses.filter((f) => f.status === "linked").length
+
+      if (linkedCount === combinedStatuses.length) {
         status = "linked"
       } else if (linkedCount > 0) {
         status = "partial"
       }
     }
 
-    return { name: packageName, status, files: fileStatuses }
+    return { name: packageName, status, files: combinedStatuses }
   }
 
   static getAllStatuses(): PackageInfo[] {
@@ -192,20 +294,37 @@ class Dotfiles {
       for (const file of result.skipped) {
         console.log(`  \x1b[90m○\x1b[0m ${file} (already linked)`)
       }
+      for (const file of result.pruned) {
+        console.log(`  \x1b[32m✓\x1b[0m ${file} (removed dangling symlink)`)
+      }
       for (const error of result.errors) {
         console.log(`  \x1b[31m✗\x1b[0m ${error}`)
       }
     }
   }
 
-  static link(packageName: string, options: { force?: boolean } = {}): LinkResult {
-    const { force = false } = options
+  static link(packageName: string, options: { force?: boolean; prune?: boolean } = {}): LinkResult {
+    const { force = false, prune = true } = options
     const files = this.getPackageFiles(packageName)
     const targetBasePath = this.getPackageTargetPath(packageName)
     const linked: string[] = []
     const skipped: string[] = []
+    const pruned: string[] = []
     const backedUp: string[] = []
     const errors: string[] = []
+
+    if (prune) {
+      const zombies = this.findDanglingSymlinks(packageName)
+      for (const zombie of zombies) {
+        try {
+          fs.unlinkSync(zombie.target)
+          pruned.push(path.relative(targetBasePath, zombie.target))
+        } catch (err) {
+          const message = err instanceof Error ? err.message : "unknown error"
+          errors.push(`${path.relative(targetBasePath, zombie.target)} (failed to remove: ${message})`)
+        }
+      }
+    }
 
     for (const file of files) {
       const source = path.join(this.getPath(), packageName, file)
@@ -257,7 +376,7 @@ class Dotfiles {
       }
     }
 
-    return { linked, skipped, backedUp, errors }
+    return { linked, skipped, pruned, backedUp, errors }
   }
 
   static unlink(packageName: string): UnlinkResult {

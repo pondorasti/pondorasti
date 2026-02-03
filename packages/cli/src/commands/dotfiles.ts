@@ -7,7 +7,7 @@ import * as fs from "fs"
 // Helpers
 // -------------------------------------------------------------------------------------------------------------------
 
-function statusIcon(status: PackageStatus | "linked" | "unlinked" | "conflict"): string {
+function statusIcon(status: PackageStatus | "linked" | "unlinked" | "conflict" | "dangling"): string {
   switch (status) {
     case "linked":
       return "✓"
@@ -17,10 +17,12 @@ function statusIcon(status: PackageStatus | "linked" | "unlinked" | "conflict"):
       return "○"
     case "conflict":
       return "✗"
+    case "dangling":
+      return "✗"
   }
 }
 
-function statusColor(status: PackageStatus | "linked" | "unlinked" | "conflict"): string {
+function statusColor(status: PackageStatus | "linked" | "unlinked" | "conflict" | "dangling"): string {
   switch (status) {
     case "linked":
       return "\x1b[32m" // green
@@ -29,6 +31,8 @@ function statusColor(status: PackageStatus | "linked" | "unlinked" | "conflict")
     case "unlinked":
       return "\x1b[90m" // gray
     case "conflict":
+      return "\x1b[31m" // red
+    case "dangling":
       return "\x1b[31m" // red
   }
 }
@@ -39,7 +43,7 @@ const reset = "\x1b[0m"
 // Subcommands
 // -------------------------------------------------------------------------------------------------------------------
 
-const linkCommand: CommandModule<{}, { package?: string; force?: boolean }> = {
+const linkCommand: CommandModule<{}, { package?: string; force?: boolean; prune?: boolean }> = {
   command: "link [package]",
   describe: "Symlink dotfiles to home directory",
   builder: (yargs) => {
@@ -53,6 +57,11 @@ const linkCommand: CommandModule<{}, { package?: string; force?: boolean }> = {
         describe: "Backup and replace existing files",
         type: "boolean",
         default: false,
+      })
+      .option("prune", {
+        describe: "Remove dangling symlinks before linking",
+        type: "boolean",
+        default: true,
       })
   },
   handler: async (argv) => {
@@ -81,7 +90,7 @@ const linkCommand: CommandModule<{}, { package?: string; force?: boolean }> = {
 
     for (const pkg of packages) {
       console.log(`\nLinking ${pkg}...`)
-      const result = Dotfiles.link(pkg, { force: argv.force })
+      const result = Dotfiles.link(pkg, { force: argv.force, prune: argv.prune })
 
       for (const file of result.linked) {
         const wasBackedUp = result.backedUp.includes(file)
@@ -91,6 +100,10 @@ const linkCommand: CommandModule<{}, { package?: string; force?: boolean }> = {
 
       for (const file of result.skipped) {
         console.log(`  ${statusColor("linked")}${statusIcon("linked")}${reset} ${file} (already linked)`)
+      }
+
+      for (const file of result.pruned) {
+        console.log(`  ${statusColor("linked")}${statusIcon("linked")}${reset} ${file} (removed dangling symlink)`)
       }
 
       for (const error of result.errors) {
