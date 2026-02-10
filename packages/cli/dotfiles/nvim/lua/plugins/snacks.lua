@@ -12,5 +12,11 @@ return {
     opts.picker.sources = opts.picker.sources or {}
     opts.picker.sources.explorer = opts.picker.sources.explorer or {}
     opts.picker.sources.explorer.layout = "sidebar"
+    opts.picker.sources.explorer.hidden = true
+    opts.picker.sources.explorer.ignored = false
+
+    opts.picker.sources.files = opts.picker.sources.files or {}
+    opts.picker.sources.files.hidden = true
+    opts.picker.sources.files.ignored = false
   end,
 }
