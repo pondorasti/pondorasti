@@ -17,6 +17,7 @@ brew "fnm"                                # Fast Node Manager - simple, fast Nod
 brew "rbenv"                              # Ruby version manager - simple, lightweight Ruby environment manager
 brew "stripe/stripe-cli/stripe"                             # Stripe CLI for testing and managing Stripe resources
 brew "supabase"                           # Supabase CLI for local development and deployment
+brew "flyctl"                             # Fly.io CLI for app deployment and infrastructure management
 brew "mysql"                              # Open source relational database management system
 brew "anomalyco/tap/opencode"             # Open source code editor/IDE
 
