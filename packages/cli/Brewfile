@@ -44,7 +44,7 @@ cask "cursor"                             # AI-powered code editor built to make
 cask "zed"                                # High-performance code editor designed for collaboration with humans and AI
 cask "claude"                             # Claude AI assistant desktop application
 cask "claude-code"                        # Claude AI coding assistant for the terminal
-cask "clawdbot"                           # Personal AI assistant with menu bar control and voice wake
+cask "openclaw"                           # Personal AI assistant with menu bar control and voice wake
 cask "codex"                              # OpenAI's Codex CLI - coding agent that runs in your terminal
 cask "opencode-desktop"                   # Desktop app for OpenCode AI coding assistant
 cask "android-studio"                     # Official IDE for Android app development
