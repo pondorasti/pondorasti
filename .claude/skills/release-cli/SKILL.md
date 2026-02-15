@@ -80,11 +80,13 @@ gh run view --log-failed
 Run a quick smoke test from the registry:
 
 ```bash
-bunx pondorasti@X.Y.Z --help
+npx pondorasti@X.Y.Z --help
 bun pm view pondorasti version
 ```
 
 Confirm `bun pm view` returns `X.Y.Z`.
+
+Use `npx` for the install smoke test because `bunx` can intermittently fail to resolve freshly published exact versions even when npm metadata is already updated.
 
 Note: the public package name is `pondorasti` (unscoped), not `@pondorasti/cli`.
 
