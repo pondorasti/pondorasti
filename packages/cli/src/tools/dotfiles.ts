@@ -13,6 +13,7 @@ enum DotfilesPackage {
   Claude = "claude",
   Agents = "agents",
   Nvim = "nvim",
+  Opencode = "opencode",
 }
 
 const PACKAGE_TARGET_PATHS: Partial<Record<DotfilesPackage, string>> = {
@@ -20,6 +21,7 @@ const PACKAGE_TARGET_PATHS: Partial<Record<DotfilesPackage, string>> = {
   [DotfilesPackage.Claude]: "~/.claude",
   [DotfilesPackage.Agents]: "~/.claude", // OpenCode also reads from ~/.claude/skills/
   [DotfilesPackage.Nvim]: "~/.config/nvim",
+  [DotfilesPackage.Opencode]: "~/.config/opencode",
 }
 
 function isDotfilesPackage(value: string): value is DotfilesPackage {
