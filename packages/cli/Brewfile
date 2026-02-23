@@ -5,6 +5,7 @@ tap "anomalyco/tap"                        # Tap for opencode and related tools
 # Development Tools
 brew "lazygit"                            # Terminal UI for git commands - makes git operations visual and intuitive
 brew "docker"                              # Docker CLI - command-line interface for interacting with Docker
+brew "colima"                              # Docker-compatible container runtime for macOS using Lima
 cask "orbstack"                            # Fast, lightweight Docker & Linux VM runtime for macOS
 brew "lazydocker"                         # Terminal UI for Docker - manage containers, images, and volumes easily
 brew "neovim"                             # Hyperextensible Vim-based text editor - modern fork with better plugin support
