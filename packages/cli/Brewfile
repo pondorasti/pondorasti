@@ -19,6 +19,7 @@ brew "rbenv"                              # Ruby version manager - simple, light
 brew "stripe/stripe-cli/stripe"                             # Stripe CLI for testing and managing Stripe resources
 brew "supabase"                           # Supabase CLI for local development and deployment
 brew "flyctl"                             # Fly.io CLI for app deployment and infrastructure management
+brew "cloudflare-wrangler"                 # Cloudflare Wrangler CLI for Workers development and deployment
 brew "mysql"                              # Open source relational database management system
 brew "anomalyco/tap/opencode"             # Open source code editor/IDE
 
