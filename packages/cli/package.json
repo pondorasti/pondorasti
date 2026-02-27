@@ -31,7 +31,7 @@
     "build:sign": "codesign --deep --force --sign - --entitlements entitlements.plist dist/pd"
   },
   "dependencies": {
-    "ink": "^6.7.0",
+    "ink": "^6.8.0",
     "ink-gradient": "^4.0.0",
     "ink-spinner": "^5.0.0",
     "react": "^19.2.4",
