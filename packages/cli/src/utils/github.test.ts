@@ -51,6 +51,13 @@ describe("parseGitHubUrl", () => {
     })
   })
 
+  test("parses commits URLs", () => {
+    expect(parseGitHubUrl("https://github.com/owner/repo/commits/main/")).toEqual({
+      owner: "owner",
+      repo: "repo",
+    })
+  })
+
   test("parses blob URLs (file paths)", () => {
     expect(parseGitHubUrl("https://github.com/owner/repo/blob/main/file.ts")).toEqual({
       owner: "owner",
@@ -65,6 +72,13 @@ describe("parseGitHubUrl", () => {
     })
   })
 
+  test("parses other GitHub subpages", () => {
+    expect(parseGitHubUrl("https://github.com/owner/repo/pull/123/files")).toEqual({
+      owner: "owner",
+      repo: "repo",
+    })
+  })
+
   test("handles trailing slashes", () => {
     expect(parseGitHubUrl("https://github.com/owner/repo/")).toEqual({
       owner: "owner",
@@ -74,6 +88,20 @@ describe("parseGitHubUrl", () => {
 
   test("handles whitespace", () => {
     expect(parseGitHubUrl("  https://github.com/owner/repo  ")).toEqual({
+      owner: "owner",
+      repo: "repo",
+    })
+  })
+
+  test("handles query params and hash fragments", () => {
+    expect(parseGitHubUrl("https://github.com/owner/repo?tab=readme-ov-file#top")).toEqual({
+      owner: "owner",
+      repo: "repo",
+    })
+  })
+
+  test("parses github.com URLs without protocol", () => {
+    expect(parseGitHubUrl("github.com/owner/repo/issues/1")).toEqual({
       owner: "owner",
       repo: "repo",
     })
