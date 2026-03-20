@@ -11,7 +11,6 @@ enum DotfilesPackage {
   Zsh = "zsh",
   Cursor = "cursor",
   Claude = "claude",
-  Agents = "agents",
   Nvim = "nvim",
   Opencode = "opencode",
 }
@@ -19,7 +18,6 @@ enum DotfilesPackage {
 const PACKAGE_TARGET_PATHS: Partial<Record<DotfilesPackage, string>> = {
   [DotfilesPackage.Cursor]: "~/Library/Application Support/Cursor/User",
   [DotfilesPackage.Claude]: "~/.claude",
-  [DotfilesPackage.Agents]: "~/.claude", // OpenCode also reads from ~/.claude/skills/
   [DotfilesPackage.Nvim]: "~/.config/nvim",
   [DotfilesPackage.Opencode]: "~/.config/opencode",
 }
