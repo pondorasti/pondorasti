@@ -141,3 +141,6 @@ alias oc='opencode'
 alias occ='opencode --continue'
 alias cc='claude --dangerously-skip-permissions'
 alias ccc='claude --dangerously-skip-permissions --continue'
+
+# Vite+ bin (https://viteplus.dev)
+. "$HOME/.vite-plus/env"
