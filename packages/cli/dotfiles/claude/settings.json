@@ -1,13 +1,10 @@
 {
-  "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
-  },
+  "model": "opus",
+  "effortLevel": "high",
   "permissions": {
     "defaultMode": "dontAsk"
   },
-  "model": "opus",
   "enabledPlugins": {
     "swift-lsp@claude-plugins-official": true
   },
-  "skipDangerousModePermissionPrompt": true
 }
