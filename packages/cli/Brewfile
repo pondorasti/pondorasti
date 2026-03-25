@@ -4,6 +4,7 @@ tap "anomalyco/tap"                        # Tap for opencode and related tools
 
 # Development Tools
 brew "lazygit"                            # Terminal UI for git commands - makes git operations visual and intuitive
+brew "git-lfs"                            # Git Large File Storage - manage large files in Git repositories efficiently
 brew "docker"                              # Docker CLI - command-line interface for interacting with Docker
 brew "colima"                              # Docker-compatible container runtime for macOS using Lima
 cask "orbstack"                            # Fast, lightweight Docker & Linux VM runtime for macOS
@@ -22,6 +23,7 @@ brew "supabase"                           # Supabase CLI for local development a
 brew "flyctl"                             # Fly.io CLI for app deployment and infrastructure management
 brew "cloudflare-wrangler"                 # Cloudflare Wrangler CLI for Workers development and deployment
 brew "mysql"                              # Open source relational database management system
+brew "redis"                              # In-memory data store - caching, queues, pub/sub, and lightweight database use cases
 brew "anomalyco/tap/opencode"             # Open source code editor/IDE
 
 # System Monitoring
