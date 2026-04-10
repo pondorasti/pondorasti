@@ -19,3 +19,4 @@ working on [emojis.com](https://www.emojis.com/), and vibe coding out the kazoo
 ## legacy
 
 - [Chirp](https://github.com/pondorasti/chirp) - lil widget for embedding your favorite tweets in Figma.
+- [nextjs-chrome-extension](https://github.com/pondorasti/nextjs-chrome-extension) - Template for making browser extensions.
