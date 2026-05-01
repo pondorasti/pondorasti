@@ -1,10 +1,11 @@
 {
-  "model": "opus",
-  "effortLevel": "high",
   "permissions": {
     "defaultMode": "dontAsk"
   },
   "enabledPlugins": {
     "swift-lsp@claude-plugins-official": true
   },
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true,
+  "fastMode": true
 }
