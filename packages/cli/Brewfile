@@ -50,6 +50,7 @@ cask "zed"                                # High-performance code editor designe
 cask "claude"                             # Claude AI assistant desktop application
 cask "claude-code"                        # Claude AI coding assistant for the terminal
 cask "codex"                              # OpenAI's Codex CLI - coding agent that runs in your terminal
+cask "codex-app"                          # OpenAI's Codex desktop app for managing coding agents
 cask "opencode-desktop"                   # Desktop app for OpenCode AI coding assistant
 cask "android-studio"                     # Official IDE for Android app development
 cask "tableplus"                          # Modern, native database management tool
