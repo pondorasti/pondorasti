@@ -63,7 +63,7 @@ cask "851-labs/tap/gardenbridge"          # Drag and drop content between Mac an
 cask "1password"                          # Password manager and secure wallet
 cask "1password-cli"                      # 1Password CLI for scripting and automation
 cask "cleanshot"                          # Advanced screenshot and screen recording tool
-cask "linear-linear"                      # Modern project management and issue tracking for product teams
+cask "linear"                             # Modern project management and issue tracking for product teams
 cask "notion"                             # All-in-one workspace for notes, docs, and collaboration
 cask "notion-calendar"                    # Calendar app integrated with Notion
 
