@@ -118,7 +118,7 @@ const bootstrapCommand: CommandModule = {
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       console.log("Running bun link...")
-      await $`bun link`.cwd(cliDir)
+      await $`env PD_CLI_DIR=${cliDir} zsh -l -c ${'cd "$PD_CLI_DIR" && bun link'}`
       console.log("  \x1b[32m✓\x1b[0m pd linked from source")
 
       // Clean up the downloaded binary if running from one
