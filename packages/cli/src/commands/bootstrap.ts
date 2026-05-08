@@ -21,7 +21,7 @@ const installGhosttyTerminfo = async () => {
     return
   }
 
-  await $`infocmp -x -A ${terminfoDir} xterm-ghostty`.pipe($`tic -x -`)
+  await $`zsh -lc ${`infocmp -x -A "${terminfoDir}" xterm-ghostty | tic -x -`}`
   console.log("  \x1b[32m✓\x1b[0m Ghostty terminfo installed")
 }
 
