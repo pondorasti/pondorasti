@@ -13,6 +13,18 @@ import { OhMyZsh } from "../tools/ohmyzsh"
 // Bootstrap Command - Bootstraps a fresh machine
 // -------------------------------------------------------------------------------------------------------------------
 
+const installGhosttyTerminfo = async () => {
+  const terminfoDir = "/Applications/Ghostty.app/Contents/Resources/terminfo"
+
+  if (!fs.existsSync(terminfoDir)) {
+    console.log("  \x1b[90m✓ Ghostty terminfo source not found (skipped)\x1b[0m")
+    return
+  }
+
+  await $`infocmp -x -A ${terminfoDir} xterm-ghostty`.pipe($`tic -x -`)
+  console.log("  \x1b[32m✓\x1b[0m Ghostty terminfo installed")
+}
+
 const bootstrapCommand: CommandModule = {
   command: "bootstrap",
   describe: "Bootstrap a fresh machine with all tools and packages",
@@ -21,14 +33,14 @@ const bootstrapCommand: CommandModule = {
 
     // Step 1: Clear Dock
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    console.log("Step 1/8: Clear Dock")
+    console.log("Step 1/9: Clear Dock")
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     Dock.clear()
     console.log("✓ Dock cleared")
 
     // Step 2: Install Oh My Zsh
     console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    console.log("Step 2/8: Oh My Zsh")
+    console.log("Step 2/9: Oh My Zsh")
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       await OhMyZsh.install()
@@ -39,7 +51,7 @@ const bootstrapCommand: CommandModule = {
 
     // Step 3: Install Homebrew
     console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    console.log("Step 3/8: Homebrew")
+    console.log("Step 3/9: Homebrew")
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       await Homebrew.install()
@@ -50,7 +62,7 @@ const bootstrapCommand: CommandModule = {
 
     // Step 4: Install packages from Brewfile
     console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    console.log("Step 4/8: Install Packages (Brewfile)")
+    console.log("Step 4/9: Install Packages (Brewfile)")
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       await Homebrew.bundle()
@@ -59,11 +71,21 @@ const bootstrapCommand: CommandModule = {
       process.exit(1)
     }
 
-    // Step 5: Clone repo
+    // Step 5: Install Ghostty terminfo
+    console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    console.log("Step 5/9: Ghostty Terminfo")
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    try {
+      await installGhosttyTerminfo()
+    } catch (error) {
+      console.log("  \x1b[33m!\x1b[0m Failed to install Ghostty terminfo (skipped)")
+    }
+
+    // Step 6: Clone repo
     const repoDir = path.join(os.homedir(), "repos", "pondorasti", "pondorasti")
     const cliDir = path.join(repoDir, "packages", "cli")
     console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    console.log("Step 5/8: Clone Repository")
+    console.log("Step 6/9: Clone Repository")
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       if (!fs.existsSync(repoDir)) {
@@ -80,9 +102,9 @@ const bootstrapCommand: CommandModule = {
       process.exit(1)
     }
 
-    // Step 6: Link dotfiles (from cloned repo)
+    // Step 7: Link dotfiles (from cloned repo)
     console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    console.log("Step 6/8: Link Dotfiles")
+    console.log("Step 7/9: Link Dotfiles")
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       Dotfiles.basePath = path.join(cliDir, "dotfiles")
@@ -92,9 +114,9 @@ const bootstrapCommand: CommandModule = {
       process.exit(1)
     }
 
-    // Step 7: Apply macOS defaults
+    // Step 8: Apply macOS defaults
     console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    console.log("Step 7/8: Apply macOS Defaults")
+    console.log("Step 8/9: Apply macOS Defaults")
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       const result = Defaults.apply()
@@ -112,9 +134,9 @@ const bootstrapCommand: CommandModule = {
       process.exit(1)
     }
 
-    // Step 8: Link pd from source
+    // Step 9: Link pd from source
     console.log("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    console.log("Step 8/8: Link pd from source")
+    console.log("Step 9/9: Link pd from source")
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       console.log("Running bun link...")
