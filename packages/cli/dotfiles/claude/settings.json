@@ -6,6 +6,7 @@
     "swift-lsp@claude-plugins-official": true
   },
   "effortLevel": "high",
+  "fastMode": true,
   "skipDangerousModePermissionPrompt": true,
-  "fastMode": true
+  "theme": "auto"
 }
