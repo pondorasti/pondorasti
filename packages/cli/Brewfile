@@ -13,6 +13,7 @@ brew "neovim"                             # Hyperextensible Vim-based text edito
 brew "gh"                                 # GitHub CLI - work with issues, PRs, releases, and more from the terminal
 brew "tmux"                               # Terminal multiplexer - multiple terminal sessions in one window
 brew "pnpm"                               # Fast, disk space efficient package manager for Node.js
+brew "uv"                                 # Fast Python package and project manager
 brew "oven-sh/bun/bun"                    # Fast all-in-one JavaScript runtime, bundler, test runner, and package manager
 brew "node"                               # JavaScript runtime built on Chrome's V8 JavaScript engine
 brew "vite-plus"                          # Unified web development toolchain - provides vp
