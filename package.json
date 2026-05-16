@@ -8,9 +8,6 @@
     "packages/*"
   ],
   "private": true,
-  "scripts": {
-    "cli:release": "./packages/cli/scripts/release.sh"
-  },
   "devDependencies": {
     "@types/bun": "^1.3.14"
   }
