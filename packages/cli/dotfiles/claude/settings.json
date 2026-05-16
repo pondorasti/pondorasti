@@ -1,12 +1,11 @@
 {
   "permissions": {
-    "defaultMode": "dontAsk"
+    "defaultMode": "bypassPermissions"
   },
-  "enabledPlugins": {
-    "swift-lsp@claude-plugins-official": true
-  },
+  "enabledPlugins": {},
   "effortLevel": "high",
   "fastMode": true,
   "skipDangerousModePermissionPrompt": true,
+  "editorMode": "vim",
   "theme": "auto"
 }
