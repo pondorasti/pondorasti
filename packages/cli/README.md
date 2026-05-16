@@ -1,16 +1,16 @@
 # Pondorasti CLI
 
-🖥️ Mission control for pondorasti - A command-line tool for automated macOS setup and configuration.
+Mission control for pondorasti - a command-line tool for automated macOS setup and configuration.
 
-Built with [Bun](https://bun.sh), [Yargs](https://yargs.js.org/) for command parsing, and [Ink](https://github.com/vadimdemedes/ink) for rich terminal UI when needed.
+Built with [Bun](https://bun.sh) and [Yargs](https://yargs.js.org/).
 
 ## Features
 
-- 🍺 **Homebrew Management**: Install, update, and manage Homebrew packages
-- 📂 **Smart Cloning**: Clone GitHub repos to organized `~/repos/<owner>/<repo>` structure
-- 📦 **Standalone Binary**: Compiles to a single executable with embedded Brewfile
-- 🚀 **Fresh Machine Setup**: Bootstrap a new Mac with a single command
-- 🔧 **Extensible**: Easy to add new commands
+- Homebrew bundle management for formulae, casks, and Mac App Store apps
+- Smart GitHub cloning into `~/repos/<owner>/<repo>`
+- Dotfile symlink management with conflict backups
+- macOS defaults and Dock setup commands
+- Standalone Apple Silicon binary with embedded Brewfiles and dotfiles
 
 ## Fresh Machine Setup
 
@@ -25,7 +25,7 @@ chmod +x pd
 ./pd bootstrap
 ```
 
-The compiled binary includes the Brewfile embedded, so it works without any dependencies.
+The compiled binary includes the Brewfiles and dotfiles, so it can bootstrap before the repository is cloned locally.
 
 ## Installation (Development)
 
@@ -41,7 +41,7 @@ cd pondorasti
 bun install
 
 # Run commands directly
-bun run packages/cli/src/index.ts <command>
+bun packages/cli/src/index.ts <command>
 
 # Or install globally
 bun link
@@ -56,7 +56,7 @@ pd <command>
 
 #### `bootstrap` - Bootstrap a fresh machine
 
-Installs Homebrew and runs brew bundle (which installs everything including Bun):
+Installs Oh My Zsh, Homebrew packages, Mac App Store apps, clones this repository, links dotfiles, applies defaults, and links `pd` from source.
 
 ```bash
 pd bootstrap
@@ -77,6 +77,8 @@ pd clone https://github.com/owner/repo/tree/main
 pd clone https://github.com/owner/repo/blob/main/src/file.ts
 ```
 
+Use `--no-open` to skip opening the cloned repo in Cursor.
+
 #### `brew` - Manage Homebrew
 
 ```bash
@@ -85,6 +87,44 @@ pd brew install
 
 # Run brew bundle from Brewfile
 pd brew bundle
+
+# Install Mac App Store apps from Brewfile.mas
+pd brew mas
+```
+
+#### `dotfiles` - Manage symlinked dotfiles
+
+Packages currently include Claude, Cursor, Git, Neovim, OpenCode, tmux, and zsh.
+
+```bash
+# Show dotfile status
+pd dotfiles status
+
+# Link all packages
+pd dotfiles link
+
+# Link one package
+pd dotfiles link nvim
+
+# Backup and replace conflicting files
+pd dotfiles link --force
+
+# Remove symlinks
+pd dotfiles unlink
+```
+
+#### `defaults` - Manage macOS defaults
+
+```bash
+pd defaults list
+pd defaults status
+pd defaults apply
+```
+
+#### `dock` - Manage the Dock
+
+```bash
+pd dock clear
 ```
 
 ### Global Options
@@ -107,7 +147,7 @@ cd packages/cli
 bun run build
 ```
 
-The compiled binary is ~57MB and requires no dependencies to run.
+The build script removes stale `dist` output before compiling and cleans up Bun's temporary `.bun-build` artifacts after signing. The compiled binary is about 60MB and requires no dependencies to run.
 
 ## Architecture
 
@@ -118,15 +158,22 @@ packages/cli/
 │   ├── commands/          # Command implementations
 │   │   ├── brew.ts        # Homebrew management
 │   │   ├── clone.ts       # GitHub repo cloning
+│   │   ├── defaults.ts    # macOS defaults
+│   │   ├── dock.ts        # Dock management
+│   │   ├── dotfiles.ts    # Dotfile symlink management
 │   │   └── bootstrap.ts   # Fresh machine bootstrap
 │   ├── tools/             # External tool wrappers
+│   │   ├── defaults.ts    # defaults command wrapper
+│   │   ├── dock.ts        # Dock defaults wrapper
+│   │   ├── dotfiles.ts    # Symlink operations
 │   │   ├── homebrew.ts    # Homebrew operations
-│   │   └── bun.ts         # Bun runtime operations
+│   │   └── ohmyzsh.ts     # Oh My Zsh installer
 │   └── utils/             # Utilities
-│       ├── brewfile.ts    # Brewfile embedding & extraction
 │       ├── cli-helpers.ts # CLI utilities
 │       └── github.ts      # GitHub URL parsing
 ├── Brewfile               # Package definitions (embedded in binary)
+├── Brewfile.mas           # Mac App Store apps
+├── dotfiles/              # Dotfiles embedded in binary and linked by command
 └── package.json           # Project configuration
 ```
 
