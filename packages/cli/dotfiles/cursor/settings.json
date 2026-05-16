@@ -11,7 +11,7 @@
   "editor.lineNumbers": "relative",
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
 
   "explorer.confirmDelete": false,
@@ -31,7 +31,7 @@
   "terminal.integrated.scrollback": 10000,
 
   "accessibility.signals.onDebugBreak": {
-    "sound": "on"
+    "sound": "on",
   },
 
   "git.autofetch": true,
@@ -46,10 +46,10 @@
 
   "claudeCode.preferredLocation": "panel",
   "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
-  "cursor.cpp.disabledLanguages": [
-    "plaintext"
-  ],
-  "workbench.sideBar.location": "right"
+  "cursor.cpp.disabledLanguages": ["plaintext"],
+  "workbench.sideBar.location": "right",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "workbench.agentsWindowButton.enabled": false,
 }
