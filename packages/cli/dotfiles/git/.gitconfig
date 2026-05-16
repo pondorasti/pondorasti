@@ -15,8 +15,17 @@
 [alias]
   autorebase = "!f() { git fetch origin $1 && git rebase origin/$1; }; f"
   bclean = "!f() { git branch --no-color | fzf -m | xargs -I {} git branch -D '{}'; }; f"
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
