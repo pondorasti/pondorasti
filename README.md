@@ -11,11 +11,6 @@ working on [emojis.com](https://www.emojis.com/), and vibe coding out the kazoo
 - [DuoDMV](https://github.com/851-labs/duodmv) - Duolingo but for your driver's permit.
 - [makeschool.fail](https://github.com/pondorasti/makeschool) - Conservatory of a YC backed collage.
 
-## wip
-
-- [GardenBridge](https://github.com/851-labs/GardenBridge)
-- [AppDrop](https://github.com/851-labs/appdrop)
-
 ## legacy
 
 - [Chirp](https://github.com/pondorasti/chirp) - lil widget for embedding your favorite tweets in Figma.
