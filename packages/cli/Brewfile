@@ -17,7 +17,6 @@ brew "uv"                                 # Fast Python package and project mana
 brew "oven-sh/bun/bun"                    # Fast all-in-one JavaScript runtime, bundler, test runner, and package manager
 brew "node"                               # JavaScript runtime built on Chrome's V8 JavaScript engine
 brew "rust"                               # Safe, concurrent, practical language
-brew "vite-plus"                          # Unified web development toolchain - provides vp
 brew "fnm"                                # Fast Node Manager - simple, fast Node.js version manager built in Rust
 brew "mise"                               # Polyglot runtime manager for Node.js, Ruby, and other development tools
 brew "rbenv"                              # Ruby version manager - simple, lightweight Ruby environment manager
