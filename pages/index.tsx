@@ -87,11 +87,11 @@ export default function Home(): JSX.Element {
               "inline-block cursor-ne-resize bg-clip-text text-transparent",
               "transition-transform ease-in-out hover:scale-105"
             )}
-            href="https://palette.dev/"
+            href="https://emojis.com/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Palette
+            emojis.com
           </a>
           , previously at{" "}
           <a
