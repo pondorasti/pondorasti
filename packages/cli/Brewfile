@@ -49,6 +49,7 @@ cask "handbrake-app"                      # Video transcoder for converting vide
 cask "ghostty"                            # Fast, native terminal emulator with GPU acceleration and modern features
 cask "visual-studio-code"                 # Powerful, extensible code editor
 cask "cursor"                             # AI-powered code editor built to make you extraordinarily productive
+cask "cursor-cli"                         # Cursor command-line interface
 cask "zed"                                # High-performance code editor designed for collaboration with humans and AI
 cask "claude"                             # Claude AI assistant desktop application
 cask "claude-code"                        # Claude AI coding assistant for the terminal
