@@ -1,100 +1,619 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Lab Results Visualizer</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <header class="site-header">
-      <div>
-        <p class="eyebrow">Function Health labs</p>
-        <h1>Lab Results Visualizer</h1>
-        <p class="lede">
-          Personal trend view for Quest lab records collected Dec 18-19, 2025
-          and May 28, 2026.
-        </p>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Health · Lab Results</title>
+<style>
+  :root{
+    /* iOS systemGroupedBackground / secondarySystemGroupedBackground */
+    --bg:#F2F2F7;
+    --card:#FFFFFF;
+    --card-2:#F9F9FB;
+    --sep:rgba(60,60,67,.12);
+    --sep-strong:rgba(60,60,67,.29);
+    --text:#000;
+    --text-2:rgba(60,60,67,.78);
+    --text-3:rgba(60,60,67,.6);
+    --text-4:rgba(60,60,67,.42);
+
+    /* Apple Health category colors */
+    --heart:#FF2D55;
+    --liver:#FF9500;
+    --kidney:#34C759;
+    --blood:#FF3B30;
+    --hormone:#FF375F;
+    --vit:#AF52DE;
+    --omega:#FFCC00;
+    --immune:#5AC8FA;
+    --infect:#8E8E93;
+    --cancer:#007AFF;
+    --vital:#FF2D55;
+    --metab:#30B0C7;
+
+    --good:#34C759;
+    --warn:#FF9500;
+    --bad:#FF3B30;
+
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 6px 24px rgba(0,0,0,.04);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#000;
+      --card:#1C1C1E;
+      --card-2:#2C2C2E;
+      --sep:rgba(84,84,88,.36);
+      --sep-strong:rgba(84,84,88,.65);
+      --text:#fff;
+      --text-2:rgba(235,235,245,.78);
+      --text-3:rgba(235,235,245,.6);
+      --text-4:rgba(235,235,245,.42);
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 24px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;background:var(--bg);color:var(--text);
+    font:15px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Inter",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    font-variant-numeric: tabular-nums;
+  }
+  .wrap{max-width:780px;margin:0 auto;padding:8px 16px 64px}
+
+  /* Top large title + segmented */
+  .topbar{padding:8px 0 0;position:sticky;top:0;background:linear-gradient(180deg,var(--bg) 80%,rgba(242,242,247,0));z-index:5;backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px)}
+  @media (prefers-color-scheme: dark){ .topbar{background:linear-gradient(180deg,var(--bg) 80%,rgba(0,0,0,0))} }
+  .lg-title{font:700 34px/1.1 "SF Pro Display",-apple-system,system-ui;letter-spacing:-.03em;padding:14px 0 4px;display:flex;justify-content:space-between;align-items:end;gap:12px}
+  .lg-title .sub{font:500 13px/1.2 "SF Pro Text";color:var(--text-3);letter-spacing:0}
+  .seg{display:inline-flex;padding:2px;background:rgba(118,118,128,.12);border-radius:9px;margin:8px 0 12px;width:100%;gap:0}
+  @media (prefers-color-scheme: dark){ .seg{background:rgba(118,118,128,.24)} }
+  .seg button{flex:1;font:600 13px/1 "SF Pro Text";padding:7px 10px;border:0;background:transparent;color:var(--text);border-radius:7px;cursor:pointer;transition:background .12s}
+  .seg button.active{background:var(--card);box-shadow:0 3px 8px rgba(0,0,0,.04),0 3px 1px rgba(0,0,0,.04)}
+  @media (prefers-color-scheme: dark){ .seg button.active{background:rgba(99,99,102,1)} }
+
+  /* Section headers (Apple Health subtitle style) */
+  h2.section{font:700 22px/1.1 "SF Pro Display";letter-spacing:-.02em;margin:24px 0 10px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  h2.section .more{font:500 15px/1 "SF Pro Text";color:#007AFF;cursor:pointer}
+  h3.sub{font:600 13px/1 "SF Pro Text";text-transform:uppercase;letter-spacing:.04em;color:var(--text-3);margin:18px 4px 10px}
+
+  /* Cards */
+  .card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+  .card + .card{margin-top:14px}
+
+  /* Highlights horizontal row */
+  .highlights{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+  .hl{background:var(--card);border-radius:14px;padding:14px 14px 12px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .hl .lbl{display:flex;align-items:center;gap:8px;font:600 13px/1 "SF Pro Text";color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
+  .hl .lbl .dot{width:18px;height:18px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700}
+  .hl .head{font:600 17px/1.2 "SF Pro Display";letter-spacing:-.01em;margin-top:8px}
+  .hl .body{font:400 13px/1.35 "SF Pro Text";color:var(--text-2);margin-top:4px}
+  .hl .num{font:700 28px/1 "SF Pro Display";letter-spacing:-.02em;margin-top:8px}
+  .hl .num small{font:500 13px/1 "SF Pro Text";color:var(--text-3);margin-left:4px}
+
+  /* Favorite metric tile */
+  .favs{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  @media (max-width:520px){ .favs{grid-template-columns:1fr} }
+  .fav{background:var(--card);border-radius:14px;padding:14px 14px 12px;box-shadow:var(--shadow);position:relative}
+  .fav .row1{display:flex;align-items:center;gap:8px;font:600 13px/1 "SF Pro Text";color:var(--cat,var(--vit));text-transform:uppercase;letter-spacing:.04em}
+  .fav .row1 .ic{width:22px;height:22px;border-radius:6px;background:var(--cat,var(--vit));color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+  .fav .name{font:600 15px/1.2 "SF Pro Display";color:var(--text);margin-top:8px;letter-spacing:-.01em}
+  .fav .meta{font:400 12px/1 "SF Pro Text";color:var(--text-3);margin-top:2px}
+  .fav .big{font:700 30px/1.05 "SF Pro Display";letter-spacing:-.02em;margin-top:10px;display:flex;align-items:baseline;gap:6px}
+  .fav .big small{font:500 14px/1 "SF Pro Text";color:var(--text-3)}
+  .fav .spark{margin-top:8px}
+  .fav .tag{position:absolute;top:14px;right:14px;font:600 11px/1 "SF Pro Text";padding:5px 8px;border-radius:999px;background:var(--card-2);color:var(--text-2)}
+  .tag.in{background:rgba(52,199,89,.14);color:#1e7a3a}
+  .tag.lo{background:rgba(255,149,0,.14);color:#a85b00}
+  .tag.hi{background:rgba(255,59,48,.14);color:#a82016}
+  @media (prefers-color-scheme: dark){
+    .tag.in{color:#7ee2a0}
+    .tag.lo{color:#ffb965}
+    .tag.hi{color:#ff8b85}
+  }
+
+  /* Range bar (Apple Health style) */
+  .range{position:relative;height:6px;background:var(--card-2);border-radius:999px;overflow:visible;margin-top:8px}
+  .range .ok{position:absolute;top:0;bottom:0;background:var(--good);border-radius:999px;opacity:.85}
+  .range .pin{position:absolute;top:-4px;width:2px;height:14px;background:var(--text);border-radius:2px;box-shadow:0 0 0 2px var(--card)}
+  .range .pin.prev{background:var(--text-4);opacity:.6;height:10px;top:-2px}
+  .range-legend{display:flex;justify-content:space-between;font:500 11px/1 "SF Pro Text";color:var(--text-3);margin-top:6px}
+
+  /* List rows */
+  .list{padding:0}
+  .row{display:grid;grid-template-columns:34px 1fr auto auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--sep);min-height:54px}
+  .row:last-child{border-bottom:none}
+  .row .ic{width:30px;height:30px;border-radius:8px;background:var(--cat,var(--vit));color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600}
+  .row .meta{min-width:0}
+  .row .meta .t{font:600 15px/1.2 "SF Pro Text";color:var(--text);letter-spacing:-.005em}
+  .row .meta .s{font:400 12px/1.3 "SF Pro Text";color:var(--text-3);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap}
+  .row .v{font:600 17px/1 "SF Pro Display";color:var(--text);letter-spacing:-.01em;text-align:right;white-space:nowrap}
+  .row .v small{font:500 12px/1 "SF Pro Text";color:var(--text-3);font-weight:500;margin-left:3px}
+  .row .v.lo{color:var(--warn)} .row .v.hi{color:var(--bad)}
+  .row .chev{color:var(--text-4);font-size:14px;width:10px}
+
+  /* Detail row (when expanded) */
+  .detail{padding:10px 16px 14px 62px;border-bottom:1px solid var(--sep);background:var(--card-2)}
+  .detail .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+  .detail .k{font:500 12px/1 "SF Pro Text";color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
+  .detail .vv{font:600 15px/1.2 "SF Pro Text";margin-top:2px}
+  .detail .note{font:400 13px/1.35 "SF Pro Text";color:var(--text-2);margin-top:8px}
+
+  /* Browse categories — large icon cards */
+  .browse-list{padding:0}
+  .browse-row{display:grid;grid-template-columns:36px 1fr auto;gap:14px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--sep);cursor:pointer;transition:background .12s}
+  .browse-row:last-child{border-bottom:none}
+  .browse-row:active{background:var(--card-2)}
+  .browse-row .ic{width:32px;height:32px;border-radius:8px;background:var(--cat,var(--vit));color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .browse-row .nm{font:600 17px/1.2 "SF Pro Text";letter-spacing:-.005em}
+  .browse-row .ct{font:400 13px/1 "SF Pro Text";color:var(--text-3);margin-top:3px}
+  .browse-row .count{font:500 14px/1 "SF Pro Text";color:var(--text-3);display:flex;align-items:center;gap:4px}
+  .browse-row.open{background:var(--card-2)}
+  .browse-children{display:none;border-bottom:1px solid var(--sep)}
+  .browse-row.open + .browse-children{display:block}
+
+  /* PDF cards */
+  .pdfs{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+  .pdf{background:var(--card);border-radius:14px;padding:16px;box-shadow:var(--shadow);text-decoration:none;color:var(--text);display:flex;flex-direction:column;gap:6px;transition:transform .12s}
+  .pdf:active{transform:scale(.98)}
+  .pdf .ic{width:38px;height:38px;border-radius:9px;background:var(--vit);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin-bottom:6px}
+  .pdf .t{font:600 15px/1.2 "SF Pro Text"}
+  .pdf .s{font:400 12px/1.3 "SF Pro Text";color:var(--text-3)}
+
+  /* Sparkline */
+  .spark svg{display:block;width:100%;height:36px}
+
+  /* Chips for IgG sensitivities */
+  .chips{display:flex;flex-wrap:wrap;gap:6px;padding:14px 16px}
+  .chip{padding:6px 10px;border-radius:999px;font:500 13px/1 "SF Pro Text";background:var(--card-2);color:var(--text-2);display:inline-flex;align-items:center;gap:6px}
+  .chip.bad{background:rgba(255,59,48,.12);color:#a82016}
+  .chip.warn{background:rgba(255,149,0,.14);color:#a85b00}
+  .chip.good{background:rgba(52,199,89,.14);color:#1e7a3a}
+  @media (prefers-color-scheme: dark){
+    .chip.bad{color:#ff8b85}.chip.warn{color:#ffb965}.chip.good{color:#7ee2a0}
+  }
+  .chip small{color:var(--text-3)}
+
+  .note{padding:12px 16px;color:var(--text-3);font:400 12px/1.4 "SF Pro Text"}
+  .panes > section{display:none}
+  .panes > section.active{display:block}
+
+  footer{text-align:center;color:var(--text-3);font:400 12px/1.4 "SF Pro Text";margin-top:40px}
+  footer a{color:#007AFF;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="lg-title">
+      <span>Health</span>
+      <span class="sub">Alexandru · 24M</span>
+    </div>
+    <div class="seg" id="seg">
+      <button class="active" data-pane="summary">Summary</button>
+      <button data-pane="browse">Browse</button>
+      <button data-pane="docs">PDFs</button>
+    </div>
+  </div>
+
+<div class="panes">
+
+  <!-- ============ SUMMARY ============ -->
+  <section id="summary" class="active">
+
+    <h2 class="section">Highlights</h2>
+    <div class="highlights">
+      <div class="hl">
+        <div class="lbl"><span class="dot" style="background:var(--liver)">L</span> Liver</div>
+        <div class="head">Your liver enzymes returned to normal</div>
+        <div class="body">ALT dropped from <b>68 U/L</b> in December to <b>19 U/L</b> in May. AST went from <b>41 → 24</b>. Both back inside the reference range.</div>
       </div>
-      <div class="header-panel" aria-label="Report window">
-        <span class="label">Latest collection</span>
-        <strong>May 28, 2026</strong>
-        <span>Compared with Dec 2025 baseline</span>
+      <div class="hl">
+        <div class="lbl"><span class="dot" style="background:var(--vit)">V</span> Vitamins</div>
+        <div class="head">Homocysteine normalized</div>
+        <div class="body">From <b>14.3 µmol/L (high)</b> down to <b>8.5</b> — well below the 12.9 ceiling. Often a sign of better B12/folate utilization.</div>
       </div>
-    </header>
+      <div class="hl">
+        <div class="lbl"><span class="dot" style="background:var(--blood)">B</span> Blood</div>
+        <div class="head">Iron stores still low</div>
+        <div class="body">Ferritin nudged up <b>30 → 35 ng/mL</b> but is still below the 38 floor. Worth tracking and considering supplementation.</div>
+      </div>
+      <div class="hl">
+        <div class="lbl"><span class="dot" style="background:var(--vit)">V</span> Vitamins</div>
+        <div class="head">Vitamin D is insufficient</div>
+        <div class="body">25-OH Vitamin D was <b>27 ng/mL</b> in December — below the 30 ng/mL "optimal" threshold. Not re-tested in May.</div>
+      </div>
+    </div>
 
-    <main>
-      <section class="summary-grid" id="summary"></section>
+    <h2 class="section">Favorites</h2>
+    <div class="favs" id="favs"></div>
 
-      <section class="toolbar" aria-label="Filters">
-        <label class="search">
-          <span>Search</span>
-          <input id="searchInput" type="search" placeholder="Ferritin, ALT, B12..." />
-        </label>
-        <div class="filter-group" id="categoryFilters" aria-label="Category filters"></div>
-      </section>
+    <h2 class="section">Out of range <span style="font:500 13px;color:var(--text-3);letter-spacing:0">May 28, 2026</span></h2>
+    <div class="card list" id="flags"></div>
 
-      <section class="layout">
-        <aside class="metric-list" aria-label="Biomarkers">
-          <div class="panel-heading">
-            <h2>Biomarkers</h2>
-            <span id="metricCount"></span>
-          </div>
-          <div id="metricList"></div>
-        </aside>
+    <h2 class="section">Most recent panel <span style="font:500 13px;color:var(--text-3);letter-spacing:0">May 28, 2026 · Quest</span></h2>
+    <div class="card list" id="recent"></div>
 
-        <section class="detail">
-          <div class="detail-header">
-            <div>
-              <p class="eyebrow" id="selectedCategory">Category</p>
-              <h2 id="selectedName">Select a biomarker</h2>
-            </div>
-            <span class="status-pill" id="selectedStatus">Status</span>
-          </div>
-          <div class="chart-wrap">
-            <svg id="trendChart" role="img" aria-label="Trend chart"></svg>
-          </div>
-          <div class="metric-meta" id="metricMeta"></div>
-        </section>
-      </section>
+  </section>
 
-      <section class="section">
-        <div class="section-heading">
-          <h2>Out-of-Range Snapshot</h2>
-          <p>Flags are shown exactly as extracted from the lab reports.</p>
-        </div>
-        <div id="flagCards" class="flag-grid"></div>
-      </section>
+  <!-- ============ BROWSE ============ -->
+  <section id="browse">
+    <h2 class="section">Browse</h2>
+    <div class="card browse-list" id="browse-cats"></div>
 
-      <section class="section">
-        <div class="section-heading">
-          <h2>All Results</h2>
-          <p>Use this as the source table behind the charts.</p>
-        </div>
-        <div class="table-shell">
-          <table>
-            <thead>
-              <tr>
-                <th>Biomarker</th>
-                <th>Category</th>
-                <th>Dec 2025</th>
-                <th>May 2026</th>
-                <th>Reference</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="resultsTable"></tbody>
-          </table>
-        </div>
-      </section>
+    <h2 class="section">Food sensitivities <span style="font:500 13px;color:var(--text-3);letter-spacing:0">IgG · Dec 19, 2025</span></h2>
+    <div class="card">
+      <div class="chips" id="igg-high"></div>
+      <div class="note">Reference: &lt;2.0 mcg/mL. Quest's own note: IgG testing "should not be used for the diagnosis of allergic or atopic disease states" — most useful for tracking elimination/reintroduction responses. All <b>IgE</b> food &amp; environmental allergens were <b>Class 0 (Absent)</b>.</div>
+    </div>
 
-      <section class="note">
-        <strong>Note:</strong> This is a visualization of reported lab values,
-        not medical advice or diagnosis. Review abnormal results and clinical
-        context with a licensed clinician.
-      </section>
-    </main>
+    <h2 class="section">Allergens tested · all negative</h2>
+    <div class="card"><div class="chips" id="ige-negs"></div></div>
+  </section>
 
-    <script src="app.js"></script>
-  </body>
+  <!-- ============ DOCS ============ -->
+  <section id="docs">
+    <h2 class="section">Lab reports</h2>
+    <div class="pdfs">
+      <a class="pdf" href="pdfs/2025-12-18.pdf" target="_blank">
+        <div class="ic" style="background:var(--vit)">PDF</div>
+        <div class="t">Baseline panel</div>
+        <div class="s">Dec 18, 2025 · 218 KB · Quest</div>
+      </a>
+      <a class="pdf" href="pdfs/2025-12-19.pdf" target="_blank">
+        <div class="ic" style="background:var(--vit)">PDF</div>
+        <div class="t">Micronutrient + allergy</div>
+        <div class="s">Dec 19, 2025 · 139 KB · Quest</div>
+      </a>
+      <a class="pdf" href="pdfs/2026-05-28.pdf" target="_blank">
+        <div class="ic" style="background:var(--vit)">PDF</div>
+        <div class="t">6-month follow-up</div>
+        <div class="s">May 28, 2026 · 20 KB · Quest</div>
+      </a>
+    </div>
+    <h2 class="section">Ordering physician</h2>
+    <div class="card" style="padding:16px">
+      <div style="font:600 17px/1.2 'SF Pro Text'">Joshua A. Emdur, D.O.</div>
+      <div style="color:var(--text-3);margin-top:4px;font-size:13px">600 Congress Avenue, Floor 14 · Austin, TX 78701</div>
+    </div>
+  </section>
+
+</div>
+
+<footer>Source: Health Gorilla → Quest Diagnostics PDFs · Patient ID 82617501<br>Not medical advice.</footer>
+</div>
+
+<script>
+/* ============ DATA ============
+   row: { name, unit, cur, prev, lo, hi, cat, flagDir? }
+   flagDir: 'good-floor' means values >= lo are optimal even if hi is "soft"
+*/
+const D = {
+  // dates
+  d1:"Dec 18, 2025", d2:"Dec 19, 2025", d3:"May 28, 2026",
+
+  metrics: [
+    // ----- HEART (lipids/cardio) -----
+    {n:"Total cholesterol",u:"mg/dL",cur:151,prev:154,lo:0,hi:200,cat:"heart"},
+    {n:"HDL cholesterol",u:"mg/dL",cur:57,prev:66,lo:40,hi:90,cat:"heart",fd:"good-floor"},
+    {n:"LDL cholesterol",u:"mg/dL",cur:79,prev:75,lo:0,hi:100,cat:"heart"},
+    {n:"Triglycerides",u:"mg/dL",cur:66,prev:54,lo:0,hi:150,cat:"heart"},
+    {n:"Non-HDL cholesterol",u:"mg/dL",cur:94,prev:88,lo:0,hi:130,cat:"heart"},
+    {n:"Cholesterol / HDL",u:"",cur:2.6,prev:2.3,lo:0,hi:5.0,cat:"heart"},
+    {n:"Apolipoprotein B",u:"mg/dL",cur:59,prev:null,lo:0,hi:90,cat:"heart",date:"d1"},
+    {n:"Lipoprotein (a)",u:"nmol/L",cur:10,prev:null,lo:0,hi:75,cat:"heart",date:"d1"},
+    {n:"hs-CRP",u:"mg/L",cur:0.2,prev:0.2,lo:0,hi:1.0,cat:"heart"},
+    {n:"LDL particle number",u:"nmol/L",cur:974,prev:null,lo:0,hi:1138,cat:"heart",date:"d1"},
+    {n:"LDL small",u:"nmol/L",cur:140,prev:null,lo:0,hi:142,cat:"heart",date:"d1"},
+    {n:"LDL medium",u:"nmol/L",cur:193,prev:null,lo:0,hi:215,cat:"heart",date:"d1"},
+    {n:"HDL large",u:"nmol/L",cur:6596,prev:null,lo:6729,hi:17886,cat:"heart",date:"d1",fd:"good-floor"},
+    {n:"LDL peak size",u:"Å",cur:221.7,prev:null,lo:222.9,hi:234.3,cat:"heart",date:"d1",fd:"good-floor"},
+
+    // ----- LIVER -----
+    {n:"ALT",u:"U/L",cur:19,prev:68,lo:9,hi:46,cat:"liver"},
+    {n:"AST",u:"U/L",cur:24,prev:41,lo:10,hi:40,cat:"liver"},
+    {n:"Alkaline phosphatase",u:"U/L",cur:46,prev:49,lo:36,hi:130,cat:"liver"},
+    {n:"Bilirubin, total",u:"mg/dL",cur:0.7,prev:1.0,lo:0.2,hi:1.2,cat:"liver"},
+    {n:"Albumin",u:"g/dL",cur:4.9,prev:5.0,lo:3.6,hi:5.1,cat:"liver"},
+    {n:"Total protein",u:"g/dL",cur:7.2,prev:7.4,lo:6.1,hi:8.1,cat:"liver"},
+    {n:"Globulin",u:"g/dL",cur:2.3,prev:2.4,lo:1.9,hi:3.7,cat:"liver"},
+    {n:"A/G ratio",u:"",cur:2.1,prev:2.1,lo:1.0,hi:2.5,cat:"liver"},
+    {n:"GGT",u:"U/L",cur:16,prev:null,lo:3,hi:70,cat:"liver",date:"d1"},
+    {n:"Amylase",u:"U/L",cur:62,prev:null,lo:21,hi:101,cat:"liver",date:"d1"},
+    {n:"Lipase",u:"U/L",cur:23,prev:null,lo:7,hi:60,cat:"liver",date:"d1"},
+
+    // ----- KIDNEY -----
+    {n:"BUN",u:"mg/dL",cur:15,prev:13,lo:7,hi:25,cat:"kidney"},
+    {n:"Creatinine",u:"mg/dL",cur:0.98,prev:0.93,lo:0.60,hi:1.24,cat:"kidney"},
+    {n:"eGFR",u:"mL/min/1.73m²",cur:110,prev:118,lo:60,hi:120,cat:"kidney",fd:"good-floor"},
+    {n:"BUN / Creat",u:"",cur:15,prev:14,lo:6,hi:22,cat:"kidney"},
+    {n:"Uric acid",u:"mg/dL",cur:5.1,prev:null,lo:4.0,hi:8.0,cat:"kidney",date:"d1"},
+
+    // ----- BLOOD (CBC, iron) -----
+    {n:"Iron, total",u:"mcg/dL",cur:104,prev:180,lo:50,hi:195,cat:"blood"},
+    {n:"TIBC",u:"mcg/dL",cur:347,prev:386,lo:250,hi:425,cat:"blood"},
+    {n:"Iron % saturation",u:"%",cur:30,prev:47,lo:20,hi:48,cat:"blood"},
+    {n:"Ferritin",u:"ng/mL",cur:35,prev:30,lo:38,hi:380,cat:"blood"},
+    {n:"WBC",u:"K/µL",cur:5.0,prev:4.1,lo:3.8,hi:10.8,cat:"blood"},
+    {n:"RBC",u:"M/µL",cur:5.13,prev:5.19,lo:4.20,hi:5.80,cat:"blood"},
+    {n:"Hemoglobin",u:"g/dL",cur:15.3,prev:15.4,lo:13.2,hi:17.1,cat:"blood"},
+    {n:"Hematocrit",u:"%",cur:46.4,prev:46.5,lo:39.4,hi:51.1,cat:"blood"},
+    {n:"MCV",u:"fL",cur:90.4,prev:89.6,lo:81.4,hi:101.7,cat:"blood"},
+    {n:"MCH",u:"pg",cur:29.8,prev:29.7,lo:27.0,hi:33.0,cat:"blood"},
+    {n:"MCHC",u:"g/dL",cur:33.0,prev:33.1,lo:31.6,hi:35.4,cat:"blood"},
+    {n:"RDW",u:"%",cur:12.7,prev:12.7,lo:11.0,hi:15.0,cat:"blood"},
+    {n:"Platelets",u:"K/µL",cur:329,prev:305,lo:140,hi:400,cat:"blood"},
+    {n:"MPV",u:"fL",cur:11.5,prev:11.7,lo:7.5,hi:12.5,cat:"blood"},
+    {n:"Neutrophils, abs",u:"cells/µL",cur:2560,prev:2009,lo:1500,hi:7800,cat:"blood"},
+    {n:"Lymphocytes, abs",u:"cells/µL",cur:1905,prev:1640,lo:850,hi:3900,cat:"blood"},
+    {n:"Monocytes, abs",u:"cells/µL",cur:415,prev:373,lo:200,hi:950,cat:"blood"},
+    {n:"Eosinophils, abs",u:"cells/µL",cur:70,prev:29,lo:15,hi:500,cat:"blood"},
+    {n:"Basophils, abs",u:"cells/µL",cur:50,prev:49,lo:0,hi:200,cat:"blood"},
+
+    // ----- VITALS / METAB -----
+    {n:"Glucose (fasting)",u:"mg/dL",cur:92,prev:93,lo:65,hi:99,cat:"metab"},
+    {n:"Hemoglobin A1c",u:"%",cur:5.4,prev:5.3,lo:4.0,hi:5.7,cat:"metab"},
+    {n:"Insulin (fasting)",u:"µIU/mL",cur:6.9,prev:5.8,lo:0,hi:18.4,cat:"metab"},
+    {n:"Sodium",u:"mmol/L",cur:141,prev:139,lo:135,hi:146,cat:"metab"},
+    {n:"Potassium",u:"mmol/L",cur:4.3,prev:4.3,lo:3.5,hi:5.3,cat:"metab"},
+    {n:"Chloride",u:"mmol/L",cur:102,prev:101,lo:98,hi:110,cat:"metab"},
+    {n:"CO₂",u:"mmol/L",cur:30,prev:28,lo:20,hi:32,cat:"metab"},
+    {n:"Calcium",u:"mg/dL",cur:9.7,prev:9.9,lo:8.6,hi:10.3,cat:"metab"},
+    {n:"Leptin",u:"ng/mL",cur:1.0,prev:null,lo:0.3,hi:13.4,cat:"metab",date:"d1"},
+
+    // ----- HORMONES -----
+    {n:"Testosterone, total",u:"ng/dL",cur:491,prev:null,lo:250,hi:1100,cat:"hormone",date:"d1"},
+    {n:"Testosterone, free",u:"pg/mL",cur:87.5,prev:null,lo:35.0,hi:155.0,cat:"hormone",date:"d1"},
+    {n:"SHBG",u:"nmol/L",cur:23,prev:null,lo:10,hi:50,cat:"hormone",date:"d1"},
+    {n:"DHEA sulfate",u:"mcg/dL",cur:461,prev:null,lo:74,hi:617,cat:"hormone",date:"d1"},
+    {n:"Estradiol",u:"pg/mL",cur:30,prev:null,lo:0,hi:39,cat:"hormone",date:"d1"},
+    {n:"Prolactin",u:"ng/mL",cur:7.3,prev:null,lo:2.0,hi:18.0,cat:"hormone",date:"d1"},
+    {n:"LH",u:"mIU/mL",cur:2.8,prev:null,lo:1.5,hi:9.3,cat:"hormone",date:"d1"},
+    {n:"FSH",u:"mIU/mL",cur:2.5,prev:null,lo:1.4,hi:12.8,cat:"hormone",date:"d1"},
+    {n:"TSH",u:"mIU/L",cur:0.85,prev:null,lo:0.40,hi:4.50,cat:"hormone",date:"d1"},
+    {n:"Free T4",u:"ng/dL",cur:1.3,prev:null,lo:0.8,hi:1.8,cat:"hormone",date:"d1"},
+    {n:"Free T3",u:"pg/mL",cur:3.7,prev:null,lo:2.3,hi:4.2,cat:"hormone",date:"d1"},
+    {n:"Cortisol (LC/MS)",u:"mcg/dL",cur:8.2,prev:null,lo:1.8,hi:13.6,cat:"hormone",date:"d1"},
+
+    // ----- VITAMINS & MINERALS -----
+    {n:"Vitamin D, 25-OH",u:"ng/mL",cur:27,prev:null,lo:30,hi:100,cat:"vit",date:"d1"},
+    {n:"Vitamin B12",u:"pg/mL",cur:341,prev:null,lo:200,hi:1100,cat:"vit",date:"d2"},
+    {n:"Folate, RBC",u:"ng/mL",cur:399,prev:null,lo:280,hi:2000,cat:"vit",date:"d2",fd:"good-floor"},
+    {n:"Vitamin A (retinol)",u:"mcg/dL",cur:56,prev:null,lo:38,hi:98,cat:"vit",date:"d2"},
+    {n:"Vitamin E, alpha-toco",u:"mg/L",cur:9.3,prev:null,lo:5.7,hi:19.9,cat:"vit",date:"d2"},
+    {n:"Methylmalonic acid",u:"nmol/L",cur:262,prev:null,lo:55,hi:335,cat:"vit",date:"d1"},
+    {n:"Homocysteine",u:"µmol/L",cur:8.5,prev:14.3,lo:0,hi:12.9,cat:"vit"},
+    {n:"Iodine",u:"mcg/L",cur:46,prev:null,lo:52,hi:109,cat:"vit",date:"d2"},
+    {n:"Copper",u:"mcg/dL",cur:67,prev:null,lo:80,hi:180,cat:"vit",date:"d2"},
+    {n:"Zinc",u:"mcg/dL",cur:82,prev:null,lo:60,hi:130,cat:"vit",date:"d1"},
+    {n:"Selenium",u:"mcg/L",cur:100,prev:null,lo:63,hi:160,cat:"vit",date:"d2"},
+    {n:"Magnesium, RBC",u:"mg/dL",cur:5.3,prev:null,lo:4.0,hi:6.4,cat:"vit",date:"d1"},
+    {n:"Chromium",u:"mcg/L",cur:0.4,prev:null,lo:0,hi:1.2,cat:"vit",date:"d2"},
+    {n:"Molybdenum",u:"mcg/L",cur:0.4,prev:null,lo:0,hi:2.2,cat:"vit",date:"d2"},
+    {n:"Lead",u:"mcg/dL",cur:0.5,prev:null,lo:0,hi:3.5,cat:"vit",date:"d1"},
+    {n:"Mercury",u:"mcg/L",cur:2.5,prev:null,lo:0,hi:11,cat:"vit",date:"d1"},
+    {n:"Coenzyme Q10",u:"µg/mL",cur:0.83,prev:null,lo:0.35,hi:2.5,cat:"vit",date:"d2",fd:"good-floor"},
+
+    // ----- OMEGA -----
+    {n:"EPA + DPA + DHA",u:"% by wt",cur:2.6,prev:null,lo:5.4,hi:12,cat:"omega",date:"d1"},
+    {n:"Omega-3 total",u:"% by wt",cur:2.6,prev:null,lo:3.7,hi:14.4,cat:"omega",date:"d1"},
+    {n:"EPA",u:"% by wt",cur:0.3,prev:null,lo:0.2,hi:2.3,cat:"omega",date:"d1"},
+    {n:"DPA",u:"% by wt",cur:0.7,prev:null,lo:0.8,hi:1.8,cat:"omega",date:"d1"},
+    {n:"DHA",u:"% by wt",cur:1.7,prev:null,lo:1.4,hi:5.1,cat:"omega",date:"d1"},
+    {n:"Omega-6 / Omega-3",u:"",cur:13.6,prev:null,lo:3.7,hi:14.4,cat:"omega",date:"d1"},
+
+    // ----- IMMUNE / AUTO -----
+    {n:"ANA screen",u:"",cur:"Negative",prev:null,cat:"immune",date:"d1",qual:true},
+    {n:"Rheumatoid factor",u:"IU/mL",cur:"<10",prev:null,cat:"immune",date:"d1",qual:true,note:"range <14"},
+    {n:"TPO antibodies",u:"IU/mL",cur:"<1",prev:null,cat:"immune",date:"d1",qual:true,note:"range <9"},
+    {n:"Thyroglobulin antibodies",u:"IU/mL",cur:"<1",prev:null,cat:"immune",date:"d1",qual:true,note:"range ≤1"},
+    {n:"Immunoglobulin E (total)",u:"kU/L",cur:76,prev:null,lo:0,hi:114,cat:"immune",date:"d1"},
+
+    // ----- INFECTIOUS -----
+    {n:"HIV 1/2 Ag/Ab",u:"",cur:"Negative",prev:null,cat:"infect",date:"d2",qual:true},
+    {n:"Syphilis (RPR)",u:"",cur:"Non-reactive",prev:null,cat:"infect",date:"d2",qual:true},
+    {n:"HSV-1 IgG",u:"",cur:"Negative",prev:null,cat:"infect",date:"d2",qual:true},
+    {n:"HSV-2 IgG",u:"",cur:"Negative",prev:null,cat:"infect",date:"d2",qual:true},
+    {n:"Chlamydia trachomatis",u:"",cur:"Not detected",prev:null,cat:"infect",date:"d2",qual:true},
+    {n:"Neisseria gonorrhoeae",u:"",cur:"Not detected",prev:null,cat:"infect",date:"d2",qual:true},
+    {n:"Trichomonas vaginalis",u:"",cur:"Not detected",prev:null,cat:"infect",date:"d2",qual:true},
+
+    // ----- CANCER SCREEN -----
+    {n:"PSA, total",u:"ng/mL",cur:0.5,prev:null,lo:0,hi:4.0,cat:"cancer",date:"d1"},
+    {n:"PSA, free",u:"ng/mL",cur:0.3,prev:null,lo:0,hi:4.0,cat:"cancer",date:"d1"},
+    {n:"PSA, % free",u:"%",cur:60,prev:null,lo:25,hi:100,cat:"cancer",date:"d1",fd:"good-floor"},
+  ],
+
+  // Food IgG sensitivities (Dec 19)
+  igg: [
+    ["Wheat",7.2],["Maize / Corn",5.5],["Yeast",4.7],["Egg white",3.9],["Tomato",3.5],
+    ["Cacao (chocolate)",3.4],["Coffee",3.1],["Casein",3.1],["Soybean",2.9],["Codfish",2.6],["Peanut",2.5]
+  ],
+  igeNegs: [
+    "Dust mites","Cat","Dog","Cockroach","Penicillium","Cladosporium","Aspergillus","Alternaria",
+    "Alder","Birch","Mountain cedar","Olive","Sycamore","Oak","Elm","White mulberry","Bermuda grass",
+    "Timothy grass","Ragweed","Mugwort","Russian thistle","Pigweed","Mouse urine",
+    "Egg white","Peanut","Wheat","Walnut","Codfish","Cow's milk","Soybean","Shrimp","Scallop",
+    "Sesame","Hazelnut","Cashew","Almond","Salmon","Tuna","Brazil nut","Macadamia","Crab","Lobster","Clam"
+  ]
+};
+
+const CATS = {
+  heart:   {name:"Heart",        desc:"Lipids, ApoB, hs-CRP, LDL subfractions", letter:"H"},
+  liver:   {name:"Liver",        desc:"AST, ALT, bilirubin, proteins, GGT",     letter:"L"},
+  kidney:  {name:"Kidney",       desc:"BUN, creatinine, eGFR, uric acid",       letter:"K"},
+  blood:   {name:"Blood",        desc:"CBC, iron studies, ferritin",            letter:"B"},
+  metab:   {name:"Metabolic",    desc:"Glucose, A1c, insulin, electrolytes",    letter:"M"},
+  hormone: {name:"Hormones",     desc:"Sex, thyroid, adrenal",                  letter:"E"},
+  vit:     {name:"Vitamins & minerals", desc:"D, B12, iodine, copper, MMA",     letter:"V"},
+  omega:   {name:"Omega-3 / fatty acids", desc:"OmegaCheck panel",              letter:"O"},
+  immune:  {name:"Immunology",   desc:"ANA, RF, IgE, autoantibodies",           letter:"I"},
+  infect:  {name:"Infectious",   desc:"HIV, syphilis, HSV, STIs",               letter:"S"},
+  cancer:  {name:"Cancer screen", desc:"PSA",                                   letter:"C"},
+};
+
+/* ============ HELPERS ============ */
+function classify(m){
+  if(m.qual) return "in";
+  if(m.fd==="good-floor") return (m.cur>=m.lo)?"in":"lo";
+  if(m.cur < m.lo) return "lo";
+  if(m.cur > m.hi) return "hi";
+  return "in";
+}
+function fmt(n){
+  if(typeof n!=="number") return n==null?"—":n;
+  if(Number.isInteger(n)) return n.toString();
+  if(Math.abs(n)>=100) return Math.round(n).toString();
+  return n.toFixed(n<10?1:1).replace(/\.0$/,"");
+}
+function dateLabel(m){
+  if(m.date==="d1") return D.d1;
+  if(m.date==="d2") return D.d2;
+  return D.d3; // default current panel
+}
+function prevLabel(m){
+  // prev exists only for paired (current = May, prev = Dec)
+  return D.d1;
+}
+function rangeBar(m, withPrev){
+  if(m.qual) return "";
+  const lo=m.lo, hi=m.hi;
+  const span = hi - lo;
+  const a = lo - span*0.25;
+  const b = hi + span*0.25;
+  const pct = v => Math.max(2, Math.min(98, (v-a)/(b-a)*100));
+  const okL = (lo-a)/(b-a)*100, okW = (hi-lo)/(b-a)*100;
+  let html = `<div class="range"><div class="ok" style="left:${okL}%;width:${okW}%"></div>`;
+  if(withPrev && typeof m.prev==="number"){
+    html += `<div class="pin prev" style="left:calc(${pct(m.prev)}% - 1px)"></div>`;
+  }
+  html += `<div class="pin" style="left:calc(${pct(m.cur)}% - 1px)"></div></div>`;
+  html += `<div class="range-legend"><span>${fmt(lo)}</span><span>${fmt(hi)}</span></div>`;
+  return html;
+}
+function spark(prev, cur, lo, hi){
+  // 100x36 inline svg
+  const w=200, h=36, pad=4;
+  const minV = Math.min(prev,cur,lo), maxV = Math.max(prev,cur,hi);
+  const sp = maxV - minV || 1;
+  const y = v => h - pad - ((v - minV)/sp) * (h - pad*2);
+  const x1=pad, x2=w-pad;
+  const y1 = y(prev), y2 = y(cur);
+  // range band
+  const okY1 = y(hi), okY2 = y(lo);
+  const cls = classify({cur, lo, hi});
+  const color = cls==="in"?"var(--good)":cls==="lo"?"var(--warn)":"var(--bad)";
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    <rect x="0" y="${okY1}" width="${w}" height="${okY2-okY1}" fill="rgba(52,199,89,.12)" />
+    <line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="${x1}" cy="${y1}" r="3" fill="var(--text-4)"/>
+    <circle cx="${x2}" cy="${y2}" r="3.5" fill="${color}"/>
+  </svg>`;
+}
+function statusTag(cls){
+  if(cls==="in") return `<span class="tag in">In Range</span>`;
+  if(cls==="lo") return `<span class="tag lo">Below Range</span>`;
+  return `<span class="tag hi">Above Range</span>`;
+}
+function deltaStr(m){
+  if(typeof m.prev!=="number" || typeof m.cur!=="number") return "";
+  const d = m.cur - m.prev;
+  if(Math.abs(d) < 0.05) return "no change";
+  const arrow = d>0?"▲":"▼";
+  return `${arrow} ${fmt(Math.abs(d))} since Dec`;
+}
+
+/* ============ RENDER ============ */
+// Favorites
+const FAVS = [
+  D.metrics.find(m=>m.n==="ALT"),
+  D.metrics.find(m=>m.n==="Homocysteine"),
+  D.metrics.find(m=>m.n==="Ferritin"),
+  D.metrics.find(m=>m.n==="Vitamin D, 25-OH"),
+];
+document.getElementById('favs').innerHTML = FAVS.map(m=>{
+  const cls = classify(m);
+  const color = `var(--${m.cat})`;
+  const sp = (typeof m.prev==="number") ? `<div class="spark">${spark(m.prev,m.cur,m.lo,m.hi)}</div>` : "";
+  return `<div class="fav" style="--cat:${color}">
+    <div class="row1"><span class="ic">${CATS[m.cat].letter}</span> ${CATS[m.cat].name}</div>
+    ${statusTag(cls)}
+    <div class="name">${m.n}</div>
+    <div class="meta">${dateLabel(m)}${typeof m.prev==="number"?` · was ${fmt(m.prev)} ${m.u}`:""}</div>
+    <div class="big">${fmt(m.cur)}<small>${m.u}</small></div>
+    ${sp}
+  </div>`;
+}).join("");
+
+// Flags (out of range, May)
+const FLAGS = [
+  ...D.metrics.filter(m=>!m.qual && classify(m)!=="in" && (m.date===undefined || m.date==="d3")),
+  // also include the dehydration note as a pseudo-metric
+  {n:"Urine specific gravity",u:"",cur:1.037,prev:1.006,lo:1.001,hi:1.035,cat:"kidney"},
+];
+document.getElementById('flags').innerHTML = FLAGS.map(m=>rowHTML(m)).join("");
+
+// Recent panel: all paired metrics (i.e. May 28) sorted by category
+const RECENT_ORDER = ["heart","liver","kidney","blood","metab","vit"];
+const recent = D.metrics
+  .filter(m=>!m.qual && m.date===undefined)
+  .sort((a,b)=>RECENT_ORDER.indexOf(a.cat)-RECENT_ORDER.indexOf(b.cat));
+document.getElementById('recent').innerHTML = recent.map(m=>rowHTML(m)).join("");
+
+// Browse
+const browseEl = document.getElementById('browse-cats');
+let browseHTML = "";
+Object.entries(CATS).forEach(([key,info])=>{
+  const items = D.metrics.filter(m=>m.cat===key);
+  if(items.length===0) return;
+  const flagged = items.filter(m=>!m.qual && classify(m)!=="in").length;
+  const flagDot = flagged>0 ? `<span style="display:inline-block;width:8px;height:8px;background:var(--warn);border-radius:999px;margin-right:8px"></span>` : "";
+  browseHTML += `<div class="browse-row" data-key="${key}" style="--cat:var(--${key})">
+    <div class="ic">${info.letter}</div>
+    <div><div class="nm">${info.name}</div><div class="ct">${info.desc}</div></div>
+    <div class="count">${flagDot}${items.length} <span style="color:var(--text-4);font-size:18px">›</span></div>
+  </div>
+  <div class="browse-children">${items.map(rowHTML).join("")}</div>`;
+});
+browseEl.innerHTML = browseHTML;
+browseEl.addEventListener('click', e=>{
+  const r = e.target.closest('.browse-row'); if(!r) return;
+  r.classList.toggle('open');
+});
+
+function rowHTML(m){
+  const cls = m.qual ? "in" : classify(m);
+  const color = `var(--${m.cat})`;
+  const vClass = cls==="in"?"":(cls==="lo"?"lo":"hi");
+  const sub = [
+    dateLabel(m),
+    !m.qual ? `Range ${fmt(m.lo)}–${fmt(m.hi)} ${m.u||""}` : (m.note||"Qualitative"),
+    typeof m.prev==="number" ? deltaStr(m) : ""
+  ].filter(Boolean).map(s=>`<span>${s}</span>`).join("");
+  return `<div class="row" style="--cat:${color}">
+    <div class="ic">${CATS[m.cat].letter}</div>
+    <div class="meta">
+      <div class="t">${m.n}</div>
+      <div class="s">${sub}</div>
+    </div>
+    <div class="v ${vClass}">${fmt(m.cur)}${m.u?` <small>${m.u}</small>`:""}</div>
+    <div class="chev">›</div>
+  </div>`;
+}
+
+// IgG / IgE chips
+document.getElementById('igg-high').innerHTML = D.igg
+  .sort((a,b)=>b[1]-a[1])
+  .map(([n,v])=>`<span class="chip ${v>=4?'bad':'warn'}">${n} <small>${v}</small></span>`).join('');
+document.getElementById('ige-negs').innerHTML = D.igeNegs.map(n=>`<span class="chip good">${n}</span>`).join('');
+
+// Segmented control
+document.getElementById('seg').addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  document.querySelectorAll('#seg button').forEach(x=>x.classList.toggle('active', x===b));
+  const p = b.dataset.pane;
+  document.querySelectorAll('.panes > section').forEach(s=>s.classList.toggle('active', s.id===p));
+  window.scrollTo({top:0,behavior:'instant'});
+});
+</script>
+</body>
 </html>
