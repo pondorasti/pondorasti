@@ -174,13 +174,21 @@
   .browse-children{display:none;border-bottom:1px solid var(--sep)}
   .browse-row.open + .browse-children{display:block}
 
-  /* PDF cards */
-  .pdfs{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-  .pdf{background:var(--card);border-radius:14px;padding:16px;box-shadow:var(--shadow);text-decoration:none;color:var(--text);display:flex;flex-direction:column;gap:6px;transition:transform .12s}
-  .pdf:active{transform:scale(.98)}
-  .pdf .ic{width:38px;height:38px;border-radius:9px;background:var(--vit);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin-bottom:6px}
-  .pdf .t{font:600 15px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif}
-  .pdf .s{font:400 12px/1.3 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3)}
+  /* PDF year-grouped list */
+  .pdf-year{margin-top:22px}
+  .pdf-year:first-child{margin-top:6px}
+  .pdf-year-hdr{font:700 22px/1.15 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.02em;padding:0 4px;display:flex;justify-content:space-between;align-items:baseline}
+  .pdf-year-hdr .ct{font:500 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);letter-spacing:0}
+  .pdf-rows{margin-top:10px;background:var(--card);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+  .pdf-row{display:flex;align-items:center;gap:14px;padding:13px 16px;text-decoration:none;color:var(--text);border-bottom:1px solid var(--sep);transition:background .12s}
+  .pdf-row:last-child{border-bottom:none}
+  .pdf-row:active{background:var(--card-2)}
+  .pdf-row .ic{width:34px;height:34px;border-radius:9px;background:var(--cat,var(--vit));color:#fff;display:flex;align-items:center;justify-content:center;font:700 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;flex:none;letter-spacing:.04em}
+  .pdf-row .body{flex:1;min-width:0}
+  .pdf-row .body .t{font:600 15px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif}
+  .pdf-row .body .s{font:400 12px/1.3 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:3px}
+  .pdf-row .when{font:500 14px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);white-space:nowrap}
+  .pdf-row .chev{color:var(--text-4);font-size:18px;flex:none;margin-left:-4px}
 
   /* Mini sparkline (favorites) — CSS-positioned, no SVG stretch */
   .mini-trend{position:relative;height:36px;margin-top:10px;overflow:visible}
@@ -394,13 +402,8 @@
 
   <!-- ============ DOCS ============ -->
   <section id="docs">
-    <h2 class="section">Lab reports</h2>
-    <div class="pdfs" id="pdf-list"></div>
-    <h2 class="section">Ordering physician</h2>
-    <div class="card" style="padding:16px">
-      <div style="font:600 17px/1.2 'SF Pro Text'">Joshua A. Emdur, D.O.</div>
-      <div style="color:var(--text-3);margin-top:4px;font-size:13px">600 Congress Avenue, Floor 14 · Austin, TX 78701</div>
-    </div>
+    <h2 class="section">Lab reports <span style="font:500 13px;color:var(--text-3);letter-spacing:0" id="pdf-count"></span></h2>
+    <div id="pdf-years"></div>
   </section>
 
 </div>
@@ -1515,22 +1518,42 @@ if(highlightsEl){
   }
 }
 
-// Docs pane — render PDF cards
+// Docs pane — group reports by year, newest first
 const SRC_COLOR = { function:"var(--vit)", quest:"var(--cancer)", labcorp:"var(--immune)", kaiser:"var(--hormone)" };
-const pdfList = document.getElementById('pdf-list');
-if(pdfList){
-  pdfList.innerHTML = Object.entries(PDFS)
-    .sort((a,b) => a[0].split('|')[1].localeCompare(b[0].split('|')[1]))
-    .map(([k,[pdf,label]]) => {
-      const src = k.split('|')[0];
-      const date = k.split('|')[1];
-      const labelOnly = label.replace(/^.*?·\s*/, '');
-      return `<a class="pdf" href="${pdf}" target="_blank">
-        <div class="ic" style="background:${SRC_COLOR[src]||'var(--vit)'}">PDF</div>
-        <div class="t">${labelOnly}</div>
-        <div class="s">${fmtDate(date)} · ${SOURCES[src]?.label||src}</div>
-      </a>`;
-    }).join("");
+const SRC_LETTER = { function:"F", quest:"Q", labcorp:"L", kaiser:"K" };
+const pdfYears = document.getElementById('pdf-years');
+const pdfCount = document.getElementById('pdf-count');
+if(pdfYears){
+  const all = Object.entries(PDFS).map(([k, [pdf, label]]) => {
+    const [src, date] = k.split('|');
+    return {
+      src, date, pdf,
+      year: date.slice(0,4),
+      labelOnly: label.replace(/^.*?·\s*/, ''),
+      sourceName: SOURCES[src]?.label || src,
+    };
+  });
+  // Newest first
+  all.sort((a,b) => b.date.localeCompare(a.date));
+  const byYear = {};
+  all.forEach(r => { (byYear[r.year] ||= []).push(r); });
+  const years = Object.keys(byYear).sort((a,b) => b.localeCompare(a));
+  pdfYears.innerHTML = years.map(y => {
+    const rows = byYear[y].map(r => `<a class="pdf-row" href="${r.pdf}" style="--cat:${SRC_COLOR[r.src]||'var(--vit)'}">
+      <div class="ic">${SRC_LETTER[r.src]||"·"}</div>
+      <div class="body">
+        <div class="t">${r.labelOnly}</div>
+        <div class="s">${r.sourceName}</div>
+      </div>
+      <div class="when">${fmtDateShort(r.date)}</div>
+      <div class="chev">›</div>
+    </a>`).join("");
+    return `<div class="pdf-year">
+      <div class="pdf-year-hdr"><span>${y}</span><span class="ct">${byYear[y].length} report${byYear[y].length===1?'':'s'}</span></div>
+      <div class="pdf-rows">${rows}</div>
+    </div>`;
+  }).join("");
+  if(pdfCount) pdfCount.textContent = `${all.length} report${all.length===1?'':'s'}`;
 }
 
 // Header summary count
