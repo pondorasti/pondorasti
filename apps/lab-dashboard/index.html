@@ -183,7 +183,8 @@
   .pdf-row{display:flex;align-items:center;gap:14px;padding:13px 16px;text-decoration:none;color:var(--text);border-bottom:1px solid var(--sep);transition:background .12s}
   .pdf-row:last-child{border-bottom:none}
   .pdf-row:active{background:var(--card-2)}
-  .pdf-row .ic{width:34px;height:34px;border-radius:9px;background:var(--cat,var(--vit));color:#fff;display:flex;align-items:center;justify-content:center;font:700 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;flex:none;letter-spacing:.04em}
+  .pdf-row .ic{position:relative;width:36px;height:36px;border-radius:9px;background:var(--cat,var(--vit));color:#fff;display:flex;align-items:center;justify-content:center;font:700 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;flex:none;letter-spacing:.04em;overflow:hidden}
+  .pdf-row .ic img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;padding:5px;box-sizing:border-box}
   .pdf-row .body{flex:1;min-width:0}
   .pdf-row .body .t{font:600 15px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif}
   .pdf-row .body .s{font:400 12px/1.3 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:3px}
@@ -1521,6 +1522,12 @@ if(highlightsEl){
 // Docs pane — group reports by year, newest first
 const SRC_COLOR = { function:"var(--vit)", quest:"var(--cancer)", labcorp:"var(--immune)", kaiser:"var(--hormone)" };
 const SRC_LETTER = { function:"F", quest:"Q", labcorp:"L", kaiser:"K" };
+const SRC_LOGO = {
+  function:"https://www.google.com/s2/favicons?domain=functionhealth.com&sz=128",
+  quest:   "https://www.google.com/s2/favicons?domain=questdiagnostics.com&sz=128",
+  labcorp: "https://www.google.com/s2/favicons?domain=labcorp.com&sz=128",
+  kaiser:  "https://www.google.com/s2/favicons?domain=kp.org&sz=128",
+};
 const pdfYears = document.getElementById('pdf-years');
 const pdfCount = document.getElementById('pdf-count');
 if(pdfYears){
@@ -1540,7 +1547,7 @@ if(pdfYears){
   const years = Object.keys(byYear).sort((a,b) => b.localeCompare(a));
   pdfYears.innerHTML = years.map(y => {
     const rows = byYear[y].map(r => `<a class="pdf-row" href="${r.pdf}" style="--cat:${SRC_COLOR[r.src]||'var(--vit)'}">
-      <div class="ic">${SRC_LETTER[r.src]||"·"}</div>
+      <div class="ic">${SRC_LETTER[r.src]||"·"}${SRC_LOGO[r.src]?`<img src="${SRC_LOGO[r.src]}" alt="${r.sourceName}" onerror="this.remove()">`:""}</div>
       <div class="body">
         <div class="t">${r.labelOnly}</div>
         <div class="s">${r.sourceName}</div>
