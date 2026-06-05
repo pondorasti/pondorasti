@@ -53,7 +53,7 @@
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;background:var(--bg);color:var(--text);
-    font:15px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Inter",system-ui,sans-serif;
+    font:15px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,-apple-system,sans-serif,"SF Pro Display",system-ui,-apple-system,sans-serif,"Inter",system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
     font-variant-numeric: tabular-nums;
   }
@@ -62,18 +62,18 @@
   /* Top large title + segmented */
   .topbar{padding:8px 0 0;position:sticky;top:0;background:linear-gradient(180deg,var(--bg) 80%,rgba(242,242,247,0));z-index:5;backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px)}
   @media (prefers-color-scheme: dark){ .topbar{background:linear-gradient(180deg,var(--bg) 80%,rgba(0,0,0,0))} }
-  .lg-title{font:700 34px/1.1 "SF Pro Display",-apple-system,system-ui;letter-spacing:-.03em;padding:14px 0 4px;display:flex;justify-content:space-between;align-items:end;gap:12px}
-  .lg-title .sub{font:500 13px/1.2 "SF Pro Text";color:var(--text-3);letter-spacing:0}
+  .lg-title{font:700 34px/1.1 "SF Pro Display",system-ui,-apple-system,sans-serif,-apple-system,system-ui;letter-spacing:-.03em;padding:14px 0 4px;display:flex;justify-content:space-between;align-items:end;gap:12px}
+  .lg-title .sub{font:500 13px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);letter-spacing:0}
   .seg{display:inline-flex;padding:2px;background:rgba(118,118,128,.12);border-radius:9px;margin:8px 0 12px;width:100%;gap:0}
   @media (prefers-color-scheme: dark){ .seg{background:rgba(118,118,128,.24)} }
-  .seg button{flex:1;font:600 13px/1 "SF Pro Text";padding:7px 10px;border:0;background:transparent;color:var(--text);border-radius:7px;cursor:pointer;transition:background .12s}
+  .seg button{flex:1;font:600 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;padding:7px 10px;border:0;background:transparent;color:var(--text);border-radius:7px;cursor:pointer;transition:background .12s}
   .seg button.active{background:var(--card);box-shadow:0 3px 8px rgba(0,0,0,.04),0 3px 1px rgba(0,0,0,.04)}
   @media (prefers-color-scheme: dark){ .seg button.active{background:rgba(99,99,102,1)} }
 
   /* Section headers (Apple Health subtitle style) */
-  h2.section{font:700 22px/1.1 "SF Pro Display";letter-spacing:-.02em;margin:24px 0 10px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-  h2.section .more{font:500 15px/1 "SF Pro Text";color:#007AFF;cursor:pointer}
-  h3.sub{font:600 13px/1 "SF Pro Text";text-transform:uppercase;letter-spacing:.04em;color:var(--text-3);margin:18px 4px 10px}
+  h2.section{font:700 22px/1.1 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.02em;margin:24px 0 10px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  h2.section .more{font:500 15px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:#007AFF;cursor:pointer}
+  h3.sub{font:600 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;text-transform:uppercase;letter-spacing:.04em;color:var(--text-3);margin:18px 4px 10px}
 
   /* Cards */
   .card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
@@ -82,25 +82,25 @@
   /* Highlights horizontal row */
   .highlights{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
   .hl{background:var(--card);border-radius:14px;padding:14px 14px 12px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-  .hl .lbl{display:flex;align-items:center;gap:8px;font:600 13px/1 "SF Pro Text";color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
+  .hl .lbl{display:flex;align-items:center;gap:8px;font:600 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
   .hl .lbl .dot{width:18px;height:18px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700}
-  .hl .head{font:600 17px/1.2 "SF Pro Display";letter-spacing:-.01em;margin-top:8px}
-  .hl .body{font:400 13px/1.35 "SF Pro Text";color:var(--text-2);margin-top:4px}
-  .hl .num{font:700 28px/1 "SF Pro Display";letter-spacing:-.02em;margin-top:8px}
-  .hl .num small{font:500 13px/1 "SF Pro Text";color:var(--text-3);margin-left:4px}
+  .hl .head{font:600 17px/1.2 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.01em;margin-top:8px}
+  .hl .body{font:400 13px/1.35 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-2);margin-top:4px}
+  .hl .num{font:700 28px/1 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.02em;margin-top:8px}
+  .hl .num small{font:500 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-left:4px}
 
   /* Metric card (used everywhere) */
   .mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
   @media (max-width:520px){ .mgrid{grid-template-columns:1fr} }
   .mcard{background:var(--card);border-radius:14px;padding:14px 14px 14px;box-shadow:var(--shadow);position:relative;display:flex;flex-direction:column;min-height:148px}
-  .mcard .row1{display:flex;align-items:center;gap:8px;font:600 12px/1 "SF Pro Text";color:var(--cat,var(--vit));text-transform:uppercase;letter-spacing:.04em}
+  .mcard .row1{display:flex;align-items:center;gap:8px;font:600 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--cat,var(--vit));text-transform:uppercase;letter-spacing:.04em}
   .mcard .row1 .ic{width:22px;height:22px;border-radius:6px;background:var(--cat,var(--vit));color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
-  .mcard .name{font:600 16px/1.2 "SF Pro Display";color:var(--text);margin-top:8px;letter-spacing:-.01em}
-  .mcard .meta{font:400 12px/1.3 "SF Pro Text";color:var(--text-3);margin-top:3px}
-  .mcard .big{font:700 30px/1.05 "SF Pro Display";letter-spacing:-.02em;margin-top:auto;padding-top:12px;display:flex;align-items:baseline;gap:6px}
-  .mcard .big.qual{font:700 22px/1.15 "SF Pro Display";letter-spacing:-.01em}
-  .mcard .big small{font:500 14px/1 "SF Pro Text";color:var(--text-3)}
-  .tag{display:inline-flex;align-items:center;font:600 11px/1 "SF Pro Text";padding:5px 8px;border-radius:999px;background:var(--card-2);color:var(--text-2);white-space:nowrap}
+  .mcard .name{font:600 16px/1.2 "SF Pro Display",system-ui,-apple-system,sans-serif;color:var(--text);margin-top:8px;letter-spacing:-.01em}
+  .mcard .meta{font:400 12px/1.3 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:3px}
+  .mcard .big{font:700 30px/1.05 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.02em;margin-top:auto;padding-top:12px;display:flex;align-items:baseline;gap:6px}
+  .mcard .big.qual{font:700 22px/1.15 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.01em}
+  .mcard .big small{font:500 14px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3)}
+  .tag{display:inline-flex;align-items:center;font:600 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;padding:5px 8px;border-radius:999px;background:var(--card-2);color:var(--text-2);white-space:nowrap}
   .mcard .tag{position:absolute;top:14px;right:14px}
 
   /* Mini range bar (cards for single-point metrics) */
@@ -108,7 +108,7 @@
   .mini-range .bar{position:relative;height:6px;background:var(--card-2);border-radius:999px}
   .mini-range .bar .ok{position:absolute;top:0;bottom:0;background:rgba(52,199,89,.85);border-radius:999px}
   .mini-range .bar .pin{position:absolute;top:-4px;width:3px;height:14px;border-radius:2px;background:var(--text);box-shadow:0 0 0 2px var(--card)}
-  .mini-range .lo-hi{display:flex;justify-content:space-between;font:500 11px/1 "SF Pro Text";color:var(--text-3);margin-top:6px}
+  .mini-range .lo-hi{display:flex;justify-content:space-between;font:500 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:6px}
   .tag.in{background:rgba(52,199,89,.14);color:#1e7a3a}
   .tag.lo{background:rgba(255,149,0,.14);color:#a85b00}
   .tag.hi{background:rgba(255,59,48,.14);color:#a82016}
@@ -123,7 +123,7 @@
   .range .ok{position:absolute;top:0;bottom:0;background:var(--good);border-radius:999px;opacity:.85}
   .range .pin{position:absolute;top:-4px;width:2px;height:14px;background:var(--text);border-radius:2px;box-shadow:0 0 0 2px var(--card)}
   .range .pin.prev{background:var(--text-4);opacity:.6;height:10px;top:-2px}
-  .range-legend{display:flex;justify-content:space-between;font:500 11px/1 "SF Pro Text";color:var(--text-3);margin-top:6px}
+  .range-legend{display:flex;justify-content:space-between;font:500 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:6px}
 
   /* List rows */
   .list{padding:0}
@@ -133,10 +133,10 @@
   .row.last,.row:last-child{border-bottom:none}
   .row .ic{width:30px;height:30px;border-radius:8px;background:var(--cat,var(--vit));color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600}
   .row .meta{min-width:0}
-  .row .meta .t{font:600 15px/1.2 "SF Pro Text";color:var(--text);letter-spacing:-.005em}
-  .row .meta .s{font:400 12px/1.3 "SF Pro Text";color:var(--text-3);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap}
-  .row .v{font:600 17px/1 "SF Pro Display";color:var(--text);letter-spacing:-.01em;text-align:right;white-space:nowrap}
-  .row .v small{font:500 12px/1 "SF Pro Text";color:var(--text-3);font-weight:500;margin-left:3px}
+  .row .meta .t{font:600 15px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text);letter-spacing:-.005em}
+  .row .meta .s{font:400 12px/1.3 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap}
+  .row .v{font:600 17px/1 "SF Pro Display",system-ui,-apple-system,sans-serif;color:var(--text);letter-spacing:-.01em;text-align:right;white-space:nowrap}
+  .row .v small{font:500 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);font-weight:500;margin-left:3px}
   .row .v.lo{color:var(--warn)} .row .v.hi{color:var(--bad)}
   .row .chev{color:var(--text-4);font-size:14px;width:12px;transition:transform .18s ease;display:inline-block;text-align:center}
   .row.open .chev{transform:rotate(90deg);color:var(--text-2)}
@@ -148,7 +148,7 @@
   .row-detail .rng-wrap .range{height:8px}
   .row-detail .rng-wrap .pin{height:18px;top:-5px;width:3px}
   .row-detail .rng-wrap .pin.prev{height:14px;top:-3px;width:2px}
-  .row-detail .legend{display:flex;justify-content:space-between;font:500 11px/1 "SF Pro Text";color:var(--text-3);margin-top:8px}
+  .row-detail .legend{display:flex;justify-content:space-between;font:500 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:8px}
   .row-detail .legend .it{display:flex;align-items:center;gap:6px}
   .row-detail .legend .sw{width:8px;height:8px;border-radius:2px;background:var(--text)}
   .row-detail .legend .sw.prev{background:var(--text-4)}
@@ -156,10 +156,10 @@
   .row-detail .spark-big{margin-top:14px}
   .row-detail .spark-big svg{height:80px;width:100%;display:block}
   .row-detail .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid var(--sep)}
-  .row-detail .stat .k{font:500 11px/1 "SF Pro Text";color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
-  .row-detail .stat .vv{font:600 17px/1.1 "SF Pro Display";margin-top:4px;letter-spacing:-.01em}
-  .row-detail .stat .vv small{font:500 11px/1 "SF Pro Text";color:var(--text-3);margin-left:3px}
-  .row-detail .notes{font:400 13px/1.4 "SF Pro Text";color:var(--text-2);margin-top:14px}
+  .row-detail .stat .k{font:500 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
+  .row-detail .stat .vv{font:600 17px/1.1 "SF Pro Display",system-ui,-apple-system,sans-serif;margin-top:4px;letter-spacing:-.01em}
+  .row-detail .stat .vv small{font:500 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-left:3px}
+  .row-detail .notes{font:400 13px/1.4 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-2);margin-top:14px}
 
   /* Browse categories — large icon cards */
   .browse-list{padding:0}
@@ -167,9 +167,9 @@
   .browse-row:last-child{border-bottom:none}
   .browse-row:active{background:var(--card-2)}
   .browse-row .ic{width:32px;height:32px;border-radius:8px;background:var(--cat,var(--vit));color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
-  .browse-row .nm{font:600 17px/1.2 "SF Pro Text";letter-spacing:-.005em}
-  .browse-row .ct{font:400 13px/1 "SF Pro Text";color:var(--text-3);margin-top:3px}
-  .browse-row .count{font:500 14px/1 "SF Pro Text";color:var(--text-3);display:flex;align-items:center;gap:4px}
+  .browse-row .nm{font:600 17px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif;letter-spacing:-.005em}
+  .browse-row .ct{font:400 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:3px}
+  .browse-row .count{font:500 14px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);display:flex;align-items:center;gap:4px}
   .browse-row.open{background:var(--card-2)}
   .browse-children{display:none;border-bottom:1px solid var(--sep)}
   .browse-row.open + .browse-children{display:block}
@@ -179,8 +179,8 @@
   .pdf{background:var(--card);border-radius:14px;padding:16px;box-shadow:var(--shadow);text-decoration:none;color:var(--text);display:flex;flex-direction:column;gap:6px;transition:transform .12s}
   .pdf:active{transform:scale(.98)}
   .pdf .ic{width:38px;height:38px;border-radius:9px;background:var(--vit);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin-bottom:6px}
-  .pdf .t{font:600 15px/1.2 "SF Pro Text"}
-  .pdf .s{font:400 12px/1.3 "SF Pro Text";color:var(--text-3)}
+  .pdf .t{font:600 15px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif}
+  .pdf .s{font:400 12px/1.3 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3)}
 
   /* Mini sparkline (favorites) — CSS-positioned, no SVG stretch */
   .mini-trend{position:relative;height:36px;margin-top:10px;overflow:visible}
@@ -194,13 +194,13 @@
   .big-trend .chart .opt-band{position:absolute;left:0;right:0;background:rgba(52,199,89,.12);border-radius:3px;min-height:2px}
   .big-trend .chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
   .big-trend .chart .dot{position:absolute;width:11px;height:11px;border-radius:50%;transform:translate(-50%,-50%);background:var(--text-3);box-shadow:0 0 0 2.5px var(--card-2);z-index:2}
-  .big-trend .chart .dot .lbl{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font:600 12px/1 "SF Pro Text";white-space:nowrap;color:var(--text-2)}
+  .big-trend .chart .dot .lbl{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font:600 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;white-space:nowrap;color:var(--text-2)}
   .big-trend .chart .dot.cur .lbl{font-weight:700}
-  .big-trend .x-lbls{display:flex;justify-content:space-between;font:500 11px/1 "SF Pro Text";color:var(--text-3);margin-top:10px;padding:0 4px}
+  .big-trend .x-lbls{display:flex;justify-content:space-between;font:500 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:10px;padding:0 4px}
 
   /* Chips for IgG sensitivities */
   .chips{display:flex;flex-wrap:wrap;gap:6px;padding:14px 16px}
-  .chip{padding:6px 10px;border-radius:999px;font:500 13px/1 "SF Pro Text";background:var(--card-2);color:var(--text-2);display:inline-flex;align-items:center;gap:6px}
+  .chip{padding:6px 10px;border-radius:999px;font:500 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;background:var(--card-2);color:var(--text-2);display:inline-flex;align-items:center;gap:6px}
   .chip.bad{background:rgba(255,59,48,.12);color:#a82016}
   .chip.warn{background:rgba(255,149,0,.14);color:#a85b00}
   .chip.good{background:rgba(52,199,89,.14);color:#1e7a3a}
@@ -209,11 +209,11 @@
   }
   .chip small{color:var(--text-3)}
 
-  .note{padding:12px 16px;color:var(--text-3);font:400 12px/1.4 "SF Pro Text"}
+  .note{padding:12px 16px;color:var(--text-3);font:400 12px/1.4 "SF Pro Text",system-ui,-apple-system,sans-serif}
   .panes > section{display:none}
   .panes > section.active{display:block}
 
-  footer{text-align:center;color:var(--text-3);font:400 12px/1.4 "SF Pro Text";margin-top:40px}
+  footer{text-align:center;color:var(--text-3);font:400 12px/1.4 "SF Pro Text",system-ui,-apple-system,sans-serif;margin-top:40px}
   footer a{color:#007AFF;text-decoration:none}
 
   /* Detail (sub-page) view */
@@ -222,32 +222,32 @@
   body.detail .panes{display:none}
   body.detail .topbar .seg{display:none}
   body.detail .topbar .lg-title{display:none}
-  .back{display:inline-flex;align-items:center;gap:4px;background:none;border:0;color:#007AFF;font:500 17px/1.2 "SF Pro Text";cursor:pointer;padding:14px 0 12px;letter-spacing:-.005em}
+  .back{display:inline-flex;align-items:center;gap:4px;background:none;border:0;color:#007AFF;font:500 17px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif;cursor:pointer;padding:14px 0 12px;letter-spacing:-.005em}
   .back:active{opacity:.6}
   .back svg{width:14px;height:22px;margin-right:2px}
   .hero-card{background:var(--card);border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-top:6px;position:relative}
   .hero-card .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
-  .hero-card .cat{display:inline-flex;align-items:center;gap:10px;font:600 13px/1 "SF Pro Text";color:var(--cat);text-transform:uppercase;letter-spacing:.04em}
+  .hero-card .cat{display:inline-flex;align-items:center;gap:10px;font:600 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--cat);text-transform:uppercase;letter-spacing:.04em}
   .hero-card .cat .ic{width:28px;height:28px;border-radius:8px;background:var(--cat);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
-  .hero-card .name{font:700 26px/1.15 "SF Pro Display";letter-spacing:-.02em;margin-top:16px}
-  .hero-card .big-val{display:flex;align-items:baseline;gap:8px;margin-top:10px;font:700 52px/1 "SF Pro Display";letter-spacing:-.03em}
+  .hero-card .name{font:700 26px/1.15 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.02em;margin-top:16px}
+  .hero-card .big-val{display:flex;align-items:baseline;gap:8px;margin-top:10px;font:700 52px/1 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.03em}
   .hero-card .big-val.qual{font-size:32px}
-  .hero-card .big-val small{font:500 18px/1 "SF Pro Text";color:var(--text-3);font-weight:500}
+  .hero-card .big-val small{font:500 18px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);font-weight:500}
   .hero-card .big-val.lo{color:var(--warn)} .hero-card .big-val.hi{color:var(--bad)}
-  .hero-card .date{color:var(--text-3);margin-top:8px;font:500 13px "SF Pro Text"}
-  .hero-card .delta{margin-top:14px;padding-top:14px;border-top:1px solid var(--sep);display:flex;justify-content:space-between;font:500 13px "SF Pro Text";color:var(--text-2)}
+  .hero-card .date{color:var(--text-3);margin-top:8px;font:500 13px "SF Pro Text",system-ui,-apple-system,sans-serif}
+  .hero-card .delta{margin-top:14px;padding-top:14px;border-top:1px solid var(--sep);display:flex;justify-content:space-between;font:500 13px "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-2)}
   .hero-card .delta b{color:var(--text);font-weight:600}
 
-  h3.dsub{font:600 13px/1 "SF Pro Text";text-transform:uppercase;letter-spacing:.04em;color:var(--text-3);margin:26px 4px 10px}
+  h3.dsub{font:600 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;text-transform:uppercase;letter-spacing:.04em;color:var(--text-3);margin:26px 4px 10px}
   .detail-card{background:var(--card);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
   .detail-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:var(--card);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
   .detail-stats .stat{padding:0 4px}
-  .detail-stats .stat .k{font:600 11px/1 "SF Pro Text";text-transform:uppercase;letter-spacing:.04em;color:var(--text-3)}
-  .detail-stats .stat .vv{font:600 17px/1.1 "SF Pro Display";margin-top:6px;letter-spacing:-.01em}
+  .detail-stats .stat .k{font:600 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;text-transform:uppercase;letter-spacing:.04em;color:var(--text-3)}
+  .detail-stats .stat .vv{font:600 17px/1.1 "SF Pro Display",system-ui,-apple-system,sans-serif;margin-top:6px;letter-spacing:-.01em}
   .detail-stats .stat .vv.in{color:var(--good)} .detail-stats .stat .vv.lo{color:var(--warn)} .detail-stats .stat .vv.hi{color:var(--bad)}
   .detail-source{background:var(--card);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);display:flex;justify-content:space-between;align-items:center;text-decoration:none;color:var(--text)}
-  .detail-source .left .t{font:600 15px/1.2 "SF Pro Text"}
-  .detail-source .left .s{font:400 12px/1 "SF Pro Text";color:var(--text-3);margin-top:4px}
+  .detail-source .left .t{font:600 15px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif}
+  .detail-source .left .s{font:400 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:4px}
   .detail-source .chev{color:var(--text-4);font-size:20px}
 
   /* card as anchor */
@@ -260,46 +260,46 @@
 
   /* Big chart in detail */
   .detail-card.chart-card{padding:22px 22px 18px}
-  .detail-card .ch-title{font:600 13px/1 "SF Pro Text";color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
-  .detail-card .ch-summary{font:700 22px/1.2 "SF Pro Display";margin-top:6px;letter-spacing:-.01em}
+  .detail-card .ch-title{font:600 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
+  .detail-card .ch-summary{font:700 22px/1.2 "SF Pro Display",system-ui,-apple-system,sans-serif;margin-top:6px;letter-spacing:-.01em}
   .detail-card .ch-trend{margin-top:18px}
   .detail-card .ch-trend .chart{position:relative;height:140px}
   .detail-card .ch-trend .chart .opt-band{position:absolute;left:0;right:0;background:rgba(52,199,89,.12);border-radius:4px;min-height:2px}
   .detail-card .ch-trend .chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
   .detail-card .ch-trend .chart .dot{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);background:var(--text-3);box-shadow:0 0 0 3px var(--card);z-index:2}
-  .detail-card .ch-trend .chart .dot .lbl{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font:700 13px/1 "SF Pro Display";white-space:nowrap;color:var(--text-2);letter-spacing:-.01em}
-  .detail-card .ch-trend .x-lbls{display:flex;justify-content:space-between;font:500 12px/1 "SF Pro Text";color:var(--text-3);margin-top:14px;padding:0 4px}
+  .detail-card .ch-trend .chart .dot .lbl{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font:700 13px/1 "SF Pro Display",system-ui,-apple-system,sans-serif;white-space:nowrap;color:var(--text-2);letter-spacing:-.01em}
+  .detail-card .ch-trend .x-lbls{display:flex;justify-content:space-between;font:500 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:14px;padding:0 4px}
 
   /* Hero-sized 3-segment bar used in the "Where you land" card */
   .hero-bar-wrap{margin-top:22px}
   .hero-status{position:relative;height:13px;margin-bottom:10px}
-  .hero-status span{position:absolute;transform:translateX(-50%);font:700 12px/1 "SF Pro Text";text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;top:0}
+  .hero-status span{position:absolute;transform:translateX(-50%);font:700 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;top:0}
   .hero-status.in span{color:var(--good)}
   .hero-status.lo span,.hero-status.hi span{color:var(--warn)}
   .bar3.hero{height:10px;gap:5px}
   .bar3.hero .pin{width:14px;height:14px;box-shadow:0 0 0 2px var(--card)}
-  .hero-lohi{position:relative;height:16px;margin-top:10px;font:500 13px/1 "SF Pro Text";color:var(--text-3)}
+  .hero-lohi{position:relative;height:16px;margin-top:10px;font:500 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3)}
   .hero-lohi span{position:absolute;transform:translateX(-50%);top:0}
 
   /* Records list (per-measurement cards) */
   .records{margin-top:6px}
   .rec-group{margin-top:22px}
   .rec-group:first-child{margin-top:0}
-  .rec-date{font:700 22px/1.15 "SF Pro Display";letter-spacing:-.02em;padding:0 4px}
-  .rec-sub{font:500 14px/1 "SF Pro Text";color:var(--text-3);margin-top:6px;padding:0 4px;margin-bottom:12px}
+  .rec-date{font:700 22px/1.15 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.02em;padding:0 4px}
+  .rec-sub{font:500 14px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:6px;padding:0 4px;margin-bottom:12px}
   .rec-card{background:var(--card);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);position:relative;display:block;text-decoration:none;color:inherit}
   .rec-card .rc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-  .rec-card .rc-cat{font:700 13px/1 "SF Pro Text";color:var(--cat,var(--vit));text-transform:uppercase;letter-spacing:.06em;display:inline-flex;align-items:center;gap:8px}
+  .rec-card .rc-cat{font:700 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--cat,var(--vit));text-transform:uppercase;letter-spacing:.06em;display:inline-flex;align-items:center;gap:8px}
   .rec-card .rc-cat .vial{width:16px;height:16px;border-radius:4px;background:var(--cat,var(--vit));display:inline-block;position:relative;flex:none}
   .rec-card .rc-cat .vial::after{content:"";position:absolute;left:50%;top:3px;bottom:3px;width:2px;background:rgba(255,255,255,.85);border-radius:1px;transform:translateX(-50%)}
-  .rec-card .rc-date{font:500 14px/1 "SF Pro Text";color:var(--text-3);display:inline-flex;align-items:center;gap:4px}
+  .rec-card .rc-date{font:500 14px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);display:inline-flex;align-items:center;gap:4px}
   .rec-card .rc-date .ch{color:var(--text-4);font-size:18px}
-  .rec-card .rc-val{font:700 36px/1 "SF Pro Display";letter-spacing:-.025em;margin-top:14px;display:flex;align-items:baseline;gap:6px}
-  .rec-card .rc-val small{font:500 16px/1 "SF Pro Text";color:var(--text-3);font-weight:500}
+  .rec-card .rc-val{font:700 36px/1 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.025em;margin-top:14px;display:flex;align-items:baseline;gap:6px}
+  .rec-card .rc-val small{font:500 16px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);font-weight:500}
   .rec-card .rc-val.qual{font-size:24px;letter-spacing:-.01em}
   .rec-card .rc-bar{margin-top:14px;position:relative}
   .rec-card .rc-bar .status{position:relative;height:11px;margin-bottom:8px}
-  .rec-card .rc-bar .status span{position:absolute;transform:translateX(-50%);font:700 11px/1 "SF Pro Text";text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;top:0}
+  .rec-card .rc-bar .status span{position:absolute;transform:translateX(-50%);font:700 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;top:0}
   .rec-card .rc-bar .status.in span{color:var(--good)}
   .rec-card .rc-bar .status.lo span,.rec-card .rc-bar .status.hi span{color:var(--warn)}
   .bar3{position:relative;display:flex;gap:4px;height:8px}
@@ -307,9 +307,9 @@
   .bar3 .b3s.on{background:var(--good)}
   .bar3.lo .b3s.on,.bar3.hi .b3s.on{background:var(--warn)}
   .bar3 .pin{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 1.5px var(--card)}
-  .rec-card .rc-bar .lo-hi{display:flex;font:500 12px/1 "SF Pro Text";color:var(--text-3);margin-top:8px;position:relative;height:14px}
+  .rec-card .rc-bar .lo-hi{display:flex;font:500 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:8px;position:relative;height:14px}
   .rec-card .rc-bar .lo-hi span{position:absolute;transform:translateX(-50%)}
-  .rec-card .rc-collected{font:500 13px/1 "SF Pro Text";color:var(--text-3);margin-top:14px;padding-top:12px;border-top:1px solid var(--sep)}
+  .rec-card .rc-collected{font:500 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:14px;padding-top:12px;border-top:1px solid var(--sep)}
 </style>
 </head>
 <body>
