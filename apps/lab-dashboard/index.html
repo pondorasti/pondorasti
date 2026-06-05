@@ -268,6 +268,34 @@
   .detail-card .ch-trend .chart .dot{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);background:var(--text-3);box-shadow:0 0 0 3px var(--card);z-index:2}
   .detail-card .ch-trend .chart .dot .lbl{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font:700 13px/1 "SF Pro Display";white-space:nowrap;color:var(--text-2);letter-spacing:-.01em}
   .detail-card .ch-trend .x-lbls{display:flex;justify-content:space-between;font:500 12px/1 "SF Pro Text";color:var(--text-3);margin-top:14px;padding:0 4px}
+
+  /* Records list (per-measurement cards) */
+  .records{margin-top:6px}
+  .rec-group{margin-top:22px}
+  .rec-group:first-child{margin-top:0}
+  .rec-date{font:700 22px/1.15 "SF Pro Display";letter-spacing:-.02em;padding:0 4px}
+  .rec-sub{font:500 14px/1 "SF Pro Text";color:var(--text-3);margin-top:6px;padding:0 4px;margin-bottom:12px}
+  .rec-card{background:var(--card);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);position:relative;display:block;text-decoration:none;color:inherit}
+  .rec-card .rc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .rec-card .rc-cat{font:700 13px/1 "SF Pro Text";color:var(--cat,var(--vit));text-transform:uppercase;letter-spacing:.06em;display:inline-flex;align-items:center;gap:8px}
+  .rec-card .rc-cat .vial{width:16px;height:16px;border-radius:4px;background:var(--cat,var(--vit));display:inline-block;position:relative;flex:none}
+  .rec-card .rc-cat .vial::after{content:"";position:absolute;left:50%;top:3px;bottom:3px;width:2px;background:rgba(255,255,255,.85);border-radius:1px;transform:translateX(-50%)}
+  .rec-card .rc-date{font:500 14px/1 "SF Pro Text";color:var(--text-3);display:inline-flex;align-items:center;gap:4px}
+  .rec-card .rc-date .ch{color:var(--text-4);font-size:18px}
+  .rec-card .rc-val{font:700 36px/1 "SF Pro Display";letter-spacing:-.025em;margin-top:14px;display:flex;align-items:baseline;gap:6px}
+  .rec-card .rc-val small{font:500 16px/1 "SF Pro Text";color:var(--text-3);font-weight:500}
+  .rec-card .rc-val.qual{font-size:24px;letter-spacing:-.01em}
+  .rec-card .rc-bar{margin-top:14px;position:relative}
+  .rec-card .rc-bar .status{font:700 11px/1 "SF Pro Text";text-align:center;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+  .rec-card .rc-bar .status.in{color:var(--good)}
+  .rec-card .rc-bar .status.lo{color:var(--warn)}
+  .rec-card .rc-bar .status.hi{color:var(--bad)}
+  .rec-card .rc-bar .bar{position:relative;height:5px;background:rgba(120,120,128,.24);border-radius:999px}
+  .rec-card .rc-bar .bar .ok{position:absolute;top:0;bottom:0;background:var(--cat,var(--vit));border-radius:999px}
+  .rec-card .rc-bar .bar .pin{position:absolute;top:50%;width:11px;height:11px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 2px var(--card);border:1px solid rgba(0,0,0,.06)}
+  @media (prefers-color-scheme: dark){.rec-card .rc-bar .bar .pin{background:#fff}}
+  .rec-card .rc-bar .lo-hi{display:flex;justify-content:space-between;font:500 12px/1 "SF Pro Text";color:var(--text-3);margin-top:8px;padding:0 2px}
+  .rec-card .rc-collected{font:500 13px/1 "SF Pro Text";color:var(--text-3);margin-top:14px;padding-top:12px;border-top:1px solid var(--sep)}
 </style>
 </head>
 <body>
@@ -893,6 +921,18 @@ function detailHTML(m){
   const sk = m.date || "d3";
   const [pdfHref, pdfLabel] = sourceMap[sk];
 
+  // Build records (newest first)
+  const records = [];
+  records.push({ value: m.cur, dateKey: m.date || "d3" });
+  if(typeof m.prev === "number") records.push({ value: m.prev, dateKey: "d1" });
+  const order = { d3: 3, d2: 2, d1: 1 };
+  records.sort((a,b)=> order[b.dateKey] - order[a.dateKey]);
+
+  const recordsHTML = `<h3 class="dsub">Records</h3>
+    <div class="records">
+      ${records.map(r => recordCardHTML(m, r.value, r.dateKey)).join("")}
+    </div>`;
+
   return `<div class="hero-card" style="--cat:${color}">
     <div class="top">
       <div class="cat"><span class="ic">${CATS[m.cat].letter}</span> ${CATS[m.cat].name}</div>
@@ -913,11 +953,68 @@ function detailHTML(m){
     <div class="stat"><div class="k">Unit</div><div class="vv">${m.u||"—"}</div></div>
   </div>
 
+  ${recordsHTML}
+
   <h3 class="dsub">Source</h3>
   <a class="detail-source" href="${pdfHref}" target="_blank" rel="noopener">
     <div class="left"><div class="t">${pdfLabel}</div><div class="s">Quest Diagnostics · open PDF ↗</div></div>
     <div class="chev">›</div>
   </a>`;
+}
+
+function recordCardHTML(m, value, dateKey){
+  const fullDate = dateKey==="d1" ? D.d1 : dateKey==="d2" ? D.d2 : D.d3;
+  const shortDate = fullDate.replace(/, 20\d\d/, '');
+  const color = `var(--${m.cat})`;
+  const labelName = m.n.toUpperCase();
+
+  // Qualitative
+  if(m.qual){
+    return `<div class="rec-group">
+      <div class="rec-date">${fullDate}</div>
+      <div class="rec-sub">Quest Diagnostics</div>
+      <div class="rec-card" style="--cat:${color}">
+        <div class="rc-top">
+          <div class="rc-cat"><span class="vial"></span>${labelName}</div>
+          <div class="rc-date">${shortDate} <span class="ch">›</span></div>
+        </div>
+        <div class="rc-val qual">${value}</div>
+        <div class="rc-collected">Collected · ${fullDate}</div>
+      </div>
+    </div>`;
+  }
+
+  // Quantitative
+  const cls = classify({ ...m, cur: value });
+  const statusText = cls==="in"?"In Range":cls==="lo"?"Below Range":"Above Range";
+  const lo = m.lo, hi = m.hi;
+  const span = (hi - lo) || 1;
+  const a = lo - span*0.25;
+  const b = hi + span*0.25;
+  const pct = v => Math.max(2, Math.min(98, (v-a)/(b-a)*100));
+  const okL = (lo-a)/(b-a)*100, okW = (hi-lo)/(b-a)*100;
+  const p = pct(value);
+
+  return `<div class="rec-group">
+    <div class="rec-date">${fullDate}</div>
+    <div class="rec-sub">Quest Diagnostics</div>
+    <div class="rec-card" style="--cat:${color}">
+      <div class="rc-top">
+        <div class="rc-cat"><span class="vial"></span>${labelName}</div>
+        <div class="rc-date">${shortDate} <span class="ch">›</span></div>
+      </div>
+      <div class="rc-val">${fmt(value)}<small>${m.u||""}</small></div>
+      <div class="rc-bar">
+        <div class="status ${cls}">${statusText}</div>
+        <div class="bar">
+          <div class="ok" style="left:${okL}%;width:${okW}%"></div>
+          <div class="pin" style="left:${p}%"></div>
+        </div>
+        <div class="lo-hi"><span>${fmt(lo)}</span><span>${fmt(hi)}</span></div>
+      </div>
+      <div class="rc-collected">Collected · ${fullDate}</div>
+    </div>
+  </div>`;
 }
 
 function router(){
