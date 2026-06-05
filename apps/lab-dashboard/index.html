@@ -288,13 +288,14 @@
   .rec-card .rc-bar{margin-top:14px;position:relative}
   .rec-card .rc-bar .status{font:700 11px/1 "SF Pro Text";text-align:center;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
   .rec-card .rc-bar .status.in{color:var(--good)}
-  .rec-card .rc-bar .status.lo{color:var(--warn)}
-  .rec-card .rc-bar .status.hi{color:var(--bad)}
-  .rec-card .rc-bar .bar{position:relative;height:5px;background:rgba(120,120,128,.24);border-radius:999px}
-  .rec-card .rc-bar .bar .ok{position:absolute;top:0;bottom:0;background:var(--cat,var(--vit));border-radius:999px}
-  .rec-card .rc-bar .bar .pin{position:absolute;top:50%;width:11px;height:11px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 2px var(--card);border:1px solid rgba(0,0,0,.06)}
-  @media (prefers-color-scheme: dark){.rec-card .rc-bar .bar .pin{background:#fff}}
-  .rec-card .rc-bar .lo-hi{display:flex;justify-content:space-between;font:500 12px/1 "SF Pro Text";color:var(--text-3);margin-top:8px;padding:0 2px}
+  .rec-card .rc-bar .status.lo,.rec-card .rc-bar .status.hi{color:var(--warn)}
+  .rec-card .rc-bar .bar3{position:relative;display:flex;gap:5px;height:5px}
+  .rec-card .rc-bar .bar3 .seg{flex:1;background:rgba(120,120,128,.30);border-radius:999px;height:100%}
+  .rec-card .rc-bar .bar3 .seg.on{background:var(--good)}
+  .rec-card .rc-bar .bar3.lo .seg.on,.rec-card .rc-bar .bar3.hi .seg.on{background:var(--warn)}
+  .rec-card .rc-bar .bar3 .pin{position:absolute;top:50%;width:11px;height:11px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 2px var(--card)}
+  .rec-card .rc-bar .lo-hi{display:flex;font:500 12px/1 "SF Pro Text";color:var(--text-3);margin-top:8px;position:relative;height:14px}
+  .rec-card .rc-bar .lo-hi span{position:absolute;transform:translateX(-50%)}
   .rec-card .rc-collected{font:500 13px/1 "SF Pro Text";color:var(--text-3);margin-top:14px;padding-top:12px;border-top:1px solid var(--sep)}
 </style>
 </head>
@@ -988,14 +989,27 @@ function recordCardHTML(m, value, dateKey){
   const cls = classify({ ...m, cur: value });
   const statusText = cls==="in"?"In Range":cls==="lo"?"Below Range":"Above Range";
   const lo = m.lo, hi = m.hi;
-  const span = (hi - lo) || 1;
-  const a = lo - span*0.25;
-  const b = hi + span*0.25;
-  const pct = v => Math.max(2, Math.min(98, (v-a)/(b-a)*100));
-  const okL = (lo-a)/(b-a)*100, okW = (hi-lo)/(b-a)*100;
-  const p = pct(value);
 
-  const barColor = cls==="in" ? "var(--good)" : "var(--warn)";
+  // 3 equal-width segments separated by gaps. Pin sits within the active segment
+  // at a position proportional to where `value` falls in that segment's range.
+  // Boundaries (with gap accounting): seg1 ≈ 0–33, seg2 ≈ 33–67, seg3 ≈ 67–100
+  const b1 = 33, b2 = 67;
+  let pinLeft, segMid;
+  if (cls === "in") {
+    const rel = (value - lo) / Math.max(0.0001, hi - lo); // 0..1
+    pinLeft = b1 + rel * (b2 - b1);
+    segMid = (b1 + b2) / 2;
+  } else if (cls === "lo") {
+    // value < lo. Map [0, lo] -> [0, b1]
+    const rel = Math.max(0, Math.min(1, value / Math.max(0.0001, lo)));
+    pinLeft = rel * b1;
+    segMid = b1 / 2;
+  } else {
+    // value > hi. Map [hi, 2*hi] -> [b2, 100]
+    const rel = Math.max(0, Math.min(1, (value - hi) / Math.max(0.0001, hi)));
+    pinLeft = b2 + rel * (100 - b2);
+    segMid = (b2 + 100) / 2;
+  }
 
   return `<div class="rec-group">
     <div class="rec-date">${fullDate}</div>
@@ -1008,13 +1022,13 @@ function recordCardHTML(m, value, dateKey){
       <div class="rc-val">${fmt(value)}<small>${m.u||""}</small></div>
       <div class="rc-bar">
         <div class="status ${cls}">${statusText}</div>
-        <div class="bar">
-          ${cls==="in"
-            ? `<div class="ok" style="left:${okL}%;width:${okW}%;background:var(--good)"></div>`
-            : `<div class="ok" style="left:${Math.min(p, okL)}%;width:${Math.abs(p - (cls==="lo"?okL:okL+okW))}%;background:var(--warn)"></div>`}
-          <div class="pin" style="left:${p}%;${cls!=="in"?`background:var(--warn);border-color:var(--warn)`:""}"></div>
+        <div class="bar3 ${cls}">
+          <div class="seg ${cls==='lo'?'on':''}"></div>
+          <div class="seg ${cls==='in'?'on':''}"></div>
+          <div class="seg ${cls==='hi'?'on':''}"></div>
+          <div class="pin" style="left:${pinLeft}%"></div>
         </div>
-        <div class="lo-hi"><span>${fmt(lo)}</span><span>${fmt(hi)}</span></div>
+        <div class="lo-hi"><span style="left:${b1}%">${fmt(lo)}</span><span style="left:${b2}%">${fmt(hi)}</span></div>
       </div>
       <div class="rc-collected">Collected · ${fullDate}</div>
     </div>
