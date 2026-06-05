@@ -269,6 +269,17 @@
   .detail-card .ch-trend .chart .dot .lbl{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font:700 13px/1 "SF Pro Display";white-space:nowrap;color:var(--text-2);letter-spacing:-.01em}
   .detail-card .ch-trend .x-lbls{display:flex;justify-content:space-between;font:500 12px/1 "SF Pro Text";color:var(--text-3);margin-top:14px;padding:0 4px}
 
+  /* Hero-sized 3-segment bar used in the "Where you land" card */
+  .hero-bar-wrap{margin-top:22px}
+  .hero-status{position:relative;height:13px;margin-bottom:10px}
+  .hero-status span{position:absolute;transform:translateX(-50%);font:700 12px/1 "SF Pro Text";text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;top:0}
+  .hero-status.in span{color:var(--good)}
+  .hero-status.lo span,.hero-status.hi span{color:var(--warn)}
+  .bar3.hero{height:10px;gap:5px}
+  .bar3.hero .pin{width:14px;height:14px;box-shadow:0 0 0 2px var(--card)}
+  .hero-lohi{position:relative;height:16px;margin-top:10px;font:500 13px/1 "SF Pro Text";color:var(--text-3)}
+  .hero-lohi span{position:absolute;transform:translateX(-50%);top:0}
+
   /* Records list (per-measurement cards) */
   .records{margin-top:6px}
   .rec-group{margin-top:22px}
@@ -290,11 +301,11 @@
   .rec-card .rc-bar .status span{position:absolute;transform:translateX(-50%);font:700 11px/1 "SF Pro Text";text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;top:0}
   .rec-card .rc-bar .status.in span{color:var(--good)}
   .rec-card .rc-bar .status.lo span,.rec-card .rc-bar .status.hi span{color:var(--warn)}
-  .rec-card .rc-bar .bar3{position:relative;display:flex;gap:4px;height:8px}
-  .rec-card .rc-bar .bar3 .b3s{flex:1;background:rgba(120,120,128,.30);border-radius:999px;align-self:stretch}
-  .rec-card .rc-bar .bar3 .b3s.on{background:var(--good)}
-  .rec-card .rc-bar .bar3.lo .b3s.on,.rec-card .rc-bar .bar3.hi .b3s.on{background:var(--warn)}
-  .rec-card .rc-bar .bar3 .pin{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 1.5px var(--card)}
+  .bar3{position:relative;display:flex;gap:4px;height:8px}
+  .bar3 .b3s{flex:1;background:rgba(120,120,128,.30);border-radius:999px;align-self:stretch}
+  .bar3 .b3s.on{background:var(--good)}
+  .bar3.lo .b3s.on,.bar3.hi .b3s.on{background:var(--warn)}
+  .bar3 .pin{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 1.5px var(--card)}
   .rec-card .rc-bar .lo-hi{display:flex;font:500 12px/1 "SF Pro Text";color:var(--text-3);margin-top:8px;position:relative;height:14px}
   .rec-card .rc-bar .lo-hi span{position:absolute;transform:translateX(-50%)}
   .rec-card .rc-collected{font:500 13px/1 "SF Pro Text";color:var(--text-3);margin-top:14px;padding-top:12px;border-top:1px solid var(--sep)}
@@ -889,24 +900,36 @@ function detailHTML(m){
       </div>
     </div>`;
   } else if(!m.qual){
-    // Single point: show big range bar in a card
-    const lo=m.lo, hi=m.hi;
-    const span = (hi - lo) || 1;
-    const a = lo - span*0.25;
-    const b = hi + span*0.25;
-    const p = Math.max(2, Math.min(98, (m.cur-a)/(b-a)*100));
-    const okL = (lo-a)/(b-a)*100, okW = (hi-lo)/(b-a)*100;
+    // Single point: same 3-segment bar as record cards but larger
+    const b1 = 33, b2 = 67;
+    let pinLeft, segMid;
+    if (cls === "in") {
+      const rel = (m.cur - m.lo) / Math.max(0.0001, m.hi - m.lo);
+      pinLeft = b1 + rel * (b2 - b1);
+      segMid = (b1 + b2) / 2;
+    } else if (cls === "lo") {
+      const rel = Math.max(0, Math.min(1, m.cur / Math.max(0.0001, m.lo)));
+      pinLeft = rel * b1;
+      segMid = b1 / 2;
+    } else {
+      const rel = Math.max(0, Math.min(1, (m.cur - m.hi) / Math.max(0.0001, m.hi)));
+      pinLeft = b2 + rel * (100 - b2);
+      segMid = (b2 + 100) / 2;
+    }
+    const statusText = cls==="in"?"In Range":cls==="lo"?"Below Range":"Above Range";
     chartCard = `<h3 class="dsub">Where you land</h3>
     <div class="detail-card chart-card">
       <div class="ch-title">Single measurement · ${dateLabel(m)}</div>
       <div class="ch-summary">${fmt(m.cur)} ${m.u||""}</div>
-      <div class="ch-trend" style="margin-top:24px">
-        <div class="chart" style="height:60px">
-          <div style="position:absolute;left:0;right:0;top:50%;height:8px;transform:translateY(-50%);background:var(--card-2);border-radius:999px"></div>
-          <div style="position:absolute;left:${okL}%;width:${okW}%;top:50%;height:8px;transform:translateY(-50%);background:rgba(52,199,89,.85);border-radius:999px"></div>
-          <div class="dot" style="left:calc(${p}%);top:50%;background:${pinColor};box-shadow:0 0 0 3px var(--card);width:14px;height:14px"></div>
+      <div class="hero-bar-wrap">
+        <div class="hero-status ${cls}"><span style="left:${segMid}%">${statusText}</span></div>
+        <div class="bar3 hero ${cls}">
+          <div class="b3s ${cls==='lo'?'on':''}"></div>
+          <div class="b3s ${cls==='in'?'on':''}"></div>
+          <div class="b3s ${cls==='hi'?'on':''}"></div>
+          <div class="pin" style="left:${pinLeft}%"></div>
         </div>
-        <div class="x-lbls"><span>${fmt(lo)} ${m.u||""}</span><span>${fmt(hi)} ${m.u||""}</span></div>
+        <div class="hero-lohi"><span style="left:${b1}%">${fmt(m.lo)} ${m.u||""}</span><span style="left:${b2}%">${fmt(m.hi)} ${m.u||""}</span></div>
       </div>
     </div>`;
   }
