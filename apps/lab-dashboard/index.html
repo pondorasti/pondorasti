@@ -245,10 +245,14 @@
   .detail-stats .stat .k{font:600 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;text-transform:uppercase;letter-spacing:.04em;color:var(--text-3)}
   .detail-stats .stat .vv{font:600 17px/1.1 "SF Pro Display",system-ui,-apple-system,sans-serif;margin-top:6px;letter-spacing:-.01em}
   .detail-stats .stat .vv.in{color:var(--good)} .detail-stats .stat .vv.lo{color:var(--warn)} .detail-stats .stat .vv.hi{color:var(--bad)}
-  .detail-source{background:var(--card);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);display:flex;justify-content:space-between;align-items:center;text-decoration:none;color:var(--text)}
+  .detail-sources{background:var(--card);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+  .detail-source{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;text-decoration:none;color:var(--text);border-bottom:1px solid var(--sep);transition:background .12s}
+  .detail-source:last-child{border-bottom:none}
+  .detail-source:active{background:var(--card-2)}
+  .detail-source .left{min-width:0;flex:1}
   .detail-source .left .t{font:600 15px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif}
-  .detail-source .left .s{font:400 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:4px}
-  .detail-source .chev{color:var(--text-4);font-size:20px}
+  .detail-source .left .s{font:400 12px/1.3 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:3px}
+  .detail-source .chev{color:var(--text-4);font-size:18px;flex:none}
 
   /* card as anchor */
   a.mcard{text-decoration:none;color:inherit;cursor:pointer;transition:transform .12s, box-shadow .12s}
@@ -1271,14 +1275,18 @@ function detailHTML(m){
   // Source PDFs (unique sources)
   const sourceKeys = [...new Set(m.records.map(r => `${r.s}|${r.d}`))]
     .filter(k => PDFS[k]).slice(0, 6);
-  const sourcesHTML = sourceKeys.length ? `<h3 class="dsub">Source reports</h3>` +
+  const sourcesHTML = sourceKeys.length ? `<h3 class="dsub">Source reports</h3>
+    <div class="detail-sources">` +
     sourceKeys.map(k => {
       const [pdf, label] = PDFS[k];
+      const date = k.split('|')[1];
+      const labelOnly = label.replace(/^.*?·\s*/, '');
+      const src = SOURCES[k.split('|')[0]]?.label || k.split('|')[0];
       return `<a class="detail-source" href="${pdf}" target="_blank" rel="noopener">
-        <div class="left"><div class="t">${label}</div><div class="s">open PDF ↗</div></div>
+        <div class="left"><div class="t">${src} · ${labelOnly}</div><div class="s">${fmtDate(date)} · open PDF ↗</div></div>
         <div class="chev">›</div>
       </a>`;
-    }).join("") : "";
+    }).join("") + `</div>` : "";
 
   return `<div class="hero-card" style="--cat:${color}">
     <div class="top">
