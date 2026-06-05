@@ -214,6 +214,60 @@
 
   footer{text-align:center;color:var(--text-3);font:400 12px/1.4 "SF Pro Text";margin-top:40px}
   footer a{color:#007AFF;text-decoration:none}
+
+  /* Detail (sub-page) view */
+  .detail-view{display:none}
+  body.detail .detail-view{display:block}
+  body.detail .panes{display:none}
+  body.detail .topbar .seg{display:none}
+  body.detail .topbar .lg-title{display:none}
+  .back{display:inline-flex;align-items:center;gap:4px;background:none;border:0;color:#007AFF;font:500 17px/1.2 "SF Pro Text";cursor:pointer;padding:14px 0 12px;letter-spacing:-.005em}
+  .back:active{opacity:.6}
+  .back svg{width:14px;height:22px;margin-right:2px}
+  .hero-card{background:var(--card);border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-top:6px;position:relative}
+  .hero-card .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .hero-card .cat{display:inline-flex;align-items:center;gap:10px;font:600 13px/1 "SF Pro Text";color:var(--cat);text-transform:uppercase;letter-spacing:.04em}
+  .hero-card .cat .ic{width:28px;height:28px;border-radius:8px;background:var(--cat);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+  .hero-card .name{font:700 26px/1.15 "SF Pro Display";letter-spacing:-.02em;margin-top:16px}
+  .hero-card .big-val{display:flex;align-items:baseline;gap:8px;margin-top:10px;font:700 52px/1 "SF Pro Display";letter-spacing:-.03em}
+  .hero-card .big-val.qual{font-size:32px}
+  .hero-card .big-val small{font:500 18px/1 "SF Pro Text";color:var(--text-3);font-weight:500}
+  .hero-card .big-val.lo{color:var(--warn)} .hero-card .big-val.hi{color:var(--bad)}
+  .hero-card .date{color:var(--text-3);margin-top:8px;font:500 13px "SF Pro Text"}
+  .hero-card .delta{margin-top:14px;padding-top:14px;border-top:1px solid var(--sep);display:flex;justify-content:space-between;font:500 13px "SF Pro Text";color:var(--text-2)}
+  .hero-card .delta b{color:var(--text);font-weight:600}
+
+  h3.dsub{font:600 13px/1 "SF Pro Text";text-transform:uppercase;letter-spacing:.04em;color:var(--text-3);margin:26px 4px 10px}
+  .detail-card{background:var(--card);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+  .detail-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:var(--card);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
+  .detail-stats .stat{padding:0 4px}
+  .detail-stats .stat .k{font:600 11px/1 "SF Pro Text";text-transform:uppercase;letter-spacing:.04em;color:var(--text-3)}
+  .detail-stats .stat .vv{font:600 17px/1.1 "SF Pro Display";margin-top:6px;letter-spacing:-.01em}
+  .detail-stats .stat .vv.in{color:var(--good)} .detail-stats .stat .vv.lo{color:var(--warn)} .detail-stats .stat .vv.hi{color:var(--bad)}
+  .detail-source{background:var(--card);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);display:flex;justify-content:space-between;align-items:center;text-decoration:none;color:var(--text)}
+  .detail-source .left .t{font:600 15px/1.2 "SF Pro Text"}
+  .detail-source .left .s{font:400 12px/1 "SF Pro Text";color:var(--text-3);margin-top:4px}
+  .detail-source .chev{color:var(--text-4);font-size:20px}
+
+  /* card as anchor */
+  a.mcard{text-decoration:none;color:inherit;cursor:pointer;transition:transform .12s, box-shadow .12s}
+  a.mcard:active{transform:scale(.985)}
+  a.mcard:hover{box-shadow:0 2px 4px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.06)}
+  @media (prefers-color-scheme: dark){
+    a.mcard:hover{box-shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 30px rgba(0,0,0,.5)}
+  }
+
+  /* Big chart in detail */
+  .detail-card.chart-card{padding:22px 22px 18px}
+  .detail-card .ch-title{font:600 13px/1 "SF Pro Text";color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
+  .detail-card .ch-summary{font:700 22px/1.2 "SF Pro Display";margin-top:6px;letter-spacing:-.01em}
+  .detail-card .ch-trend{margin-top:18px}
+  .detail-card .ch-trend .chart{position:relative;height:140px}
+  .detail-card .ch-trend .chart .opt-band{position:absolute;left:0;right:0;background:rgba(52,199,89,.12);border-radius:4px;min-height:2px}
+  .detail-card .ch-trend .chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .detail-card .ch-trend .chart .dot{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);background:var(--text-3);box-shadow:0 0 0 3px var(--card);z-index:2}
+  .detail-card .ch-trend .chart .dot .lbl{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font:700 13px/1 "SF Pro Display";white-space:nowrap;color:var(--text-2);letter-spacing:-.01em}
+  .detail-card .ch-trend .x-lbls{display:flex;justify-content:space-between;font:500 12px/1 "SF Pro Text";color:var(--text-3);margin-top:14px;padding:0 4px}
 </style>
 </head>
 <body>
@@ -230,6 +284,12 @@
       <button data-pane="docs">PDFs</button>
     </div>
   </div>
+
+<!-- ============ DETAIL SUB-PAGE ============ -->
+<section class="detail-view" id="detail-view">
+  <button class="back" id="back-btn"><svg viewBox="0 0 14 22" fill="none"><path d="M12 2 2 11l10 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button>
+  <div id="detail-content"></div>
+</section>
 
 <div class="panes">
 
@@ -557,6 +617,14 @@ function deltaStr(m){
   return `${arrow} ${fmt(Math.abs(d))} since Dec`;
 }
 
+/* ============ IDs + extras ============ */
+function slug(s){ return s.toLowerCase().replace(/[^\w]+/g,'-').replace(/^-+|-+$/g,''); }
+// Add urine specific gravity to D.metrics so it gets routing too
+D.metrics.push({n:"Urine specific gravity",u:"",cur:1.037,prev:1.006,lo:1.001,hi:1.035,cat:"kidney"});
+// Generate IDs
+const byId = {};
+D.metrics.forEach(m => { m.id = slug(m.n); byId[m.id] = m; });
+
 /* ============ RENDER ============ */
 function cardHTML(m){
   const cls = m.qual ? "in" : classify(m);
@@ -583,14 +651,14 @@ function cardHTML(m){
   else if(!m.qual) metaParts.push(`Range ${fmt(m.lo)}–${fmt(m.hi)} ${m.u||""}`);
   else if(m.note) metaParts.push(m.note);
 
-  return `<div class="mcard" style="--cat:${color}">
+  return `<a class="mcard" href="#/m/${m.id}" style="--cat:${color}">
     <div class="row1"><span class="ic">${CATS[m.cat].letter}</span> ${CATS[m.cat].name}</div>
     ${tag}
     <div class="name">${m.n}</div>
     <div class="meta">${metaParts.join(" · ")}</div>
     ${valHTML}
     ${viz}
-  </div>`;
+  </a>`;
 }
 
 function miniRange(m, cls){
@@ -619,11 +687,8 @@ const FAVS = [
 ];
 document.getElementById('favs').innerHTML = FAVS.map(cardHTML).join("");
 
-// Flags (out of range, May)
-const FLAGS = [
-  ...D.metrics.filter(m=>!m.qual && classify(m)!=="in" && (m.date===undefined || m.date==="d3")),
-  {n:"Urine specific gravity",u:"",cur:1.037,prev:1.006,lo:1.001,hi:1.035,cat:"kidney"},
-];
+// Flags (out of range, May) — URSP is now part of D.metrics
+const FLAGS = D.metrics.filter(m=>!m.qual && classify(m)!=="in" && (m.date===undefined || m.date==="d3"));
 document.getElementById('flags').innerHTML = FLAGS.map(cardHTML).join("");
 
 // Recent panel: all paired metrics, sorted by category
@@ -742,13 +807,6 @@ document.getElementById('igg-high').innerHTML = D.igg
   .map(([n,v])=>`<span class="chip ${v>=4?'bad':'warn'}">${n} <small>${v}</small></span>`).join('');
 document.getElementById('ige-negs').innerHTML = D.igeNegs.map(n=>`<span class="chip good">${n}</span>`).join('');
 
-// Row expand/collapse (delegated, works across all lists)
-document.addEventListener('click', e=>{
-  const r = e.target.closest('.row');
-  if(!r || r.closest('.browse-row')) return;
-  r.classList.toggle('open');
-});
-
 // Segmented control
 document.getElementById('seg').addEventListener('click', e=>{
   const b = e.target.closest('button'); if(!b) return;
@@ -757,6 +815,132 @@ document.getElementById('seg').addEventListener('click', e=>{
   document.querySelectorAll('.panes > section').forEach(s=>s.classList.toggle('active', s.id===p));
   window.scrollTo({top:0,behavior:'instant'});
 });
+
+/* ============ DETAIL SUB-PAGE ============ */
+function detailHTML(m){
+  const cls = m.qual ? "in" : classify(m);
+  const pinColor = cls==="in" ? "var(--good)" : cls==="lo" ? "var(--warn)" : "var(--bad)";
+  const color = `var(--${m.cat})`;
+  const statusText = m.qual ? (/negative|not detected|non-reactive/i.test(String(m.cur))?"Negative":"Result") : cls==="in"?"In Range":cls==="lo"?"Below Range":"Above Range";
+
+  // Hero
+  const valClass = cls==="in"?"":(cls==="lo"?"lo":"hi");
+  const big = m.qual
+    ? `<div class="big-val qual">${m.cur}</div>`
+    : `<div class="big-val ${valClass}">${fmt(m.cur)}<small>${m.u||""}</small></div>`;
+  const delta = (typeof m.prev==="number")
+    ? `<div class="delta"><span>Previous: <b>${fmt(m.prev)} ${m.u||""}</b> on ${D.d1}</span><span>Change: <b>${fmt(m.cur-m.prev)>=0?'+':''}${fmt(m.cur-m.prev)} ${m.u||""}</b></span></div>`
+    : "";
+
+  // Chart card (paired)
+  let chartCard = "";
+  if(typeof m.prev==="number"){
+    const span = (m.hi - m.lo) || 1;
+    const minV = Math.min(m.prev, m.cur, m.lo) - span*0.2;
+    const maxV = Math.max(m.prev, m.cur, m.hi) + span*0.2;
+    const sp2 = (maxV - minV) || 1;
+    const yPct = v => 100 * (maxV - v) / sp2;
+    const okTop = yPct(m.hi), okBottom = yPct(m.lo);
+    const y1 = yPct(m.prev), y2 = yPct(m.cur);
+    chartCard = `<h3 class="dsub">Trend</h3>
+    <div class="detail-card chart-card">
+      <div class="ch-title">Dec 18, 2025 → May 28, 2026 · 5-month change</div>
+      <div class="ch-summary">${fmt(m.prev)} → <span style="color:${pinColor}">${fmt(m.cur)}</span> ${m.u||""}</div>
+      <div class="ch-trend">
+        <div class="chart">
+          <div class="opt-band" style="top:${okTop}%;height:${Math.max(2,okBottom-okTop)}%"></div>
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+            <line x1="0" y1="${y1}" x2="100" y2="${y2}" stroke="${pinColor}" stroke-width="2.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <div class="dot" style="left:1px;top:${y1}%"><span class="lbl">${fmt(m.prev)}</span></div>
+          <div class="dot" style="left:calc(100% - 1px);top:${y2}%;background:${pinColor};box-shadow:0 0 0 3px var(--card)"><span class="lbl" style="color:${pinColor}">${fmt(m.cur)}</span></div>
+        </div>
+        <div class="x-lbls"><span>${D.d1.replace(/, 20\d\d/,'')}</span><span>${D.d3.replace(/, 20\d\d/,'')}</span></div>
+      </div>
+    </div>`;
+  } else if(!m.qual){
+    // Single point: show big range bar in a card
+    const lo=m.lo, hi=m.hi;
+    const span = (hi - lo) || 1;
+    const a = lo - span*0.25;
+    const b = hi + span*0.25;
+    const p = Math.max(2, Math.min(98, (m.cur-a)/(b-a)*100));
+    const okL = (lo-a)/(b-a)*100, okW = (hi-lo)/(b-a)*100;
+    chartCard = `<h3 class="dsub">Where you land</h3>
+    <div class="detail-card chart-card">
+      <div class="ch-title">Single measurement · ${dateLabel(m)}</div>
+      <div class="ch-summary">${fmt(m.cur)} ${m.u||""}</div>
+      <div class="ch-trend" style="margin-top:24px">
+        <div class="chart" style="height:60px">
+          <div style="position:absolute;left:0;right:0;top:50%;height:8px;transform:translateY(-50%);background:var(--card-2);border-radius:999px"></div>
+          <div style="position:absolute;left:${okL}%;width:${okW}%;top:50%;height:8px;transform:translateY(-50%);background:rgba(52,199,89,.85);border-radius:999px"></div>
+          <div class="dot" style="left:calc(${p}%);top:50%;background:${pinColor};box-shadow:0 0 0 3px var(--card);width:14px;height:14px"></div>
+        </div>
+        <div class="x-lbls"><span>${fmt(lo)} ${m.u||""}</span><span>${fmt(hi)} ${m.u||""}</span></div>
+      </div>
+    </div>`;
+  }
+
+  // Stats
+  const refTxt = m.qual ? (m.note || "Qualitative")
+                        : (m.fd==="good-floor" ? `≥ ${fmt(m.lo)} ${m.u||""}` : `${fmt(m.lo)} – ${fmt(m.hi)} ${m.u||""}`);
+  const statusClass = cls==="in"?"in":cls==="lo"?"lo":"hi";
+
+  // Source PDF
+  const sourceMap = { d1: ["pdfs/2025-12-18.pdf","Baseline panel · Dec 18, 2025"],
+                      d2: ["pdfs/2025-12-19.pdf","Micronutrient + allergy · Dec 19, 2025"],
+                      d3: ["pdfs/2026-05-28.pdf","6-month follow-up · May 28, 2026"] };
+  const sk = m.date || "d3";
+  const [pdfHref, pdfLabel] = sourceMap[sk];
+
+  return `<div class="hero-card" style="--cat:${color}">
+    <div class="top">
+      <div class="cat"><span class="ic">${CATS[m.cat].letter}</span> ${CATS[m.cat].name}</div>
+      <span class="tag ${m.qual?'in':cls}">${statusText}</span>
+    </div>
+    <div class="name">${m.n}</div>
+    ${big}
+    <div class="date">Collected ${dateLabel(m)}</div>
+    ${delta}
+  </div>
+
+  ${chartCard}
+
+  <h3 class="dsub">Details</h3>
+  <div class="detail-stats">
+    <div class="stat"><div class="k">Status</div><div class="vv ${statusClass}">${statusText}</div></div>
+    <div class="stat"><div class="k">Reference</div><div class="vv">${refTxt}</div></div>
+    <div class="stat"><div class="k">Unit</div><div class="vv">${m.u||"—"}</div></div>
+  </div>
+
+  <h3 class="dsub">Source</h3>
+  <a class="detail-source" href="${pdfHref}" target="_blank" rel="noopener">
+    <div class="left"><div class="t">${pdfLabel}</div><div class="s">Quest Diagnostics · open PDF ↗</div></div>
+    <div class="chev">›</div>
+  </a>`;
+}
+
+function router(){
+  const h = location.hash || "";
+  const m = h.match(/^#\/m\/(.+)$/);
+  if(m){
+    const id = decodeURIComponent(m[1]);
+    const metric = byId[id];
+    if(metric){
+      document.getElementById('detail-content').innerHTML = detailHTML(metric);
+      document.body.classList.add('detail');
+      window.scrollTo({top:0,behavior:'instant'});
+      return;
+    }
+  }
+  document.body.classList.remove('detail');
+}
+window.addEventListener('hashchange', router);
+document.getElementById('back-btn').addEventListener('click', ()=>{
+  if(history.length > 1) history.back();
+  else { location.hash = ""; }
+});
+router();
 </script>
 </body>
 </html>
