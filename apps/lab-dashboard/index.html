@@ -29,7 +29,8 @@
   .pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;background:var(--panel)}
   .pill .dot{width:6px;height:6px;border-radius:999px;background:var(--accent)}
   .dates{display:flex;gap:8px;flex-wrap:wrap}
-  .date{padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);font-size:12px;color:var(--muted)}
+  .date{padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);font-size:12px;color:var(--muted);text-decoration:none;transition:border-color .15s,color .15s}
+  a.date:hover{border-color:#3a4452;color:var(--text)}
   .date b{color:var(--text);font-weight:600}
 
   .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:30px}
@@ -110,9 +111,9 @@
       <div class="sub">Alexandru Turcanu · 24M · ordered by Joshua A. Emdur, D.O.</div>
     </div>
     <div class="dates">
-      <div class="date"><b>Dec 18, 2025</b> · baseline panel</div>
-      <div class="date"><b>Dec 19, 2025</b> · micronutrient + allergy</div>
-      <div class="date"><b>May 28, 2026</b> · 6-mo follow-up</div>
+      <a class="date" href="pdfs/2025-12-18.pdf" target="_blank" rel="noopener"><b>Dec 18, 2025</b> · baseline panel · PDF ↗</a>
+      <a class="date" href="pdfs/2025-12-19.pdf" target="_blank" rel="noopener"><b>Dec 19, 2025</b> · micronutrient + allergy · PDF ↗</a>
+      <a class="date" href="pdfs/2026-05-28.pdf" target="_blank" rel="noopener"><b>May 28, 2026</b> · 6-mo follow-up · PDF ↗</a>
     </div>
   </header>
 
