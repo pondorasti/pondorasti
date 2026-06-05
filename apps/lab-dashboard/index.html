@@ -1573,6 +1573,36 @@ document.getElementById('back-btn').addEventListener('click', ()=>{
   else { location.hash = ""; }
 });
 router();
+
+/* ============ PDF inline viewer ============
+   Intercept clicks on .pdf links. Fetch the file ourselves, re-wrap as a
+   blob with type:application/pdf, and open the blob URL — bypasses any
+   Content-Disposition: attachment the host may be sending. */
+const _pdfCache = new Map();
+async function openPdfInline(url){
+  let blobUrl = _pdfCache.get(url);
+  if(!blobUrl){
+    const res = await fetch(url);
+    if(!res.ok) throw new Error("Failed to load PDF: " + res.status);
+    const buf = await res.arrayBuffer();
+    const blob = new Blob([buf], {type: "application/pdf"});
+    blobUrl = URL.createObjectURL(blob);
+    _pdfCache.set(url, blobUrl);
+  }
+  const win = window.open(blobUrl, "_blank");
+  if(!win) location.href = blobUrl; // popup blocked → navigate
+}
+document.addEventListener('click', e=>{
+  const a = e.target.closest('a[href$=".pdf"], a[href*=".pdf?"]');
+  if(!a) return;
+  // Allow modifier-clicks and same-tab nav to bypass
+  if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+  e.preventDefault();
+  openPdfInline(a.getAttribute('href')).catch(err => {
+    console.error(err);
+    window.open(a.href, "_blank"); // fall back to default behavior
+  });
+});
 </script>
 </body>
 </html>
