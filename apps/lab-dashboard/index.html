@@ -1,615 +1,100 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Alexandru — Lab Dashboard</title>
-<style>
-  :root{
-    --bg:#0b0d10;
-    --panel:#13161b;
-    --panel-2:#181c22;
-    --line:#23282f;
-    --text:#e7ecef;
-    --muted:#8a93a0;
-    --accent:#7cf0c8;
-    --good:#3ecf8e;
-    --warn:#f5b942;
-    --bad:#ef5b6b;
-    --blue:#6aa6ff;
-    --shadow:0 1px 0 rgba(255,255,255,.03), 0 12px 40px rgba(0,0,0,.45);
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-  a{color:var(--accent);text-decoration:none}
-  .wrap{max-width:1180px;margin:0 auto;padding:32px 22px 80px}
-  header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:18px;padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:28px}
-  h1{font:600 26px/1.1 "SF Pro Display",system-ui;margin:0;letter-spacing:-.02em}
-  .sub{color:var(--muted);font-size:13px;margin-top:6px}
-  .pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;background:var(--panel)}
-  .pill .dot{width:6px;height:6px;border-radius:999px;background:var(--accent)}
-  .dates{display:flex;gap:8px;flex-wrap:wrap}
-  .date{padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);font-size:12px;color:var(--muted);text-decoration:none;transition:border-color .15s,color .15s}
-  a.date:hover{border-color:#3a4452;color:var(--text)}
-  .date b{color:var(--text);font-weight:600}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lab Results Visualizer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">Function Health labs</p>
+        <h1>Lab Results Visualizer</h1>
+        <p class="lede">
+          Personal trend view for Quest lab records collected Dec 18-19, 2025
+          and May 28, 2026.
+        </p>
+      </div>
+      <div class="header-panel" aria-label="Report window">
+        <span class="label">Latest collection</span>
+        <strong>May 28, 2026</strong>
+        <span>Compared with Dec 2025 baseline</span>
+      </div>
+    </header>
 
-  .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:30px}
-  @media (max-width:780px){.kpis{grid-template-columns:repeat(2,1fr)}}
-  .kpi{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-  .kpi .lab{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-  .kpi .val{font:600 26px/1.2 "SF Pro Display",system-ui;margin-top:4px;letter-spacing:-.01em}
-  .kpi .delta{font-size:12px;margin-top:6px;color:var(--muted)}
-  .kpi.good .val{color:var(--good)}
-  .kpi.warn .val{color:var(--warn)}
-  .kpi.bad  .val{color:var(--bad)}
-  .kpi .spark{position:absolute;right:14px;top:14px;font-size:11px;color:var(--muted)}
+    <main>
+      <section class="summary-grid" id="summary"></section>
 
-  h2{font:600 16px/1 "SF Pro Display",system-ui;margin:34px 0 14px;letter-spacing:-.005em}
-  h2 .count{color:var(--muted);font-weight:500;margin-left:8px;font-size:13px}
+      <section class="toolbar" aria-label="Filters">
+        <label class="search">
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="Ferritin, ALT, B12..." />
+        </label>
+        <div class="filter-group" id="categoryFilters" aria-label="Category filters"></div>
+      </section>
 
-  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-  @media (max-width:780px){.grid{grid-template-columns:1fr}}
+      <section class="layout">
+        <aside class="metric-list" aria-label="Biomarkers">
+          <div class="panel-heading">
+            <h2>Biomarkers</h2>
+            <span id="metricCount"></span>
+          </div>
+          <div id="metricList"></div>
+        </aside>
 
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-  .card h3{font:600 13px/1 "SF Pro Display",system-ui;margin:0;padding:14px 16px;border-bottom:1px solid var(--line);color:var(--text);background:var(--panel-2);letter-spacing:.01em;display:flex;justify-content:space-between;align-items:center}
-  .card h3 .meta{color:var(--muted);font-weight:500;font-size:11px}
+        <section class="detail">
+          <div class="detail-header">
+            <div>
+              <p class="eyebrow" id="selectedCategory">Category</p>
+              <h2 id="selectedName">Select a biomarker</h2>
+            </div>
+            <span class="status-pill" id="selectedStatus">Status</span>
+          </div>
+          <div class="chart-wrap">
+            <svg id="trendChart" role="img" aria-label="Trend chart"></svg>
+          </div>
+          <div class="metric-meta" id="metricMeta"></div>
+        </section>
+      </section>
 
-  .row{display:grid;grid-template-columns:1.2fr .9fr 1fr;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line);align-items:center}
-  .row:last-child{border-bottom:none}
-  .row .name{color:var(--text);font-size:13px}
-  .row .name .unit{color:var(--muted);font-size:11px;margin-left:4px}
-  .row .vals{display:flex;align-items:baseline;gap:10px;justify-content:flex-end;font-variant-numeric:tabular-nums}
-  .row .prev{color:var(--muted);font-size:11px}
-  .row .curr{font:600 14px/1 "SF Pro Display",system-ui}
-  .row .curr.good{color:var(--good)}
-  .row .curr.warn{color:var(--warn)}
-  .row .curr.bad{color:var(--bad)}
-  .row .change{font-size:11px;color:var(--muted)}
-  .row .change.up{color:var(--bad)}
-  .row .change.dn{color:var(--good)}
-  .row .change.neutral{color:var(--muted)}
-
-  .bar{position:relative;height:8px;background:#0d1014;border-radius:999px;overflow:hidden}
-  .bar .range{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,rgba(62,207,142,.18),rgba(62,207,142,.28));border-left:1px solid rgba(62,207,142,.4);border-right:1px solid rgba(62,207,142,.4)}
-  .bar .mark{position:absolute;top:-3px;width:2px;height:14px;background:var(--text);border-radius:2px}
-  .bar .mark.prev{background:var(--muted);opacity:.7}
-  .bar .mark.bad{background:var(--bad)}
-  .bar .mark.warn{background:var(--warn)}
-  .bar .mark.good{background:var(--good)}
-  .bar-wrap{display:flex;flex-direction:column;gap:4px}
-  .bar-legend{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}
-
-  .single{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line);align-items:center}
-  .single:last-child{border-bottom:none}
-
-  .chips{display:flex;flex-wrap:wrap;gap:6px;padding:14px 16px}
-  .chip{padding:6px 10px;border:1px solid var(--line);border-radius:999px;font-size:12px;background:var(--panel-2);color:var(--text);display:inline-flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
-  .chip.bad{border-color:rgba(239,91,107,.4);background:rgba(239,91,107,.08);color:#ffbcc3}
-  .chip.warn{border-color:rgba(245,185,66,.4);background:rgba(245,185,66,.08);color:#ffd98a}
-  .chip.good{border-color:rgba(62,207,142,.35);background:rgba(62,207,142,.08);color:#a6f0cd}
-  .chip small{color:var(--muted)}
-
-  .note{padding:12px 16px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);background:var(--panel-2)}
-  footer{margin-top:50px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-
-  .tabs{display:flex;gap:6px;margin:10px 0 0;flex-wrap:wrap}
-  .tab{padding:6px 12px;border:1px solid var(--line);background:var(--panel);border-radius:8px;color:var(--muted);cursor:pointer;font-size:12px;user-select:none}
-  .tab.active{color:var(--text);background:var(--panel-2);border-color:#2c3743}
-  .section{display:none}
-  .section.active{display:block}
-
-  .hero-note{background:linear-gradient(180deg,rgba(62,207,142,.06),rgba(62,207,142,.02));border:1px solid rgba(62,207,142,.18);border-radius:12px;padding:14px 18px;margin-bottom:24px;font-size:13px;color:#cdebd9}
-  .hero-note b{color:#a6f0cd}
-</style>
-</head>
-<body>
-<div class="wrap">
-
-  <header>
-    <div>
-      <h1>Lab dashboard <span class="pill"><span class="dot"></span>Quest · Function</span></h1>
-      <div class="sub">Alexandru Turcanu · 24M · ordered by Joshua A. Emdur, D.O.</div>
-    </div>
-    <div class="dates">
-      <a class="date" href="pdfs/2025-12-18.pdf" target="_blank" rel="noopener"><b>Dec 18, 2025</b> · baseline panel · PDF ↗</a>
-      <a class="date" href="pdfs/2025-12-19.pdf" target="_blank" rel="noopener"><b>Dec 19, 2025</b> · micronutrient + allergy · PDF ↗</a>
-      <a class="date" href="pdfs/2026-05-28.pdf" target="_blank" rel="noopener"><b>May 28, 2026</b> · 6-mo follow-up · PDF ↗</a>
-    </div>
-  </header>
-
-  <div class="hero-note">
-    <b>Big wins since December:</b> ALT dropped from <b>68→19</b> and AST from <b>41→24</b> — both now well inside range. Homocysteine normalized from <b>14.3 → 8.5</b>. Inflammation (hs-CRP 0.2) and HbA1c (5.4) remain low-risk. Persistent issues to keep watching: <b>ferritin still low</b>, <b>vitamin D insufficient</b>, <b>iodine low</b>, <b>copper low-normal</b>, and a urine specific gravity of 1.037 suggests you were dehydrated at the May draw.
-  </div>
-
-  <div class="kpis">
-    <div class="kpi good">
-      <div class="spark">↓ 49 in 5mo</div>
-      <div class="lab">ALT — liver enzyme</div>
-      <div class="val">19 <span style="color:var(--muted);font-size:13px;font-weight:400">U/L</span></div>
-      <div class="delta">was 68 H · range 9–46</div>
-    </div>
-    <div class="kpi good">
-      <div class="spark">↓ 5.8 µmol/L</div>
-      <div class="lab">Homocysteine</div>
-      <div class="val">8.5</div>
-      <div class="delta">was 14.3 H · target ≤12.9</div>
-    </div>
-    <div class="kpi warn">
-      <div class="spark">↑ 5 in 5mo</div>
-      <div class="lab">Ferritin</div>
-      <div class="val">35 <span style="color:var(--muted);font-size:13px;font-weight:400">ng/mL</span></div>
-      <div class="delta">still below 38 — iron stores low</div>
-    </div>
-    <div class="kpi warn">
-      <div class="spark">Dec 18</div>
-      <div class="lab">Vitamin D, 25-OH</div>
-      <div class="val">27</div>
-      <div class="delta">insufficient · optimal ≥30</div>
-    </div>
-  </div>
-
-  <div class="tabs" id="tabs">
-    <div class="tab active" data-tab="trend">Trends · Dec → May</div>
-    <div class="tab" data-tab="micro">Micronutrients · Dec 19</div>
-    <div class="tab" data-tab="hormones">Hormones · Dec 18</div>
-    <div class="tab" data-tab="cardio">Cardio · Dec 18</div>
-    <div class="tab" data-tab="food">Food IgG · Dec 19</div>
-    <div class="tab" data-tab="screening">Screening · Dec 18–19</div>
-  </div>
-
-  <!-- TRENDS -->
-  <section id="trend" class="section active">
-
-  <h2>Out-of-range now <span class="count" id="out-count"></span></h2>
-  <div class="grid">
-    <div class="card" id="out-card">
-      <h3>Flags · May 28, 2026</h3>
-    </div>
-    <div class="card">
-      <h3>Improved since December</h3>
-      <div class="row"><div class="name">ALT <span class="unit">U/L</span></div>
-        <div class="bar-wrap"><div class="bar"><div class="range"></div><div class="mark prev"></div><div class="mark good"></div></div><div class="bar-legend"><span>9</span><span>46</span></div></div>
-        <div class="vals"><span class="prev">68 H</span><span class="curr good">19</span></div></div>
-      <div class="row"><div class="name">AST <span class="unit">U/L</span></div>
-        <div class="bar-wrap"><div class="bar"><div class="range"></div><div class="mark prev"></div><div class="mark good"></div></div><div class="bar-legend"><span>10</span><span>40</span></div></div>
-        <div class="vals"><span class="prev">41 H</span><span class="curr good">24</span></div></div>
-      <div class="row"><div class="name">Homocysteine <span class="unit">µmol/L</span></div>
-        <div class="bar-wrap"><div class="bar"><div class="range"></div><div class="mark prev"></div><div class="mark good"></div></div><div class="bar-legend"><span>0</span><span>12.9</span></div></div>
-        <div class="vals"><span class="prev">14.3 H</span><span class="curr good">8.5</span></div></div>
-      <div class="row"><div class="name">Ferritin <span class="unit">ng/mL</span></div>
-        <div class="bar-wrap"><div class="bar"><div class="range"></div><div class="mark prev"></div><div class="mark warn"></div></div><div class="bar-legend"><span>38</span><span>380</span></div></div>
-        <div class="vals"><span class="prev">30 L</span><span class="curr warn">35 L</span></div></div>
-    </div>
-  </div>
-
-  <h2>Lipid panel</h2>
-  <div class="grid">
-    <div class="card" id="lipid"><h3>Standard lipids <span class="meta">Dec 18 → May 28</span></h3></div>
-    <div class="card" id="metab"><h3>Metabolic — glucose, kidney <span class="meta">Dec 18 → May 28</span></h3></div>
-  </div>
-
-  <h2>Liver, electrolytes & protein</h2>
-  <div class="grid">
-    <div class="card" id="liver"><h3>Liver & protein <span class="meta">Dec 18 → May 28</span></h3></div>
-    <div class="card" id="lytes"><h3>Electrolytes & minerals <span class="meta">Dec 18 → May 28</span></h3></div>
-  </div>
-
-  <h2>Iron panel</h2>
-  <div class="grid">
-    <div class="card" id="iron"><h3>Iron · TIBC · ferritin <span class="meta">Dec 18 → May 28</span></h3></div>
-    <div class="card" id="inflam"><h3>Inflammation & insulin sensitivity <span class="meta">Dec 18 → May 28</span></h3></div>
-  </div>
-
-  <h2>CBC with differential</h2>
-  <div class="grid">
-    <div class="card" id="cbc1"><h3>Red cells & platelets <span class="meta">Dec 18 → May 28</span></h3></div>
-    <div class="card" id="cbc2"><h3>White cells <span class="meta">Dec 18 → May 28</span></h3></div>
-  </div>
-
-  </section>
-
-  <!-- MICRO -->
-  <section id="micro" class="section">
-    <h2>Vitamins, minerals, antioxidants <span class="count">collected Dec 18–19, 2025</span></h2>
-    <div class="grid">
-      <div class="card" id="vitamins"><h3>Vitamins</h3></div>
-      <div class="card" id="minerals"><h3>Minerals & trace metals</h3></div>
-    </div>
-    <div class="grid" style="margin-top:14px">
-      <div class="card" id="omega"><h3>OmegaCheck — fatty acids</h3></div>
-      <div class="card" id="antiox"><h3>Antioxidants & cofactors</h3></div>
-    </div>
-  </section>
-
-  <!-- HORMONES -->
-  <section id="hormones" class="section">
-    <h2>Hormones <span class="count">Dec 18, 2025</span></h2>
-    <div class="grid">
-      <div class="card" id="sex"><h3>Sex hormones</h3></div>
-      <div class="card" id="thyroid"><h3>Thyroid axis</h3></div>
-    </div>
-    <div class="grid" style="margin-top:14px">
-      <div class="card" id="adrenal"><h3>Adrenal & pituitary</h3></div>
-      <div class="card" id="metab2"><h3>Metabolic hormones</h3></div>
-    </div>
-  </section>
-
-  <!-- CARDIO -->
-  <section id="cardio" class="section">
-    <h2>Advanced cardiovascular <span class="count">Dec 18, 2025</span></h2>
-    <div class="grid">
-      <div class="card" id="apolp"><h3>Apolipoproteins & Lp(a)</h3></div>
-      <div class="card" id="ldlsub"><h3>LDL particle subfractions (ion mobility)</h3></div>
-    </div>
-  </section>
-
-  <!-- FOOD IgG -->
-  <section id="food" class="section">
-    <h2>Food IgG sensitivities <span class="count">Dec 19, 2025 · reference &lt;2.0 mcg/mL</span></h2>
-    <div class="card">
-      <h3>Elevated IgG (high → low)</h3>
-      <div class="chips" id="igg-high"></div>
-      <div class="note">IgG testing is controversial — Quest's own note: "should not be used for the diagnosis of allergic or atopic disease states." Useful only when assessing response to elimination/reintroduction. All <b>IgE</b> food &amp; environmental allergens (Dec 18) were <b>&lt;0.10 kU/L · Class 0 (Absent)</b>.</div>
-    </div>
-    <h2 style="margin-top:22px">IgE — environmental & food <span class="count">all negative</span></h2>
-    <div class="card">
-      <div class="chips" id="ige-negs"></div>
-    </div>
-  </section>
-
-  <!-- SCREENING -->
-  <section id="screening" class="section">
-    <h2>Infectious disease & autoimmune screening</h2>
-    <div class="grid">
-      <div class="card" id="std"><h3>STI / infectious screen</h3></div>
-      <div class="card" id="auto"><h3>Autoimmune & inflammatory</h3></div>
-    </div>
-    <h2 style="margin-top:22px">Urinalysis</h2>
-    <div class="grid">
-      <div class="card" id="urine"><h3>Urinalysis</h3></div>
-      <div class="card" id="blood"><h3>Blood type</h3></div>
-    </div>
-  </section>
-
-  <footer>
-    <div>Source: Health Gorilla → Quest Diagnostics PDFs · Patient ID 82617501</div>
-    <div>Not medical advice. Discuss with Dr. Emdur.</div>
-  </footer>
-</div>
-
-<script>
-// ----- DATA -----
-// Each row: [name, unit, prev, curr, refLo, refHi, [optional flag: 'L' or 'H' for curr]]
-const lipid = [
-  ["Total cholesterol","mg/dL",154,151,0,200],
-  ["HDL","mg/dL",66,57,40,90,'good-floor'],
-  ["LDL","mg/dL",75,79,0,100],
-  ["Triglycerides","mg/dL",54,66,0,150],
-  ["Non-HDL","mg/dL",88,94,0,130],
-  ["Chol / HDL ratio","",2.3,2.6,0,5.0],
-];
-const metab = [
-  ["Glucose (fasting)","mg/dL",93,92,65,99],
-  ["HbA1c","%",5.3,5.4,4.0,5.7],
-  ["BUN","mg/dL",13,15,7,25],
-  ["Creatinine","mg/dL",0.93,0.98,0.60,1.24],
-  ["eGFR","mL/min/1.73m²",118,110,60,120,'good-floor'],
-  ["BUN / Creat","",14,15,6,22],
-];
-const liver = [
-  ["ALT","U/L",68,19,9,46,'H-prev'],
-  ["AST","U/L",41,24,10,40,'H-prev'],
-  ["Alkaline phosphatase","U/L",49,46,36,130],
-  ["Bilirubin, total","mg/dL",1.0,0.7,0.2,1.2],
-  ["Albumin","g/dL",5.0,4.9,3.6,5.1],
-  ["Total protein","g/dL",7.4,7.2,6.1,8.1],
-  ["Globulin","g/dL",2.4,2.3,1.9,3.7],
-  ["A/G ratio","",2.1,2.1,1.0,2.5],
-];
-const lytes = [
-  ["Sodium","mmol/L",139,141,135,146],
-  ["Potassium","mmol/L",4.3,4.3,3.5,5.3],
-  ["Chloride","mmol/L",101,102,98,110],
-  ["CO₂","mmol/L",28,30,20,32],
-  ["Calcium","mg/dL",9.9,9.7,8.6,10.3],
-];
-const iron = [
-  ["Iron, total","mcg/dL",180,104,50,195],
-  ["TIBC","mcg/dL",386,347,250,425],
-  ["% Saturation","%",47,30,20,48],
-  ["Ferritin","ng/mL",30,35,38,380,'L-curr'],
-];
-const inflam = [
-  ["hs-CRP","mg/L",0.2,0.2,0,1.0],
-  ["Homocysteine","µmol/L",14.3,8.5,0,12.9,'H-prev'],
-  ["Insulin (fasting)","µIU/mL",5.8,6.9,0,18.4],
-  ["HbA1c","%",5.3,5.4,0,5.7],
-];
-const cbc1 = [
-  ["RBC","M/µL",5.19,5.13,4.20,5.80],
-  ["Hemoglobin","g/dL",15.4,15.3,13.2,17.1],
-  ["Hematocrit","%",46.5,46.4,39.4,51.1],
-  ["MCV","fL",89.6,90.4,81.4,101.7],
-  ["MCH","pg",29.7,29.8,27.0,33.0],
-  ["MCHC","g/dL",33.1,33.0,31.6,35.4],
-  ["RDW","%",12.7,12.7,11.0,15.0],
-  ["Platelets","K/µL",305,329,140,400],
-  ["MPV","fL",11.7,11.5,7.5,12.5],
-];
-const cbc2 = [
-  ["WBC","K/µL",4.1,5.0,3.8,10.8],
-  ["Neutrophils, abs","cells/µL",2009,2560,1500,7800],
-  ["Lymphocytes, abs","cells/µL",1640,1905,850,3900],
-  ["Monocytes, abs","cells/µL",373,415,200,950],
-  ["Eosinophils, abs","cells/µL",29,70,15,500],
-  ["Basophils, abs","cells/µL",49,50,0,200],
-];
-
-// Single-point sections (Dec only)
-const vitamins = [
-  ["Vitamin D, 25-OH","ng/mL",27,30,100,'L'],
-  ["Vitamin B12","pg/mL",341,200,1100],
-  ["Folate, RBC","ng/mL RBC",399,280,2000,'good-floor'],
-  ["Vitamin A (retinol)","mcg/dL",56,38,98],
-  ["Vitamin E, alpha-toco","mg/L",9.3,5.7,19.9],
-  ["Methylmalonic acid","nmol/L",262,55,335],
-];
-const minerals = [
-  ["Iodine","mcg/L",46,52,109,'L'],
-  ["Copper","mcg/dL",67,80,180,'L'],
-  ["Zinc","mcg/dL",82,60,130],
-  ["Selenium","mcg/L",100,63,160],
-  ["Magnesium, RBC","mg/dL",5.3,4.0,6.4],
-  ["Chromium","mcg/L",0.4,0,1.2],
-  ["Molybdenum","mcg/L",0.4,0,2.2],
-  ["Lead","mcg/dL",0.5,0,3.5],
-  ["Mercury","mcg/L",2.5,0,11],
-];
-const omega = [
-  ["EPA + DPA + DHA","% by wt",2.6,5.4,12,'L'],
-  ["Omega-3 total","% by wt",2.6,3.7,14.4,'L'],
-  ["EPA","% by wt",0.3,0.2,2.3],
-  ["DPA","% by wt",0.7,0.8,1.8,'L'],
-  ["DHA","% by wt",1.7,1.4,5.1],
-  ["Omega-6 total","% by wt",35.7,30,40],
-  ["Omega-6 / Omega-3 ratio","",13.6,3.7,14.4],
-  ["Arachidonic / EPA ratio","",36.9,3.7,40.7],
-];
-const antiox = [
-  ["Coenzyme Q10","µg/mL",0.83,0.35,2.5,'good-floor'],
-  ["Uric acid","mg/dL",5.1,4.0,8.0],
-  ["GGT","U/L",16,3,70],
-  ["Vitamin E, β/γ-toco","mg/L",1.0,0,4.4],
-];
-
-const sex = [
-  ["Testosterone, total","ng/dL",491,250,1100],
-  ["Testosterone, free","pg/mL",87.5,35.0,155.0],
-  ["SHBG","nmol/L",23,10,50],
-  ["DHEA sulfate","mcg/dL",461,74,617],
-  ["Estradiol","pg/mL",30,0,39],
-  ["Prolactin","ng/mL",7.3,2.0,18.0],
-  ["LH","mIU/mL",2.8,1.5,9.3],
-  ["FSH","mIU/mL",2.5,1.4,12.8],
-  ["PSA, total","ng/mL",0.5,0,4.0],
-];
-const thyroid = [
-  ["TSH","mIU/L",0.85,0.40,4.50],
-  ["Free T4","ng/dL",1.3,0.8,1.8],
-  ["Free T3","pg/mL",3.7,2.3,4.2],
-  ["TPO antibodies","IU/mL",1,0,9],
-  ["Thyroglobulin antibodies","IU/mL",1,0,1],
-];
-const adrenal = [
-  ["Cortisol (total, LC/MS)","mcg/dL",8.2,1.8,13.6],
-];
-const metab2 = [
-  ["Leptin","ng/mL",1.0,0.3,13.4],
-  ["Insulin","µIU/mL",5.8,0,18.4],
-  ["Amylase","U/L",62,21,101],
-  ["Lipase","U/L",23,7,60],
-];
-
-const apolp = [
-  ["Apolipoprotein B","mg/dL",59,0,90],
-  ["Lipoprotein(a)","nmol/L",10,0,75,'good-floor'],
-];
-const ldlsub = [
-  ["LDL particle number","nmol/L",974,0,1138],
-  ["LDL small","nmol/L",140,0,142],
-  ["LDL medium","nmol/L",193,0,215],
-  ["HDL large","nmol/L",6596,6729,17886,'L'],
-  ["LDL peak size","Å",221.7,222.9,234.3,'L'],
-];
-
-const stds = [
-  ["HIV 1/2 Ag/Ab","NEGATIVE",true],
-  ["RPR (syphilis)","NON-REACTIVE",true],
-  ["HSV-1 IgG","<0.90 — Negative",true],
-  ["HSV-2 IgG","<0.90 — Negative",true],
-  ["Chlamydia trachomatis RNA","NOT DETECTED",true],
-  ["Neisseria gonorrhoeae RNA","NOT DETECTED",true],
-  ["Trichomonas vaginalis RNA","NOT DETECTED",true],
-];
-const auto = [
-  ["ANA Screen, IFA","NEGATIVE",true],
-  ["Rheumatoid factor","<10 IU/mL",true],
-  ["TPO antibodies","<1 IU/mL",true],
-  ["Thyroglobulin antibodies","<1 IU/mL",true],
-  ["hs-CRP","0.2 mg/L — lower risk",true],
-];
-const urine = [
-  ["Color","Dark yellow (May) · Yellow (Dec)",false],
-  ["Specific gravity","1.037 H (May) · 1.006 (Dec)",false,"Dehydration on May draw"],
-  ["pH","5.5 (May) · 7.5 (Dec)",true],
-  ["Glucose / Ketones / Protein / Blood","All NEGATIVE",true],
-  ["Nitrite / Leukocyte esterase","NEGATIVE",true],
-  ["Albumin / Creatinine ratio","0.2 mg/g — normal",true],
-];
-const blood = [
-  ["ABO group","O",true],
-  ["Rh","Positive",true],
-];
-
-// Food IgG (Dec 19) — elevated only
-const igg = [
-  ["Wheat",7.2],["Maize / Corn",5.5],["Yeast",4.7],["Egg white",3.9],["Tomato",3.5],
-  ["Cacao (chocolate)",3.4],["Coffee",3.1],["Casein",3.1],["Soybean",2.9],["Codfish",2.6],["Peanut",2.5]
-];
-const ige_negs = [
-  "Dust mites (D1, D2)","Cat dander","Dog dander","Cockroach","Penicillium","Cladosporium",
-  "Aspergillus","Alternaria","Alder","Birch","Mountain cedar","Olive","Sycamore","Oak","Elm",
-  "White mulberry","Bermuda grass","Timothy grass","Ragweed","Mugwort","Russian thistle",
-  "Rough pigweed","Mouse urine","Egg white","Peanut","Wheat","Walnut","Codfish","Cow's milk",
-  "Soybean","Shrimp","Scallop","Sesame","Hazelnut","Cashew","Almond","Salmon","Tuna","Brazil nut",
-  "Macadamia","Crab","Lobster","Clam"
-];
-
-// ----- RENDER HELPERS -----
-function classify(val, lo, hi, flag){
-  if(flag==='good-floor'){ return val>=lo? 'good':'warn'; }
-  if(val < lo) return 'warn';
-  if(val > hi) return 'bad';
-  return 'good';
-}
-function fmt(n){
-  if(n==null) return '—';
-  if(typeof n!=='number') return n;
-  return (Math.abs(n)>=10 || Number.isInteger(n)) ? n.toString() : n.toFixed(1).replace(/\.0$/,'');
-}
-function markerPct(val, lo, hi){
-  // expand axis: show 0.7*lo .. 1.3*hi
-  const a = Math.max(0, lo - (hi-lo)*0.25);
-  const b = hi + (hi-lo)*0.25;
-  const p = (val-a)/(b-a)*100;
-  return Math.max(2,Math.min(98,p));
-}
-function rangePct(lo,hi){
-  const a = Math.max(0, lo - (hi-lo)*0.25);
-  const b = hi + (hi-lo)*0.25;
-  return {left:(lo-a)/(b-a)*100, width:(hi-lo)/(b-a)*100};
-}
-function renderRow(r){
-  const [name,unit,prev,curr,lo,hi,flag] = r;
-  const cls = classify(curr,lo,hi,flag);
-  const change = (typeof prev==='number' && typeof curr==='number') ? (curr-prev) : 0;
-  const dir = change>0?'up':(change<0?'dn':'neutral');
-  // good vs bad direction depends on metric; we just show numeric delta
-  const arrow = change>0?'▲':(change<0?'▼':'·');
-  const deltaStr = change===0? '·' : (arrow+' '+fmt(Math.abs(change)));
-  const rng = rangePct(lo,hi);
-  const prevPct = (typeof prev==='number')?markerPct(prev,lo,hi):null;
-  const currPct = markerPct(curr,lo,hi);
-  return `
-    <div class="row">
-      <div class="name">${name}<span class="unit">${unit||''}</span></div>
-      <div class="bar-wrap">
-        <div class="bar">
-          <div class="range" style="left:${rng.left}%;width:${rng.width}%"></div>
-          ${prevPct!=null?`<div class="mark prev" style="left:calc(${prevPct}% - 1px)" title="prev ${prev}"></div>`:''}
-          <div class="mark ${cls}" style="left:calc(${currPct}% - 1px)" title="now ${curr}"></div>
+      <section class="section">
+        <div class="section-heading">
+          <h2>Out-of-Range Snapshot</h2>
+          <p>Flags are shown exactly as extracted from the lab reports.</p>
         </div>
-        <div class="bar-legend"><span>${fmt(lo)}</span><span>${fmt(hi)}</span></div>
-      </div>
-      <div class="vals">
-        ${prev!=null?`<span class="prev">${fmt(prev)}</span>`:''}
-        <span class="curr ${cls}">${fmt(curr)}</span>
-        <span class="change ${dir}">${deltaStr}</span>
-      </div>
-    </div>`;
-}
-function renderInto(id, rows){
-  const el = document.getElementById(id);
-  el.insertAdjacentHTML('beforeend', rows.map(renderRow).join(''));
-}
-function renderSingle(id, rows){
-  const el = document.getElementById(id);
-  const html = rows.map(r=>{
-    const [name,unit,val,lo,hi,flag] = r;
-    const cls = classify(val,lo,hi,flag);
-    const rng = rangePct(lo,hi);
-    const pct = markerPct(val,lo,hi);
-    return `<div class="row">
-      <div class="name">${name}<span class="unit">${unit||''}</span></div>
-      <div class="bar-wrap">
-        <div class="bar">
-          <div class="range" style="left:${rng.left}%;width:${rng.width}%"></div>
-          <div class="mark ${cls}" style="left:calc(${pct}% - 1px)"></div>
+        <div id="flagCards" class="flag-grid"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <h2>All Results</h2>
+          <p>Use this as the source table behind the charts.</p>
         </div>
-        <div class="bar-legend"><span>${fmt(lo)}</span><span>${fmt(hi)}</span></div>
-      </div>
-      <div class="vals"><span class="curr ${cls}">${fmt(val)}</span></div>
-    </div>`;
-  }).join('');
-  el.insertAdjacentHTML('beforeend', html);
-}
-function renderQual(id, rows){
-  const el = document.getElementById(id);
-  const html = rows.map(r=>{
-    const [name,val,ok,note] = r;
-    return `<div class="single">
-      <div class="name">${name}</div>
-      <div class="vals" style="justify-content:flex-start"><span class="curr ${ok?'good':'warn'}">${val}</span></div>
-      <div class="change">${note||''}</div>
-    </div>`;
-  }).join('');
-  el.insertAdjacentHTML('beforeend', html);
-}
+        <div class="table-shell">
+          <table>
+            <thead>
+              <tr>
+                <th>Biomarker</th>
+                <th>Category</th>
+                <th>Dec 2025</th>
+                <th>May 2026</th>
+                <th>Reference</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="resultsTable"></tbody>
+          </table>
+        </div>
+      </section>
 
-// Renders
-renderInto('lipid', lipid);
-renderInto('metab', metab);
-renderInto('liver', liver);
-renderInto('lytes', lytes);
-renderInto('iron', iron);
-renderInto('inflam', inflam);
-renderInto('cbc1', cbc1);
-renderInto('cbc2', cbc2);
+      <section class="note">
+        <strong>Note:</strong> This is a visualization of reported lab values,
+        not medical advice or diagnosis. Review abnormal results and clinical
+        context with a licensed clinician.
+      </section>
+    </main>
 
-renderSingle('vitamins', vitamins);
-renderSingle('minerals', minerals);
-renderSingle('omega', omega);
-renderSingle('antiox', antiox);
-renderSingle('sex', sex);
-renderSingle('thyroid', thyroid);
-renderSingle('adrenal', adrenal);
-renderSingle('metab2', metab2);
-renderSingle('apolp', apolp);
-renderSingle('ldlsub', ldlsub);
-
-renderQual('std', stds);
-renderQual('auto', auto);
-renderQual('urine', urine);
-renderQual('blood', blood);
-
-// Out-of-range card (May 28)
-const outFlags = [
-  {name:"Ferritin", val:"35 ng/mL", note:"range 38–380 · iron stores still low", cls:"warn"},
-  {name:"Urine specific gravity", val:"1.037", note:"range 1.001–1.035 · likely dehydration", cls:"warn"},
-];
-document.getElementById('out-card').insertAdjacentHTML('beforeend',
-  outFlags.map(f=>`<div class="single">
-    <div class="name">${f.name}</div>
-    <div class="vals" style="justify-content:flex-start"><span class="curr ${f.cls}">${f.val}</span></div>
-    <div class="change">${f.note}</div>
-  </div>`).join('')
-);
-document.getElementById('out-count').textContent = `${outFlags.length} flag${outFlags.length===1?'':'s'}`;
-
-// Food IgG chips
-document.getElementById('igg-high').innerHTML = igg
-  .sort((a,b)=>b[1]-a[1])
-  .map(([n,v])=>`<span class="chip ${v>=4?'bad':'warn'}">${n} <small>${v} mcg/mL</small></span>`).join('');
-document.getElementById('ige-negs').innerHTML = ige_negs.map(n=>`<span class="chip good">${n}</span>`).join('');
-
-// Tabs
-document.getElementById('tabs').addEventListener('click', e=>{
-  const t = e.target.closest('.tab'); if(!t) return;
-  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active', x===t));
-  const id = t.dataset.tab;
-  document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active', s.id===id));
-  window.scrollTo({top:0,behavior:'smooth'});
-});
-</script>
-</body>
+    <script src="app.js"></script>
+  </body>
 </html>
