@@ -995,6 +995,8 @@ function recordCardHTML(m, value, dateKey){
   const okL = (lo-a)/(b-a)*100, okW = (hi-lo)/(b-a)*100;
   const p = pct(value);
 
+  const barColor = cls==="in" ? "var(--good)" : "var(--warn)";
+
   return `<div class="rec-group">
     <div class="rec-date">${fullDate}</div>
     <div class="rec-sub">Quest Diagnostics</div>
@@ -1007,8 +1009,10 @@ function recordCardHTML(m, value, dateKey){
       <div class="rc-bar">
         <div class="status ${cls}">${statusText}</div>
         <div class="bar">
-          <div class="ok" style="left:${okL}%;width:${okW}%"></div>
-          <div class="pin" style="left:${p}%"></div>
+          ${cls==="in"
+            ? `<div class="ok" style="left:${okL}%;width:${okW}%;background:var(--good)"></div>`
+            : `<div class="ok" style="left:${Math.min(p, okL)}%;width:${Math.abs(p - (cls==="lo"?okL:okL+okW))}%;background:var(--warn)"></div>`}
+          <div class="pin" style="left:${p}%;${cls!=="in"?`background:var(--warn);border-color:var(--warn)`:""}"></div>
         </div>
         <div class="lo-hi"><span>${fmt(lo)}</span><span>${fmt(hi)}</span></div>
       </div>
