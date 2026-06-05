@@ -119,8 +119,10 @@
 
   /* List rows */
   .list{padding:0}
-  .row{display:grid;grid-template-columns:34px 1fr auto auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--sep);min-height:54px}
-  .row:last-child{border-bottom:none}
+  .row{display:grid;grid-template-columns:34px 1fr auto auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--sep);min-height:54px;cursor:pointer;-webkit-user-select:none;user-select:none;transition:background .12s}
+  .row:hover{background:var(--card-2)}
+  .row:active{background:var(--card-2);opacity:.85}
+  .row.last,.row:last-child{border-bottom:none}
   .row .ic{width:30px;height:30px;border-radius:8px;background:var(--cat,var(--vit));color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600}
   .row .meta{min-width:0}
   .row .meta .t{font:600 15px/1.2 "SF Pro Text";color:var(--text);letter-spacing:-.005em}
@@ -128,14 +130,28 @@
   .row .v{font:600 17px/1 "SF Pro Display";color:var(--text);letter-spacing:-.01em;text-align:right;white-space:nowrap}
   .row .v small{font:500 12px/1 "SF Pro Text";color:var(--text-3);font-weight:500;margin-left:3px}
   .row .v.lo{color:var(--warn)} .row .v.hi{color:var(--bad)}
-  .row .chev{color:var(--text-4);font-size:14px;width:10px}
+  .row .chev{color:var(--text-4);font-size:14px;width:12px;transition:transform .18s ease;display:inline-block;text-align:center}
+  .row.open .chev{transform:rotate(90deg);color:var(--text-2)}
 
-  /* Detail row (when expanded) */
-  .detail{padding:10px 16px 14px 62px;border-bottom:1px solid var(--sep);background:var(--card-2)}
-  .detail .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
-  .detail .k{font:500 12px/1 "SF Pro Text";color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
-  .detail .vv{font:600 15px/1.2 "SF Pro Text";margin-top:2px}
-  .detail .note{font:400 13px/1.35 "SF Pro Text";color:var(--text-2);margin-top:8px}
+  /* Detail panel (expanded) */
+  .row-detail{display:none;padding:6px 16px 18px 16px;border-bottom:1px solid var(--sep);background:var(--card-2)}
+  .row.open + .row-detail{display:block}
+  .row-detail .rng-wrap{padding:10px 4px 4px}
+  .row-detail .rng-wrap .range{height:8px}
+  .row-detail .rng-wrap .pin{height:18px;top:-5px;width:3px}
+  .row-detail .rng-wrap .pin.prev{height:14px;top:-3px;width:2px}
+  .row-detail .legend{display:flex;justify-content:space-between;font:500 11px/1 "SF Pro Text";color:var(--text-3);margin-top:8px}
+  .row-detail .legend .it{display:flex;align-items:center;gap:6px}
+  .row-detail .legend .sw{width:8px;height:8px;border-radius:2px;background:var(--text)}
+  .row-detail .legend .sw.prev{background:var(--text-4)}
+  .row-detail .legend .sw.ok{background:var(--good);border-radius:2px}
+  .row-detail .spark-big{margin-top:14px}
+  .row-detail .spark-big svg{height:80px;width:100%;display:block}
+  .row-detail .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid var(--sep)}
+  .row-detail .stat .k{font:500 11px/1 "SF Pro Text";color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
+  .row-detail .stat .vv{font:600 17px/1.1 "SF Pro Display";margin-top:4px;letter-spacing:-.01em}
+  .row-detail .stat .vv small{font:500 11px/1 "SF Pro Text";color:var(--text-3);margin-left:3px}
+  .row-detail .notes{font:400 13px/1.4 "SF Pro Text";color:var(--text-2);margin-top:14px}
 
   /* Browse categories — large icon cards */
   .browse-list{padding:0}
@@ -462,8 +478,8 @@ function classify(m){
 function fmt(n){
   if(typeof n!=="number") return n==null?"—":n;
   if(Number.isInteger(n)) return n.toString();
-  if(Math.abs(n)>=100) return Math.round(n).toString();
-  return n.toFixed(n<10?1:1).replace(/\.0$/,"");
+  // preserve the value's natural precision (lab data is already cleanly typed)
+  return (+n.toPrecision(6)).toString();
 }
 function dateLabel(m){
   if(m.date==="d1") return D.d1;
@@ -597,6 +613,70 @@ function rowHTML(m){
     </div>
     <div class="v ${vClass}">${fmt(m.cur)}${m.u?` <small>${m.u}</small>`:""}</div>
     <div class="chev">›</div>
+  </div>
+  ${detailHTML(m, cls)}`;
+}
+
+function detailHTML(m, cls){
+  if(m.qual){
+    return `<div class="row-detail">
+      <div class="notes"><b>Result:</b> ${m.cur} · collected ${dateLabel(m)}${m.note?` · ${m.note}`:""}</div>
+    </div>`;
+  }
+  const lo=m.lo, hi=m.hi;
+  const span = (hi - lo) || 1;
+  const a = lo - span*0.30;
+  const b = hi + span*0.30;
+  const pct = v => Math.max(2, Math.min(98, (v-a)/(b-a)*100));
+  const okL = (lo-a)/(b-a)*100, okW = (hi-lo)/(b-a)*100;
+  const pinColor = cls==="in" ? "var(--good)" : cls==="lo" ? "var(--warn)" : "var(--bad)";
+
+  let chart = "";
+  if(typeof m.prev === "number"){
+    const w=600, h=80, padX=30, padY=14;
+    const minV = Math.min(m.prev, m.cur, m.lo) - span*0.1;
+    const maxV = Math.max(m.prev, m.cur, m.hi) + span*0.1;
+    const sp = maxV - minV || 1;
+    const y = v => h - padY - ((v - minV)/sp) * (h - padY*2);
+    const x1=padX, x2=w-padX;
+    const okY1 = y(hi), okY2 = y(lo);
+    chart = `<div class="spark-big"><svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+      <rect x="0" y="${okY1}" width="${w}" height="${Math.max(2,okY2-okY1)}" fill="rgba(52,199,89,.14)"/>
+      <line x1="0" y1="${y(hi)}" x2="${w}" y2="${y(hi)}" stroke="rgba(52,199,89,.5)" stroke-dasharray="3 4" stroke-width="1"/>
+      <line x1="0" y1="${y(lo)}" x2="${w}" y2="${y(lo)}" stroke="rgba(52,199,89,.5)" stroke-dasharray="3 4" stroke-width="1"/>
+      <line x1="${x1}" y1="${y(m.prev)}" x2="${x2}" y2="${y(m.cur)}" stroke="${pinColor}" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="${x1}" cy="${y(m.prev)}" r="5" fill="var(--card)" stroke="var(--text-3)" stroke-width="2"/>
+      <circle cx="${x2}" cy="${y(m.cur)}" r="5.5" fill="${pinColor}" stroke="var(--card)" stroke-width="2"/>
+      <text x="${x1}" y="${h-2}" font-size="10" fill="var(--text-3)" text-anchor="middle" font-family="-apple-system,system-ui">${D.d1.replace(/, 20\d\d/,'')}</text>
+      <text x="${x2}" y="${h-2}" font-size="10" fill="var(--text-3)" text-anchor="middle" font-family="-apple-system,system-ui">${D.d3.replace(/, 20\d\d/,'')}</text>
+      <text x="${x1+10}" y="${y(m.prev)-8}" font-size="11" fill="var(--text-2)" font-family="-apple-system,system-ui" font-weight="600">${fmt(m.prev)}</text>
+      <text x="${x2-10}" y="${y(m.cur)-8}" font-size="11" fill="${pinColor}" font-family="-apple-system,system-ui" font-weight="700" text-anchor="end">${fmt(m.cur)}</text>
+    </svg></div>`;
+  }
+
+  const status = cls==="in" ? "In Range" : cls==="lo" ? "Below Range" : "Above Range";
+  const refTxt = m.fd==="good-floor" ? `≥ ${fmt(lo)} ${m.u||""}` : `${fmt(lo)} – ${fmt(hi)} ${m.u||""}`;
+
+  return `<div class="row-detail">
+    <div class="rng-wrap">
+      <div class="range">
+        <div class="ok" style="left:${okL}%;width:${okW}%"></div>
+        ${typeof m.prev==="number"?`<div class="pin prev" style="left:calc(${pct(m.prev)}% - 1px)" title="prev ${m.prev}"></div>`:""}
+        <div class="pin" style="left:calc(${pct(m.cur)}% - 1.5px);background:${pinColor};box-shadow:0 0 0 2px var(--card-2)"></div>
+      </div>
+      <div class="legend">
+        <span class="it"><span class="sw ok"></span>Optimal ${fmt(lo)}–${fmt(hi)}</span>
+        <span class="it">${typeof m.prev==="number"?`<span class="sw prev"></span>Dec`:""}</span>
+        <span class="it"><span class="sw" style="background:${pinColor}"></span>${dateLabel(m).split(',')[0]}</span>
+      </div>
+    </div>
+    ${chart}
+    <div class="stats">
+      <div class="stat"><div class="k">Status</div><div class="vv" style="color:${pinColor}">${status}</div></div>
+      <div class="stat"><div class="k">Reference</div><div class="vv">${refTxt}</div></div>
+      <div class="stat"><div class="k">Collected</div><div class="vv">${dateLabel(m)}</div></div>
+    </div>
+    ${m.note?`<div class="notes">${m.note}</div>`:""}
   </div>`;
 }
 
@@ -605,6 +685,13 @@ document.getElementById('igg-high').innerHTML = D.igg
   .sort((a,b)=>b[1]-a[1])
   .map(([n,v])=>`<span class="chip ${v>=4?'bad':'warn'}">${n} <small>${v}</small></span>`).join('');
 document.getElementById('ige-negs').innerHTML = D.igeNegs.map(n=>`<span class="chip good">${n}</span>`).join('');
+
+// Row expand/collapse (delegated, works across all lists)
+document.addEventListener('click', e=>{
+  const r = e.target.closest('.row');
+  if(!r || r.closest('.browse-row')) return;
+  r.classList.toggle('open');
+});
 
 // Segmented control
 document.getElementById('seg').addEventListener('click', e=>{
