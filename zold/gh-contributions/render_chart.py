@@ -101,10 +101,8 @@ for yr, pos in year_positions.items():
 
 ax.set_xlim(-0.7, n - 0.3)
 
-# Title
-ax.set_title("Code contributed by pondorasti, by quarter",
-             loc="left", fontsize=15, fontweight="bold",
-             color="#2A2620", family="Charter", pad=22, x=0.01)
+# Title — suppressed; rendered as <h1> in the embedding HTML
+# ax.set_title("Code contributed by pondorasti, by quarter", ...)
 
 # "average before 2025" annotation pointing at 1.0× line
 # Find a quiet spot — somewhere over 2024Q1
@@ -150,17 +148,9 @@ for q_label, offset, top, _ in RELEASES:
             linespacing=1.1)
 
 # Footer caption
-cap_label = DATA.get("p99_cap_additions") or DATA.get("p99_cap")
-caption = (
-    f"Each bar is the average, over the days in that quarter, of lines added per day across {DATA.get('total_commits_analyzed', '?')} authored commits.\n"
-    f"The hatched final bar is a partial quarter: it averages only the days observed so far (as of {DATA['as_of']}), not a full quarter.\n"
-    f"Per-commit additions are capped at the 99th percentile ({cap_label} lines). Baseline = mean of 2021Q2–2024Q4 daily rates "
-    f"({DATA['baseline_loc_per_day']:.0f} lines/day). Dashed lines mark Claude release dates."
-)
-fig.text(0.06, 0.02, caption, fontsize=8.5, color=AXIS_TEXT,
-         family="Charter", linespacing=1.45)
+# Footer caption — suppressed; rendered as <figcaption> in the embedding HTML
 
-plt.tight_layout(rect=[0.02, 0.06, 0.99, 0.97])
+plt.tight_layout(rect=[0.01, 0.02, 0.99, 0.99])
 
 out_stem = Path(src).stem.replace("chart_data", "personal_code_contributed")
 out_png = Path(f"{out_stem}.png")
