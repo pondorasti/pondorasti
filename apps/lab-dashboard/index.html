@@ -286,9 +286,10 @@
   .rec-card .rc-val small{font:500 16px/1 "SF Pro Text";color:var(--text-3);font-weight:500}
   .rec-card .rc-val.qual{font-size:24px;letter-spacing:-.01em}
   .rec-card .rc-bar{margin-top:14px;position:relative}
-  .rec-card .rc-bar .status{font:700 11px/1 "SF Pro Text";text-align:center;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
-  .rec-card .rc-bar .status.in{color:var(--good)}
-  .rec-card .rc-bar .status.lo,.rec-card .rc-bar .status.hi{color:var(--warn)}
+  .rec-card .rc-bar .status{position:relative;height:11px;margin-bottom:8px}
+  .rec-card .rc-bar .status span{position:absolute;transform:translateX(-50%);font:700 11px/1 "SF Pro Text";text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;top:0}
+  .rec-card .rc-bar .status.in span{color:var(--good)}
+  .rec-card .rc-bar .status.lo span,.rec-card .rc-bar .status.hi span{color:var(--warn)}
   .rec-card .rc-bar .bar3{position:relative;display:flex;gap:4px;height:8px}
   .rec-card .rc-bar .bar3 .b3s{flex:1;background:rgba(120,120,128,.30);border-radius:999px;align-self:stretch}
   .rec-card .rc-bar .bar3 .b3s.on{background:var(--good)}
@@ -1021,7 +1022,7 @@ function recordCardHTML(m, value, dateKey){
       </div>
       <div class="rc-val">${fmt(value)}<small>${m.u||""}</small></div>
       <div class="rc-bar">
-        <div class="status ${cls}">${statusText}</div>
+        <div class="status ${cls}"><span style="left:${segMid}%">${statusText}</span></div>
         <div class="bar3 ${cls}">
           <div class="b3s ${cls==='lo'?'on':''}"></div>
           <div class="b3s ${cls==='in'?'on':''}"></div>
