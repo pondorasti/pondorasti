@@ -1,0 +1,200 @@
+{
+  "user": "pondorasti",
+  "as_of": "2026-06-05",
+  "method": "commit-level, all authored commits (incl. private repos), per-commit additions capped at p99",
+  "p99_cap_additions": 6502,
+  "baseline_loc_per_day": 744.7753550636158,
+  "total_commits_analyzed": 9052,
+  "total_commits_authored_all_time": 10659,
+  "quarters": [
+    {
+      "quarter": "2021Q2",
+      "commits": 245,
+      "capped_additions": 52379,
+      "days": 91,
+      "loc_per_day": 575.5934065934066,
+      "multiplier": 0.7728416396703159,
+      "partial": false
+    },
+    {
+      "quarter": "2021Q3",
+      "commits": 224,
+      "capped_additions": 70117,
+      "days": 92,
+      "loc_per_day": 762.1413043478261,
+      "multiplier": 1.0233170299824528,
+      "partial": false
+    },
+    {
+      "quarter": "2021Q4",
+      "commits": 372,
+      "capped_additions": 137658,
+      "days": 92,
+      "loc_per_day": 1496.2826086956522,
+      "multiplier": 2.0090388310013902,
+      "partial": false
+    },
+    {
+      "quarter": "2022Q1",
+      "commits": 434,
+      "capped_additions": 206335,
+      "days": 90,
+      "loc_per_day": 2292.6111111111113,
+      "multiplier": 3.0782585588043325,
+      "partial": false
+    },
+    {
+      "quarter": "2022Q2",
+      "commits": 19,
+      "capped_additions": 16542,
+      "days": 91,
+      "loc_per_day": 181.78021978021977,
+      "multiplier": 0.24407389227412446,
+      "partial": false
+    },
+    {
+      "quarter": "2022Q3",
+      "commits": 63,
+      "capped_additions": 12416,
+      "days": 92,
+      "loc_per_day": 134.95652173913044,
+      "multiplier": 0.1812043333893654,
+      "partial": false
+    },
+    {
+      "quarter": "2022Q4",
+      "commits": 101,
+      "capped_additions": 39092,
+      "days": 92,
+      "loc_per_day": 424.9130434782609,
+      "multiplier": 0.5705251128267617,
+      "partial": false
+    },
+    {
+      "quarter": "2023Q1",
+      "commits": 77,
+      "capped_additions": 68214,
+      "days": 90,
+      "loc_per_day": 757.9333333333333,
+      "multiplier": 1.0176670430623924,
+      "partial": false
+    },
+    {
+      "quarter": "2023Q2",
+      "commits": 121,
+      "capped_additions": 31511,
+      "days": 91,
+      "loc_per_day": 346.27472527472526,
+      "multiplier": 0.4649384850350584,
+      "partial": false
+    },
+    {
+      "quarter": "2023Q3",
+      "commits": 117,
+      "capped_additions": 42199,
+      "days": 92,
+      "loc_per_day": 458.6847826086956,
+      "multiplier": 0.6158699794376474,
+      "partial": false
+    },
+    {
+      "quarter": "2023Q4",
+      "commits": 343,
+      "capped_additions": 59367,
+      "days": 92,
+      "loc_per_day": 645.2934782608696,
+      "multiplier": 0.8664270022814479,
+      "partial": false
+    },
+    {
+      "quarter": "2024Q1",
+      "commits": 215,
+      "capped_additions": 101975,
+      "days": 91,
+      "loc_per_day": 1120.6043956043957,
+      "multiplier": 1.5046206725096025,
+      "partial": false
+    },
+    {
+      "quarter": "2024Q2",
+      "commits": 370,
+      "capped_additions": 50473,
+      "days": 91,
+      "loc_per_day": 554.6483516483516,
+      "multiplier": 0.7447189919448607,
+      "partial": false
+    },
+    {
+      "quarter": "2024Q3",
+      "commits": 517,
+      "capped_additions": 59376,
+      "days": 92,
+      "loc_per_day": 645.3913043478261,
+      "multiplier": 0.8665583520720812,
+      "partial": false
+    },
+    {
+      "quarter": "2024Q4",
+      "commits": 619,
+      "capped_additions": 71256,
+      "days": 92,
+      "loc_per_day": 774.5217391304348,
+      "multiplier": 1.0399400757081685,
+      "partial": false
+    },
+    {
+      "quarter": "2025Q1",
+      "commits": 506,
+      "capped_additions": 66078,
+      "days": 90,
+      "loc_per_day": 734.2,
+      "multiplier": 0.9858006108933176,
+      "partial": false
+    },
+    {
+      "quarter": "2025Q2",
+      "commits": 829,
+      "capped_additions": 103220,
+      "days": 91,
+      "loc_per_day": 1134.2857142857142,
+      "multiplier": 1.5229903978077093,
+      "partial": false
+    },
+    {
+      "quarter": "2025Q3",
+      "commits": 707,
+      "capped_additions": 141265,
+      "days": 92,
+      "loc_per_day": 1535.4891304347825,
+      "multiplier": 2.0616809082030203,
+      "partial": false
+    },
+    {
+      "quarter": "2025Q4",
+      "commits": 425,
+      "capped_additions": 92819,
+      "days": 92,
+      "loc_per_day": 1008.9021739130435,
+      "multiplier": 1.3546395796446125,
+      "partial": false
+    },
+    {
+      "quarter": "2026Q1",
+      "commits": 1932,
+      "capped_additions": 359969,
+      "days": 90,
+      "loc_per_day": 3999.6555555555556,
+      "multiplier": 5.370284513796674,
+      "partial": false
+    },
+    {
+      "quarter": "2026Q2",
+      "commits": 816,
+      "capped_additions": 232304,
+      "days": 66,
+      "loc_per_day": 3519.757575757576,
+      "multiplier": 4.725931855595479,
+      "partial": true
+    }
+  ]
+}

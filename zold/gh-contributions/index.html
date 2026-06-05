@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code contributed by pondorasti, by quarter</title>
+<style>
+  :root {
+    --bg: #F4EFE6;
+    --card: #FBF6EC;
+    --ink: #2A2620;
+    --muted: #6B6051;
+    --line: #E2D9C8;
+    --accent: #D2754E;
+    --accent-dark: #B8633F;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Charter, "Iowan Old Style", "Source Serif Pro", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  main {
+    max-width: 880px;
+    margin: 48px auto 96px;
+    padding: 0 24px;
+  }
+  header { margin-bottom: 36px; }
+  h1 {
+    font-size: 32px;
+    line-height: 1.15;
+    margin: 0 0 12px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 16px;
+    margin: 0;
+  }
+  .lede {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 28px 0 32px;
+  }
+  .lede strong { color: var(--accent-dark); }
+  figure {
+    margin: 32px 0;
+    padding: 0;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  figcaption {
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+    line-height: 1.5;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 44px 0 12px;
+    font-weight: 700;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 24px 0 8px;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 18px 16px;
+  }
+  .stat-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent-dark);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  ul { padding-left: 20px; }
+  li { margin: 6px 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    font-size: 14px;
+    background: var(--card);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+  }
+  a { color: var(--accent-dark); }
+  a:hover { color: var(--accent); }
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .files { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .files a {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px;
+    text-decoration: none;
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--card);
+  }
+  .files a:hover { background: #fff; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Code contributed by pondorasti, by quarter</h1>
+    <p class="subtitle">A personal recreation of <a href="https://www.anthropic.com/institute/recursive-self-improvement">Anthropic's internal &ldquo;Code contributed per person&rdquo; chart</a>, computed from every authored commit across 202 public, private, and forked repos.</p>
+  </header>
+
+  <p class="lede">
+    Across <strong>10,659 authored commits</strong> spanning Q2 2021&ndash;present, peak quarterly output landed at <strong>5.4&times;</strong> the pre-2025 baseline in Q1 2026 &mdash; Claude Code era. The previous quarter shape (PR-only) suggested 8&times; because the baseline was undercounted; once private-repo commits join the denominator, the real boost is more like 3&ndash;5&times;.
+  </p>
+
+  <figure>
+    <img src="personal_code_contributed_commits.png"
+         alt="Bar chart of lines-of-code merged per day, by quarter, normalised to pre-2025 average">
+    <figcaption>
+      Each bar averages, over the days in that quarter, lines added per day across 9,052 authored commits in range.
+      The hatched final bar is a partial quarter (Q2 2026, 66 days observed). Per-commit additions capped at the 99th
+      percentile (6,502 lines). Baseline = mean of 2021Q2&ndash;2024Q4 daily rates (745 lines/day).
+      Dashed lines mark Claude release dates.
+    </figcaption>
+  </figure>
+
+  <h2>Headline numbers</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">10,659</div><div class="stat-label">commits authored (all-time)</div></div>
+    <div class="stat"><div class="stat-num">202</div><div class="stat-label">repos analysed (incl. private)</div></div>
+    <div class="stat"><div class="stat-num">745</div><div class="stat-label">lines/day baseline (2021&ndash;2024)</div></div>
+    <div class="stat"><div class="stat-num">5.4&times;</div><div class="stat-label">peak multiplier (Q1 2026)</div></div>
+  </div>
+
+  <h2>Methodology</h2>
+  <ul>
+    <li>Enumerated every repo the user has authored commits in: owned, contributed-to, public, private, archived, forks.</li>
+    <li>Bare-cloned 202 repos to a local cache and ran <code>git log --no-merges --numstat</code> filtered to the user's known author identities (<code>pondorasti@gmail.com</code>, <code>alexandru_turcanu@ymail.com</code>, the local-machine and GitHub no-reply forms).</li>
+    <li>Deduped by commit SHA across forks; cap per-commit additions at the 99th percentile (Anthropic's chart caps per-PR).</li>
+    <li>Quarterly bar = sum(capped additions) / days in quarter; the final partial bar uses only days observed so far.</li>
+    <li>Multiplier = quarter's daily rate / (mean of 15 pre-2025 quarterly daily rates).</li>
+  </ul>
+
+  <h2>Caveats worth knowing</h2>
+  <ul>
+    <li>Multipliers for one person are noisier than an org average &mdash; one big project launch or sabbatical shifts a quarter materially.</li>
+    <li>21 repo names collide across owner namespaces (e.g. <code>pondorasti/X</code> + <code>upstream/X</code>). For all but two cases, the fork was cloned; this captures the author's original work but may miss commits made directly to upstream via the GitHub web UI.</li>
+    <li>"Lines added" rewards code-generation-heavy commits (lock-file syncs, scaffolds). The 99th-percentile cap reduces but doesn't remove this bias.</li>
+  </ul>
+
+  <h2>Raw data</h2>
+  <p>All inputs, intermediate JSON, and the rendering pipeline:</p>
+  <div class="files">
+    <a href="chart_data_commits.json">chart_data_commits.json</a>
+    <a href="commits.json">commits.json</a>
+    <a href="prs.json">prs.json</a>
+    <a href="repos.json">repos.json</a>
+    <a href="author_audit.json">author_audit.json</a>
+    <a href="personal_code_contributed_commits.svg">chart.svg</a>
+    <a href="fetch_prs.py">fetch_prs.py</a>
+    <a href="list_repos.py">list_repos.py</a>
+    <a href="clone_all.sh">clone_all.sh</a>
+    <a href="extract_commits.py">extract_commits.py</a>
+    <a href="analyze_commits.py">analyze_commits.py</a>
+    <a href="render_chart.py">render_chart.py</a>
+  </div>
+
+  <div class="footer">
+    Generated 2026-06-05 &middot; inspired by <a href="https://www.anthropic.com/institute/recursive-self-improvement">Anthropic's Recursive Self-Improvement note</a>.
+  </div>
+</main>
+</body>
+</html>

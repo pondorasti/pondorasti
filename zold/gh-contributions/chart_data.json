@@ -1,0 +1,197 @@
+{
+  "user": "pondorasti",
+  "as_of": "2026-06-05",
+  "p99_cap": 3607,
+  "baseline_loc_per_day": 157.28634796765235,
+  "quarters": [
+    {
+      "quarter": "2021Q2",
+      "pr_count": 31,
+      "capped_additions": 10074,
+      "days": 91,
+      "loc_per_day": 110.7032967032967,
+      "multiplier": 0.7038328382197802,
+      "partial": false
+    },
+    {
+      "quarter": "2021Q3",
+      "pr_count": 26,
+      "capped_additions": 10537,
+      "days": 92,
+      "loc_per_day": 114.53260869565217,
+      "multiplier": 0.7281789562512256,
+      "partial": false
+    },
+    {
+      "quarter": "2021Q4",
+      "pr_count": 42,
+      "capped_additions": 28586,
+      "days": 92,
+      "loc_per_day": 310.7173913043478,
+      "multiplier": 1.9754886251682202,
+      "partial": false
+    },
+    {
+      "quarter": "2022Q1",
+      "pr_count": 29,
+      "capped_additions": 8882,
+      "days": 90,
+      "loc_per_day": 98.68888888888888,
+      "multiplier": 0.6274472652209162,
+      "partial": false
+    },
+    {
+      "quarter": "2022Q2",
+      "pr_count": 2,
+      "capped_additions": 1731,
+      "days": 91,
+      "loc_per_day": 19.021978021978022,
+      "multiplier": 0.12093851925336901,
+      "partial": false
+    },
+    {
+      "quarter": "2022Q3",
+      "pr_count": 6,
+      "capped_additions": 4154,
+      "days": 92,
+      "loc_per_day": 45.15217391304348,
+      "multiplier": 0.28706988557156604,
+      "partial": false
+    },
+    {
+      "quarter": "2022Q4",
+      "pr_count": 8,
+      "capped_additions": 4630,
+      "days": 92,
+      "loc_per_day": 50.32608695652174,
+      "multiplier": 0.31996474968617017,
+      "partial": false
+    },
+    {
+      "quarter": "2023Q1",
+      "pr_count": 3,
+      "capped_additions": 9,
+      "days": 90,
+      "loc_per_day": 0.1,
+      "multiplier": 0.000635783087929323,
+      "partial": false
+    },
+    {
+      "quarter": "2023Q2",
+      "pr_count": 9,
+      "capped_additions": 250,
+      "days": 91,
+      "loc_per_day": 2.7472527472527473,
+      "multiplier": 0.017466568349706675,
+      "partial": false
+    },
+    {
+      "quarter": "2023Q3",
+      "pr_count": 8,
+      "capped_additions": 7810,
+      "days": 92,
+      "loc_per_day": 84.8913043478261,
+      "multiplier": 0.5397245561660884,
+      "partial": false
+    },
+    {
+      "quarter": "2023Q4",
+      "pr_count": 47,
+      "capped_additions": 24776,
+      "days": 92,
+      "loc_per_day": 269.30434782608694,
+      "multiplier": 1.71219149853662,
+      "partial": false
+    },
+    {
+      "quarter": "2024Q1",
+      "pr_count": 8,
+      "capped_additions": 8064,
+      "days": 91,
+      "loc_per_day": 88.61538461538461,
+      "multiplier": 0.5634016286881385,
+      "partial": false
+    },
+    {
+      "quarter": "2024Q2",
+      "pr_count": 159,
+      "capped_additions": 36172,
+      "days": 91,
+      "loc_per_day": 397.4945054945055,
+      "multiplier": 2.5272028413823593,
+      "partial": false
+    },
+    {
+      "quarter": "2024Q3",
+      "pr_count": 248,
+      "capped_additions": 39867,
+      "days": 92,
+      "loc_per_day": 433.3369565217391,
+      "multiplier": 2.7550830833128606,
+      "partial": false
+    },
+    {
+      "quarter": "2024Q4",
+      "pr_count": 128,
+      "capped_additions": 30697,
+      "days": 92,
+      "loc_per_day": 333.6630434782609,
+      "multiplier": 2.1213732011050466,
+      "partial": false
+    },
+    {
+      "quarter": "2025Q1",
+      "pr_count": 498,
+      "capped_additions": 63326,
+      "days": 90,
+      "loc_per_day": 703.6222222222223,
+      "multiplier": 4.473511091801368,
+      "partial": false
+    },
+    {
+      "quarter": "2025Q2",
+      "pr_count": 808,
+      "capped_additions": 97296,
+      "days": 91,
+      "loc_per_day": 1069.1868131868132,
+      "multiplier": 6.797708936612243,
+      "partial": false
+    },
+    {
+      "quarter": "2025Q3",
+      "pr_count": 686,
+      "capped_additions": 118700,
+      "days": 92,
+      "loc_per_day": 1290.2173913043478,
+      "multiplier": 8.202983971435938,
+      "partial": false
+    },
+    {
+      "quarter": "2025Q4",
+      "pr_count": 267,
+      "capped_additions": 52525,
+      "days": 92,
+      "loc_per_day": 570.9239130434783,
+      "multiplier": 3.6298376840747486,
+      "partial": false
+    },
+    {
+      "quarter": "2026Q1",
+      "pr_count": 282,
+      "capped_additions": 35516,
+      "days": 90,
+      "loc_per_day": 394.6222222222222,
+      "multiplier": 2.508941350099759,
+      "partial": false
+    },
+    {
+      "quarter": "2026Q2",
+      "pr_count": 63,
+      "capped_additions": 26546,
+      "days": 66,
+      "loc_per_day": 402.2121212121212,
+      "multiplier": 2.5571966442684557,
+      "partial": true
+    }
+  ]
+}
