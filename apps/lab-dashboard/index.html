@@ -184,7 +184,7 @@
   .pdf-row:last-child{border-bottom:none}
   .pdf-row:active{background:var(--card-2)}
   .pdf-row .ic{position:relative;width:36px;height:36px;border-radius:9px;background:var(--cat,var(--vit));color:#fff;display:flex;align-items:center;justify-content:center;font:700 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;flex:none;letter-spacing:.04em;overflow:hidden}
-  .pdf-row .ic img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;padding:5px;box-sizing:border-box}
+  .pdf-row .ic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:9px}
   .pdf-row .body{flex:1;min-width:0}
   .pdf-row .body .t{font:600 15px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif}
   .pdf-row .body .s{font:400 12px/1.3 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:3px}
@@ -1522,11 +1522,13 @@ if(highlightsEl){
 // Docs pane — group reports by year, newest first
 const SRC_COLOR = { function:"var(--vit)", quest:"var(--cancer)", labcorp:"var(--immune)", kaiser:"var(--hormone)" };
 const SRC_LETTER = { function:"F", quest:"Q", labcorp:"L", kaiser:"K" };
+// Inline SVG monograms — brand colors, render crisp at any size.
+const _svg = s => "data:image/svg+xml;utf8," + encodeURIComponent(s);
 const SRC_LOGO = {
-  function:"https://www.google.com/s2/favicons?domain=functionhealth.com&sz=128",
-  quest:   "https://www.google.com/s2/favicons?domain=questdiagnostics.com&sz=128",
-  labcorp: "https://www.google.com/s2/favicons?domain=labcorp.com&sz=128",
-  kaiser:  "https://www.google.com/s2/favicons?domain=kp.org&sz=128",
+  function: _svg(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0f0f0f"/><text x="32" y="44" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="34" font-weight="700" fill="#fff" letter-spacing="-2">F</text></svg>`),
+  quest: _svg(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#00853f"/><text x="32" y="44" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="34" font-weight="800" fill="#fff" letter-spacing="-1">Q</text></svg>`),
+  labcorp: _svg(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0073cf"/><text x="32" y="44" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="34" font-weight="800" fill="#fff" letter-spacing="-1.5">L</text></svg>`),
+  kaiser: _svg(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#006fb9"/><text x="32" y="43" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,system-ui,sans-serif" font-size="24" font-weight="800" fill="#fff" letter-spacing="-1">KP</text></svg>`),
 };
 const pdfYears = document.getElementById('pdf-years');
 const pdfCount = document.getElementById('pdf-count');
