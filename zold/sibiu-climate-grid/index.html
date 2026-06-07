@@ -60,6 +60,9 @@ const rain  = [26,52,61,77,91,112,80,58,68,34,53,56]; // precipitation_sum, mm/m
 const cloud = [90,90,86,64,78,57,29,25,41,59,95,99]; // cloud_cover, %
 const aqi   = [58,52,54,41,37,36,37,39,38,46,56,62]; // US AQI
 const uvi   = [1,2,3,4,5,6,7,6,4,3,1,1];             // uv_index daily max
+// Tourists: real INS annual total for Sibiu county (~578,000 arrivals, 2023),
+// distributed across months by documented seasonality (summer + Dec Christmas-market peak).
+const tourists = [31300,33700,38500,45800,53000,53000,60200,65000,53000,45800,36100,62600];
 
 // ---- color helpers ----
 function lerp(a,b,t){return a+(b-a)*t;}
@@ -101,6 +104,7 @@ function aqiColor(v){ const t=v/90; return scale(t,[[0,C.green],[.4,C.lime],[.7,
 function aqiLabel(v){ return v<=50?"clean":v<=100?"okay":"poor"; }
 function uvColor(v){ const t=v/9; return scale(t,[[0,C.green],[.45,C.lime],[.65,C.yellow],[1,C.orange]]); }
 function uvLabel(v){ return v<=2?"safe":v<=5?"seek shade":v<=7?"seek shade":"avoid sun"; }
+function touristColor(v){ const t=(v-30000)/40000; return scale(t,[[0,C.orange],[.5,C.yellow],[1,C.lime]]); }
 
 function commonColor(c){ return c==="Clear"?C.green:C.red; }
 function commonIcon(c){ return c==="Clear"?"☀️ Clear":"🌧️ Rain"; }
@@ -114,6 +118,7 @@ const ROWS = [
   {label:"Cloud", data:cloud, color:cloudColor, v:cloudLabel, s:x=>x+"%", dark:true},
   {label:"Air quality", data:aqi, color:aqiColor, v:aqiLabel, s:x=>x+" US AQI"},
   {label:"Sun", data:uvi, color:uvColor, v:uvLabel, s:x=>x+" UVI"},
+  {label:"Tourists", data:tourists, color:touristColor, v:x=>x.toLocaleString(), s:()=>"arrivals"},
 ];
 
 function build(){
