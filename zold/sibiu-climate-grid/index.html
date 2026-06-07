@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cost of Living in Sibiu, Romania — Weather</title>
+<style>
+  :root {
+    --blue:#5aa9e6; --blue-deep:#4a9fe0; --teal:#4cb5b0;
+    --green:#5fc27e; --lime:#a9d038; --yellow:#f4d35e;
+    --orange:#f4a03c; --red:#ec5e57; --grey:#d2d7d9; --grey-l:#e6e9ea;
+    --ink:#2b2b2b; --muted:#6b7280;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:#1b2733 url("https://images.unsplash.com/photo-1583266371860-91c5b9c6f64d?auto=format&fit=crop&w=2000&q=70") center/cover fixed no-repeat;
+    min-height:100vh;
+  }
+  .hero-bar {
+    display:flex; justify-content:space-between;
+    padding:14px 26px; color:#fff; font-size:14px;
+    text-shadow:0 1px 4px rgba(0,0,0,.6);
+  }
+  .hero-bar a { color:#fff; text-decoration:none; opacity:.9; }
+  .hero-bar .crumbs span { opacity:.8; }
+  .hero-bar .crumbs b { font-weight:600; }
+  .card {
+    background:#fafafa;
+    margin:0 auto;
+    max-width:1880px;
+    border-radius:26px 26px 0 0;
+    box-shadow:0 -4px 40px rgba(0,0,0,.35);
+    overflow:hidden;
+  }
+  nav {
+    display:flex; align-items:center; gap:34px;
+    padding:22px 40px 14px;
+    overflow-x:auto; white-space:nowrap;
+    border-bottom:1px solid #eee;
+  }
+  nav a {
+    text-decoration:none; color:#222; font-size:21px; font-weight:600;
+    padding-bottom:6px;
+  }
+  nav a.active { color:#ec5e57; border-bottom:3px solid #ec5e57; }
+  nav .arrow { margin-left:auto; color:#888; font-size:24px; }
+  .grid-wrap { padding:20px 18px 8px; overflow-x:auto; }
+  table { border-collapse:separate; border-spacing:6px; width:100%; }
+  th.month { font-size:15px; font-weight:700; color:#333; padding:6px 0; text-align:center; }
+  td.rowlabel, th.corner { font-size:14px; font-weight:600; color:#444; text-align:left; padding-right:14px; width:90px; }
+  td.cell {
+    border-radius:10px; text-align:center; color:#1c2b22;
+    padding:12px 6px; min-width:78px; line-height:1.32;
+  }
+  td.cell .v { font-size:16px; font-weight:700; }
+  td.cell .s { font-size:13px; opacity:.92; }
+  td.cell.dark { color:#11202b; }
+  .highlight { outline:3px solid #111; border-radius:4px; }
+  .footnote { padding:18px 40px 40px; color:#9aa0a6; font-size:15px; line-height:1.5; max-width:1400px; }
+  @media (max-width:700px){ nav a{font-size:18px;} td.cell{min-width:66px;} }
+</style>
+</head>
+<body>
+  <div class="hero-bar">
+    <div class="crumbs">
+      <span>Cost of Living</span> » <span>Europe</span> » <span>Romania</span> » <b>Sibiu</b>
+    </div>
+    <div>Photo via Unsplash</div>
+  </div>
+
+  <div class="card">
+    <nav>
+      <a href="#">Scores</a>
+      <a href="#">Digital Nomad Guide</a>
+      <a href="#">Pros and Cons</a>
+      <a href="#">Reviews</a>
+      <a href="#">Cost of Living</a>
+      <a href="#">People</a>
+      <a href="#">Chat</a>
+      <a href="#">Photos</a>
+      <a href="#" class="active">Weather</a>
+      <a href="#">Trends</a>
+      <a href="#">Demographics</a>
+      <span class="arrow">›</span>
+    </nav>
+
+    <div class="grid-wrap">
+      <table id="grid"></table>
+    </div>
+
+    <p class="footnote">
+      Green is good. Red is bad. Values shown are the medians of all daily highs in a month
+      based on the past few years, not necessarily current numbers. Remote worker count is
+      estimated based on the total amount of trips logged by Nomads.com members.
+      Sibiu sits at ~415m in southern Transylvania, with a temperate-continental climate.
+    </p>
+  </div>
+
+<script>
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const HILITE = 5; // Jun
+
+// ---- Sibiu data (medians of daily highs) ----
+const feels = [2,4,11,16,22,25,27,27,22,16,9,3];
+const real  = [3,5,12,17,23,26,28,28,23,17,9,4];
+const humidity = [82,77,68,64,66,71,68,67,70,73,80,84];
+const common = ["Rain","Clear","Rain","Rain","Rain","Rain","Clear","Clear","Clear","Clear","Rain","Rain"];
+const rain  = [33,30,42,55,82,95,84,72,55,42,40,38]; // mm
+const cloud = [56,48,49,47,53,45,30,31,37,41,52,60]; // %
+const aqi   = [34,28,14,12,16,24,21,73,70,30,27,33]; // US AQI
+const uvi   = [1,2,3,5,6,7,7,6,5,3,2,1];
+const workers = [820,910,640,980,1380,1450,1260,1900,2050,1420,960,1040];
+
+// ---- color helpers ----
+function lerp(a,b,t){return a+(b-a)*t;}
+function rgb(c){return `rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;}
+const C = {
+  blue:[90,169,230], teal:[76,181,176], green:[95,194,126],
+  lime:[169,208,56], yellow:[244,211,94], orange:[244,160,60],
+  red:[236,94,87], grey:[210,215,217], greyL:[230,233,234]
+};
+function scale(t, stops){ // stops: [[pos,color],...]
+  t=Math.max(0,Math.min(1,t));
+  for(let i=0;i<stops.length-1;i++){
+    const [p0,c0]=stops[i],[p1,c1]=stops[i+1];
+    if(t>=p0&&t<=p1){const f=(t-p0)/(p1-p0||1);return [lerp(c0[0],c1[0],f),lerp(c0[1],c1[1],f),lerp(c0[2],c1[2],f)];}
+  }
+  return stops[stops.length-1][1];
+}
+
+function tempColor(v){
+  // -5..32 mapped blue->teal->green->lime->yellow->orange->red
+  const t=(v+5)/37;
+  return scale(t,[[0,C.blue],[.25,C.blue],[.42,C.teal],[.55,C.green],[.68,C.lime],[.8,C.yellow],[.9,C.orange],[1,C.red]]);
+}
+function tempLabel(v){
+  if(v<=0)return"freezing"; if(v<5)return"very cold"; if(v<10)return"cold";
+  if(v<18)return"cool"; if(v<24)return"mild"; if(v<29)return"warm"; return"hot";
+}
+function humColor(v){ // 60 best (green) ... high or very low worse
+  const d=Math.abs(v-62)/30; return scale(d,[[0,C.green],[1,C.yellow]]);
+}
+function humLabel(v){ return v>=78?"damp":"nice"; }
+function rainColor(v){ // low green, high red
+  const t=(v-20)/90; return scale(t,[[0,C.green],[.4,C.lime],[.6,C.yellow],[.8,C.orange],[1,C.red]]);
+}
+function rainLabel(v){ return v<50?"dry":"rainy"; }
+function cloudColor(v){ const t=v/65; return scale(t,[[0,C.greyL],[1,C.grey]]); }
+function cloudLabel(v){ return v<51?"pockets":"cloudy"; }
+function aqiColor(v){ const t=v/90; return scale(t,[[0,C.green],[.4,C.lime],[.7,C.yellow],[1,C.orange]]); }
+function aqiLabel(v){ return v<=50?"clean":v<=100?"okay":"poor"; }
+function uvColor(v){ const t=v/9; return scale(t,[[0,C.green],[.45,C.lime],[.65,C.yellow],[1,C.orange]]); }
+function uvLabel(v){ return v<=2?"safe":v<=5?"seek shade":v<=7?"seek shade":"avoid sun"; }
+function workColor(v){ const t=(v-600)/1600; return scale(t,[[0,C.orange],[.5,C.yellow],[1,C.lime]]); }
+
+function commonColor(c){ return c==="Clear"?C.green:C.red; }
+function commonIcon(c){ return c==="Clear"?"☀️ Clear":"🌧️ Rain"; }
+
+const ROWS = [
+  {label:"Feels<br>(median)", data:feels, color:tempColor, v:x=>x+"°", s:tempLabel},
+  {label:"Real<br>(median)", data:real, color:tempColor, v:x=>x+"°", s:tempLabel},
+  {label:"Humidity", data:humidity, color:humColor, v:humLabel, s:x=>x+"%"},
+  {label:"Most<br>common", data:common, color:commonColor, v:commonIcon, s:()=>""},
+  {label:"Rain", data:rain, color:rainColor, v:rainLabel, s:x=>x+"mm"},
+  {label:"Cloud", data:cloud, color:cloudColor, v:cloudLabel, s:x=>x+"%", dark:true},
+  {label:"Air quality", data:aqi, color:aqiColor, v:aqiLabel, s:x=>x+" US AQI"},
+  {label:"Sun", data:uvi, color:uvColor, v:uvLabel, s:x=>x+" UVI"},
+  {label:"Remote<br>workers", data:workers, color:workColor, v:x=>x.toLocaleString(), s:()=>"people"},
+];
+
+function build(){
+  const t=document.getElementById("grid");
+  let html="<tr><th class='corner'></th>";
+  MONTHS.forEach((m,i)=>{ html+=`<th class='month ${i===HILITE?'highlight':''}'>${m}</th>`; });
+  html+="</tr>";
+  ROWS.forEach(row=>{
+    html+=`<tr><td class='rowlabel'>${row.label}</td>`;
+    row.data.forEach((d,i)=>{
+      const col = rgb(typeof row.color(d)[0]!=="undefined"?row.color(d):row.color(d));
+      const v=row.v(d), s=row.s(d);
+      html+=`<td class='cell ${row.dark?'dark':''} ${i===HILITE?'highlight':''}' style='background:${col}'>
+        <div class='v'>${v}</div>${s?`<div class='s'>${s}</div>`:""}</td>`;
+    });
+    html+="</tr>";
+  });
+  t.innerHTML=html;
+}
+build();
+</script>
+</body>
+</html>
