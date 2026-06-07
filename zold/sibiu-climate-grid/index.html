@@ -26,19 +26,7 @@
     box-shadow:0 -4px 40px rgba(0,0,0,.35);
     overflow:hidden;
   }
-  nav {
-    display:flex; align-items:center; gap:34px;
-    padding:22px 40px 14px;
-    overflow-x:auto; white-space:nowrap;
-    border-bottom:1px solid #eee;
-  }
-  nav a {
-    text-decoration:none; color:#222; font-size:21px; font-weight:600;
-    padding-bottom:6px;
-  }
-  nav a.active { color:#ec5e57; border-bottom:3px solid #ec5e57; }
-  nav .arrow { margin-left:auto; color:#888; font-size:24px; }
-  .grid-wrap { padding:20px 18px 8px; overflow-x:auto; }
+  .grid-wrap { padding:34px 18px 30px; overflow-x:auto; }
   table { border-collapse:separate; border-spacing:6px; width:100%; }
   th.month { font-size:15px; font-weight:700; color:#333; padding:6px 0; text-align:center; }
   td.rowlabel, th.corner { font-size:14px; font-weight:600; color:#444; text-align:left; padding-right:14px; width:90px; }
@@ -56,31 +44,9 @@
 </head>
 <body>
   <div class="card">
-    <nav>
-      <a href="#">Scores</a>
-      <a href="#">Digital Nomad Guide</a>
-      <a href="#">Pros and Cons</a>
-      <a href="#">Reviews</a>
-      <a href="#">Cost of Living</a>
-      <a href="#">People</a>
-      <a href="#">Chat</a>
-      <a href="#">Photos</a>
-      <a href="#" class="active">Weather</a>
-      <a href="#">Trends</a>
-      <a href="#">Demographics</a>
-      <span class="arrow">›</span>
-    </nav>
-
     <div class="grid-wrap">
       <table id="grid"></table>
     </div>
-
-    <p class="footnote">
-      Green is good. Red is bad. Values shown are the medians of all daily highs in a month
-      based on the past few years, not necessarily current numbers. Remote worker count is
-      estimated based on the total amount of trips logged by Nomads.com members.
-      Sibiu sits at ~415m in southern Transylvania, with a temperate-continental climate.
-    </p>
   </div>
 
 <script>
