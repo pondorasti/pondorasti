@@ -1549,7 +1549,7 @@ if(pdfYears){
   const years = Object.keys(byYear).sort((a,b) => b.localeCompare(a));
   pdfYears.innerHTML = years.map(y => {
     const rows = byYear[y].map(r => `<a class="pdf-row" href="${r.pdf}" style="--cat:${SRC_COLOR[r.src]||'var(--vit)'}">
-      <div class="ic">${SRC_LETTER[r.src]||"·"}${SRC_LOGO[r.src]?`<img src="${SRC_LOGO[r.src]}" class="${r.src==='function'?'cover':''}" alt="${r.sourceName}" onerror="this.remove()">`:""}</div>
+      <div class="ic">${SRC_LOGO[r.src]?`<img src="${SRC_LOGO[r.src]}" class="${r.src==='function'?'cover':''}" alt="${r.sourceName}" onerror="this.closest('.ic').textContent='${SRC_LETTER[r.src]||"·"}'">`:(SRC_LETTER[r.src]||"·")}</div>
       <div class="body">
         <div class="t">${r.labelOnly}</div>
         <div class="s">${r.sourceName}</div>
