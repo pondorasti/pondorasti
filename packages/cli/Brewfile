@@ -38,6 +38,7 @@ cask "bartender"                          # Menu bar manager - hide and organize
 
 # Utilities
 brew "fzf"                                # Command-line fuzzy finder - search through files, history, processes, and more
+brew "bat"                                # Cat clone with syntax highlighting and Git integration
 brew "ffmpeg"                             # Multimedia framework for converting audio, video, and streaming
 brew "mas"                                # Mac App Store command-line interface
 brew "powerlevel10k"                      # A fast reimplementation of Powerlevel9k ZSH theme with even more features
