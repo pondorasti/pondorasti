@@ -13,6 +13,9 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
 
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
@@ -26,9 +29,16 @@
   "workbench.preferredDarkColorTheme": "Default Dark Modern",
   "workbench.preferredLightColorTheme": "Default Light Modern",
   "workbench.tree.enableStickyScroll": true,
+  "workbench.sideBar.location": "right",
+  "workbench.agentsWindowButton.enabled": false,
 
   "terminal.integrated.fontFamily": "MesloLGS Nerd Font Mono",
   "terminal.integrated.scrollback": 10000,
+
+  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.hideUnchangedRegions.enabled": true,
+  "diffEditor.renderSideBySide": true,
+  "diffEditor.experimental.showMoves": true,
 
   "accessibility.signals.onDebugBreak": {
     "sound": "on",
@@ -43,13 +53,4 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
 
   "cursor.composer.shouldChimeAfterChatFinishes": true,
-
-  "claudeCode.preferredLocation": "panel",
-  "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "cursor.cpp.disabledLanguages": ["plaintext"],
-  "workbench.sideBar.location": "right",
-  "diffEditor.ignoreTrimWhitespace": false,
-  "workbench.agentsWindowButton.enabled": false,
 }
