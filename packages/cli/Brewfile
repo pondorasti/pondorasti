@@ -78,6 +78,8 @@ cask "discord"                            # Voice, video, and text communication
 ## Browsers
 cask "google-chrome"                      # Fast, secure web browser
 cask "firefox"                            # Privacy-focused web browser
+
+## Networking
 cask "cloudflare-warp"                    # Fast, secure VPN and DNS resolver
 cask "tailscale-app"                      # Zero config VPN for secure networking between devices
 
