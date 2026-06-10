@@ -125,6 +125,11 @@ export PATH="$JAVA_HOME/bin:$PATH"
 eval "$(fnm env --use-on-cd --shell zsh)"
 # fnm end
 
+# fzf
+if command -v fzf >/dev/null 2>&1; then
+  eval "$(fzf --zsh)"
+fi
+
 # Claude keychain wrapper for SSH sessions (prompts only when claude is used)
 # https://phoenixtrap.com/2025/10/26/claude-code-cli-over-ssh-on-macos-fixing-keychain-access/
 claude() {
@@ -142,3 +147,4 @@ alias occ='opencode --continue'
 alias co='codex --yolo'
 alias cc='claude --dangerously-skip-permissions'
 alias ccc='claude --dangerously-skip-permissions --continue'
+
