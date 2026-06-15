@@ -382,7 +382,7 @@
     <h2 class="section">Out of range <span style="font:500 13px;color:var(--text-3);letter-spacing:0">May 28, 2026</span></h2>
     <div class="mgrid" id="flags"></div>
 
-    <h2 class="section">Most recent panel <span style="font:500 13px;color:var(--text-3);letter-spacing:0">May 28, 2026 · Quest</span></h2>
+    <h2 class="section">Most recent panel <span id="recent-meta" style="font:500 13px;color:var(--text-3);letter-spacing:0">May 28, 2026 · Quest</span></h2>
     <div class="mgrid" id="recent"></div>
 
   </section>
@@ -430,6 +430,7 @@ const PDFS = {
   "quest|2025-04-11":  ["pdfs/quest-2025-04-11.pdf","Quest · STI screen"],
   "quest|2025-04-14":  ["pdfs/quest-2025-04-14.pdf","Quest · Comprehensive panel"],
   "quest|2026-03-03":  ["pdfs/quest-2026-03-03.pdf","Quest · Comprehensive panel"],
+  "labcorp|2026-06-11":["pdfs/labcorp-2026-06-11.pdf","Labcorp · Calprotectin + CRP"],
   "kaiser|2023-04-05": ["pdfs/kaiser-summary.pdf","Kaiser · Initial workup"],
   "kaiser|2023-04-19": ["pdfs/kaiser-summary.pdf","Kaiser · Stool panel"],
   "kaiser|2024-02-01": ["pdfs/kaiser-summary.pdf","Kaiser · Lipid + allergens"],
@@ -946,6 +947,7 @@ const REC = {
     [0.2,'2025-12-18','function',0,1.0,'mg/L'],
   ],
   crp:[
+    [1,'2026-06-11','labcorp',0,10,'mg/L'],
     [1,'2024-04-05','labcorp',0,10,'mg/L'],
     [0.4,'2023-04-05','kaiser',0,0.5,'mg/dL'],
   ],
@@ -1024,6 +1026,7 @@ const REC = {
 
   // ----- GUT -----
   calprotectin_fecal:[
+    [38,'2026-06-11','labcorp',0,120,'µg/g'],
     [5,'2024-04-05','labcorp',0,120,'µg/g'],
     [1370,'2023-04-19','kaiser',0,49,'µg/g'],
   ],
@@ -1442,8 +1445,12 @@ const RECENT = Object.values(metrics).filter(m => m.latest.d === latestDate);
 const RECENT_ORDER = ["heart","liver","kidney","blood","metab","vit","hormone","omega","gut","immune","infect","cancer"];
 RECENT.sort((a,b) => RECENT_ORDER.indexOf(a.cat) - RECENT_ORDER.indexOf(b.cat));
 document.getElementById('recent').innerHTML = RECENT.map(cardHTML).join("");
-// Update "Most recent panel" date label
-const recentHeaderDate = document.querySelector('h2.section + .mgrid#recent');
+// Update "Most recent panel" date label dynamically from the newest record
+const recentMetaEl = document.getElementById('recent-meta');
+if(recentMetaEl && RECENT.length){
+  const srcName = SOURCES[RECENT[0].latest.s]?.label.replace(/\s+(Health|Diagnostics|Permanente)$/,'') || RECENT[0].latest.s;
+  recentMetaEl.textContent = `${fmtDate(latestDate)} · ${srcName}`;
+}
 // browse
 const browseEl = document.getElementById('browse-cats');
 let browseHTML = "";
