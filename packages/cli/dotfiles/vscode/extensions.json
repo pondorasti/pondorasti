@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "bradlc.vscode-tailwindcss",
+    "oxc.oxc-vscode",
+    "vscodevim.vim",
+    "yoavbls.pretty-ts-errors"
+  ]
+}

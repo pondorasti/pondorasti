@@ -1,6 +1,7 @@
 import * as path from "path"
 import * as fs from "fs"
 import * as os from "os"
+import * as childProcess from "child_process"
 
 // -------------------------------------------------------------------------------------------------------------------
 // Package Definitions
@@ -56,6 +57,8 @@ interface LinkResult {
   skipped: string[]
   pruned: string[]
   backedUp: string[]
+  installedExtensions: string[]
+  skippedExtensions: string[]
   errors: string[]
 }
 
@@ -136,7 +139,7 @@ class Dotfiles {
 
         if (entry.isDirectory()) {
           walkDir(fullPath, relPath)
-        } else if (entry.isFile() && entry.name !== ".gitkeep") {
+        } else if (entry.isFile() && entry.name !== ".gitkeep" && !this.isPackageMetadataFile(packageName, relPath)) {
           files.push(relPath)
         }
       }
@@ -144,6 +147,10 @@ class Dotfiles {
 
     walkDir(packagePath)
     return files
+  }
+
+  private static isPackageMetadataFile(packageName: string, relativePath: string): boolean {
+    return packageName === DotfilesPackage.Vscode && relativePath === "extensions.json"
   }
 
   private static isWithinDir(targetPath: string, dirPath: string): boolean {
@@ -328,6 +335,12 @@ class Dotfiles {
       for (const file of result.pruned) {
         console.log(`  \x1b[32m✓\x1b[0m ${file} (removed dangling symlink)`)
       }
+      for (const extension of result.installedExtensions) {
+        console.log(`  \x1b[32m✓\x1b[0m ${extension} (extension installed)`)
+      }
+      for (const extension of result.skippedExtensions) {
+        console.log(`  \x1b[90m○\x1b[0m ${extension} (extension already installed)`)
+      }
       for (const error of result.errors) {
         console.log(`  \x1b[31m✗\x1b[0m ${error}`)
       }
@@ -342,6 +355,8 @@ class Dotfiles {
     const skipped: string[] = []
     const pruned: string[] = []
     const backedUp: string[] = []
+    const installedExtensions: string[] = []
+    const skippedExtensions: string[] = []
     const errors: string[] = []
 
     if (prune) {
@@ -410,7 +425,12 @@ class Dotfiles {
       }
     }
 
-    return { linked, skipped, pruned, backedUp, errors }
+    const extensionResult = this.installExtensions(packageName)
+    installedExtensions.push(...extensionResult.installed)
+    skippedExtensions.push(...extensionResult.skipped)
+    errors.push(...extensionResult.errors)
+
+    return { linked, skipped, pruned, backedUp, installedExtensions, skippedExtensions, errors }
   }
 
   static unlink(packageName: string): UnlinkResult {
@@ -465,6 +485,104 @@ class Dotfiles {
       return `~/${path.relative(homePath, target)}`
     }
     return target
+  }
+
+  private static installExtensions(packageName: string): {
+    installed: string[]
+    skipped: string[]
+    errors: string[]
+  } {
+    if (packageName !== DotfilesPackage.Vscode) {
+      return { installed: [], skipped: [], errors: [] }
+    }
+
+    const manifestPath = path.join(this.getPath(), packageName, "extensions.json")
+
+    if (!fs.existsSync(manifestPath)) {
+      return { installed: [], skipped: [], errors: [] }
+    }
+
+    const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as {
+      recommendations?: unknown
+      codeRecommendations?: unknown
+      cursorRecommendations?: unknown
+    }
+
+    const installed: string[] = []
+    const skipped: string[] = []
+    const errors: string[] = []
+
+    for (const command of ["code", "cursor"]) {
+      if (!this.isCommandAvailable(command)) {
+        skipped.push(`${command} (command not found)`)
+        continue
+      }
+
+      let installedExtensions: Set<string>
+      try {
+        const output = childProcess.execFileSync(command, ["--list-extensions"], {
+          encoding: "utf8",
+          stdio: ["ignore", "pipe", "ignore"],
+        })
+        installedExtensions = new Set(output.split("\n").map((line) => line.trim()).filter(Boolean))
+      } catch (err) {
+        errors.push(`${command} --list-extensions (${err instanceof Error ? err.message : "unknown error"})`)
+        continue
+      }
+
+      const recommendations = this.getExtensionRecommendationsForCommand(command, manifest)
+
+      for (const extension of recommendations) {
+        if (installedExtensions.has(extension)) {
+          skipped.push(`${command}:${extension}`)
+          continue
+        }
+
+        try {
+          childProcess.execFileSync(command, ["--install-extension", extension], {
+            encoding: "utf8",
+            stdio: ["ignore", "pipe", "pipe"],
+          })
+          installed.push(`${command}:${extension}`)
+        } catch (err) {
+          errors.push(`${command}:${extension} (${err instanceof Error ? err.message : "unknown error"})`)
+        }
+      }
+    }
+
+    return { installed, skipped, errors }
+  }
+
+  private static getExtensionRecommendationsForCommand(
+    command: string,
+    manifest: {
+      recommendations?: unknown
+      codeRecommendations?: unknown
+      cursorRecommendations?: unknown
+    },
+  ): string[] {
+    const sharedRecommendations = this.getStringArray(manifest.recommendations)
+    const editorRecommendations =
+      command === "code"
+        ? this.getStringArray(manifest.codeRecommendations)
+        : this.getStringArray(manifest.cursorRecommendations)
+
+    return Array.from(new Set([...sharedRecommendations, ...editorRecommendations]))
+  }
+
+  private static getStringArray(value: unknown): string[] {
+    return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : []
+  }
+
+  private static isCommandAvailable(command: string): boolean {
+    try {
+      childProcess.execFileSync("/bin/zsh", ["-lc", `command -v ${command}`], {
+        stdio: "ignore",
+      })
+      return true
+    } catch {
+      return false
+    }
   }
 }
 

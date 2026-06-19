@@ -106,6 +106,9 @@ pd dotfiles link
 # Link one package
 pd dotfiles link nvim
 
+# Link VS Code/Cursor settings and install configured extensions
+pd dotfiles link vscode
+
 # Backup and replace conflicting files
 pd dotfiles link --force
 

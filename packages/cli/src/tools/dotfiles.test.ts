@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test"
+import * as childProcess from "child_process"
 import * as fs from "fs"
 import * as os from "os"
 import * as path from "path"
@@ -9,6 +10,7 @@ describe("Dotfiles", () => {
   let homeDir: string
   let dotfilesDir: string
   let mockHomeDir: ReturnType<typeof spyOn>
+  let mockExecFileSync: ReturnType<typeof spyOn>
 
   const codeSettingsPath = () => path.join(homeDir, "Library/Application Support/Code/User/settings.json")
   const cursorSettingsPath = () => path.join(homeDir, "Library/Application Support/Cursor/User/settings.json")
@@ -24,10 +26,12 @@ describe("Dotfiles", () => {
 
     Dotfiles.basePath = dotfilesDir
     mockHomeDir = spyOn(os, "homedir").mockImplementation(() => homeDir)
+    mockExecFileSync = spyOn(childProcess, "execFileSync")
   })
 
   afterEach(() => {
     mockHomeDir.mockRestore()
+    mockExecFileSync.mockRestore()
     Dotfiles.basePath = null
     fs.rmSync(tempDir, { recursive: true, force: true })
   })
@@ -42,6 +46,69 @@ describe("Dotfiles", () => {
     ])
     expect(fs.readlinkSync(codeSettingsPath())).toBe(vscodeSettingsSourcePath())
     expect(fs.readlinkSync(cursorSettingsPath())).toBe(vscodeSettingsSourcePath())
+  })
+
+  test("does not symlink vscode extension recommendations as a user config file", () => {
+    fs.writeFileSync(path.join(dotfilesDir, "vscode/extensions.json"), '{ "recommendations": [] }\n')
+
+    const result = Dotfiles.link("vscode")
+
+    expect(result.errors).toEqual([])
+    expect(result.linked).toEqual([
+      "~/Library/Application Support/Code/User/settings.json",
+      "~/Library/Application Support/Cursor/User/settings.json",
+    ])
+    expect(fs.existsSync(path.join(homeDir, "Library/Application Support/Code/User/extensions.json"))).toBe(false)
+    expect(fs.existsSync(path.join(homeDir, "Library/Application Support/Cursor/User/extensions.json"))).toBe(false)
+  })
+
+  test("installs missing vscode recommendations into VS Code and Cursor", () => {
+    fs.writeFileSync(
+      path.join(dotfilesDir, "vscode/extensions.json"),
+      [
+        "{",
+        '  "recommendations": ["vscodevim.vim", "oxc.oxc-vscode"],',
+        '  "codeRecommendations": ["ms-vscode.remote-explorer"],',
+        '  "cursorRecommendations": ["anysphere.remote-ssh"]',
+        "}",
+      ].join("\n"),
+    )
+
+    mockExecFileSync.mockImplementation((command, args) => {
+      if (command === "/bin/zsh") {
+        return ""
+      }
+      if (Array.isArray(args) && args[0] === "--list-extensions") {
+        return "oxc.oxc-vscode\n"
+      }
+      return ""
+    })
+
+    const result = Dotfiles.link("vscode")
+
+    expect(result.installedExtensions).toEqual([
+      "code:vscodevim.vim",
+      "code:ms-vscode.remote-explorer",
+      "cursor:vscodevim.vim",
+      "cursor:anysphere.remote-ssh",
+    ])
+    expect(result.skippedExtensions).toEqual(["code:oxc.oxc-vscode", "cursor:oxc.oxc-vscode"])
+    expect(mockExecFileSync).toHaveBeenCalledWith("code", ["--install-extension", "vscodevim.vim"], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    })
+    expect(mockExecFileSync).toHaveBeenCalledWith("code", ["--install-extension", "ms-vscode.remote-explorer"], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    })
+    expect(mockExecFileSync).toHaveBeenCalledWith("cursor", ["--install-extension", "vscodevim.vim"], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    })
+    expect(mockExecFileSync).toHaveBeenCalledWith("cursor", ["--install-extension", "anysphere.remote-ssh"], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    })
   })
 
   test("unlinks vscode dotfiles from both app config directories", () => {

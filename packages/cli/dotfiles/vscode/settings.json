@@ -11,10 +11,10 @@
   "editor.lineNumbers": "relative",
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "oxc.oxc-vscode",
   },
   "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "oxc.oxc-vscode",
   },
 
   "explorer.confirmDelete": false,

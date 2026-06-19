@@ -106,6 +106,14 @@ const linkCommand: CommandModule<{}, { package?: string; force?: boolean; prune?
         console.log(`  ${statusColor("linked")}${statusIcon("linked")}${reset} ${file} (removed dangling symlink)`)
       }
 
+      for (const extension of result.installedExtensions) {
+        console.log(`  ${statusColor("linked")}${statusIcon("linked")}${reset} ${extension} (extension installed)`)
+      }
+
+      for (const extension of result.skippedExtensions) {
+        console.log(`  ${statusColor("linked")}${statusIcon("linked")}${reset} ${extension} (extension already installed)`)
+      }
+
       for (const error of result.errors) {
         console.log(`  ${statusColor("conflict")}${statusIcon("conflict")}${reset} ${error}`)
       }
