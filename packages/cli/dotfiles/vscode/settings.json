@@ -25,9 +25,9 @@
   "window.autoDetectColorScheme": true,
   "window.confirmBeforeClose": "keyboardOnly",
 
-  "workbench.colorTheme": "Default Dark Modern",
-  "workbench.preferredDarkColorTheme": "Default Dark Modern",
-  "workbench.preferredLightColorTheme": "Default Light Modern",
+  "workbench.colorTheme": "Dark Modern",
+  "workbench.preferredDarkColorTheme": "Dark Modern",
+  "workbench.preferredLightColorTheme": "Light Modern",
   "workbench.tree.enableStickyScroll": true,
   "workbench.sideBar.location": "right",
   "workbench.agentsWindowButton.enabled": false,

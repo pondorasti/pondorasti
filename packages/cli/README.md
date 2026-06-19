@@ -94,7 +94,7 @@ pd brew mas
 
 #### `dotfiles` - Manage symlinked dotfiles
 
-Packages currently include Claude, Cursor, Git, Neovim, OpenCode, tmux, and zsh.
+Packages currently include Claude, VS Code/Cursor, Git, Neovim, OpenCode, tmux, and zsh.
 
 ```bash
 # Show dotfile status

@@ -9,17 +9,24 @@ import * as os from "os"
 enum DotfilesPackage {
   Git = "git",
   Zsh = "zsh",
-  Cursor = "cursor",
+  Vscode = "vscode",
   Claude = "claude",
   Nvim = "nvim",
   Opencode = "opencode",
 }
 
-const PACKAGE_TARGET_PATHS: Partial<Record<DotfilesPackage, string>> = {
-  [DotfilesPackage.Cursor]: "~/Library/Application Support/Cursor/User",
-  [DotfilesPackage.Claude]: "~/.claude",
-  [DotfilesPackage.Nvim]: "~/.config/nvim",
-  [DotfilesPackage.Opencode]: "~/.config/opencode",
+const PACKAGE_TARGET_PATHS: Partial<Record<DotfilesPackage, string[]>> = {
+  [DotfilesPackage.Vscode]: [
+    "~/Library/Application Support/Code/User",
+    "~/Library/Application Support/Cursor/User",
+  ],
+  [DotfilesPackage.Claude]: ["~/.claude"],
+  [DotfilesPackage.Nvim]: ["~/.config/nvim"],
+  [DotfilesPackage.Opencode]: ["~/.config/opencode"],
+}
+
+const PACKAGE_LEGACY_SOURCE_NAMES: Partial<Record<DotfilesPackage, string[]>> = {
+  [DotfilesPackage.Vscode]: ["cursor"],
 }
 
 function isDotfilesPackage(value: string): value is DotfilesPackage {
@@ -76,22 +83,25 @@ class Dotfiles {
     return os.homedir()
   }
 
-  private static getPackageTargetPath(packageName: string): string {
+  private static expandHomePath(targetPath: string): string {
+    if (targetPath.startsWith("~/")) {
+      return path.join(os.homedir(), targetPath.slice(2))
+    }
+    return targetPath
+  }
+
+  private static getPackageTargetPaths(packageName: string): string[] {
     if (!isDotfilesPackage(packageName)) {
-      return this.getHomePath()
+      return [this.getHomePath()]
     }
 
-    const customPath = PACKAGE_TARGET_PATHS[packageName]
+    const customPaths = PACKAGE_TARGET_PATHS[packageName]
 
-    if (customPath) {
-      // Expand ~ to home directory
-      if (customPath.startsWith("~/")) {
-        return path.join(os.homedir(), customPath.slice(2))
-      }
-      return customPath
+    if (customPaths) {
+      return customPaths.map((customPath) => this.expandHomePath(customPath))
     }
 
-    return this.getHomePath()
+    return [this.getHomePath()]
   }
 
   static getPackages(): string[] {
@@ -136,26 +146,6 @@ class Dotfiles {
     return files
   }
 
-  private static getFileStatus(packageName: string, relativePath: string): FileStatus {
-    const source = path.join(this.getPath(), packageName, relativePath)
-    const target = path.join(this.getPackageTargetPath(packageName), relativePath)
-
-    if (!fs.existsSync(target)) {
-      return { source, target, status: "unlinked" }
-    }
-
-    const targetStat = fs.lstatSync(target)
-
-    if (targetStat.isSymbolicLink()) {
-      const linkTarget = fs.readlinkSync(target)
-      if (linkTarget === source) {
-        return { source, target, status: "linked" }
-      }
-    }
-
-    return { source, target, status: "conflict" }
-  }
-
   private static isWithinDir(targetPath: string, dirPath: string): boolean {
     const relative = path.relative(dirPath, targetPath)
     return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative))
@@ -163,12 +153,9 @@ class Dotfiles {
 
   private static findDanglingSymlinks(packageName: string): FileStatus[] {
     const packagePath = path.join(this.getPath(), packageName)
-    const targetBasePath = this.getPackageTargetPath(packageName)
+    const legacyPackagePaths = this.getLegacyPackagePaths(packageName)
+    const targetBasePaths = this.getPackageTargetPaths(packageName)
     const homePath = this.getHomePath()
-
-    if (!fs.existsSync(targetBasePath)) {
-      return []
-    }
 
     const packageFiles = this.getPackageFiles(packageName)
     if (packageFiles.length === 0) {
@@ -176,8 +163,14 @@ class Dotfiles {
     }
 
     const scanRoots = new Set<string>()
-    for (const file of packageFiles) {
-      scanRoots.add(path.dirname(path.join(targetBasePath, file)))
+    for (const targetBasePath of targetBasePaths) {
+      if (!fs.existsSync(targetBasePath)) {
+        continue
+      }
+
+      for (const file of packageFiles) {
+        scanRoots.add(path.dirname(path.join(targetBasePath, file)))
+      }
     }
 
     const results: FileStatus[] = []
@@ -219,7 +212,12 @@ class Dotfiles {
 
         const resolvedTarget = path.resolve(path.dirname(fullPath), rawTarget)
 
-        if (!this.isWithinDir(resolvedTarget, packagePath)) {
+        const isCurrentPackageSource = this.isWithinDir(resolvedTarget, packagePath)
+        const isLegacyPackageSource = legacyPackagePaths.some((legacyPackagePath) =>
+          this.isWithinDir(resolvedTarget, legacyPackagePath),
+        )
+
+        if (!isCurrentPackageSource && !isLegacyPackageSource) {
           continue
         }
 
@@ -246,9 +244,42 @@ class Dotfiles {
     return results
   }
 
+  private static getLegacyPackagePaths(packageName: string): string[] {
+    if (!isDotfilesPackage(packageName)) {
+      return []
+    }
+
+    return (PACKAGE_LEGACY_SOURCE_NAMES[packageName] ?? []).map((legacyPackageName) =>
+      path.join(this.getPath(), legacyPackageName),
+    )
+  }
+
+  private static getPackageFileStatuses(packageName: string, relativePath: string): FileStatus[] {
+    const source = path.join(this.getPath(), packageName, relativePath)
+
+    return this.getPackageTargetPaths(packageName).map((targetBasePath) => {
+      const target = path.join(targetBasePath, relativePath)
+
+      if (!fs.existsSync(target)) {
+        return { source, target, status: "unlinked" }
+      }
+
+      const targetStat = fs.lstatSync(target)
+
+      if (targetStat.isSymbolicLink()) {
+        const linkTarget = fs.readlinkSync(target)
+        if (linkTarget === source) {
+          return { source, target, status: "linked" }
+        }
+      }
+
+      return { source, target, status: "conflict" }
+    })
+  }
+
   static getPackageStatus(packageName: string): PackageInfo {
     const files = this.getPackageFiles(packageName)
-    const fileStatuses = files.map((file) => this.getFileStatus(packageName, file))
+    const fileStatuses = files.flatMap((file) => this.getPackageFileStatuses(packageName, file))
     const danglingStatuses = this.findDanglingSymlinks(packageName)
 
     const combined = new Map<string, FileStatus>()
@@ -306,7 +337,7 @@ class Dotfiles {
   static link(packageName: string, options: { force?: boolean; prune?: boolean } = {}): LinkResult {
     const { force = false, prune = true } = options
     const files = this.getPackageFiles(packageName)
-    const targetBasePath = this.getPackageTargetPath(packageName)
+    const targetBasePaths = this.getPackageTargetPaths(packageName)
     const linked: string[] = []
     const skipped: string[] = []
     const pruned: string[] = []
@@ -318,61 +349,64 @@ class Dotfiles {
       for (const zombie of zombies) {
         try {
           fs.unlinkSync(zombie.target)
-          pruned.push(path.relative(targetBasePath, zombie.target))
+          pruned.push(this.formatTargetPath(zombie.target))
         } catch (err) {
           const message = err instanceof Error ? err.message : "unknown error"
-          errors.push(`${path.relative(targetBasePath, zombie.target)} (failed to remove: ${message})`)
+          errors.push(`${this.formatTargetPath(zombie.target)} (failed to remove: ${message})`)
         }
       }
     }
 
     for (const file of files) {
       const source = path.join(this.getPath(), packageName, file)
-      const target = path.join(targetBasePath, file)
+      for (const targetBasePath of targetBasePaths) {
+        const target = path.join(targetBasePath, file)
+        const displayPath = this.formatTargetPath(target)
 
-      if (fs.existsSync(target)) {
-        const targetStat = fs.lstatSync(target)
+        if (fs.existsSync(target)) {
+          const targetStat = fs.lstatSync(target)
 
-        if (targetStat.isSymbolicLink()) {
-          const linkTarget = fs.readlinkSync(target)
-          if (linkTarget === source) {
-            skipped.push(file)
+          if (targetStat.isSymbolicLink()) {
+            const linkTarget = fs.readlinkSync(target)
+            if (linkTarget === source) {
+              skipped.push(displayPath)
+              continue
+            }
+          }
+
+          if (!force) {
+            errors.push(`${displayPath} (file exists at target)`)
+            continue
+          }
+
+          // Force mode: backup to temp dir and replace
+          const backupDir = path.join(os.tmpdir(), "pondorasti-dotfiles-backup")
+          const backupPath = path.join(backupDir, displayPath.replace(/^~\//, "home/"))
+          const backupParentDir = path.dirname(backupPath)
+
+          try {
+            if (!fs.existsSync(backupParentDir)) {
+              fs.mkdirSync(backupParentDir, { recursive: true })
+            }
+            fs.renameSync(target, backupPath)
+            backedUp.push(displayPath)
+          } catch (err) {
+            errors.push(`${displayPath} (failed to backup: ${err instanceof Error ? err.message : "unknown error"})`)
             continue
           }
         }
 
-        if (!force) {
-          errors.push(`${file} (file exists at target)`)
-          continue
+        const targetDir = path.dirname(target)
+        if (!fs.existsSync(targetDir)) {
+          fs.mkdirSync(targetDir, { recursive: true })
         }
-
-        // Force mode: backup to temp dir and replace
-        const backupDir = path.join(os.tmpdir(), "pondorasti-dotfiles-backup")
-        const backupPath = path.join(backupDir, file)
-        const backupParentDir = path.dirname(backupPath)
 
         try {
-          if (!fs.existsSync(backupParentDir)) {
-            fs.mkdirSync(backupParentDir, { recursive: true })
-          }
-          fs.renameSync(target, backupPath)
-          backedUp.push(file)
+          fs.symlinkSync(source, target)
+          linked.push(displayPath)
         } catch (err) {
-          errors.push(`${file} (failed to backup: ${err instanceof Error ? err.message : "unknown error"})`)
-          continue
+          errors.push(`${displayPath} (${err instanceof Error ? err.message : "unknown error"})`)
         }
-      }
-
-      const targetDir = path.dirname(target)
-      if (!fs.existsSync(targetDir)) {
-        fs.mkdirSync(targetDir, { recursive: true })
-      }
-
-      try {
-        fs.symlinkSync(source, target)
-        linked.push(file)
-      } catch (err) {
-        errors.push(`${file} (${err instanceof Error ? err.message : "unknown error"})`)
       }
     }
 
@@ -381,42 +415,56 @@ class Dotfiles {
 
   static unlink(packageName: string): UnlinkResult {
     const files = this.getPackageFiles(packageName)
-    const targetBasePath = this.getPackageTargetPath(packageName)
+    const targetBasePaths = this.getPackageTargetPaths(packageName)
     const unlinked: string[] = []
     const skipped: string[] = []
     const errors: string[] = []
 
     for (const file of files) {
       const source = path.join(this.getPath(), packageName, file)
-      const target = path.join(targetBasePath, file)
+      for (const targetBasePath of targetBasePaths) {
+        const target = path.join(targetBasePath, file)
+        const displayPath = this.formatTargetPath(target)
 
-      if (!fs.existsSync(target)) {
-        skipped.push(file)
-        continue
-      }
+        if (!fs.existsSync(target)) {
+          skipped.push(displayPath)
+          continue
+        }
 
-      const targetStat = fs.lstatSync(target)
+        const targetStat = fs.lstatSync(target)
 
-      if (!targetStat.isSymbolicLink()) {
-        errors.push(`${file} (not a symlink)`)
-        continue
-      }
+        if (!targetStat.isSymbolicLink()) {
+          errors.push(`${displayPath} (not a symlink)`)
+          continue
+        }
 
-      const linkTarget = fs.readlinkSync(target)
-      if (linkTarget !== source) {
-        errors.push(`${file} (symlink points elsewhere)`)
-        continue
-      }
+        const linkTarget = fs.readlinkSync(target)
+        if (linkTarget !== source) {
+          errors.push(`${displayPath} (symlink points elsewhere)`)
+          continue
+        }
 
-      try {
-        fs.unlinkSync(target)
-        unlinked.push(file)
-      } catch (err) {
-        errors.push(`${file} (${err instanceof Error ? err.message : "unknown error"})`)
+        try {
+          fs.unlinkSync(target)
+          unlinked.push(displayPath)
+        } catch (err) {
+          errors.push(`${displayPath} (${err instanceof Error ? err.message : "unknown error"})`)
+        }
       }
     }
 
     return { unlinked, skipped, errors }
+  }
+
+  private static formatTargetPath(target: string): string {
+    const homePath = this.getHomePath()
+    if (target === homePath) {
+      return "~"
+    }
+    if (target.startsWith(`${homePath}${path.sep}`)) {
+      return `~/${path.relative(homePath, target)}`
+    }
+    return target
   }
 }
 
