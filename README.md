@@ -5,7 +5,7 @@ working on [emojis.com](https://www.emojis.com/), and vibe coding out the kazoo
 
 ## projects
 
-- [tokenmaxxing](https://tokenmaxxing.com) - The best place to track token usage.
+- [tokenmaxxing.com](https://tokenmaxxing.com) - The best place to track token usage.
 - [Window-in-Picture](https://github.com/851-labs/Window-in-Picture/tree/main) - Picture-in-picture for any window.
 - [Char](https://github.com/851-labs/char) - Minimal writing tool with live stats for characters, words, and more.
 - [MacRack](https://github.com/851-labs/macrack) - Turn your MacBook into an always-on server.
