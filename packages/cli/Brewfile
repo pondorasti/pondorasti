@@ -71,6 +71,7 @@ cask "1password-cli"                      # 1Password CLI for scripting and auto
 cask "cleanshot"                          # Advanced screenshot and screen recording tool
 cask "linear"                             # Modern project management and issue tracking for product teams
 cask "notion"                             # All-in-one workspace for notes, docs, and collaboration
+cask "notion-cli"                         # Notion CLI for API requests and Workers management
 cask "notion-calendar"                    # Calendar app integrated with Notion
 
 ## Communication
