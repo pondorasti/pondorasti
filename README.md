@@ -15,4 +15,5 @@ working on [emojis.com](https://www.emojis.com/), and vibe coding out the kazoo
 
 - [DuoDMV](https://github.com/851-labs/duodmv) - Duolingo but for your driver's permit.
 - [Chirp](https://github.com/pondorasti/chirp) - lil widget for embedding your favorite tweets in Figma.
+- [tailwindcss-snippets](https://github.com/pondorasti/tailwindcss-snippets) - Collection of animation snippets made for TailwindCSS.
 - [nextjs-chrome-extension](https://github.com/pondorasti/nextjs-chrome-extension) - Template for making browser extensions.
