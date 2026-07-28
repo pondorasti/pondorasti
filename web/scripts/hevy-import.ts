@@ -45,7 +45,7 @@ const CANDIDATES: Record<ExerciseId, string[]> = {
   'bench-press': ['Bench Press (Barbell)'],
   'incline-db-press': ['Incline Bench Press (Dumbbell)'],
   'overhead-press': ['Overhead Press (Barbell)', 'Seated Overhead Press (Barbell)', 'Shoulder Press (Barbell)'],
-  'machine-overhead-press': ['Shoulder Press (Machine)', 'Overhead Press (Machine)', 'Shoulder Press (Machine Plates)'],
+  'machine-overhead-press': ['Seated Shoulder Press (Machine)', 'Shoulder Press (Machine)', 'Shoulder Press (Machine Plates)'],
   'lateral-raise': ['Single Arm Lateral Raise (Cable)', 'Lateral Raise (Cable)'],
   'triceps-pushdown': ['Triceps Rope Pushdown', 'Triceps Pushdown', 'Triceps Pushdown (Cable - Straight Bar)'],
   'overhead-triceps': ['Overhead Triceps Extension (Cable)', 'Triceps Extension (Cable)', 'Single Arm Tricep Extension (Cable)'],
