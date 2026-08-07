@@ -1,0 +1,33 @@
+---
+slug: "gmail-automatic-forwarder"
+title: "Gmail Automatic Forwarder"
+description: "Leveraging Google Apps Script for automations"
+publishedAt: "2021-06-04"
+---
+
+import FancyImage from "@components/Journal/FancyImage"
+
+## 📖 Intro
+
+There’s nothing worse than having to manage multiple email addresses. Often times, you need to jump from app to app with different UIs. Simply put, it’s annoying and unproductive.
+
+During the end of 2020, as I was starting college I had 5 Gmails, 1 Yahoo! and 2 custom Zoho domains. There’s always the option of using an universal email client, but I’m a simple man which likes to use only one address. This madness had to come to and end!
+
+<FancyImage src="/images/journal/gmail-automatic-forwarder/accounts.jpeg" alt="" width="250" height="444" />
+
+My utopian vision was to forward all my incoming emails to my yahoo account (💀 future subject to change) where I could filter, delete and archive all the _junk_. There’s no better way to describe how I feel about emails nowadays. 😕
+
+> This workflow can create some confusion when replying, since the address I would reply from could be different, but it was not an issue for me.
+
+## 💫 Google Apps Script to the rescue
+
+```javascript
+function markArchivedAsRead() {
+  var threads = GmailApp.search("label:unread -label:inbox", 0, 100)
+  GmailApp.markThreadsRead(threads)
+}
+```
+
+## 👏 Special Thanks
+
+When I first started researching the problem of Gmail automatic forwarding I remember coming across a decade old blogpost that implemented a very similar script, if not, the same thing as me. As I can no longer find the reference at this moment of time, I’m giving a shoutout to all the people that have started developing in the wild and embracing open source. 😉

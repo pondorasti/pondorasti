@@ -1,0 +1,91 @@
+{
+  "name": "pondorasti",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix"
+  },
+  "eslintConfig": {
+    "extends": [
+      "next/core-web-vitals",
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "ignorePatterns": [
+      "next.config.mjs",
+      "postcss.config.js",
+      "tailwind.config.js"
+    ],
+    "rules": {
+      "react-hooks/exhaustive-deps": "off",
+      "import/no-anonymous-default-export": "off"
+    }
+  },
+  "prettier": {
+    "printWidth": 120,
+    "tabwidth": 2,
+    "useTabs": false,
+    "semi": false,
+    "trailingComma": "es5",
+    "bracketSpacing": true,
+    "arrowParens": "avoid"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.6.6",
+    "@heroicons/react": "^1.0.5",
+    "@mdx-js/loader": "^2.0.0-rc.2",
+    "@next/mdx": "^12.0.10",
+    "@palette.dev/browser": "^1.13.3",
+    "@radix-ui/react-tooltip": "^1.0.2",
+    "@supabase/supabase-js": "^2.2.3",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/line-clamp": "^0.4.0",
+    "@tailwindcss/typography": "^0.5.7",
+    "@vercel/analytics": "^0.1.2",
+    "chrome-aws-lambda": "^10.1.0",
+    "clsx": "^1.2.1",
+    "d3": "^7.6.1",
+    "fathom-client": "^3.4.1",
+    "gray-matter": "^4.0.3",
+    "next": "^12.3.1",
+    "next-seo": "^5.13.0",
+    "next-themes": "^0.2.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-hotkeys-hook": "^3.4.7",
+    "react-toggle-dark-mode": "^1.0.4",
+    "reading-time": "^1.5.0",
+    "rehype-highlight": "^5.0.2",
+    "remark-frontmatter": "^4.0.1",
+    "swr": "^2.0.0-beta.6",
+    "tailwindcss-radix": "^2.6.1"
+  },
+  "devDependencies": {
+    "@palette.dev/webpack-plugin": "^1.2.2",
+    "@types/d3": "^7.1.0",
+    "@types/react": "^17.0.40",
+    "@types/tailwindcss": "^3.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.0",
+    "autoprefixer": "^10.4.5",
+    "eslint": "8.20.0",
+    "eslint-config-next": "^12.3.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "inspx": "^0.0.1-alpha.6",
+    "postcss": "^8.4.6",
+    "prettier": "^2.5.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "tailwindcss": "^3.1.7",
+    "tailwindcss-animate": "^1.0.5",
+    "typescript": "^4.6.2"
+  }
+}
