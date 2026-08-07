@@ -88,10 +88,12 @@ function Loads() {
         <div className="mt-4 rounded-card border border-warn-line bg-warn-tint px-4 py-3.5">
           <b className="text-warn">Calibrated to you</b>
           <p className="mt-[3px] text-[13px] text-muted">
-            <b className="text-txt">Starts</b> are anchored to your current <b className="text-txt">54 kg / 120 lb</b>;{' '}
-            <b className="text-txt">targets</b> to your goal body — <b className="text-txt">60 kg / 132 lb at 178 cm</b>.
-            The Olympic bar alone is <b className="text-txt">20 kg / 44 lb</b>, so barbell starts include the bar. The{' '}
-            <b className="text-txt">last-1–2-reps-hard</b> rule always decides the actual load.
+            <b className="text-txt">Starts</b> are your actual logged working weights;{' '}
+            <b className="text-txt">targets</b> are a realistic 3-month climb for your goal body
+            (<b className="text-txt">60 kg / 132 lb at 178 cm</b>) on <b className="text-txt">your machines</b> — the
+            Technogym stacks top out around 72 kg / 160 lb, so machine targets respect that. The Olympic bar alone is{' '}
+            <b className="text-txt">20 kg / 44 lb</b>. The <b className="text-txt">last-1–2-reps-hard</b> rule always
+            decides the actual load.
           </p>
         </div>
       </Pad>
