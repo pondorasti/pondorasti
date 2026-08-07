@@ -1,10 +1,9 @@
 import type { ReactNode } from 'react'
 
-export function ScreenHeader({ title, tag }: { title: ReactNode; tag?: ReactNode }) {
+export function ScreenHeader({ title }: { title: ReactNode }) {
   return (
     <div className="sticky top-0 z-20 flex items-center gap-3 border-b border-line bg-head px-4 py-4 backdrop-blur-xl md:px-[26px] md:py-[18px]">
       <h1 className="text-xl font-extrabold tracking-[-0.02em]">{title}</h1>
-      {tag ? <span className="ml-auto text-[12.5px] font-semibold text-dim">{tag}</span> : null}
     </div>
   )
 }

@@ -10,13 +10,9 @@
  */
 import { readFileSync, writeFileSync } from 'node:fs'
 import { loads, loadRowExercises, type ExerciseId } from '../src/data'
+import { getAllWorkouts } from './hevy'
 
-const KEY = process.env.HEVY_API_KEY
 const DRY = process.argv.includes('--dry')
-if (!KEY) {
-  console.error('✗ HEVY_API_KEY not set — run from repo root')
-  process.exit(1)
-}
 
 /** Hevy exercise_template_id → our ExerciseId */
 const TEMPLATE_TO_EX: Record<string, ExerciseId> = {
@@ -44,31 +40,19 @@ const TEMPLATE_TO_EX: Record<string, ExerciseId> = {
   '2B4B7310': 'rdl',
 }
 
-async function api(path: string): Promise<any> {
-  const res = await fetch(`https://api.hevyapp.com/v1${path}`, { headers: { 'api-key': KEY! } })
-  if (!res.ok) throw new Error(`GET ${path} → ${res.status}`)
-  return res.json()
-}
-
 // latest per exercise: {when, topWeightKg}
 const latest = new Map<ExerciseId, { when: string; kg: number }>()
-let page = 1
-for (;;) {
-  const d = await api(`/workouts?page=${page}&pageSize=10`)
-  for (const w of d.workouts ?? []) {
-    for (const e of w.exercises) {
-      const ex = TEMPLATE_TO_EX[e.exercise_template_id]
-      if (!ex) continue
-      const weights = e.sets.map((s: any) => s.weight_kg).filter((x: any) => x != null) as number[]
-      if (!weights.length) continue
-      const top = Math.max(...weights)
-      const when = w.start_time ?? ''
-      const prev = latest.get(ex)
-      if (!prev || when > prev.when) latest.set(ex, { when, kg: top })
-    }
+for (const w of await getAllWorkouts()) {
+  for (const e of w.exercises) {
+    const ex = TEMPLATE_TO_EX[e.exercise_template_id]
+    if (!ex) continue
+    const weights = e.sets.map((s: any) => s.weight_kg).filter((x: any) => x != null) as number[]
+    if (!weights.length) continue
+    const top = Math.max(...weights)
+    const when = w.start_time ?? ''
+    const prev = latest.get(ex)
+    if (!prev || when > prev.when) latest.set(ex, { when, kg: top })
   }
-  if (page >= (d.page_count ?? 1)) break
-  page++
 }
 
 const fmt = (kg: number): string => {

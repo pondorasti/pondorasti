@@ -8,36 +8,9 @@
  * Idempotent: routines whose titles already exist are skipped.
  */
 import { days, loadsForExercise, type DayItem, type ExerciseId } from '../src/data'
+import { hevy, getAllRoutines, getTemplatesByTitle, type HevyExercise, type HevyRoutine, type HevySet, type HevyTemplate } from './hevy'
 
-const API = 'https://api.hevyapp.com/v1'
-const KEY = process.env.HEVY_API_KEY
 const DRY = process.argv.includes('--dry')
-
-if (!KEY) {
-  console.error('✗ HEVY_API_KEY not set — run from repo root so bun loads .env')
-  process.exit(1)
-}
-
-// ---------- Hevy request types ----------
-interface HevySet {
-  type: 'normal'
-  weight_kg: number | null
-  reps: number | null
-  rep_range: { start: number; end: number } | null
-}
-interface HevyExercise {
-  exercise_template_id: string
-  superset_id: number | null
-  rest_seconds: number
-  notes: string | null
-  sets: HevySet[]
-}
-interface HevyRoutine {
-  title: string
-  folder_id: number | null
-  notes: string
-  exercises: HevyExercise[]
-}
 
 // ---------- template resolution ----------
 /** Candidate Hevy template titles per exercise id — first match wins. */
@@ -71,35 +44,11 @@ const EXTRA_CANDIDATES: Record<string, string[]> = {
   'cable-crunch': ['Cable Crunch', 'Crunch (Cable)', 'Kneeling Cable Crunch'],
 }
 
-async function api(path: string, init?: RequestInit): Promise<any> {
-  const res = await fetch(`${API}${path}`, {
-    ...init,
-    headers: { 'api-key': KEY!, 'Content-Type': 'application/json', ...(init?.headers ?? {}) },
-  })
-  if (!res.ok) {
-    const body = await res.text()
-    throw new Error(`${init?.method ?? 'GET'} ${path} → ${res.status}: ${body.slice(0, 300)}`)
-  }
-  return res.json()
-}
-
-async function fetchTemplates(): Promise<Map<string, { id: string; title: string }>> {
-  const byTitle = new Map<string, { id: string; title: string }>()
-  let page = 1
-  for (;;) {
-    const d = await api(`/exercise_templates?page=${page}&pageSize=100`)
-    for (const t of d.exercise_templates) byTitle.set(t.title.toLowerCase(), { id: t.id, title: t.title })
-    if (page >= d.page_count) break
-    page++
-  }
-  return byTitle
-}
-
 function resolveTemplate(
   key: string,
   candidates: string[],
-  templates: Map<string, { id: string; title: string }>,
-): { id: string; title: string } {
+  templates: Map<string, HevyTemplate>,
+): HevyTemplate {
   for (const c of candidates) {
     const hit = templates.get(c.toLowerCase())
     if (hit) return hit
@@ -141,7 +90,7 @@ const mkSets = (n: number, low: number, high: number | null, weight: number | nu
   }))
 
 // ---------- build routines ----------
-function buildExercises(items: DayItem[], T: (key: string) => { id: string; title: string }): HevyExercise[] {
+function buildExercises(items: DayItem[], T: (key: string) => HevyTemplate): HevyExercise[] {
   const out: HevyExercise[] = []
   let supersetCounter = 0
 
@@ -197,10 +146,10 @@ function buildExercises(items: DayItem[], T: (key: string) => { id: string; titl
 
 // ---------- main ----------
 console.log(`${DRY ? '[DRY RUN] ' : ''}fetching Hevy exercise templates…`)
-const templates = await fetchTemplates()
+const templates = await getTemplatesByTitle()
 console.log(`  ${templates.size} templates loaded`)
 
-const resolved = new Map<string, { id: string; title: string }>()
+const resolved = new Map<string, HevyTemplate>()
 for (const [key, cands] of [...Object.entries(CANDIDATES), ...Object.entries(EXTRA_CANDIDATES)]) {
   resolved.set(key, resolveTemplate(key, cands, templates))
 }
@@ -236,20 +185,19 @@ if (DRY) {
 
 // folder
 let folderId: number | null = null
-const folders = await api('/routine_folders?page=1&pageSize=10')
+const folders = await hevy('/routine_folders?page=1&pageSize=10')
 const existing = (folders.routine_folders ?? []).find((f: any) => f.title === 'buff')
 if (existing) {
   folderId = existing.id
   console.log(`\nfolder "buff" exists (id ${folderId})`)
 } else {
-  const created = await api('/routine_folders', { method: 'POST', body: JSON.stringify({ routine_folder: { title: 'buff' } }) })
+  const created = await hevy('/routine_folders', { method: 'POST', body: JSON.stringify({ routine_folder: { title: 'buff' } }) })
   folderId = created.routine_folder?.id ?? null
   console.log(`\ncreated folder "buff" (id ${folderId})`)
 }
 
 // idempotency
-const existingRoutines = await api('/routines?page=1&pageSize=10')
-const existingTitles = new Set((existingRoutines.routines ?? []).map((r: any) => r.title))
+const existingTitles = new Set((await getAllRoutines()).map((r: any) => r.title))
 
 for (const r of routines) {
   if (existingTitles.has(r.title)) {
@@ -258,7 +206,7 @@ for (const r of routines) {
   }
   r.folder_id = folderId
   try {
-    await api('/routines', { method: 'POST', body: JSON.stringify({ routine: r }) })
+    await hevy('/routines', { method: 'POST', body: JSON.stringify({ routine: r }) })
     console.log(`✓ created "${r.title}" (${r.exercises.length} exercises)`)
   } catch (err) {
     // fallback: some deployments may reject rep_range — retry with plain reps
@@ -270,7 +218,7 @@ for (const r of routines) {
             s.reps = s.rep_range.start
             s.rep_range = null
           }
-      await api('/routines', { method: 'POST', body: JSON.stringify({ routine: r }) })
+      await hevy('/routines', { method: 'POST', body: JSON.stringify({ routine: r }) })
       console.log(`✓ created "${r.title}" (plain reps fallback)`)
     } else {
       throw err

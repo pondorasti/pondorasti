@@ -63,9 +63,10 @@ export type ExerciseId = keyof typeof exercises
 export interface Exercise { name: string; primary: string; secondary: readonly string[]; gif: string }
 
 /* ---- Routine days ----
-   Each item references an exercise (ex) + the equipment used (gear).
-   `equip` is the human "what you use" label; name/primary/secondary
-   override the exercise defaults only when the day differs. */
+   Each item references an exercise (ex) + the equipment used (gear);
+   `hint` is a short setup cue rendered after the equipment name.
+   Composite rows (no `ex`) carry their own name/primary/secondary;
+   a row with an `ex` id never overrides the exercise name. */
 export interface DayItem {
   ex?: ExerciseId
   name?: string
