@@ -79,17 +79,22 @@ function Loads() {
           </table>
         </div>
 
-        <div className="mt-4 rounded-card border border-warn-line bg-warn-tint px-4 py-3.5">
-          <b className="text-warn">Calibrated to you</b>
-          <p className="mt-[3px] text-[13px] text-muted">
-            <b className="text-txt">Current</b> is your latest logged working weight, synced from Hevy;{' '}
-            <b className="text-txt">targets</b> are a realistic 3-month climb for your goal body
-            (<b className="text-txt">60 kg / 132 lb at 178 cm</b>) on <b className="text-txt">your machines</b> — the
-            Technogym stacks top out around 72 kg / 160 lb, so machine targets respect that. The Olympic bar alone is{' '}
-            <b className="text-txt">20 kg / 44 lb</b>. The <b className="text-txt">last-1–2-reps-hard</b> rule always
-            decides the actual load.
-          </p>
-        </div>
+        <ul className="mt-[18px] max-w-[640px] list-disc space-y-1.5 pl-5 text-[13.5px] text-muted">
+          <li>
+            <b className="text-txt">Current</b> = your latest logged working weight, synced from Hevy.
+          </li>
+          <li>
+            <b className="text-txt">Targets</b> = a realistic 3-month climb for your goal body (
+            <b className="text-txt">60 kg / 132 lb at 178 cm</b>) on your machines — the Technogym stacks top out
+            around 72 kg / 160 lb.
+          </li>
+          <li>
+            The Olympic bar alone is <b className="text-txt">20 kg / 44 lb</b>.
+          </li>
+          <li>
+            The <b className="text-txt">last-1–2-reps-hard</b> rule always decides the actual load.
+          </li>
+        </ul>
       </Pad>
     </>
   )
