@@ -55,7 +55,7 @@ export const exercises = {
   'leg-press':        { name: 'Leg Press', primary: 'Quads', secondary: ['Glutes'], gif: '/anim/leg-press.gif' },
   'leg-extension':    { name: 'Leg Extension', primary: 'Quads', secondary: [], gif: '/anim/leg-extension.gif' },
   'leg-curl':         { name: 'Leg Curl', primary: 'Hamstrings', secondary: [], gif: '/anim/leg-curl.gif' },
-  'calf-raise':       { name: 'Calf Raise', primary: 'Calves', secondary: [], gif: '/anim/calf-raise.gif' },
+  'calf-raise':       { name: 'Calf Press', primary: 'Calves', secondary: [], gif: '/anim/calf-raise.gif' },
   'rdl':              { name: 'Barbell Romanian Deadlift', primary: 'Hamstrings', secondary: ['Glutes'], gif: '/anim/rdl.gif' },
 } as const
 
@@ -158,7 +158,7 @@ export const loads: LoadGroup[] = [
     { name: 'Leg Press',     trains: 'Quads',      current: '30 kg / 66 lb', target: '60 kg / 132 lb', ex: 'leg-press' },
     { name: 'Leg Extension', trains: 'Quads',      current: '13.5 kg / 30 lb',  target: '27 kg / 60 lb',  ex: 'leg-extension' },
     { name: 'Leg Curl',      trains: 'Hamstrings', current: '22.5 kg / 50 lb',  target: '40 kg / 88 lb',   ex: 'leg-curl' },
-    { name: 'Calf Raise',    trains: 'Calves',     current: '27 kg / 60 lb',  target: '50 kg / 110 lb',  ex: 'calf-raise' },
+    { name: 'Calf Press',    trains: 'Calves',     current: '27 kg / 60 lb',  target: '50 kg / 110 lb',  ex: 'calf-raise' },
     { name: 'Incline DB Press', trains: 'Upper chest · per DB', current: '7 kg / 15 lb', target: '14 kg / 30 lb', ex: 'incline-db-press' },
     { name: 'Cable Lateral', trains: 'Side delts · per arm', current: '2.5 kg / 5 lb', target: '5 kg / 11 lb', ex: 'lateral-raise', star: true },
     { name: 'Face Pull',     trains: 'Rear delts', current: '9 kg / 20 lb',  target: '18 kg / 40 lb',   ex: 'face-pull', star: true },
