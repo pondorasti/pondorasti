@@ -90,8 +90,8 @@ function ExercisePage() {
                   {loadRows.map((r) => (
                     <Fragment key={r.name}>
                       <div className="rounded-card border border-line bg-panel p-4">
-                        <div className="mb-[5px] text-[11px] uppercase tracking-[0.08em] text-dim">Start</div>
-                        <div className="text-[20px] font-extrabold tracking-[-0.02em] text-accent">{r.start}</div>
+                        <div className="mb-[5px] text-[11px] uppercase tracking-[0.08em] text-dim">Current</div>
+                        <div className="text-[20px] font-extrabold tracking-[-0.02em] text-accent">{r.current}</div>
                       </div>
                       <div className="rounded-card border border-line bg-panel p-4">
                         <div className="mb-[5px] text-[11px] uppercase tracking-[0.08em] text-dim">3-mo target</div>

@@ -22,7 +22,7 @@ function Loads() {
           <table className="w-full border-collapse">
             <thead>
               <tr>
-                {['Lift', 'Trains', 'Start', '3-mo target'].map((h, i) => (
+                {['Lift', 'Trains', 'Current', '3-mo target'].map((h, i) => (
                   <th
                     key={h}
                     className={
@@ -71,7 +71,7 @@ function Loads() {
                       </td>
                       <td className="px-[15px] py-3 text-[12.5px] text-muted">{r.trains}</td>
                       <td className="whitespace-nowrap px-[15px] py-3 text-right text-[13.5px] font-bold tabular-nums text-accent">
-                        {r.start}
+                        {r.current}
                       </td>
                       <td className="whitespace-nowrap px-[15px] py-3 text-right text-[13.5px] font-bold tabular-nums text-accent">
                         {r.target}
@@ -88,7 +88,7 @@ function Loads() {
         <div className="mt-4 rounded-card border border-warn-line bg-warn-tint px-4 py-3.5">
           <b className="text-warn">Calibrated to you</b>
           <p className="mt-[3px] text-[13px] text-muted">
-            <b className="text-txt">Starts</b> are your actual logged working weights;{' '}
+            <b className="text-txt">Current</b> is your latest logged working weight, synced from Hevy;{' '}
             <b className="text-txt">targets</b> are a realistic 3-month climb for your goal body
             (<b className="text-txt">60 kg / 132 lb at 178 cm</b>) on <b className="text-txt">your machines</b> — the
             Technogym stacks top out around 72 kg / 160 lb, so machine targets respect that. The Olympic bar alone is{' '}

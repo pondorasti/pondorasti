@@ -124,7 +124,7 @@ const parseSets = (s: string): { n: number; low: number; high: number | null } |
 const startWeightKg = (ex: ExerciseId): number | null => {
   const row = loadsForExercise(ex)[0]
   if (!row) return null
-  const m = row.start.match(/^([\d.]+)\s*kg/)
+  const m = row.current.match(/^([\d.]+)\s*kg/)
   return m ? +m[1] : null
 }
 
