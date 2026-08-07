@@ -156,7 +156,7 @@ export const loads: LoadGroup[] = [
     { name: 'Overhead Press', trains: 'Shoulders', current: '9 kg / 20 lb', target: '25 kg / 55 lb', ex: 'machine-overhead-press' },
     { name: 'Lat Pulldown',  trains: 'Back',       current: '32 kg / 70 lb',  target: '45 kg / 100 lb',  ex: 'lat-pulldown' },
     { name: 'Seated Row',    trains: 'Back',       current: '27 kg / 60 lb',  target: '45 kg / 100 lb',  ex: 'seated-row' },
-    { name: 'Leg Press',     trains: 'Quads',      current: '30 kg / 66 lb', target: '60 kg / 132 lb', ex: 'leg-press' },
+    { name: 'Leg Press',     trains: 'Quads',      current: '32 kg / 70 lb', target: '60 kg / 132 lb', ex: 'leg-press' },
     { name: 'Leg Extension', trains: 'Quads',      current: '13.5 kg / 30 lb',  target: '27 kg / 60 lb',  ex: 'leg-extension' },
     { name: 'Leg Curl',      trains: 'Hamstrings', current: '22.5 kg / 50 lb',  target: '40 kg / 88 lb',   ex: 'leg-curl' },
     { name: 'Calf Press',    trains: 'Calves',     current: '27 kg / 60 lb',  target: '50 kg / 110 lb',  ex: 'calf-raise' },
