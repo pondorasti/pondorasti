@@ -12,12 +12,6 @@ function Loads() {
     <>
       <ScreenHeader title="Load targets" />
       <Pad>
-        <p className="mb-[18px] max-w-[640px] text-[14.5px] text-muted">
-          These are <b className="text-txt">starting anchors for a lean beginner</b> — not rules. The real rule: pick a
-          load where the <b className="text-txt">last 1–2 reps are genuinely hard</b> at the target reps. Then chase the
-          3-month column with double progression (top of range → add weight → reset).
-        </p>
-
         <div className="overflow-hidden rounded-card border border-line bg-panel">
           <table className="w-full border-collapse">
             <thead>
