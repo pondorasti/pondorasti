@@ -10,7 +10,7 @@
     },
     "packages/cli": {
       "name": "pondorasti",
-      "version": "0.1.50",
+      "version": "0.1.51",
       "bin": {
         "pondorasti": "./src/index.ts",
         "pd": "./src/index.ts",
