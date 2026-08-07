@@ -165,15 +165,15 @@ function buildExercises(items: DayItem[], T: (key: string) => { id: string; titl
     if (name.startsWith('Superset')) {
       const sid = supersetCounter++
       out.push(
-        { exercise_template_id: T('cable-curl').id, superset_id: sid, rest_seconds: 60, notes: 'superset with pushdowns', sets: mkSets(3, 12, null, 8) },
-        { exercise_template_id: T('triceps-pushdown').id, superset_id: sid, rest_seconds: 60, notes: 'superset with curls', sets: mkSets(3, 12, null, 12) },
+        { exercise_template_id: T('cable-curl').id, superset_id: sid, rest_seconds: 60, notes: 'superset with pushdowns', sets: mkSets(3, 12, null, 7) },
+        { exercise_template_id: T('triceps-pushdown').id, superset_id: sid, rest_seconds: 60, notes: 'superset with curls', sets: mkSets(3, 12, null, 9) },
       )
     } else if (name.startsWith('Arm Giant Set')) {
       const sid = supersetCounter++
       out.push(
-        { exercise_template_id: T('db-curl').id, superset_id: sid, rest_seconds: 60, notes: 'giant set 1/3', sets: mkSets(3, 10, 12, 8) },
-        { exercise_template_id: T('hammer-curl').id, superset_id: sid, rest_seconds: 60, notes: 'giant set 2/3', sets: mkSets(3, 10, 12, 8) },
-        { exercise_template_id: T('overhead-triceps').id, superset_id: sid, rest_seconds: 60, notes: 'giant set 3/3', sets: mkSets(3, 10, 12, 8) },
+        { exercise_template_id: T('db-curl').id, superset_id: sid, rest_seconds: 60, notes: 'giant set 1/3', sets: mkSets(3, 10, 12, 7) },
+        { exercise_template_id: T('hammer-curl').id, superset_id: sid, rest_seconds: 60, notes: 'giant set 2/3', sets: mkSets(3, 10, 12, 7) },
+        { exercise_template_id: T('overhead-triceps').id, superset_id: sid, rest_seconds: 60, notes: 'giant set 3/3', sets: mkSets(3, 10, 12, 7) },
       )
     } else if (name.startsWith('Core')) {
       out.push(
