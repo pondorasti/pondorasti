@@ -10,7 +10,7 @@ export const Route = createFileRoute('/loads')({
 function Loads() {
   return (
     <>
-      <ScreenHeader title="Load targets" tag="anchored @ 54 kg / 120 lb" />
+      <ScreenHeader title="Load targets" tag="targets @ goal: 60 kg / 132 lb · 178 cm" />
       <Pad>
         <p className="mb-[18px] max-w-[640px] text-[14.5px] text-muted">
           These are <b className="text-txt">starting anchors for a lean beginner</b> — not rules. The real rule: pick a
@@ -88,10 +88,10 @@ function Loads() {
         <div className="mt-4 rounded-card border border-warn-line bg-warn-tint px-4 py-3.5">
           <b className="text-warn">Calibrated to you</b>
           <p className="mt-[3px] text-[13px] text-muted">
-            Anchored to your current <b className="text-txt">54 kg / 120 lb</b> (goal: 59 kg / 130 lb). The Olympic bar
-            alone is <b className="text-txt">20 kg / 44 lb</b>, so barbell starts include the bar. Let the{' '}
-            <b className="text-txt">last-1–2-reps-hard</b> rule decide the actual load — and as your bodyweight climbs,
-            these targets should climb with it.
+            <b className="text-txt">Starts</b> are anchored to your current <b className="text-txt">54 kg / 120 lb</b>;{' '}
+            <b className="text-txt">targets</b> to your goal body — <b className="text-txt">60 kg / 132 lb at 178 cm</b>.
+            The Olympic bar alone is <b className="text-txt">20 kg / 44 lb</b>, so barbell starts include the bar. The{' '}
+            <b className="text-txt">last-1–2-reps-hard</b> rule always decides the actual load.
           </p>
         </div>
       </Pad>
