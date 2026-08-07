@@ -1,0 +1,41 @@
+# ---- macOS ----
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# ---- Editors / IDEs ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.claude/
+
+# ---- Node ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnp.*
+
+# ---- Env / secrets ----
+.env
+.env.*
+!.env.example
+
+# ---- Build output ----
+dist/
+build/
+.cache/
+*.log
+
+# ---- Cloudflare wrangler (local cache; deploy is via Hunk) ----
+.wrangler/
+
+# ---- Misc ----
+*.tmp
+Thumbs.db

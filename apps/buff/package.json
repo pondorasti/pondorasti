@@ -1,0 +1,30 @@
+{
+  "name": "buff-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "verify-build": "bun scripts/verify-build.ts",
+    "deploy": "(vite build || vite build || vite build) && bun scripts/verify-build.ts && cp -R .hunk dist/client/.hunk && hunk push dist/client"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.2",
+    "@types/node": "^26.1.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "tailwindcss": "4.3.2",
+    "typescript": "^5.9",
+    "vite": "^8.1.4"
+  },
+  "dependencies": {
+    "@hugeicons/core-free-icons": "^4.2.2",
+    "@hugeicons/react": "^1.1.9",
+    "@tanstack/react-router": "^1.170.18",
+    "@tanstack/react-start": "1.168.28",
+    "react": "^19",
+    "react-dom": "^19"
+  }
+}

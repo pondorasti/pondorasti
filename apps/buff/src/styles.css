@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* ---- Theme: light (derived) / dark (original palette), by system theme ---- */
+:root {
+  color-scheme: light dark;
+  --bg: #f4f5f7;
+  --panel: #ffffff;
+  --panel-2: #eceef1;
+  --line: #e1e4e9;
+  --txt: #191c21;
+  --muted: #545c66;
+  --dim: #7d8590;
+  --accent: #4d7c0f;      /* lime-700 — #c6ff3d fails contrast on white */
+  --accent-fg: #ffffff;   /* text placed ON accent */
+  --accent-2: #0e7490;    /* cyan-700, maps #7de3ff */
+  --warn: #b45309;
+  --red: #dc2626;
+  --sidebar-bg: #fbfbfc;
+  --head-bg: rgba(244, 245, 247, 0.82);
+  --bar-bg: rgba(251, 251, 252, 0.92);
+  --accent-2-tint: rgba(14, 116, 144, 0.09);
+  --warn-tint: rgba(180, 83, 9, 0.06);
+  --warn-line: rgba(180, 83, 9, 0.25);
+  --overlay: rgba(255, 255, 255, 0.7);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0a0b0d;
+    --panel: #131519;
+    --panel-2: #1a1d23;
+    --line: #262a31;
+    --txt: #e8eaed;
+    --muted: #9aa1ab;
+    --dim: #6b7280;
+    --accent: #c6ff3d;
+    --accent-fg: #0a0b0d;
+    --accent-2: #7de3ff;
+    --warn: #ffb454;
+    --red: #ff5d5d;
+    --sidebar-bg: #0c0e11;
+    --head-bg: rgba(10, 11, 13, 0.82);
+    --bar-bg: rgba(12, 14, 17, 0.92);
+    --accent-2-tint: rgba(125, 227, 255, 0.09);
+    --warn-tint: rgba(255, 180, 84, 0.06);
+    --warn-line: rgba(255, 180, 84, 0.25);
+    --overlay: rgba(0, 0, 0, 0.78);
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-line: var(--line);
+  --color-txt: var(--txt);
+  --color-muted: var(--muted);
+  --color-dim: var(--dim);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-2: var(--accent-2);
+  --color-warn: var(--warn);
+  --color-red: var(--red);
+  --color-sidebar: var(--sidebar-bg);
+  --color-head: var(--head-bg);
+  --color-bar: var(--bar-bg);
+  --color-accent-2-tint: var(--accent-2-tint);
+  --color-warn-tint: var(--warn-tint);
+  --color-warn-line: var(--warn-line);
+  --color-overlay: var(--overlay);
+  --radius-card: 16px;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ---- Base ---- */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: var(--bg);
+  color: var(--txt);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-synthesis: none;
+}
