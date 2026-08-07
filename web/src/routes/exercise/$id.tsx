@@ -39,13 +39,6 @@ function ExercisePage() {
                 </span>
               ))}
             </div>
-            <p className="mt-2 text-[11px] leading-[1.4] text-dim">
-              Red = muscles worked. Demo art{' '}
-              <a href="https://gymvisual.com/" target="_blank" rel="noopener" className="text-muted underline-offset-2 hover:underline">
-                © Gym Visual
-              </a>{' '}
-              — form reference, not your exact machine.
-            </p>
           </div>
 
           <div className="min-w-0 flex-1">
