@@ -9,20 +9,20 @@
 
 /* ---- Equipment (physical machines; drives gallery + detail pages) ---- */
 export const equipment = {
-  'freedom-rack': { name: 'Freedom Rack', br: 'Nautilus · Smith/half-rack, Olympic bar + plates, adjustable bench', photo: '/thumbs/IMG_7605.jpg' },
-  'tg-press':     { name: 'Chest / Overhead Press', br: 'Technogym · dual-function machine', photo: '/thumbs/IMG_7589.jpg' },
-  'tg-legpress':  { name: 'Leg Press / Calf', br: 'Technogym · dual-function machine', photo: '/thumbs/IMG_7588.jpg' },
-  'tg-legext':    { name: 'Leg Extension / Curl', br: 'Technogym · dual-function machine', photo: '/thumbs/IMG_7592.jpg' },
-  'tg-pulls':     { name: 'High / Low Pull', br: 'Technogym · pulldown + seated row', photo: '/thumbs/IMG_7603.jpg' },
-  'nautilus-ft':  { name: 'Functional Trainer', br: 'Nautilus Instinct · dual cable towers', photo: '/thumbs/IMG_7583.jpg' },
-  'total-gym':    { name: 'Glideboard', br: 'Incline rail bodyweight trainer', photo: '/thumbs/IMG_7587.jpg' },
-  'back-ext':     { name: 'Back-extension Bench', br: '45° frame', photo: '/thumbs/IMG_7585.jpg' },
-  'treadmill':    { name: 'Treadmill', br: 'Star Trac', photo: '/thumbs/IMG_7594.jpg' },
-  'stair-climber': { name: 'Stair Climber', br: 'StairMaster Gauntlet', photo: '/thumbs/IMG_7596.jpg' },
-  'rower':        { name: 'Rower', br: 'Rail / magnetic resistance', photo: '/thumbs/IMG_7595.jpg' },
-  'fan-rower':    { name: 'Fan Rower', br: 'Air resistance (Assault-style)', photo: '/thumbs/IMG_7595.jpg' },
-  'dip-tower':    { name: 'Dip / Knee-raise Tower', br: 'FUEL · captain’s chair — dips, vertical knee raises', photo: '/thumbs/IMG_7586.jpg' },
-  'gymrax':       { name: 'Free-weight Rig', br: 'Gym Rax · hex DBs, spin-lock DBs, kettlebell, wall/med balls (8 lb / 3.6 kg), 55 cm ball, rings, foam rollers, step, bands', photo: '/thumbs/IMG_7604.jpg' },
+  'freedom-rack': { name: 'Freedom Rack', br: 'Nautilus · Smith/half-rack, Olympic bar + plates, adjustable bench', photo: '/photos/IMG_7605.jpeg' },
+  'tg-press':     { name: 'Chest / Overhead Press', br: 'Technogym · dual-function machine', photo: '/photos/IMG_7589.jpeg' },
+  'tg-legpress':  { name: 'Leg Press / Calf', br: 'Technogym · dual-function machine', photo: '/photos/IMG_7588.jpeg' },
+  'tg-legext':    { name: 'Leg Extension / Curl', br: 'Technogym · dual-function machine', photo: '/photos/IMG_7592.jpeg' },
+  'tg-pulls':     { name: 'High / Low Pull', br: 'Technogym · pulldown + seated row', photo: '/photos/IMG_7603.jpeg' },
+  'nautilus-ft':  { name: 'Functional Trainer', br: 'Nautilus Instinct · dual cable towers', photo: '/photos/IMG_7583.jpeg' },
+  'total-gym':    { name: 'Glideboard', br: 'Incline rail bodyweight trainer', photo: '/photos/IMG_7587.jpeg' },
+  'back-ext':     { name: 'Back-extension Bench', br: '45° frame', photo: '/photos/IMG_7585.jpeg' },
+  'treadmill':    { name: 'Treadmill', br: 'Star Trac', photo: '/photos/IMG_7594.jpeg' },
+  'stair-climber': { name: 'Stair Climber', br: 'StairMaster Gauntlet', photo: '/photos/IMG_7596.jpeg' },
+  'rower':        { name: 'Rower', br: 'Rail / magnetic resistance', photo: '/photos/IMG_7595.jpeg' },
+  'fan-rower':    { name: 'Fan Rower', br: 'Air resistance (Assault-style)', photo: '/photos/IMG_7595.jpeg' },
+  'dip-tower':    { name: 'Dip / Knee-raise Tower', br: 'FUEL · captain’s chair — dips, vertical knee raises', photo: '/photos/IMG_7586.jpeg' },
+  'gymrax':       { name: 'Free-weight Rig', br: 'Gym Rax · hex DBs, spin-lock DBs, kettlebell, wall/med balls (8 lb / 3.6 kg), 55 cm ball, rings, foam rollers, step, bands', photo: '/photos/IMG_7604.jpeg' },
 } as const
 
 export type EquipmentId = keyof typeof equipment
