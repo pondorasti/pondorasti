@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import { db } from './src/data'
+import { db } from './src/data.ts'
 
 // Prerender page list generated from the data catalog so coverage
 // can never drift from content.

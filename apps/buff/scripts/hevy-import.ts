@@ -1,8 +1,8 @@
 /**
- * Import the buff routine (web/src/data.ts) into Hevy as 5 routines.
+ * Import the buff routine (apps/buff/src/data.ts) into Hevy as 5 routines.
  *
- *   bun web/scripts/hevy-import.ts --dry   # print resolved plan, no writes
- *   bun web/scripts/hevy-import.ts         # create folder + routines
+ *   bun apps/buff/scripts/hevy-import.ts --dry   # print resolved plan, no writes
+ *   bun apps/buff/scripts/hevy-import.ts         # create folder + routines
  *
  * Run from the repo root so bun auto-loads .env (HEVY_API_KEY).
  * Idempotent: routines whose titles already exist are skipped.

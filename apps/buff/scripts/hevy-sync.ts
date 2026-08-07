@@ -1,8 +1,8 @@
 /**
- * Sync `current` load values in web/src/data.ts from actual Hevy logs.
+ * Sync `current` load values in apps/buff/src/data.ts from actual Hevy logs.
  *
- *   bun web/scripts/hevy-sync.ts          # rewrite data.ts
- *   bun web/scripts/hevy-sync.ts --dry    # show what would change
+ *   bun apps/buff/scripts/hevy-sync.ts          # rewrite data.ts
+ *   bun apps/buff/scripts/hevy-sync.ts --dry    # show what would change
  *
  * Current = top working-set weight from the most recent workout containing
  * the exercise. Rows whose exercises have never been logged are left alone.

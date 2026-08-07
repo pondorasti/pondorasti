@@ -9,27 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as LoadsRouteImport } from './routes/loads'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as RoutineIndexRouteImport } from './routes/routine/index'
+import { Route as LoadsRouteImport } from './routes/loads'
 import { Route as EquipmentIndexRouteImport } from './routes/equipment/index'
-import { Route as RoutineDayRouteImport } from './routes/routine/$day'
-import { Route as ExerciseIdRouteImport } from './routes/exercise/$id'
 import { Route as EquipmentIdRouteImport } from './routes/equipment/$id'
+import { Route as ExerciseIdRouteImport } from './routes/exercise/$id'
+import { Route as RoutineIndexRouteImport } from './routes/routine/index'
+import { Route as RoutineDayRouteImport } from './routes/routine/$day'
 
-const LoadsRoute = LoadsRouteImport.update({
-  id: '/loads',
-  path: '/loads',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RoutineIndexRoute = RoutineIndexRouteImport.update({
-  id: '/routine/',
-  path: '/routine/',
+const LoadsRoute = LoadsRouteImport.update({
+  id: '/loads',
+  path: '/loads',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EquipmentIndexRoute = EquipmentIndexRouteImport.update({
@@ -37,9 +32,9 @@ const EquipmentIndexRoute = EquipmentIndexRouteImport.update({
   path: '/equipment/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RoutineDayRoute = RoutineDayRouteImport.update({
-  id: '/routine/$day',
-  path: '/routine/$day',
+const EquipmentIdRoute = EquipmentIdRouteImport.update({
+  id: '/equipment/$id',
+  path: '/equipment/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExerciseIdRoute = ExerciseIdRouteImport.update({
@@ -47,9 +42,14 @@ const ExerciseIdRoute = ExerciseIdRouteImport.update({
   path: '/exercise/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EquipmentIdRoute = EquipmentIdRouteImport.update({
-  id: '/equipment/$id',
-  path: '/equipment/$id',
+const RoutineIndexRoute = RoutineIndexRouteImport.update({
+  id: '/routine/',
+  path: '/routine/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RoutineDayRoute = RoutineDayRouteImport.update({
+  id: '/routine/$day',
+  path: '/routine/$day',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -123,13 +123,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/loads': {
-      id: '/loads'
-      path: '/loads'
-      fullPath: '/loads'
-      preLoaderRoute: typeof LoadsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -137,11 +130,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/routine/': {
-      id: '/routine/'
-      path: '/routine'
-      fullPath: '/routine/'
-      preLoaderRoute: typeof RoutineIndexRouteImport
+    '/loads': {
+      id: '/loads'
+      path: '/loads'
+      fullPath: '/loads'
+      preLoaderRoute: typeof LoadsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/equipment/': {
@@ -151,11 +144,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EquipmentIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/routine/$day': {
-      id: '/routine/$day'
-      path: '/routine/$day'
-      fullPath: '/routine/$day'
-      preLoaderRoute: typeof RoutineDayRouteImport
+    '/equipment/$id': {
+      id: '/equipment/$id'
+      path: '/equipment/$id'
+      fullPath: '/equipment/$id'
+      preLoaderRoute: typeof EquipmentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/exercise/$id': {
@@ -165,11 +158,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExerciseIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/equipment/$id': {
-      id: '/equipment/$id'
-      path: '/equipment/$id'
-      fullPath: '/equipment/$id'
-      preLoaderRoute: typeof EquipmentIdRouteImport
+    '/routine/': {
+      id: '/routine/'
+      path: '/routine'
+      fullPath: '/routine/'
+      preLoaderRoute: typeof RoutineIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/routine/$day': {
+      id: '/routine/$day'
+      path: '/routine/$day'
+      fullPath: '/routine/$day'
+      preLoaderRoute: typeof RoutineDayRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
