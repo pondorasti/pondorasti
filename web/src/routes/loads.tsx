@@ -10,7 +10,7 @@ export const Route = createFileRoute('/loads')({
 function Loads() {
   return (
     <>
-      <ScreenHeader title="Load targets" tag="targets @ goal: 60 kg / 132 lb · 178 cm" />
+      <ScreenHeader title="Load targets" />
       <Pad>
         <p className="mb-[18px] max-w-[640px] text-[14.5px] text-muted">
           These are <b className="text-txt">starting anchors for a lean beginner</b> — not rules. The real rule: pick a
