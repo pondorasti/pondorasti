@@ -1,0 +1,5013 @@
+{
+  "transactions": [
+    {
+      "date": "2026-08-19",
+      "card": "Platinum",
+      "description": "ADJ REDIST PURCHASE BAL",
+      "amount": -49.01,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-08-19",
+      "card": "Platinum",
+      "description": "DR ADJ REDIST CADV PRIN",
+      "amount": 49.01,
+      "transaction_type": "Fee/Adjustment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-08-19",
+      "card": "Platinum",
+      "description": "GOOGLE *YOUTUBEPREMI G.CO/HELPPAY#      CA",
+      "amount": 15.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-19",
+      "card": "Platinum",
+      "description": "OPTUM HOME DELIVERY IRVINE              CA",
+      "amount": 145.8,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-19",
+      "card": "Platinum",
+      "description": "Platinum Digital Entertainment Credit",
+      "amount": -15.99,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-08-18",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 260.69,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-17",
+      "card": "Platinum",
+      "description": "CHURCH BARBER  APOTHNEW YORK            NY",
+      "amount": 132.0,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-15",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -960.76,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-08-14",
+      "card": "Gold",
+      "description": "RENEWAL MEMBERSHIP FEE",
+      "amount": 325.0,
+      "transaction_type": "Fee/Adjustment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-08-13",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-12",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 11.8,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-12",
+      "card": "Gold",
+      "description": "AplPay N BEACH MERCASAN FRANCISCO       CA",
+      "amount": 16.36,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-12",
+      "card": "Gold",
+      "description": "AplPay TOMOKAZU - SASAN FRANCISCO       CA",
+      "amount": 44.26,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-12",
+      "card": "Platinum",
+      "description": "SUTTER HEALTH SYSTEMMATHER              CA",
+      "amount": 76.19,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-11",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-11",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.1,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-10",
+      "card": "Gold",
+      "description": "AplPay B&N-BOOKS INCSAN FRANCISCO       CA",
+      "amount": 7.06,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-10",
+      "card": "Gold",
+      "description": "AplPay GYPSYS TRATTOBERKELEY            CA",
+      "amount": 17.08,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-10",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 11.94,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-10",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 14.99,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-09",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 21.73,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-09",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-09",
+      "card": "Gold",
+      "description": "AplPay LS CANDY DOLLSAN FRANCISCO       CA",
+      "amount": 23.89,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-09",
+      "card": "Gold",
+      "description": "AplPay MARUWU SEICHASan Francisco       CA",
+      "amount": 8.9,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-09",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 36.65,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-09",
+      "card": "Gold",
+      "description": "AplPay UBER EATS    help.uber.com       CA",
+      "amount": 17.27,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-09",
+      "card": "Platinum",
+      "description": "AplPay Fillmore StreSan Francisco",
+      "amount": -117.32,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-08-09",
+      "card": "Platinum",
+      "description": "Platinum Lululemon Credit",
+      "amount": 33.77,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-08",
+      "card": "Gold",
+      "description": "AplPay TST* NIPPON CSAN FRANCISCO       CA",
+      "amount": 21.77,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-08",
+      "card": "Gold",
+      "description": "AplPay TST* ZEVI CAFSAN FRANCISCO       CA",
+      "amount": 26.53,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-08",
+      "card": "Gold",
+      "description": "AplPay WINGSTOP 7059SAN FRANCISCO       CA",
+      "amount": 3.79,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-08",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 7.26,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-06",
+      "card": "Gold",
+      "description": "AplPay IZZY & WOOKS San Francisco       CA",
+      "amount": 18.7,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-06",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 0.69,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-06",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 20.39,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-06",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -0.7,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-08-06",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -874.66,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-08-06",
+      "card": "Platinum",
+      "description": "VENMO *JAYLEN SCHELB8558124430          NY",
+      "amount": 233.81,
+      "transaction_type": "Purchase",
+      "category": "Services",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-06",
+      "card": "Platinum",
+      "description": "VENMO *JAYLEN SCHELB8558124430          NY",
+      "amount": 318.27,
+      "transaction_type": "Purchase",
+      "category": "Services",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-05",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 24.55,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-05",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 29.33,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-05",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 58.6,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-04",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-04",
+      "card": "Gold",
+      "description": "AplPay TST* DELI BOASAN FRANCISCO       CA",
+      "amount": 35.19,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-03",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-03",
+      "card": "Platinum",
+      "description": "Banana Republic OnliGROVE CITY          OH",
+      "amount": 163.45,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-02",
+      "card": "Gold",
+      "description": "AplPay ARSICAULT MCASAN FRANCISCO       CA",
+      "amount": 17.25,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-02",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-02",
+      "card": "Gold",
+      "description": "AplPay TST* SALT ANDSAN FRANCISCO       CA",
+      "amount": 9.2,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-02",
+      "card": "Platinum",
+      "description": "DEUTSCHE LUFTHANSA AKoeln",
+      "amount": 90.0,
+      "transaction_type": "Purchase",
+      "category": "Flights",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-01",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 16.26,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-01",
+      "card": "Gold",
+      "description": "Amazon Prime        Amazon.com          WA",
+      "amount": 14.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-01",
+      "card": "Gold",
+      "description": "AplPay TAQUERIA CANC877-8144102         CA",
+      "amount": 22.21,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-01",
+      "card": "Gold",
+      "description": "AplPay TST* 6 TABLESSAN FRANCISCO       CA",
+      "amount": 9.94,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-01",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 29.67,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-01",
+      "card": "Platinum",
+      "description": "AplPay LULULEMON ATH(877)263-9300       CA",
+      "amount": 117.32,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-01",
+      "card": "Platinum",
+      "description": "NETFLIX.COM         866-579-7172        CA",
+      "amount": 19.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-08-01",
+      "card": "Platinum",
+      "description": "OLIVER PEOPLES #4522SAN FRANCISCO",
+      "amount": -70.0,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-08-01",
+      "card": "Platinum",
+      "description": "Platinum Lululemon Credit",
+      "amount": -75.0,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-07-31",
+      "card": "Gold",
+      "description": "AplPay IKEA SAN FRANSAN FRANCISCO       CA",
+      "amount": 16.01,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-31",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -944.57,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-07-31",
+      "card": "Platinum",
+      "description": "AplPay OLIVER PEOPLESAN FRANCISCO       CA",
+      "amount": 34.76,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-31",
+      "card": "Platinum",
+      "description": "AplPay OLIVER PEOPLESAN FRANCISCO       CA",
+      "amount": 590.98,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-30",
+      "card": "Gold",
+      "description": "AplPay SUAVECITO BIRSan Francisco       CA",
+      "amount": 21.82,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-30",
+      "card": "Platinum",
+      "description": "WHOLE FOODS FRK 1004866-216-1072        DE",
+      "amount": 19.83,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-29",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-29",
+      "card": "Gold",
+      "description": "AplPay LA CUISINE CASAN FRANCISCO       CA",
+      "amount": 19.93,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-29",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 31.43,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-28",
+      "card": "Gold",
+      "description": "AplPay CAVALLI C    San Francisco       CA",
+      "amount": 25.61,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-28",
+      "card": "Gold",
+      "description": "AplPay SUZU NOODLE HSAN FRANCISCO       CA",
+      "amount": 20.65,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-28",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 9.15,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-28",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 13.45,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-27",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 7.57,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-27",
+      "card": "Gold",
+      "description": "AplPay DENNY'S      PATTERSON           CA",
+      "amount": 81.65,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-27",
+      "card": "Gold",
+      "description": "COOKUNITY INC       BROOKLYN            NY",
+      "amount": 117.91,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-27",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 35.6,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-26",
+      "card": "Gold",
+      "description": "AplPay HUNGRY AL S BLEBEC               CA",
+      "amount": 125.38,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-26",
+      "card": "Gold",
+      "description": "AplPay Kwik Serv FraFRAZIER PARK        CA",
+      "amount": 5.39,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-26",
+      "card": "Gold",
+      "description": "AplPay LITTLE SPOON San Luis Obispo     CA",
+      "amount": 7.0,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-24",
+      "card": "Gold",
+      "description": "AplPay CASTELLIS APTAPTOS               CA",
+      "amount": 21.47,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-24",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-23",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 9.04,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-23",
+      "card": "Gold",
+      "description": "AplPay TST* GOTTS ROSAN FRANCISCO       CA",
+      "amount": 27.83,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-23",
+      "card": "Platinum",
+      "description": "BT*LABORATORY CORPORBURLINGTON          NC",
+      "amount": 18.34,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-22",
+      "card": "Platinum",
+      "description": "CLIPPER SERVICES 000CONCORD             CA",
+      "amount": 20.0,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-21",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 93.4,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-21",
+      "card": "Gold",
+      "description": "COOKUNITY INC       BROOKLYN",
+      "amount": -12.84,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-07-21",
+      "card": "Platinum",
+      "description": "PROTON AG* PROTON AGGENEVA              ZH",
+      "amount": 9.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-20",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-20",
+      "card": "Gold",
+      "description": "COOKUNITY INC       BROOKLYN            NY",
+      "amount": 117.91,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-20",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 14.3,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-19",
+      "card": "Gold",
+      "description": "AplPay LA CUISINE CASAN FRANCISCO       CA",
+      "amount": 27.03,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-19",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 45.25,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-19",
+      "card": "Gold",
+      "description": "AplPay UBER EATS    help.uber.com       CA",
+      "amount": 19.67,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-19",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 10.94,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-19",
+      "card": "Platinum",
+      "description": "GOOGLE *YOUTUBEPREMI G.CO/HELPPAY#      CA",
+      "amount": 15.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-19",
+      "card": "Platinum",
+      "description": "Platinum Digital Entertainment Credit",
+      "amount": -15.99,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-07-18",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 27.81,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-17",
+      "card": "Gold",
+      "description": "AplPay UEP*XEX 00000SAN FRANCISCO       CA",
+      "amount": 5.07,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-17",
+      "card": "Gold",
+      "description": "AplPay URBAN RITUAL San Francisco       CA",
+      "amount": 6.6,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-17",
+      "card": "Platinum",
+      "description": "UHC PAY CLAIM       EDEN PRAIRIE        MN",
+      "amount": -65.0,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-07-16",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -586.2,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-07-16",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -625.36,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-07-15",
+      "card": "Gold",
+      "description": "COOKUNITY INC       BROOKLYN",
+      "amount": -47.16,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-07-14",
+      "card": "Gold",
+      "description": "AplPay CARBON HEALTHOAKLAND             CA",
+      "amount": 35.0,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-14",
+      "card": "Gold",
+      "description": "AplPay WHOLE FOODS MSAN FRANCISCO       CA",
+      "amount": 15.93,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-13",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 14.46,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-13",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-13",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-13",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 4.8,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-13",
+      "card": "Gold",
+      "description": "COOKUNITY INC       BROOKLYN            NY",
+      "amount": 117.91,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-13",
+      "card": "Platinum",
+      "description": "MAHJONG MAMI        SAN FRANCISCO       CA",
+      "amount": 25.0,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-12",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-12",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.7,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-12",
+      "card": "Gold",
+      "description": "AplPay TACOS SANTIAGSan Jose            CA",
+      "amount": 14.3,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-12",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 24.11,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-12",
+      "card": "Gold",
+      "description": "AplPay WALGREENS    SAN FRANCISCO       CA",
+      "amount": 27.16,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-12",
+      "card": "Platinum",
+      "description": "AplPay BANANAREPUBLISAN FRANCISCO       CA",
+      "amount": 482.45,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-11",
+      "card": "Gold",
+      "description": "AplPay BT*WAYMO     MOUNTAIN VIEW       CA",
+      "amount": 1.53,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-11",
+      "card": "Gold",
+      "description": "AplPay BT*WAYMO     MOUNTAIN VIEW       CA",
+      "amount": 9.23,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-11",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 8.5,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-10",
+      "card": "Gold",
+      "description": "AplPay LA CUISINE CASAN FRANCISCO       CA",
+      "amount": 19.93,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-10",
+      "card": "Gold",
+      "description": "AplPay URBAN RITUAL San Francisco       CA",
+      "amount": 6.6,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-10",
+      "card": "Gold",
+      "description": "AplPay WALGREENS    SAN FRANCISCO       CA",
+      "amount": 9.77,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-09",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 30.42,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-09",
+      "card": "Gold",
+      "description": "AplPay J MART AND LISAN FRANCISCO       CA",
+      "amount": 3.59,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-08",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 7.9,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-07",
+      "card": "Gold",
+      "description": "AMAZON TIPS*WV6I82TSAMZN.COM/BILL       WA",
+      "amount": 5.0,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-06",
+      "card": "Gold",
+      "description": "AplPay LA CUISINE CASAN FRANCISCO       CA",
+      "amount": 22.43,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-06",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 59.26,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-06",
+      "card": "Platinum",
+      "description": "COOKUNITY INC       BROOKLYN            NY",
+      "amount": 117.91,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-05",
+      "card": "Gold",
+      "description": "AMAZON GROCE*J241K5TAMZN.COM/BILL       WA",
+      "amount": 81.98,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-05",
+      "card": "Gold",
+      "description": "AplPay ARSICAULT MCASAN FRANCISCO       CA",
+      "amount": 7.0,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-05",
+      "card": "Gold",
+      "description": "AplPay BT*WAYMO     MOUNTAIN VIEW       CA",
+      "amount": 7.19,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-05",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-05",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.1,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-05",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 7.9,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-05",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 13.93,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-04",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.1,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-04",
+      "card": "Gold",
+      "description": "AplPay UBER EATS    help.uber.com       CA",
+      "amount": 23.7,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-03",
+      "card": "Gold",
+      "description": "AplPay LA CUISINE CASAN FRANCISCO       CA",
+      "amount": 19.93,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-03",
+      "card": "Gold",
+      "description": "AplPay URBAN RITUAL San Francisco       CA",
+      "amount": 6.6,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-03",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -577.65,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-07-03",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -310.37,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-07-02",
+      "card": "Gold",
+      "description": "AplPay COFFEESHOP   San Francisco       CA",
+      "amount": 8.5,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-01",
+      "card": "Gold",
+      "description": "Amazon Prime        Amazon.com          WA",
+      "amount": 14.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-01",
+      "card": "Gold",
+      "description": "AplPay BT*WAYMO     MOUNTAIN VIEW       CA",
+      "amount": 14.69,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-01",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-07-01",
+      "card": "Platinum",
+      "description": "HINGE.CO            DALLAS              TX",
+      "amount": 35.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-30",
+      "card": "Platinum",
+      "description": "AplPay UNIOSPECIA* UTORRANCE            CA",
+      "amount": 65.0,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-30",
+      "card": "Platinum",
+      "description": "WHOLE FOODS CAS 1039866-216-1072        DE",
+      "amount": 27.7,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-29",
+      "card": "Gold",
+      "description": "AMAZON GROCE*NG8OW79AMZN.COM/BILL       WA",
+      "amount": 85.01,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-29",
+      "card": "Gold",
+      "description": "AMAZON GROCERY      AMZN.COM/BILL       WA",
+      "amount": -16.19,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-06-28",
+      "card": "Gold",
+      "description": "AplPay TST* ZEVI CAFSAN FRANCISCO       CA",
+      "amount": 26.53,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-28",
+      "card": "Gold",
+      "description": "AplPay URBAN RITUAL San Francisco       CA",
+      "amount": 6.6,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-27",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 24.73,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-27",
+      "card": "Gold",
+      "description": "AplPay UBER EATS    help.uber.com       CA",
+      "amount": 20.68,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-26",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.55,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-26",
+      "card": "Gold",
+      "description": "AplPay JAY?S GRILL  San Francisco       CA",
+      "amount": 18.44,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-26",
+      "card": "Gold",
+      "description": "AplPay URBAN RITUAL San Francisco       CA",
+      "amount": 6.6,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-23",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 68.81,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-23",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 115.27,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-22",
+      "card": "Platinum",
+      "description": "AplPay SP PEAKDESIGNSAN FRANCISCO       CA",
+      "amount": -175.38,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-06-22",
+      "card": "Platinum",
+      "description": "PD SAMPLE           SAN FRANCISCO",
+      "amount": -45.0,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-06-22",
+      "card": "Platinum",
+      "description": "PD SAMPLE           SAN FRANCISCO",
+      "amount": -9.0,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-06-21",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 8.14,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-21",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 17.37,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-21",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 63.82,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-21",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 5.56,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-21",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 22.25,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-21",
+      "card": "Platinum",
+      "description": "AplPay SP PEAKDESIGNSAN FRANCISCO       CA",
+      "amount": 144.44,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-21",
+      "card": "Platinum",
+      "description": "PROTON AG* PROTON AGGENEVA              ZH",
+      "amount": 9.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-20",
+      "card": "Gold",
+      "description": "AplPay BT*WAYMO     MOUNTAIN VIEW       CA",
+      "amount": 5.37,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-20",
+      "card": "Gold",
+      "description": "AplPay UBER EATS    SAN FRANCISCO       CA",
+      "amount": 21.37,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-20",
+      "card": "Platinum",
+      "description": "AplPay SP PEAKDESIGNSAN FRANCISCO       CA",
+      "amount": 255.65,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-19",
+      "card": "Platinum",
+      "description": "GOOGLE *YOUTUBEPREMI G.CO/HELPPAY#      CA",
+      "amount": 15.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-19",
+      "card": "Platinum",
+      "description": "Platinum Digital Entertainment Credit",
+      "amount": -15.01,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-06-18",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 10.14,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-16",
+      "card": "Platinum",
+      "description": "AMEX TRAVEL PAY WITH POINTS CREDIT",
+      "amount": -850.83,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-06-15",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -509.49,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-06-15",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -358.79,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-06-15",
+      "card": "Platinum",
+      "description": "PwP    DEUTSCHE LUFTKoeln",
+      "amount": 850.83,
+      "transaction_type": "Purchase",
+      "category": "Flights",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-14",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-14",
+      "card": "Gold",
+      "description": "AplPay LA CUISINE CASAN FRANCISCO       CA",
+      "amount": 18.68,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-14",
+      "card": "Gold",
+      "description": "AplPay URBAN RITUAL San Francisco       CA",
+      "amount": 7.43,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-14",
+      "card": "Platinum",
+      "description": "CHURCH BARBER  APOTHNEW YORK            NY",
+      "amount": 132.0,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-13",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-13",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-13",
+      "card": "Gold",
+      "description": "AplPay IKEA SAN FRANSAN FRANCISCO       CA",
+      "amount": 4.89,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-13",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 44.95,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-13",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 29.67,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-11",
+      "card": "Platinum",
+      "description": "DISNEYPLUS          888-905-7888        CA",
+      "amount": 9.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-11",
+      "card": "Platinum",
+      "description": "Platinum Digital Entertainment Credit",
+      "amount": -9.99,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-06-11",
+      "card": "Platinum",
+      "description": "UHC PAY CLAIM       EDEN PRAIRIE        MN",
+      "amount": 65.0,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-09",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 2.99,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-09",
+      "card": "Platinum",
+      "description": "AplPay OPTUM HOME DEIRVINE              CA",
+      "amount": 145.8,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-08",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-08",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 3.24,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-07",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-07",
+      "card": "Gold",
+      "description": "AplPay MR EAST KITCHSAN FRANCISCO       CA",
+      "amount": 37.06,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-07",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 59.21,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-06",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-06",
+      "card": "Gold",
+      "description": "AplPay TST* SQUARE PSAN FRANCISCO       CA",
+      "amount": 33.33,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-06",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 9.89,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-06",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 27.81,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-06",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -170.69,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-06-06",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -13.01,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-06-05",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 6.79,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-05",
+      "card": "Gold",
+      "description": "AplPay URBAN RITUAL San Francisco       CA",
+      "amount": 6.6,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-05",
+      "card": "Platinum",
+      "description": "RETURN PAYMENT FEE",
+      "amount": 29.0,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-04",
+      "card": "Gold",
+      "description": "AplPay MATCHA CAFE MSan Francisco       CA",
+      "amount": 7.95,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-03",
+      "card": "Gold",
+      "description": "AplPay BT*WAYMO     MOUNTAIN VIEW       CA",
+      "amount": 2.5,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-03",
+      "card": "Platinum",
+      "description": "AUTOPAY PAYMENT - THANK YOU",
+      "amount": -15.99,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-06-03",
+      "card": "Platinum",
+      "description": "RETURNED AUTOPAY (DEORY)",
+      "amount": 15.99,
+      "transaction_type": "Payment Reversal",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-06-02",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 33.87,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-02",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -131.12,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-06-02",
+      "card": "Gold",
+      "description": "RETURN PAYMENT FEE",
+      "amount": 29.0,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-06-01",
+      "card": "Gold",
+      "description": "Amazon Prime        Amazon.com          WA",
+      "amount": 14.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-31",
+      "card": "Gold",
+      "description": "AplPay ANDYTOWN COFFSan Francisco       CA",
+      "amount": 7.0,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-31",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 4.3,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-31",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 4.3,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-31",
+      "card": "Gold",
+      "description": "AplPay GAI CHICKEN RSAN FRANCISCO       CA",
+      "amount": 20.3,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-30",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 26.85,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-30",
+      "card": "Gold",
+      "description": "AUTOPAY PAYMENT - THANK YOU",
+      "amount": -230.02,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-05-30",
+      "card": "Gold",
+      "description": "AplPay H MART SAN FRSAN FRANCISCO       CA",
+      "amount": 118.81,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-30",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 25.34,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-30",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -440.07,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-05-30",
+      "card": "Gold",
+      "description": "RETURNED AUTOPAY (DEORY)",
+      "amount": 230.02,
+      "transaction_type": "Payment Reversal",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-05-29",
+      "card": "Gold",
+      "description": "AplPay TST* VERVE COSAN FRANCISCO       CA",
+      "amount": 15.75,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-29",
+      "card": "Gold",
+      "description": "AplPay URBAN RITUAL San Francisco       CA",
+      "amount": 13.2,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-28",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -1144.52,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-05-27",
+      "card": "Gold",
+      "description": "AplPay NIJIYA MARKETSAN FRANCISCO       CA",
+      "amount": 24.05,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-26",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-25",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-25",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-24",
+      "card": "Gold",
+      "description": "AplPay ANDYTOWN COFFSan Francisco       CA",
+      "amount": 10.5,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-24",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 53.42,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-24",
+      "card": "Gold",
+      "description": "AplPay UBER EATS    help.uber.com       CA",
+      "amount": 21.88,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-23",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 21.02,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-23",
+      "card": "Gold",
+      "description": "AplPay UBER EATS    help.uber.com       CA",
+      "amount": 14.21,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-22",
+      "card": "Gold",
+      "description": "AplPay BT*WAYMO     MOUNTAIN VIEW       CA",
+      "amount": 6.51,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-22",
+      "card": "Gold",
+      "description": "AplPay BT*WAYMO     MOUNTAIN VIEW       CA",
+      "amount": 9.34,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-22",
+      "card": "Gold",
+      "description": "AplPay URBAN RITUAL San Francisco       CA",
+      "amount": 7.43,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-21",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-20",
+      "card": "Gold",
+      "description": "AplPay WALGREENS    SAN FRANCISCO       CA",
+      "amount": 5.75,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-19",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-19",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-19",
+      "card": "Gold",
+      "description": "AplPay SUPER DUPER  SAN FRANCISCO       CA",
+      "amount": 13.64,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-19",
+      "card": "Platinum",
+      "description": "GOOGLE *YOUTUBEPREMI G.CO/HELPPAY#      CA",
+      "amount": 15.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-19",
+      "card": "Platinum",
+      "description": "Platinum Digital Entertainment Credit",
+      "amount": -15.99,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-05-19",
+      "card": "Platinum",
+      "description": "RENEWAL MEMBERSHIP FEE",
+      "amount": 895.0,
+      "transaction_type": "Fee/Adjustment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-05-18",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 37.21,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-18",
+      "card": "Gold",
+      "description": "AplPay TST* NIPPON CSAN FRANCISCO       CA",
+      "amount": 21.77,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-18",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 17.85,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-17",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-17",
+      "card": "Gold",
+      "description": "AplPay IN-N-OUTFISHESAN FRANCISCO       CA",
+      "amount": 3.86,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-16",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-16",
+      "card": "Gold",
+      "description": "AplPay DELAH COFFEE San Francisco       CA",
+      "amount": 14.6,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-16",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 27.81,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-16",
+      "card": "Gold",
+      "description": "AplPay UBER EATS    SAN FRANCISCO       CA",
+      "amount": 23.06,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-16",
+      "card": "Gold",
+      "description": "AplPay WHOLE FOODS MSAN FRANCISCO       CA",
+      "amount": 54.41,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-15",
+      "card": "Gold",
+      "description": "AplPay URBAN RITUAL San Francisco       CA",
+      "amount": 7.15,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-14",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.1,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-14",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.1,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-13",
+      "card": "Gold",
+      "description": "AplPay PAR*MARUGAME ALAMEDA             CA",
+      "amount": 15.21,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-12",
+      "card": "Gold",
+      "description": "AMAZON TIPS*BV76D7BMAMZN.COM/BILL       WA",
+      "amount": 1.5,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-12",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-12",
+      "card": "Gold",
+      "description": "AplPay DAISO - JAPANSAN FRANCISCO       CA",
+      "amount": 2.44,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-12",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 5.18,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-10",
+      "card": "Gold",
+      "description": "AMAZON.COM*TX8OG9K73AMZN.COM/BILL       WA",
+      "amount": 98.97,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-10",
+      "card": "Gold",
+      "description": "AplPay LA CUISINE CASAN FRANCISCO       CA",
+      "amount": 18.68,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-09",
+      "card": "Gold",
+      "description": "AplPay CITY LIGHTS BSAN FRANCISCO       CA",
+      "amount": 17.38,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-09",
+      "card": "Gold",
+      "description": "AplPay MR EAST KITCHSAN FRANCISCO       CA",
+      "amount": 31.05,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-09",
+      "card": "Gold",
+      "description": "AplPay UBER EATS    help.uber.com       CA",
+      "amount": 11.16,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-07",
+      "card": "Platinum",
+      "description": "AplPay BERMAN SKIN ISAN FRANCISCO       CA",
+      "amount": 215.0,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-05",
+      "card": "Gold",
+      "description": "AplPay STARBUCKS STOSAN FRANCISCO       CA",
+      "amount": 8.25,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-05",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -628.59,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-05-05",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -61.99,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-05-04",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.95,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-04",
+      "card": "Platinum",
+      "description": "TESLA, INC.         AUSTIN              TX",
+      "amount": 34.52,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-03",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 69.48,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-03",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-03",
+      "card": "Gold",
+      "description": "AplPay WHOLE FOODS MSAN FRANCISCO       CA",
+      "amount": 76.32,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-01",
+      "card": "Gold",
+      "description": "Amazon Prime        Amazon.com          WA",
+      "amount": 14.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-01",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-01",
+      "card": "Gold",
+      "description": "AplPay IKEA SAN FRANSAN FRANCISCO       CA",
+      "amount": 16.01,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-05-01",
+      "card": "Platinum",
+      "description": "FUNCTION HEALTH     AUSTIN              TX",
+      "amount": 38.0,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-30",
+      "card": "Gold",
+      "description": "AplPay TST* SENOR SISAN FRANCISCO       CA",
+      "amount": 58.07,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-29",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 49.95,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-29",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-29",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-27",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 31.93,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-27",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 10.83,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-27",
+      "card": "Gold",
+      "description": "AplPay SAFEWAY #1507SAN FRANCISCO       CA",
+      "amount": 20.77,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-27",
+      "card": "Platinum",
+      "description": "CARBON HEALTH       OAKLAND             CA",
+      "amount": 35.0,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-26",
+      "card": "Gold",
+      "description": "AplPay ANDYTOWN COFFSan Francisco       CA",
+      "amount": 6.25,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-26",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-26",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.1,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-26",
+      "card": "Gold",
+      "description": "AplPay WHOLE FOODS MSAN FRANCISCO       CA",
+      "amount": 107.2,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-25",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 29.07,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-25",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 10.83,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-25",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.1,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-25",
+      "card": "Gold",
+      "description": "AplPay LA CUISINE CASAN FRANCISCO       CA",
+      "amount": 18.68,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-25",
+      "card": "Gold",
+      "description": "AplPay PAR*MARUGAME ALAMEDA             CA",
+      "amount": 34.36,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-25",
+      "card": "Gold",
+      "description": "AplPay UBER EATS    help.uber.com       CA",
+      "amount": 27.08,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-24",
+      "card": "Gold",
+      "description": "AplPay URBAN RITUAL San Francisco       CA",
+      "amount": 6.6,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-24",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -276.65,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-04-24",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -1.0,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-04-23",
+      "card": "Gold",
+      "description": "AplPay CAFE OKAWARI SAN FRANCISCO       CA",
+      "amount": 26.23,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-23",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 9.77,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-23",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 12.22,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-23",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 12.3,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-23",
+      "card": "Platinum",
+      "description": "PEACOCK             NEW YORK CITY       NY",
+      "amount": 14.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-23",
+      "card": "Platinum",
+      "description": "Platinum Digital Entertainment Credit",
+      "amount": -11.01,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-04-22",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 21.71,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-22",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 12.27,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-21",
+      "card": "Gold",
+      "description": "CHURCH BARBER  APOTHNEW YORK            NY",
+      "amount": 127.0,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-20",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-20",
+      "card": "Gold",
+      "description": "AplPay TST* FENG CHASAN FRANCISCO       CA",
+      "amount": 7.95,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-20",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -627.12,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-04-20",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -207.06,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-04-19",
+      "card": "Gold",
+      "description": "AplPay ANDYTOWN COFFSan Francisco       CA",
+      "amount": 4.5,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-19",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 16.55,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-19",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 9.76,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-19",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 27.81,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-19",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 11.2,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-19",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 14.87,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-19",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 17.89,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-19",
+      "card": "Platinum",
+      "description": "GOOGLE *YOUTUBEPREMI G.CO/HELPPAY#      CA",
+      "amount": 13.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-19",
+      "card": "Platinum",
+      "description": "Platinum Digital Entertainment Credit",
+      "amount": -13.99,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-04-18",
+      "card": "Gold",
+      "description": "AplPay UBER EATS    help.uber.com       CA",
+      "amount": 27.67,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-17",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 33.53,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-17",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 2.99,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-16",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 25.96,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-16",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 46.19,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-16",
+      "card": "Gold",
+      "description": "AplPay DAISO - JAPANSAN FRANCISCO       CA",
+      "amount": 3.8,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-15",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 15.21,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-14",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.1,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-14",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 13.94,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-12",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 51.89,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-12",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 9.89,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-12",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 23.49,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-12",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 59.24,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-11",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 8.5,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-10",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 2.99,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-10",
+      "card": "Gold",
+      "description": "AplPay URBAN RITUAL San Francisco       CA",
+      "amount": 7.43,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-09",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 10.31,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-08",
+      "card": "Gold",
+      "description": "AplPay WHOLE FOODS MSAN FRANCISCO       CA",
+      "amount": 22.82,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-07",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 10.81,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-06",
+      "card": "Gold",
+      "description": "Amex Send: Add Money",
+      "amount": 25.0,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-06",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-05",
+      "card": "Gold",
+      "description": "AplPay ANDYTOWN COFFSan Francisco       CA",
+      "amount": 10.5,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-05",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-05",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 44.99,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-05",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 26.57,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-05",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 10.94,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-05",
+      "card": "Platinum",
+      "description": "LULULEMON ATHLETICA (877)263-9300       CA",
+      "amount": 53.23,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-05",
+      "card": "Platinum",
+      "description": "PATAGONIA           VENTURA             CA",
+      "amount": 161.85,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-05",
+      "card": "Platinum",
+      "description": "Platinum Lululemon Credit",
+      "amount": -12.0,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-04-04",
+      "card": "Gold",
+      "description": "AplPay BARISTA CAFE SAN FRANCISCO       CA",
+      "amount": 19.61,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-04",
+      "card": "Gold",
+      "description": "AplPay BROWSER BOOKSSan Francisco       CA",
+      "amount": 27.15,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-04",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-04",
+      "card": "Gold",
+      "description": "AplPay PEET'S COFFEESAN FRANCISCO       CA",
+      "amount": 6.09,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-04",
+      "card": "Gold",
+      "description": "AplPay UBER EATS    help.uber.com       CA",
+      "amount": 5.29,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-04",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -598.39,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-04-04",
+      "card": "Platinum",
+      "description": "AplPay LULULEMON FILSAN FRANCISCO       CA",
+      "amount": 63.0,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-04",
+      "card": "Platinum",
+      "description": "Platinum Lululemon Credit",
+      "amount": -63.0,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-04-03",
+      "card": "Gold",
+      "description": "AplPay TIMELEFT SUBSPARIS",
+      "amount": 19.99,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-03",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 12.21,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-02",
+      "card": "Gold",
+      "description": "AplPay IKEA SAN FRANSAN FRANCISCO       CA",
+      "amount": 16.28,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-04-01",
+      "card": "Gold",
+      "description": "Amazon Prime        Amazon.com          WA",
+      "amount": 14.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-31",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 21.71,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-31",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 31.45,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-31",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 34.76,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-31",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 35.78,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-30",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 21.69,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-29",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 34.76,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-29",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-29",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 4.3,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-29",
+      "card": "Gold",
+      "description": "AplPay H MART SAN FRSAN FRANCISCO       CA",
+      "amount": 102.22,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-29",
+      "card": "Gold",
+      "description": "AplPay PANDA EXPRESSSAN FRANCISCO       CA",
+      "amount": 16.98,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-29",
+      "card": "Gold",
+      "description": "AplPay POP MART AMERNEW YORK            NY",
+      "amount": 21.71,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-28",
+      "card": "Gold",
+      "description": "AplPay IKEA SAN FRANSAN FRANCISCO       CA",
+      "amount": 14.11,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-28",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 35.8,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-28",
+      "card": "Gold",
+      "description": "AplPay UBER EATS    help.uber.com       CA",
+      "amount": 18.86,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-27",
+      "card": "Gold",
+      "description": "AplPay UBER EATS    help.uber.com       CA",
+      "amount": 16.09,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-27",
+      "card": "Gold",
+      "description": "AplPay URBAN RITUAL San Francisco       CA",
+      "amount": 6.5,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-26",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.1,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-25",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.1,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-23",
+      "card": "Platinum",
+      "description": "PEACOCK             NEW YORK CITY       NY",
+      "amount": 14.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-23",
+      "card": "Platinum",
+      "description": "Platinum Digital Entertainment Credit",
+      "amount": -11.01,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-03-22",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-22",
+      "card": "Gold",
+      "description": "AplPay IZZY & WOOKS San Francisco       CA",
+      "amount": 23.32,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-22",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 45.24,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-21",
+      "card": "Gold",
+      "description": "AplPay LA CUISINE CASAN FRANCISCO       CA",
+      "amount": 25.0,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-21",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -772.67,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-03-21",
+      "card": "Gold",
+      "description": "UBER EATS           SAN FRANCISCO       CA",
+      "amount": 20.95,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-21",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -533.16,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-03-19",
+      "card": "Gold",
+      "description": "AplPay IKEA SAN FRANSAN FRANCISCO       CA",
+      "amount": 2.17,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-19",
+      "card": "Platinum",
+      "description": "GOOGLE *YOUTUBEPREMI G.CO/HELPPAY#      CA",
+      "amount": 13.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-19",
+      "card": "Platinum",
+      "description": "Interest Charge on Pay Over Time Purchases",
+      "amount": 10.18,
+      "transaction_type": "Fee/Adjustment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-03-19",
+      "card": "Platinum",
+      "description": "Platinum Digital Entertainment Credit",
+      "amount": -13.99,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-03-19",
+      "card": "Platinum",
+      "description": "TESLA               PALO ALTO",
+      "amount": 28.04,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-18",
+      "card": "Gold",
+      "description": "AMEX Dining Credit",
+      "amount": -10.0,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-03-18",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.1,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-18",
+      "card": "Gold",
+      "description": "AplPay FIVE GUYS CA ALAMEDA             CA",
+      "amount": 44.79,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-17",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 10.76,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-17",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 16.19,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-17",
+      "card": "Gold",
+      "description": "AplPay UNION SQUARE San Francisco       CA",
+      "amount": 7.3,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-17",
+      "card": "Gold",
+      "description": "UBER EATS           help.uber.com       CA",
+      "amount": 24.06,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-16",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-16",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 37.9,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-15",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 201.52,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-15",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-15",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-14",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 48.23,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-14",
+      "card": "Gold",
+      "description": "UBER EATS           help.uber.com       CA",
+      "amount": 17.73,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-13",
+      "card": "Platinum",
+      "description": "CHURCH BARBER  APOTHNEW YORK            NY",
+      "amount": 98.0,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-12",
+      "card": "Platinum",
+      "description": "OPTUM HOME DELIVERY IRVINE              CA",
+      "amount": 144.9,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-12",
+      "card": "Platinum",
+      "description": "TESLA               PALO ALTO",
+      "amount": 28.05,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-11",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.1,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-10",
+      "card": "Gold",
+      "description": "AplPay TST* TONYS PISAN FRANCISCO       CA",
+      "amount": 98.13,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-10",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 11.13,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-09",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 19.52,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-09",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 35.79,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-09",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-09",
+      "card": "Gold",
+      "description": "AplPay TST* CHOLITA SAN FRANCISCO       CA",
+      "amount": 23.07,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-08",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-08",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 63.67,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-08",
+      "card": "Gold",
+      "description": "UBER EATS           help.uber.com       CA",
+      "amount": 42.75,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-07",
+      "card": "Gold",
+      "description": "AplPay LA CUISINE CASAN FRANCISCO       CA",
+      "amount": 21.17,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-07",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 0.28,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-07",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 13.2,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-06",
+      "card": "Gold",
+      "description": "AplPay IKEA SAN FRANSAN FRANCISCO       CA",
+      "amount": 16.01,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-04",
+      "card": "Platinum",
+      "description": "PAYPAL *RIVADAVIADR 4156472605          CA",
+      "amount": 210.0,
+      "transaction_type": "Purchase",
+      "category": "Services",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-03",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -954.95,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-03-03",
+      "card": "Platinum",
+      "description": "AUTOPAY PAYMENT - THANK YOU",
+      "amount": -712.1,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-03-03",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -213.98,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-03-02",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 2.85,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-02",
+      "card": "Gold",
+      "description": "AplPay POKE BAR     San Francisco       CA",
+      "amount": 3.25,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-01",
+      "card": "Gold",
+      "description": "Amazon Prime        Amazon.com          WA",
+      "amount": 14.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-01",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 4.3,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-01",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 4.3,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-01",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 5.1,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-03-01",
+      "card": "Gold",
+      "description": "AplPay H MART SAN FRSAN FRANCISCO       CA",
+      "amount": 95.67,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-28",
+      "card": "Gold",
+      "description": "AplPay LA CUISINE CASAN FRANCISCO       CA",
+      "amount": 26.92,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-28",
+      "card": "Gold",
+      "description": "AplPay TST* SQUARE PSAN FRANCISCO       CA",
+      "amount": 36.94,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-28",
+      "card": "Gold",
+      "description": "AplPay URBAN RITUAL San Francisco       CA",
+      "amount": 7.7,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-27",
+      "card": "Gold",
+      "description": "AUTOPAY PAYMENT - THANK YOU",
+      "amount": -786.96,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-02-27",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 12.82,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-27",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 22.15,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-23",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 74.94,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-23",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 4.3,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-23",
+      "card": "Platinum",
+      "description": "PEACOCK             NEW YORK CITY       NY",
+      "amount": 14.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-23",
+      "card": "Platinum",
+      "description": "Platinum Digital Entertainment Credit",
+      "amount": -11.01,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-02-22",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 29.33,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-22",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 4.3,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-22",
+      "card": "Gold",
+      "description": "AplPay H MART SAN FRSAN FRANCISCO       CA",
+      "amount": 117.02,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-22",
+      "card": "Gold",
+      "description": "AplPay TST* SALT ANDSAN FRANCISCO       CA",
+      "amount": 8.57,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-22",
+      "card": "Gold",
+      "description": "AplPay TST* TURQUAZ SAN FRANCISCO       CA",
+      "amount": 27.81,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-21",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 9.76,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-21",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 11.23,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-20",
+      "card": "Gold",
+      "description": "UBER EATS           HTTPS://HELP.UBER.COCA",
+      "amount": 23.18,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-19",
+      "card": "Platinum",
+      "description": "GOOGLE *YOUTUBEPREMI G.CO/HELPPAY#      CA",
+      "amount": 13.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-19",
+      "card": "Platinum",
+      "description": "Platinum Digital Entertainment Credit",
+      "amount": -13.99,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-02-18",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 31.49,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-18",
+      "card": "Gold",
+      "description": "AplPay CHURCH BARBERNEW YORK            NY",
+      "amount": 102.0,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-18",
+      "card": "Platinum",
+      "description": "PAYPAL *RIVADAVIADR 4152907775          CA",
+      "amount": 210.0,
+      "transaction_type": "Purchase",
+      "category": "Services",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-16",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 56.24,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-16",
+      "card": "Platinum",
+      "description": "Interest Charge on Pay Over Time Purchases",
+      "amount": 41.8,
+      "transaction_type": "Fee/Adjustment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-02-16",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -1560.64,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-02-15",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 22.29,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-15",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 4.3,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-15",
+      "card": "Gold",
+      "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
+      "amount": 8.5,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-15",
+      "card": "Gold",
+      "description": "AplPay LEFT WING    San Francisco       CA",
+      "amount": 20.31,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-14",
+      "card": "Gold",
+      "description": "AplPay ARSICAULT MCASAN FRANCISCO       CA",
+      "amount": 26.74,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-14",
+      "card": "Gold",
+      "description": "AplPay BLACK SUGAR  San Francisco       CA",
+      "amount": 7.89,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-14",
+      "card": "Gold",
+      "description": "AplPay H MART SAN FRSAN FRANCISCO       CA",
+      "amount": 99.02,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-14",
+      "card": "Gold",
+      "description": "UBER EATS           help.uber.com       CA",
+      "amount": 17.91,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-12",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 8.68,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-12",
+      "card": "Platinum",
+      "description": "TESLA, INC.         AUSTIN              TX",
+      "amount": 30.21,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-11",
+      "card": "Gold",
+      "description": "AplPay CLIPPER SYSTECONCORD             CA",
+      "amount": 5.0,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-11",
+      "card": "Gold",
+      "description": "AplPay SAFEWAY      ALAMEDA             CA",
+      "amount": 8.33,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-10",
+      "card": "Platinum",
+      "description": "TESLA, INC.         AUSTIN              TX",
+      "amount": 20.36,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-10",
+      "card": "Platinum",
+      "description": "TESLA, INC.         AUSTIN              TX",
+      "amount": 20.42,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-09",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 2.0,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-09",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 22.47,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-09",
+      "card": "Platinum",
+      "description": "PAYPAL *RIVADAVIADR 4156472605          CA",
+      "amount": 220.0,
+      "transaction_type": "Purchase",
+      "category": "Services",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-08",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 60.26,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-08",
+      "card": "Gold",
+      "description": "AplPay TST* ZEVI CAFSAN FRANCISCO       CA",
+      "amount": 25.27,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-08",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 8.89,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-08",
+      "card": "Gold",
+      "description": "UBER",
+      "amount": 17.94,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-07",
+      "card": "Gold",
+      "description": "UBER EATS           HTTPS://HELP.UBER.COCA",
+      "amount": 15.99,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-06",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 18.46,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-06",
+      "card": "Gold",
+      "description": "AplPay TST* PARACHUTSAN FRANCISCO       CA",
+      "amount": 10.51,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-06",
+      "card": "Platinum",
+      "description": "PROTON AG* PROTON AGGENEVA              ZH",
+      "amount": 12.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-05",
+      "card": "Platinum",
+      "description": "RETURN PAYMENT FEE",
+      "amount": 29.0,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-03",
+      "card": "Platinum",
+      "description": "AUTOPAY PAYMENT - THANK YOU",
+      "amount": -1560.64,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-02-03",
+      "card": "Platinum",
+      "description": "RETURNED AUTOPAY (DEORY)",
+      "amount": 1560.64,
+      "transaction_type": "Payment Reversal",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-02-02",
+      "card": "Gold",
+      "description": "FD *CA DMV 503 *SVC SAN FRANCISCO       CA",
+      "amount": 0.97,
+      "transaction_type": "Purchase",
+      "category": "Services",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-02",
+      "card": "Gold",
+      "description": "FD *CA DMV 503 503  SAN FRANCISCO       CA",
+      "amount": 46.0,
+      "transaction_type": "Purchase",
+      "category": "Services",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-02",
+      "card": "Platinum",
+      "description": "PAYPAL *RIVADAVIADR 4156472605          CA",
+      "amount": 210.0,
+      "transaction_type": "Purchase",
+      "category": "Services",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-01",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 10.81,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-01",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 68.73,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-01",
+      "card": "Gold",
+      "description": "Amazon Prime        Amazon.com          WA",
+      "amount": 14.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-01",
+      "card": "Gold",
+      "description": "AplPay H MART SAN FRSAN FRANCISCO       CA",
+      "amount": 118.57,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-01",
+      "card": "Platinum",
+      "description": "NETFLIX.COM         866-579-7172        CA",
+      "amount": 17.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-02-01",
+      "card": "Platinum",
+      "description": "UBER EATS           help.uber.com       CA",
+      "amount": 32.93,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-31",
+      "card": "Gold",
+      "description": "AplPay SMISH SMASH  San Francisco       CA",
+      "amount": 19.55,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-30",
+      "card": "Gold",
+      "description": "AUTOPAY PAYMENT - THANK YOU",
+      "amount": -2294.1,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-01-30",
+      "card": "Gold",
+      "description": "AplPay TARGET       SAN FRANCISCO       CA",
+      "amount": 6.99,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-27",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 2.99,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-26",
+      "card": "Gold",
+      "description": "AMAZON GROCE*7U16O5RAMZN.COM/BILL       WA",
+      "amount": 71.38,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-26",
+      "card": "Platinum",
+      "description": "TESLA               PALO ALTO",
+      "amount": 24.38,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-25",
+      "card": "Gold",
+      "description": "AplPay DAI LEE FOOD SAN FRANCISCO       CA",
+      "amount": 22.46,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-25",
+      "card": "Gold",
+      "description": "AplPay LITTLE SWAN SSAN FRANCISCO       CA",
+      "amount": 35.5,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-25",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -40.0,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-01-24",
+      "card": "Gold",
+      "description": "AplPay HOUSE OF DIM SAN FRANCISCO       CA",
+      "amount": 28.07,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-23",
+      "card": "Gold",
+      "description": "AMAZON TIPS*AZ1UW7COAMZN.COM/BILL       WA",
+      "amount": 7.0,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-22",
+      "card": "Gold",
+      "description": "AMAZON GROCE*FL14K08AMZN.COM/BILL       WA",
+      "amount": 91.97,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-22",
+      "card": "Platinum",
+      "description": "PEACOCK             NEW YORK CITY       NY",
+      "amount": 14.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-22",
+      "card": "Platinum",
+      "description": "Platinum Digital Entertainment Credit",
+      "amount": -11.01,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-01-22",
+      "card": "Platinum",
+      "description": "UBER EATS           help.uber.com       CA",
+      "amount": 31.48,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-21",
+      "card": "Platinum",
+      "description": "UBER EATS           HTTPS://HELP.UBER.COCA",
+      "amount": 30.55,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-20",
+      "card": "Gold",
+      "description": "AplPay IKEA SAN FRANSAN FRANCISCO       CA",
+      "amount": 16.01,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-19",
+      "card": "Platinum",
+      "description": "GOOGLE *YOUTUBEPREMI G.CO/HELPPAY#      CA",
+      "amount": 13.99,
+      "transaction_type": "Purchase",
+      "category": "Subscriptions",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-19",
+      "card": "Platinum",
+      "description": "Platinum Digital Entertainment Credit",
+      "amount": -13.99,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-01-18",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 6.83,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-18",
+      "card": "Gold",
+      "description": "AplPay BLUE BOTTLE CSan Francisco       CA",
+      "amount": 8.02,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-17",
+      "card": "Platinum",
+      "description": "UBER EATS           help.uber.com       CA",
+      "amount": 33.57,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-16",
+      "card": "Gold",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -46.81,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-01-14",
+      "card": "Gold",
+      "description": "AMAZON TIPS*YS3QT0UVAMZN.COM/BILL       WA",
+      "amount": 5.0,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-14",
+      "card": "Gold",
+      "description": "AplPay BLUE BOTTLE CSan Francisco       CA",
+      "amount": 12.86,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-14",
+      "card": "Gold",
+      "description": "AplPay CLIPPER SYSTECONCORD             CA",
+      "amount": 20.0,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-13",
+      "card": "Gold",
+      "description": "AMAZON GROCE*KJ9F59RAMZN.COM/BILL       WA",
+      "amount": 79.09,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-13",
+      "card": "Platinum",
+      "description": "UBER EATS           HTTPS://HELP.UBER.COCA",
+      "amount": 25.11,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-11",
+      "card": "Gold",
+      "description": "AplPay MR EAST KITCHSAN FRANCISCO       CA",
+      "amount": 55.3,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-11",
+      "card": "Platinum",
+      "description": "UBER EATS           help.uber.com       CA",
+      "amount": 25.17,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-09",
+      "card": "Platinum",
+      "description": "UBER EATS           HTTPS://HELP.UBER.COCA",
+      "amount": 24.41,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-08",
+      "card": "Platinum",
+      "description": "Platinum Uber One Credit",
+      "amount": -96.0,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-01-08",
+      "card": "Platinum",
+      "description": "UBER ONE            help.uber.com       CA",
+      "amount": 96.0,
+      "transaction_type": "Purchase",
+      "category": "Transit",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-07",
+      "card": "Gold",
+      "description": "AplPay WALGREENS    SAN FRANCISCO       CA",
+      "amount": 9.08,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-07",
+      "card": "Gold",
+      "description": "AplPay WALGREENS    SAN FRANCISCO       CA",
+      "amount": 21.95,
+      "transaction_type": "Purchase",
+      "category": "Healthcare",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-07",
+      "card": "Platinum",
+      "description": "AplPay SFSA SAN FRANSanFrancisco        CA",
+      "amount": 3057.2,
+      "transaction_type": "Purchase",
+      "category": "Services",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-07",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -1341.73,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-01-07",
+      "card": "Platinum",
+      "description": "MOBILE PAYMENT - THANK YOU",
+      "amount": -413.0,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-01-07",
+      "card": "Platinum",
+      "description": "WIP.CO LOVES YOU    SINGAPORE           SG",
+      "amount": -199.0,
+      "transaction_type": "Credit/Refund",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-01-06",
+      "card": "Gold",
+      "description": "AplPay MOUNTAIN BOBASAN FRANCISCO       CA",
+      "amount": 8.61,
+      "transaction_type": "Purchase",
+      "category": "Other",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-04",
+      "card": "Gold",
+      "description": "AplPay TRADER JOE S SAN FRANCISCO       CA",
+      "amount": 75.63,
+      "transaction_type": "Purchase",
+      "category": "Groceries",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-04",
+      "card": "Platinum",
+      "description": "UBER EATS           help.uber.com       CA",
+      "amount": 4.85,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-04",
+      "card": "Platinum",
+      "description": "WIP.CO LOVES YOU    SINGAPORE           SG",
+      "amount": 199.0,
+      "transaction_type": "Purchase",
+      "category": "Services",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-03",
+      "card": "Platinum",
+      "description": "AUTOPAY PAYMENT - THANK YOU",
+      "amount": -1753.77,
+      "transaction_type": "Payment",
+      "category": "Other",
+      "reward_eligible": "No"
+    },
+    {
+      "date": "2026-01-02",
+      "card": "Gold",
+      "description": "AMAZON MARKEPLACE NA PA",
+      "amount": 35.83,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-02",
+      "card": "Gold",
+      "description": "AMAZON.COM          AMZN.COM/BILL       WA",
+      "amount": 324.76,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-01",
+      "card": "Gold",
+      "description": "AplPay APPLE STORE RSAN FRANCISCO       CA",
+      "amount": 107.54,
+      "transaction_type": "Purchase",
+      "category": "Retail",
+      "reward_eligible": "Yes"
+    },
+    {
+      "date": "2026-01-01",
+      "card": "Gold",
+      "description": "LORIS DINER 00000000SAN FRANCISCO       CA",
+      "amount": 25.37,
+      "transaction_type": "Purchase",
+      "category": "Dining",
+      "reward_eligible": "Yes"
+    }
+  ],
+  "counts": {
+    "platinum": 127,
+    "gold": 429,
+    "total": 556
+  }
+}
