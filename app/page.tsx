@@ -145,6 +145,14 @@ function bestMultiplier(category: string) {
   return 1;
 }
 
+function friendlyMerchant(description: string) {
+  if (description.includes('WHOLE FOODS')) return 'Whole Foods';
+  if (description.includes('UBER EATS')) return 'Uber Eats';
+  if (description.includes('COOKUNITY')) return 'CookUnity';
+  if (description.includes('MAHJONG MAMI')) return 'Mahjong Mami';
+  return description.split(/\s{2,}/)[0].trim();
+}
+
 export default function Home() {
   const [query, setQuery] = useState('');
   const [card, setCard] = useState('All cards');
@@ -153,6 +161,18 @@ export default function Home() {
   const eligible = useMemo(
     () => transactions.filter((item) => item.reward_eligible === 'Yes' && item.amount > 0),
     [],
+  );
+
+  const misroutedTransactions = useMemo(
+    () =>
+      eligible
+        .filter(
+          (item) =>
+            item.card === 'Platinum' &&
+            (item.category === 'Dining' || item.category === 'Groceries'),
+        )
+        .sort((a, b) => b.date.localeCompare(a.date)),
+    [eligible],
   );
 
   const metrics = useMemo(() => {
@@ -165,15 +185,9 @@ export default function Home() {
       (sum, item) => sum + item.amount * bestMultiplier(item.category),
       0,
     );
-    const misrouted = eligible
-      .filter(
-        (item) =>
-          item.card === 'Platinum' &&
-          (item.category === 'Dining' || item.category === 'Groceries'),
-      )
-      .reduce((sum, item) => sum + item.amount, 0);
+    const misrouted = misroutedTransactions.reduce((sum, item) => sum + item.amount, 0);
     return { spend, current, optimized, missed: optimized - current, misrouted };
-  }, [eligible]);
+  }, [eligible, misroutedTransactions]);
 
   const categories = useMemo(() => {
     const totals = new Map<string, { spend: number; current: number; optimized: number }>();
@@ -297,6 +311,33 @@ export default function Home() {
               <p>That spend could have earned 4× on Gold instead of 1×. Move restaurant and grocery purchases to Gold by default.</p>
             </div>
           </article>
+        </div>
+        <div className="routing-detail">
+          <div className="routing-detail-header">
+            <div>
+              <span className="eyebrow">Transactions to move to Gold</span>
+              <h3>{misroutedTransactions.length} purchases found</h3>
+            </div>
+            <div className="routing-total">
+              <small>Recoverable points</small>
+              <strong>+{number.format(metrics.missed)}</strong>
+            </div>
+          </div>
+          <div className="routing-list">
+            <div className="routing-list-head">
+              <span>Date</span><span>Merchant</span><span>Category</span><span>Amount</span><span>Better card</span><span>Extra points</span>
+            </div>
+            {misroutedTransactions.map((item, index) => (
+              <div className="routing-list-row" key={`${item.date}-${item.description}-${index}`}>
+                <span>{new Date(`${item.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                <strong>{friendlyMerchant(item.description)}</strong>
+                <span>{item.category}</span>
+                <span>{preciseMoney.format(item.amount)}</span>
+                <span className="card-swap"><i>Platinum</i><b>→</b><i>Gold</i></span>
+                <span className="points-gain">+{number.format(item.amount * 3)}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
