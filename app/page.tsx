@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { ArrowRight01Icon, CheckmarkCircle02Icon } from '@hugeicons/core-free-icons';
+import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
 import {
   benefits, categories, categorySlug, displayMerchant, metrics,
   misroutedTransactions, money, number, preciseMoney,
@@ -15,7 +15,6 @@ export default function OverviewPage() {
           <h1>Your card dashboard</h1>
           <p>Gold + Platinum · Jan 1–Aug 24, 2026</p>
         </div>
-        <span className="sync-chip"><i><HugeiconsIcon icon={CheckmarkCircle02Icon} size={13} strokeWidth={1.9} /></i> Copilot synced</span>
       </header>
 
       <section className="app-metrics" aria-label="Year-to-date card performance">
