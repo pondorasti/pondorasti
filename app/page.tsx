@@ -30,15 +30,15 @@ const preciseMoney = new Intl.NumberFormat('en-US', {
 const number = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
 
 const categoryIcons: Record<string, string> = {
-  Dining: '↗',
-  Groceries: '●',
-  Flights: '✈',
-  Transit: '→',
-  Retail: '◇',
-  Subscriptions: '◫',
-  Healthcare: '+',
-  Services: '⌁',
-  Other: '·',
+  Dining: '🍽️',
+  Groceries: '🛒',
+  Flights: '✈️',
+  Transit: '🚇',
+  Retail: '🛍️',
+  Subscriptions: '📺',
+  Healthcare: '🩺',
+  Services: '🛠️',
+  Other: '📦',
 };
 
 const benefits = [
@@ -318,7 +318,7 @@ export default function Home() {
           <div className="category-head"><span>Category</span><span>Eligible spend</span><span>Share</span><span>Missed points</span></div>
           {categories.map((item) => (
             <div className="category-row" key={item.name}>
-              <span className="category-name"><i>{categoryIcons[item.name] ?? '·'}</i>{item.name}</span>
+              <span className="category-name"><i>{categoryIcons[item.name] ?? '📦'}</i>{item.name}</span>
               <strong>{preciseMoney.format(item.spend)}</strong>
               <span className="bar-track"><i style={{ width: `${Math.max(2, (item.spend / categories[0].spend) * 100)}%` }} /></span>
               <span className={item.missed > 0 ? 'missed' : ''}>{item.missed > 0 ? `+${number.format(item.missed)}` : '—'}</span>

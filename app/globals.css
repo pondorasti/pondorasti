@@ -93,7 +93,7 @@ button, input, select { font: inherit; }
 .category-head { padding: 15px 18px; color: var(--muted); border-bottom: 1px solid var(--line); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .category-row { min-height: 65px; padding: 10px 18px; border-bottom: 1px solid var(--line); font-size: 13px; }
 .category-name { display: flex; align-items: center; gap: 13px; font-weight: 700; }
-.category-name i { width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; font-style: normal; }
+.category-name i { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; font-size: 16px; font-style: normal; line-height: 1; }
 .bar-track { height: 6px; background: #e2ddd3; }
 .bar-track i { display: block; height: 100%; background: var(--gold); }
 .category-row .missed { color: var(--rust); font-weight: 800; }
