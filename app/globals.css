@@ -325,10 +325,6 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .category-app-card footer { padding: 14px 0 0; display: flex; align-items: center; justify-content: space-between; background: none; color: #828d92; font-size: 9px; }
 .category-app-card footer .has-missed { color: #c15438; font-weight: 700; }
 .category-app-card footer b { color: #0071e3; font-size: 14px; }
-.category-total-card { margin-top: 14px; padding: 22px; display: flex; align-items: center; gap: 18px; }
-.category-total-card span { color: #7e898e; font-size: 10px; font-weight: 750; text-transform: uppercase; }
-.category-total-card strong { font-size: 23px; }
-.category-total-card p { margin: 0 0 0 auto; color: #858f94; font-size: 9px; }
 
 .back-link { padding: 7px 11px; display: inline-flex; margin-bottom: 16px; border-radius: 999px; background: #efeff1; color: #4e5358; font-size: 9px; font-weight: 700; }
 .category-detail-header { margin-bottom: 20px; }
@@ -415,8 +411,6 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
   .benefits-app-grid, .offer-app-grid, .category-overview-grid, .benefit-summary, .detail-metrics { grid-template-columns: 1fr; }
   .setup-list { grid-template-columns: 1fr; }
   .setup-list > div:nth-child(odd) { border-right: 0; }
-  .category-total-card { align-items: start; flex-direction: column; }
-  .category-total-card p { margin: 0; }
   .app-filters { grid-template-columns: 1fr; }
   .section-shell { width: min(100% - 28px, 1240px); }
   .section { padding-block: 56px; }

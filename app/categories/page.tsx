@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { categories, categorySlug, metrics, money, number } from '../lib/data';
+import { categories, categorySlug, money, number } from '../lib/data';
 
 export default function CategoriesPage() {
   return (
@@ -20,8 +20,6 @@ export default function CategoriesPage() {
           </Link>
         ))}
       </section>
-
-      <section className="surface category-total-card"><span>Total eligible spend</span><strong>{money.format(metrics.spend)}</strong><p>Categories reflect Copilot Money. Points use AMEX reward rules.</p></section>
     </main>
   );
 }
