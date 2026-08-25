@@ -1,6 +1,8 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Search01Icon } from '@hugeicons/core-free-icons';
 import {
   categories, displayMerchant, multiplier, preciseMoney, rewardCategory, transactions,
 } from '../lib/data';
@@ -33,7 +35,7 @@ export default function TransactionsExplorer({ initialView = 'all' }: { initialV
           <button className={view === 'misrouted' ? 'active' : ''} onClick={() => setView('misrouted')}>Use other card</button>
         </div>
         <div className="app-filters">
-          <label><span>⌕</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search merchant" aria-label="Search merchant" /></label>
+          <label><span><HugeiconsIcon icon={Search01Icon} size={16} strokeWidth={1.8} /></span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search merchant" aria-label="Search merchant" /></label>
           <select value={card} onChange={(event) => setCard(event.target.value)} aria-label="Filter by card"><option>All cards</option><option>Gold</option><option>Platinum</option></select>
           <select value={category} onChange={(event) => setCategory(event.target.value)} aria-label="Filter by category"><option>All categories</option>{categories.map((item) => <option key={item.name}>{item.name}</option>)}</select>
         </div>

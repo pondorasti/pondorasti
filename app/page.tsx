@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { ArrowRight01Icon, CheckmarkCircle02Icon } from '@hugeicons/core-free-icons';
 import {
   benefits, categories, categorySlug, displayMerchant, metrics,
   misroutedTransactions, money, number, preciseMoney,
@@ -13,7 +15,7 @@ export default function OverviewPage() {
           <h1>Your card dashboard</h1>
           <p>Gold + Platinum · Jan 1–Aug 24, 2026</p>
         </div>
-        <span className="sync-chip"><i>✓</i> Copilot synced</span>
+        <span className="sync-chip"><i><HugeiconsIcon icon={CheckmarkCircle02Icon} size={13} strokeWidth={1.9} /></i> Copilot synced</span>
       </header>
 
       <section className="app-metrics" aria-label="Year-to-date card performance">
@@ -46,7 +48,7 @@ export default function OverviewPage() {
           <div className="surface-title"><span>Needs attention</span><small>{misroutedTransactions.length} purchases</small></div>
           <strong>{preciseMoney.format(metrics.misrouted)}</strong>
           <p>Food purchases hit Platinum instead of earning 4× on Gold.</p>
-          <Link href="/transactions?view=misrouted">Review transactions <b>›</b></Link>
+          <Link href="/transactions?view=misrouted">Review transactions <HugeiconsIcon icon={ArrowRight01Icon} size={13} strokeWidth={1.9} /></Link>
         </article>
       </section>
 
@@ -63,7 +65,7 @@ export default function OverviewPage() {
                 <span><strong>{category.name}</strong><small>{category.count} transactions</small></span>
                 <span className="mini-share"><i style={{ width: `${category.share * 100}%` }} /></span>
                 <b>{money.format(category.spend)}</b>
-                <em>›</em>
+                <em><HugeiconsIcon icon={ArrowRight01Icon} size={13} strokeWidth={1.8} /></em>
               </Link>
             ))}
           </div>
