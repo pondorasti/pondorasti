@@ -311,19 +311,23 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .principle-card h2 { margin: 12px 0 8px; font-size: 24px; }
 .principle-card p { margin: 0; color: #b9c6cc; font-size: 11px; }
 
-.category-overview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.category-app-card { min-height: 185px; padding: 17px; display: flex; flex-direction: column; }
-.category-app-card:hover { transform: translateY(-1px); box-shadow: 0 12px 32px rgba(13,33,48,.075); }
-.category-card-top { display: flex; align-items: center; justify-content: space-between; }
-.category-card-top > i { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: #f0f2f1; font-size: 19px; font-style: normal; }
-.category-card-top > span { color: #7c878c; font-size: 10px; font-weight: 750; }
-.category-app-card h2 { margin: 19px 0 4px; font-size: 15px; letter-spacing: -.02em; }
-.category-app-card > strong { font-size: 24px; letter-spacing: -.04em; }
-.category-share-track { height: 6px; margin-top: auto; overflow: hidden; border-radius: 999px; background: #e9ebe9; }
-.category-share-track i { display: block; height: 100%; border-radius: inherit; background: #cba24f; }
-.category-app-card footer { padding: 14px 0 0; display: flex; align-items: center; justify-content: space-between; background: none; color: #828d92; font-size: 9px; }
-.category-app-card footer .has-missed { color: #c15438; font-weight: 700; }
-.category-app-card footer b { color: #0071e3; font-size: 14px; }
+.category-table { overflow: hidden; }
+.category-table-head, .category-table-row { display: grid; grid-template-columns: minmax(180px,1.35fr) minmax(110px,.7fr) minmax(150px,1fr) minmax(86px,.55fr) minmax(100px,.65fr) 18px; gap: 16px; align-items: center; }
+.category-table-head { min-height: 36px; padding: 0 18px; background: #f5f6f7; color: #858f94; font-size: 8px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+.category-table-row { min-height: 58px; padding: 8px 18px; border-top: 1px solid #eceeed; color: #737e84; font-size: 10px; }
+.category-table-row:hover { background: #f8f9fa; }
+.category-name-cell { min-width: 0; display: flex; align-items: center; gap: 11px; }
+.category-name-cell > i { width: 32px; height: 32px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 9px; background: #f0f2f1; font-size: 16px; font-style: normal; }
+.category-name-cell strong { overflow: hidden; color: var(--ink); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.category-spend-cell { color: var(--ink); font-size: 11px; }
+.category-share-cell { display: grid; grid-template-columns: 36px 1fr; gap: 9px; align-items: center; }
+.category-share-cell > b { color: #6f7a80; font-size: 9px; }
+.category-share-cell > i { height: 5px; overflow: hidden; border-radius: 999px; background: #e7e9e8; }
+.category-share-cell > i > span { display: block; height: 100%; border-radius: inherit; background: #cba24f; }
+.category-count-cell { color: #68747a; }
+.category-missed-cell { color: #a3aaae; }
+.category-missed-cell.has-missed { color: #c15438; font-weight: 750; }
+.category-table-row > em { display: grid; place-items: center; color: var(--accent); font-style: normal; }
 
 .back-link { padding: 7px 11px; display: inline-flex; margin-bottom: 16px; border-radius: 999px; background: #efeff1; color: #4e5358; font-size: 9px; font-weight: 700; }
 .detail-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
@@ -373,7 +377,7 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
   .overview-grid { grid-template-columns: 1fr 1fr; }
   .priority-card { grid-column: 1 / -1; min-height: 190px; }
   .dashboard-columns { grid-template-columns: 1fr; }
-  .benefits-app-grid, .offer-app-grid, .category-overview-grid { grid-template-columns: 1fr 1fr; }
+  .benefits-app-grid, .offer-app-grid { grid-template-columns: 1fr 1fr; }
   .benefit-summary, .detail-metrics { grid-template-columns: 1fr 1fr; }
 }
 
@@ -405,7 +409,15 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
   .priority-card { grid-column: auto; }
   .compact-category-list > a { grid-template-columns: 34px 1fr auto 10px; }
   .compact-category-list .mini-share { display: none; }
-  .benefits-app-grid, .offer-app-grid, .category-overview-grid, .benefit-summary, .detail-metrics { grid-template-columns: 1fr; }
+  .benefits-app-grid, .offer-app-grid, .benefit-summary, .detail-metrics { grid-template-columns: 1fr; }
+  .category-table-head { display: none; }
+  .category-table-row { min-height: 66px; padding: 9px 12px; grid-template-columns: minmax(0,1fr) auto 16px; gap: 5px 10px; }
+  .category-name-cell { grid-column: 1; grid-row: 1; }
+  .category-spend-cell { grid-column: 2; grid-row: 1; }
+  .category-share-cell { grid-column: 1; grid-row: 2; grid-template-columns: 34px minmax(70px,120px); padding-left: 43px; }
+  .category-count-cell { display: none; }
+  .category-missed-cell { grid-column: 2; grid-row: 2; font-size: 9px; text-align: right; }
+  .category-table-row > em { grid-column: 3; grid-row: 1 / 3; }
   .setup-list { grid-template-columns: 1fr; }
   .setup-list > div:nth-child(odd) { border-right: 0; }
   .app-filters { grid-template-columns: 1fr; }
