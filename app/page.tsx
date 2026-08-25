@@ -10,6 +10,9 @@ type Transaction = {
   amount: number;
   transaction_type: string;
   category: string;
+  reward_category?: string;
+  parent_category?: string | null;
+  copilot_name?: string | null;
   reward_eligible: string;
 };
 
@@ -30,13 +33,16 @@ const preciseMoney = new Intl.NumberFormat('en-US', {
 const number = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
 
 const categoryIcons: Record<string, string> = {
-  Dining: '🍽️',
+  Restaurants: '🍽️',
   Groceries: '🛒',
-  Flights: '✈️',
+  'Travel & Vacation': '🏖️',
+  Transportation: '🚇',
+  Shops: '🛍️',
   Transit: '🚇',
-  Retail: '🛍️',
   Subscriptions: '📺',
   Healthcare: '🩺',
+  'Personal Care': '💆',
+  Entertainment: '🎭',
   Services: '🛠️',
   Other: '📦',
 };
@@ -169,7 +175,7 @@ export default function Home() {
         .filter(
           (item) =>
             item.card === 'Platinum' &&
-            (item.category === 'Dining' || item.category === 'Groceries'),
+            (item.reward_category === 'Dining' || item.reward_category === 'Groceries'),
         )
         .sort((a, b) => b.date.localeCompare(a.date)),
     [eligible],
@@ -178,11 +184,11 @@ export default function Home() {
   const metrics = useMemo(() => {
     const spend = eligible.reduce((sum, item) => sum + item.amount, 0);
     const current = eligible.reduce(
-      (sum, item) => sum + item.amount * multiplier(item.card, item.category),
+      (sum, item) => sum + item.amount * multiplier(item.card, item.reward_category ?? item.category),
       0,
     );
     const optimized = eligible.reduce(
-      (sum, item) => sum + item.amount * bestMultiplier(item.category),
+      (sum, item) => sum + item.amount * bestMultiplier(item.reward_category ?? item.category),
       0,
     );
     const misrouted = misroutedTransactions.reduce((sum, item) => sum + item.amount, 0);
@@ -194,8 +200,8 @@ export default function Home() {
     for (const item of eligible) {
       const row = totals.get(item.category) ?? { spend: 0, current: 0, optimized: 0 };
       row.spend += item.amount;
-      row.current += item.amount * multiplier(item.card, item.category);
-      row.optimized += item.amount * bestMultiplier(item.category);
+      row.current += item.amount * multiplier(item.card, item.reward_category ?? item.category);
+      row.optimized += item.amount * bestMultiplier(item.reward_category ?? item.category);
       totals.set(item.category, row);
     }
     return [...totals.entries()]
@@ -330,7 +336,7 @@ export default function Home() {
             {misroutedTransactions.map((item, index) => (
               <div className="routing-list-row" key={`${item.date}-${item.description}-${index}`}>
                 <span>{new Date(`${item.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                <strong>{friendlyMerchant(item.description)}</strong>
+                <strong>{item.copilot_name ?? friendlyMerchant(item.description)}</strong>
                 <span>{item.category}</span>
                 <span>{preciseMoney.format(item.amount)}</span>
                 <span className="card-swap"><i>Platinum</i><b>→</b><i>Gold</i></span>
@@ -345,7 +351,7 @@ export default function Home() {
         <div className="section-heading">
           <span className="eyebrow">WHERE THE SPEND WENT</span>
           <h2>Category performance</h2>
-          <p>Eligible purchase volume and points missed through card routing.</p>
+          <p>Copilot Money categories, with AMEX earning rules preserved for points analysis.</p>
         </div>
         <div className="category-table">
           <div className="category-head"><span>Category</span><span>Eligible spend</span><span>Share</span><span>Missed points</span></div>
@@ -446,11 +452,11 @@ export default function Home() {
                 {filteredTransactions.slice(0, 80).map((item, index) => (
                   <tr key={`${item.date}-${item.description}-${index}`}>
                     <td>{new Date(`${item.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</td>
-                    <td><strong>{item.description}</strong><small>{item.transaction_type}</small></td>
+                    <td><strong>{item.copilot_name ?? item.description}</strong><small>{item.transaction_type}</small></td>
                     <td><span className={`card-tag ${item.card.toLowerCase()}`}>{item.card}</span></td>
                     <td>{item.category}</td>
                     <td className={item.amount < 0 ? 'credit-amount' : ''}>{preciseMoney.format(item.amount)}</td>
-                    <td>{item.reward_eligible === 'Yes' && item.amount > 0 ? `${multiplier(item.card, item.category)}×` : '—'}</td>
+                    <td>{item.reward_eligible === 'Yes' && item.amount > 0 ? `${multiplier(item.card, item.reward_category ?? item.category)}×` : '—'}</td>
                   </tr>
                 ))}
               </tbody>
