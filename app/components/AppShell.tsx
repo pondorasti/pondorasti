@@ -46,10 +46,6 @@ export default function AppShell({ children }: { children: ReactNode }) {
             </div>
           ))}
         </nav>
-        <div className="sidebar-status">
-          <span><i /> Private dashboard</span>
-          <small>Copilot synced · 552 matched</small>
-        </div>
       </aside>
       <div className="app-workspace">
         <header className="mobile-app-bar">

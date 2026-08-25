@@ -43,10 +43,8 @@ button, input, select { font: inherit; }
 .app-sidebar nav a:hover { background: rgba(13,33,48,.045); color: var(--ink); }
 .app-sidebar nav a.active { background: rgba(13,33,48,.075); color: #15171a; box-shadow: inset 0 0 0 1px rgba(13,33,48,.025); }
 .app-sidebar nav i { width: 20px; display: grid; place-items: center; color: var(--accent); font-style: normal; }
-.sidebar-status { margin-top: auto; padding: 14px 11px 4px; display: grid; gap: 7px; border-top: 1px solid var(--line); }
-.sidebar-status > span, .private-dot { display: inline-flex; align-items: center; gap: 8px; color: #536169; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
-.sidebar-status > span i, .private-dot i { width: 7px; height: 7px; border-radius: 50%; background: #34a979; box-shadow: 0 0 0 4px #e0f2ea; }
-.sidebar-status small { color: #8a9499; font-size: 9px; }
+.private-dot { display: inline-flex; align-items: center; gap: 8px; color: #536169; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.private-dot i { width: 7px; height: 7px; border-radius: 50%; background: #34a979; box-shadow: 0 0 0 4px #e0f2ea; }
 .app-workspace { min-height: 100vh; margin-left: 220px; background: #fbfbfc; }
 .mobile-app-bar { display: none; }
 
