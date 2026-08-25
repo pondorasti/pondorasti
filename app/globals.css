@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import '@fontsource-variable/inter';
 
 :root {
   --ink: #0d2130;
@@ -20,7 +21,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter Variable', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; text-decoration: none; }
@@ -41,7 +42,7 @@ button, input, select { font: inherit; }
   background: color-mix(in srgb, white 92%, transparent); backdrop-filter: blur(18px);
 }
 .brand { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 800; letter-spacing: -.01em; }
-.brand-mark { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 8px; background: var(--ink); color: white; font: 700 13px Georgia, serif; }
+.brand-mark { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 8px; background: var(--ink); color: white; font-size: 13px; font-weight: 800; }
 .topbar nav { display: flex; align-items: center; gap: 28px; color: #42515b; font-size: 12px; font-weight: 700; }
 .topbar nav a:hover { color: var(--gold-dark); }
 .privacy-pill { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
@@ -71,19 +72,19 @@ button, input, select { font: inherit; }
 .platinum-card { color: #19282e; background: linear-gradient(145deg, #d9dedc, #9fa9ab); }
 .card-topline { display: flex; align-items: center; justify-content: space-between; padding-bottom: 28px; border-bottom: 1px solid rgba(18,33,43,.25); font-weight: 900; font-size: 12px; letter-spacing: .1em; }
 .card-topline i { font-style: normal; font-size: 10px; }
-.card-profile h3 { margin: 34px 0; max-width: 400px; font: 400 37px/1.08 Georgia, serif; letter-spacing: -.035em; }
+.card-profile h3 { margin: 34px 0; max-width: 400px; font-size: 34px; font-weight: 700; line-height: 1.08; letter-spacing: -.035em; }
 .route-list { display: grid; gap: 15px; }
 .route-list div { display: grid; grid-template-columns: 52px 1fr; align-items: center; padding-bottom: 14px; border-bottom: 1px solid rgba(18,33,43,.18); }
-.route-list strong { font: 400 27px Georgia, serif; }
+.route-list strong { font-size: 25px; font-weight: 700; }
 .route-list span { font-size: 13px; font-weight: 700; line-height: 1.35; }
 .route-list .muted-route { opacity: .62; }
 .card-rule { margin: 28px 0 0; font-size: 12px; font-weight: 700; }
 
 .callout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 22px; }
 .callout { min-height: 160px; padding: 24px; display: grid; grid-template-columns: 44px 1fr; gap: 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--white); }
-.callout-icon { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid currentColor; border-radius: 50%; font: 22px Georgia, serif; }
+.callout-icon { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-size: 20px; font-weight: 700; }
 .callout small { font-size: 10px; font-weight: 800; letter-spacing: .12em; color: var(--rust); }
-.callout h3 { margin: 8px 0 9px; font: 400 24px/1.15 Georgia, serif; }
+.callout h3 { margin: 8px 0 9px; font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: -.025em; }
 .callout p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
 .offer-callout { background: #e4e9e7; border-color: #cbd3cf; }
 .offer-callout small { color: var(--green); }
@@ -111,11 +112,11 @@ button, input, select { font: inherit; }
 .benefit-card.clear { border-top: 4px solid #6aa88f; }
 .benefit-card.muted { border-top: 4px solid #69777e; opacity: .62; }
 .benefit-timing { color: #aebbc1; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-.benefit-card h3 { margin: 20px 0 6px; font: 400 21px/1.15 Georgia, serif; }
-.benefit-card strong { margin-top: auto; font: 400 29px Georgia, serif; color: #dfc37d; }
+.benefit-card h3 { margin: 20px 0 6px; font-size: 20px; font-weight: 700; line-height: 1.18; letter-spacing: -.02em; }
+.benefit-card strong { margin-top: auto; color: #dfc37d; font-size: 27px; font-weight: 700; }
 .benefit-card p { margin: 8px 0 0; color: #afbcc1; font-size: 12px; line-height: 1.5; }
 .enrollment-panel { margin-top: 30px; padding: 30px; display: grid; grid-template-columns: .8fr 1.3fr; gap: 50px; align-items: center; border: 1px solid #3a505c; border-radius: 12px; }
-.enrollment-panel h3 { margin: 8px 0 6px; font: 400 28px Georgia, serif; }
+.enrollment-panel h3 { margin: 8px 0 6px; font-size: 26px; font-weight: 700; letter-spacing: -.025em; }
 .enrollment-panel p { margin: 0; color: #aebbc1; font-size: 13px; }
 .enrollment-list { display: grid; grid-template-columns: 1fr 1fr; }
 .enrollment-list div { padding: 12px 15px; display: grid; grid-template-columns: 25px 1fr auto; gap: 7px; align-items: center; border-bottom: 1px solid #354b57; }
@@ -125,7 +126,7 @@ button, input, select { font: inherit; }
 .offer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .offer-grid article { min-height: 235px; padding: 24px; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px; background: var(--white); }
 .offer-grid article > span { color: var(--green); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-.offer-grid h3 { margin: 24px 0 12px; font: 400 25px/1.1 Georgia, serif; }
+.offer-grid h3 { margin: 24px 0 12px; font-size: 23px; font-weight: 700; line-height: 1.15; letter-spacing: -.025em; }
 .offer-grid p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
 .offer-grid small { margin-top: auto; padding-top: 24px; font-size: 11px; font-weight: 800; }
 .offer-grid small b { color: var(--gold-dark); }
@@ -155,13 +156,13 @@ td small { display: block; margin-top: 3px; color: var(--muted); font-size: 9px;
 .rule-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); }
 .rule-grid article { padding: 28px 35px 0 0; }
 .rule-grid article + article { padding-left: 35px; border-left: 1px solid var(--line); }
-.rule-grid b { color: var(--gold-dark); font: 400 14px Georgia, serif; }
-.rule-grid h3 { margin: 22px 0 9px; font: 400 24px Georgia, serif; }
+.rule-grid b { color: var(--gold-dark); font-size: 14px; font-weight: 700; }
+.rule-grid h3 { margin: 22px 0 9px; font-size: 22px; font-weight: 700; letter-spacing: -.025em; }
 .rule-grid p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
 
 footer { padding-block: 30px; background: var(--ink); color: #b9c3c7; }
 footer .section-shell { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
-footer span { flex: 0 0 auto; color: white; font: 14px Georgia, serif; }
+footer span { flex: 0 0 auto; color: white; font-size: 14px; font-weight: 700; }
 footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line-height: 1.5; }
 
 @media (max-width: 980px) {
