@@ -5,7 +5,6 @@ export default function BenefitsPage() {
     <main className="app-page">
       <header className="app-page-header">
         <div><span className="page-kicker">Benefits</span><h1>Use what fits your life.</h1><p>Deadlines, enrollment, and personally relevant value.</p></div>
-        <span className="sync-chip"><i>7</i> benefits tracked</span>
       </header>
 
       <section className="benefit-summary">
