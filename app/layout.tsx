@@ -1,20 +1,22 @@
 import type { Metadata } from 'next';
+import AppShell from './components/AppShell';
 import './globals.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://amex-card-playbook.pondorasti.chatgpt.site'),
   title: 'AMEX Card Playbook',
-  description: 'A private dashboard for optimizing AMEX Platinum and Gold card usage, benefits, offers, and transactions.',
+  description: 'Your cards, benefits, offers, and transactions—organized.',
   openGraph: {
     title: 'AMEX Card Playbook',
-    description: 'Spend with intent. Keep the benefits that fit.',
+    description: 'Your cards, benefits, offers, and transactions—organized.',
     type: 'website',
-    images: ['/og.png'],
+    images: ['https://amex-card-playbook.pondorasti.chatgpt.site/og.png'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'AMEX Card Playbook',
-    description: 'Spend with intent. Keep the benefits that fit.',
-    images: ['/og.png'],
+    description: 'Your cards, benefits, offers, and transactions—organized.',
+    images: ['https://amex-card-playbook.pondorasti.chatgpt.site/og.png'],
   },
 };
 
@@ -25,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body><AppShell>{children}</AppShell></body>
     </html>
   );
 }
