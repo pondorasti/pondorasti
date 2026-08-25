@@ -228,11 +228,6 @@ export default function Home() {
           A personalized card-routing and benefit dashboard built from 556 transactions—without
           turning rewards into a second job.
         </p>
-        <div className="status-row">
-          <span><b>✓</b> CLEAR+ scheduled at renewal</span>
-          <span><b>—</b> Dunkin’ valued at $0</span>
-          <span><b>↗</b> Updated Aug 24, 2026</span>
-        </div>
       </section>
 
       <section className="metric-grid section-shell" aria-label="Year-to-date overview">
