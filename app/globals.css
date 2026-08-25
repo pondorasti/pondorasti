@@ -48,9 +48,6 @@ button, input, select { font: inherit; }
 .privacy-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px #dce8e2; }
 
 .hero { min-height: 650px; padding: 120px 24px 118px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-.hero::before, .hero::after { content: ''; position: absolute; border: 1px solid #ded7c9; border-radius: 50%; pointer-events: none; }
-.hero::before { width: 580px; height: 580px; left: -390px; top: 16px; }
-.hero::after { width: 390px; height: 390px; right: -270px; bottom: -120px; }
 .hero h1 { margin: 17px 0 22px; max-width: 920px; font: 400 clamp(54px, 8vw, 96px)/.93 Georgia, serif; letter-spacing: -.055em; }
 .hero-copy { max-width: 650px; margin: 0; color: var(--muted); font: 17px/1.7 Georgia, serif; }
 .status-row { margin-top: 36px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
