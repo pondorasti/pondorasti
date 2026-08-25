@@ -21,6 +21,7 @@
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
+  overflow-x: hidden;
   background: var(--paper);
   color: var(--ink);
   font-family: 'Inter Variable', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -204,7 +205,8 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 
 /* Multi-page application surfaces */
 .app-page { width: min(1180px, calc(100% - 48px)); margin: 0 auto; padding: 28px 0 52px; }
-.app-page-header { min-height: 38px; margin-bottom: 16px; padding-bottom: 11px; display: flex; align-items: center; border-bottom: 1px solid rgba(13,33,48,.08); }
+.app-page-header { position: sticky; top: 0; z-index: 20; min-height: 38px; margin-bottom: 16px; padding-bottom: 11px; display: flex; align-items: center; isolation: isolate; }
+.app-page-header::before { content: ''; position: absolute; inset: -28px auto 0 50%; z-index: -1; width: 100vw; transform: translateX(-50%); border-bottom: 1px solid rgba(13,33,48,.09); background: rgba(251,251,252,.88); -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%); }
 .page-kicker { color: #7e898f; font-size: 10px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
 .app-page-header h1 { margin: 0; font-size: 19px; line-height: 1.15; letter-spacing: -.025em; }
 .surface { border: 1px solid rgba(13,33,48,.07); border-radius: 14px; background: rgba(255,255,255,.9); box-shadow: 0 5px 18px rgba(13,33,48,.035); }
@@ -395,7 +397,8 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
   .mobile-app-bar .app-brand { padding: 0; }
   .mobile-app-bar .app-brand > span { width: 30px; height: 30px; border-radius: 9px; }
   .app-page { width: calc(100% - 28px); padding: 24px 0 48px; }
-  .app-page-header { min-height: 0; margin-bottom: 16px; }
+  .app-page-header { top: 58px; min-height: 0; margin-bottom: 16px; }
+  .app-page-header::before { top: -24px; }
   .app-page-header h1 { font-size: 20px; }
   .app-metrics, .overview-grid { grid-template-columns: 1fr; }
   .app-metric { min-height: 122px; }
