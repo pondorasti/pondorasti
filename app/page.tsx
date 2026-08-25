@@ -221,13 +221,19 @@ export default function Home() {
         <span className="privacy-pill"><i /> Private dashboard</span>
       </header>
 
-      <section className="hero" id="top">
-        <div className="eyebrow">AMEX PLATINUM + GOLD · 2026 YEAR TO DATE</div>
-        <h1>Spend with intent.<br />Keep the benefits that fit.</h1>
-        <p className="hero-copy">
-          A personalized card-routing and benefit dashboard built from 556 transactions—without
-          turning rewards into a second job.
-        </p>
+      <section className="dashboard-header" id="top">
+        <div className="section-shell dashboard-header-inner">
+          <div>
+            <span className="eyebrow">Portfolio overview</span>
+            <h1>AMEX Card Playbook</h1>
+            <p>Gold + Platinum · Jan 1–Aug 24, 2026 · 556 transactions</p>
+          </div>
+          <div className="dashboard-meta">
+            <span>Reporting period</span>
+            <strong>2026 year to date</strong>
+            <small>Updated Aug 24</small>
+          </div>
+        </div>
       </section>
 
       <section className="metric-grid section-shell" aria-label="Year-to-date overview">
@@ -320,7 +326,10 @@ export default function Home() {
             <div className="category-row" key={item.name}>
               <span className="category-name"><i>{categoryIcons[item.name] ?? '📦'}</i>{item.name}</span>
               <strong>{preciseMoney.format(item.spend)}</strong>
-              <span className="bar-track"><i style={{ width: `${Math.max(2, (item.spend / categories[0].spend) * 100)}%` }} /></span>
+              <span className="share-cell">
+                <span className="bar-track"><i style={{ width: `${(item.spend / metrics.spend) * 100}%` }} /></span>
+                <small>{((item.spend / metrics.spend) * 100).toFixed(1)}%</small>
+              </span>
               <span className={item.missed > 0 ? 'missed' : ''}>{item.missed > 0 ? `+${number.format(item.missed)}` : '—'}</span>
             </div>
           ))}
