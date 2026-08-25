@@ -95,12 +95,6 @@ const benefits = [
 
 const offers = [
   {
-    label: 'Added · Platinum',
-    title: 'Up to 13,500 bonus points',
-    text: 'Earn 4,500 points after $4,500 in spend, up to three times by Oct 31.',
-    action: 'Route uncategorized spend here',
-  },
-  {
     label: 'Available · Platinum',
     title: '$200 back on Lufthansa',
     text: 'Spend $1,000 through Amex Travel. Your YTD Lufthansa activity was close to the threshold.',
@@ -294,21 +288,13 @@ export default function Home() {
           </article>
         </div>
 
-        <div className="callout-grid">
+        <div className="callout-grid single">
           <article className="callout warning">
             <span className="callout-icon">!</span>
             <div>
               <small>ROUTING CORRECTION</small>
               <h3>{preciseMoney.format(metrics.misrouted)} of likely food spend hit Platinum</h3>
               <p>That spend could have earned 4× on Gold instead of 1×. Move restaurant and grocery purchases to Gold by default.</p>
-            </div>
-          </article>
-          <article className="callout offer-callout">
-            <span className="callout-icon">↗</span>
-            <div>
-              <small>TEMPORARY EXCEPTION · THROUGH OCT 31</small>
-              <h3>Platinum can earn up to 13,500 bonus points</h3>
-              <p>Route non-category purchases to Platinum toward each $4,500 threshold. Keep dining and groceries on Gold.</p>
             </div>
           </article>
         </div>
@@ -379,8 +365,8 @@ export default function Home() {
           <p>Only use an offer when it overlaps with a purchase you already planned.</p>
         </div>
         <div className="offer-grid">
-          {offers.map((offer, index) => (
-            <article className={index === 0 ? 'featured-offer' : ''} key={offer.title}>
+          {offers.map((offer) => (
+            <article key={offer.title}>
               <span>{offer.label}</span>
               <h3>{offer.title}</h3>
               <p>{offer.text}</p>

@@ -81,13 +81,12 @@ button, input, select { font: inherit; }
 .card-rule { margin: 28px 0 0; font-size: 12px; font-weight: 700; }
 
 .callout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 22px; }
+.callout-grid.single { grid-template-columns: 1fr; }
 .callout { min-height: 160px; padding: 24px; display: grid; grid-template-columns: 44px 1fr; gap: 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--white); }
 .callout-icon { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-size: 20px; font-weight: 700; }
 .callout small { font-size: 10px; font-weight: 800; letter-spacing: .12em; color: var(--rust); }
 .callout h3 { margin: 8px 0 9px; font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: -.025em; }
 .callout p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
-.offer-callout { background: #e4e9e7; border-color: #cbd3cf; }
-.offer-callout small { color: var(--green); }
 
 .categories-section { padding-top: 0; }
 .category-table { overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--white); }
@@ -130,7 +129,6 @@ button, input, select { font: inherit; }
 .offer-grid p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
 .offer-grid small { margin-top: auto; padding-top: 24px; font-size: 11px; font-weight: 800; }
 .offer-grid small b { color: var(--gold-dark); }
-.offer-grid .featured-offer { background: #d7e1dd; }
 
 .transactions-band { background: #e7eae7; }
 .filters { margin-bottom: 18px; display: grid; grid-template-columns: minmax(260px, 1fr) 190px 210px; gap: 10px; }
