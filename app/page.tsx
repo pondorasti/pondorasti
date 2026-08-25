@@ -10,11 +10,7 @@ export default function OverviewPage() {
   return (
     <main className="app-page">
       <header className="app-page-header">
-        <div>
-          <span className="page-kicker">Overview</span>
-          <h1>Your card dashboard</h1>
-          <p>Gold + Platinum · Jan 1–Aug 24, 2026</p>
-        </div>
+        <h1>Overview</h1>
       </header>
 
       <section className="app-metrics" aria-label="Year-to-date card performance">

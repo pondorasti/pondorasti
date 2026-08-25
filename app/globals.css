@@ -204,12 +204,9 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 
 /* Multi-page application surfaces */
 .app-page { width: min(1180px, calc(100% - 48px)); margin: 0 auto; padding: 28px 0 52px; }
-.app-page-header { min-height: 66px; margin-bottom: 20px; display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+.app-page-header { min-height: 38px; margin-bottom: 16px; padding-bottom: 11px; display: flex; align-items: center; border-bottom: 1px solid rgba(13,33,48,.08); }
 .page-kicker { color: #7e898f; font-size: 10px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
-.app-page-header h1 { margin: 4px 0; font-size: clamp(28px, 3.5vw, 36px); line-height: 1.07; letter-spacing: -.043em; }
-.app-page-header p { margin: 0; color: var(--muted); font-size: 12px; }
-.sync-chip { padding: 7px 11px; display: inline-flex; align-items: center; gap: 7px; border: 1px solid #dce2df; border-radius: 999px; background: #f5f7f6; color: #4b655b; font-size: 9px; font-weight: 750; }
-.sync-chip i { font-style: normal; }
+.app-page-header h1 { margin: 0; font-size: 19px; line-height: 1.15; letter-spacing: -.025em; }
 .surface { border: 1px solid rgba(13,33,48,.07); border-radius: 14px; background: rgba(255,255,255,.9); box-shadow: 0 5px 18px rgba(13,33,48,.035); }
 .surface-title { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
 .surface-title > span { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
@@ -327,9 +324,6 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .category-app-card footer b { color: #0071e3; font-size: 14px; }
 
 .back-link { padding: 7px 11px; display: inline-flex; margin-bottom: 16px; border-radius: 999px; background: #efeff1; color: #4e5358; font-size: 9px; font-weight: 700; }
-.category-detail-header { margin-bottom: 20px; }
-.category-detail-header > div { position: relative; padding-left: 58px; }
-.category-hero-icon { position: absolute; left: 0; top: 2px; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 14px; background: white; box-shadow: 0 4px 14px rgba(13,33,48,.06); font-size: 22px; }
 .detail-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 .detail-metrics article { min-height: 126px; padding: 18px; display: flex; flex-direction: column; }
 .detail-metrics span { color: #7d888e; font-size: 9px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
@@ -401,8 +395,8 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
   .mobile-app-bar .app-brand { padding: 0; }
   .mobile-app-bar .app-brand > span { width: 30px; height: 30px; border-radius: 9px; }
   .app-page { width: calc(100% - 28px); padding: 24px 0 48px; }
-  .app-page-header { min-height: 0; margin-bottom: 20px; align-items: start; flex-direction: column; }
-  .app-page-header h1 { font-size: 31px; }
+  .app-page-header { min-height: 0; margin-bottom: 16px; }
+  .app-page-header h1 { font-size: 20px; }
   .app-metrics, .overview-grid { grid-template-columns: 1fr; }
   .app-metric { min-height: 122px; }
   .priority-card { grid-column: auto; }

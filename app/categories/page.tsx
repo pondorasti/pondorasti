@@ -5,7 +5,7 @@ export default function CategoriesPage() {
   return (
     <main className="app-page">
       <header className="app-page-header">
-        <div><span className="page-kicker">Categories</span><h1>Where your money went.</h1><p>Copilot Money categories · click any category to see every transaction.</p></div>
+        <h1>Categories</h1>
       </header>
 
       <section className="category-overview-grid">

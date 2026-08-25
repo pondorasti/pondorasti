@@ -7,7 +7,7 @@ export default async function TransactionsPage({ searchParams }: Props) {
   return (
     <main className="app-page wide-page">
       <header className="app-page-header">
-        <div><span className="page-kicker">Transactions</span><h1>Every purchase, searchable.</h1><p>Copilot categories and merchant names with AMEX points logic.</p></div>
+        <h1>Transactions</h1>
       </header>
       <TransactionsExplorer initialView={view} />
     </main>

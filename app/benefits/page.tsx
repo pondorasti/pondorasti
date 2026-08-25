@@ -4,7 +4,7 @@ export default function BenefitsPage() {
   return (
     <main className="app-page">
       <header className="app-page-header">
-        <div><span className="page-kicker">Benefits</span><h1>Use what fits your life.</h1><p>Deadlines, enrollment, and personally relevant value.</p></div>
+        <h1>Benefits</h1>
       </header>
 
       <section className="benefit-summary">

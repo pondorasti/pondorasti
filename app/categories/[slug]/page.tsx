@@ -31,8 +31,8 @@ export default async function CategoryDetailPage({ params }: Props) {
   return (
     <main className="app-page">
       <Link className="back-link" href="/categories">‹ All categories</Link>
-      <header className="app-page-header category-detail-header">
-        <div><span className="category-hero-icon">{category.icon}</span><span className="page-kicker">Category detail</span><h1>{category.name}</h1><p>{category.count} eligible transactions categorized by Copilot Money.</p></div>
+      <header className="app-page-header">
+        <h1>{category.name}</h1>
       </header>
       <section className="detail-metrics">
         <article className="surface"><span>Total spend</span><strong>{money.format(category.spend)}</strong><small>{(category.share * 100).toFixed(1)}% of eligible spend</small></article>

@@ -4,7 +4,7 @@ export default function OffersPage() {
   return (
     <main className="app-page">
       <header className="app-page-header">
-        <div><span className="page-kicker">Offers</span><h1>Only the ones that fit.</h1><p>An offer is useful only when it overlaps with a purchase you already planned.</p></div>
+        <h1>Offers</h1>
       </header>
 
       <section className="offer-app-grid">
