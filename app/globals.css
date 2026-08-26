@@ -271,7 +271,7 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .app-table-row strong { overflow: hidden; color: var(--ink); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
 .app-table-row b { color: #31936a; }
 
-.benefit-value-summary { display: grid; grid-template-columns: 1fr 1fr .8fr; gap: 12px; }
+.benefit-value-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .benefit-value-summary article { min-height: 104px; padding: 15px; display: flex; flex-direction: column; }
 .benefit-value-summary span { color: #7d888e; font-size: 9px; font-weight: 750; letter-spacing: .07em; text-transform: uppercase; }
 .benefit-value-summary strong { margin: 12px 0 3px; font-size: 30px; letter-spacing: -.04em; }

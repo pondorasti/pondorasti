@@ -137,6 +137,8 @@ function usedBenefitCredit(description: string) {
 const elapsedBenefitMonths = latestTransactionMonth ? Number(latestTransactionMonth.slice(5, 7)) : 0;
 const platinumUberCashUsed = elapsedBenefitMonths === 12 ? 200 : Math.min(elapsedBenefitMonths * 15, 200);
 const goldUberCashUsed = Math.min(elapsedBenefitMonths * 10, 120);
+const remainingBenefitMonthsIncludingCurrent = elapsedBenefitMonths ? 13 - elapsedBenefitMonths : 0;
+const walmartPlusAvailable = remainingBenefitMonthsIncludingCurrent * 13;
 
 type BenefitItem = {
   card: 'Gold' | 'Platinum';
@@ -149,7 +151,6 @@ type BenefitItem = {
   text: string;
   tone: string;
   status: string;
-  additionalAnnualValue?: number;
 };
 
 export const benefits: BenefitItem[] = [
@@ -164,17 +165,16 @@ export const benefits: BenefitItem[] = [
   { card: 'Platinum', timing: 'Used YTD', title: 'CLEAR+', used: 219, usedLabel: null, available: 0, leftLabel: '$0', text: 'Assumed fully used for the current benefit year.', tone: 'clear', status: 'Used' },
   { card: 'Platinum', timing: 'Monthly', title: 'Uber Cash', used: platinumUberCashUsed, usedLabel: null, available: 200 - platinumUberCashUsed, leftLabel: money.format(200 - platinumUberCashUsed), text: 'Assumed fully used every month; December includes the extra $20.', tone: 'platinum', status: 'Used monthly' },
   { card: 'Gold', timing: 'Monthly', title: 'Uber Cash', used: goldUberCashUsed, usedLabel: null, available: 120 - goldUberCashUsed, leftLabel: money.format(120 - goldUberCashUsed), text: 'Assumed fully used every month alongside Platinum Uber Cash.', tone: 'gold', status: 'Used monthly' },
-  { card: 'Platinum', timing: 'Monthly', title: 'Walmart+ credit', used: 0, usedLabel: null, available: 0, leftLabel: '$13/mo', text: 'Confirmed unused this year. Covers one eligible monthly membership after enrollment.', tone: 'external', status: 'Unused', additionalAnnualValue: 155 },
-  { card: 'Platinum', timing: 'Dec 31', title: 'Saks credit', used: 0, usedLabel: null, available: 0, leftLabel: '$50', text: 'Confirmed unused this year. Up to $50 remains in the second half after enrollment.', tone: 'external', status: 'Unused', additionalAnnualValue: 100 },
-  { card: 'Platinum', timing: 'Dec 31', title: 'Equinox credit', used: 0, usedLabel: null, available: 0, leftLabel: '$300/yr', text: 'Confirmed unused this year. Available for an eligible membership or digital subscription.', tone: 'external', status: 'Unused', additionalAnnualValue: 300 },
-  { card: 'Platinum', timing: 'Dec 31', title: 'Oura Ring credit', used: 0, usedLabel: null, available: 0, leftLabel: '$200/yr', text: 'Confirmed unused this year. Available on an eligible Oura Ring purchase.', tone: 'external', status: 'Unused', additionalAnnualValue: 200 },
+  { card: 'Platinum', timing: 'Monthly', title: 'Walmart+ credit', used: 0, usedLabel: null, available: walmartPlusAvailable, leftLabel: money.format(walmartPlusAvailable), text: `${remainingBenefitMonthsIncludingCurrent} monthly credits remain from the current month through year-end.`, tone: 'external', status: 'Available' },
+  { card: 'Platinum', timing: 'Dec 31', title: 'Saks credit', used: 0, usedLabel: null, available: 50, leftLabel: '$50', text: 'The current second-half credit is available and unused.', tone: 'external', status: 'Available' },
+  { card: 'Platinum', timing: 'Dec 31', title: 'Equinox credit', used: 0, usedLabel: null, available: 300, leftLabel: '$300', text: 'The annual credit is available and unused.', tone: 'external', status: 'Available' },
+  { card: 'Platinum', timing: 'Dec 31', title: 'Oura Ring credit', used: 0, usedLabel: null, available: 200, leftLabel: '$200', text: 'The annual credit is available and unused.', tone: 'external', status: 'Available' },
   { card: 'Platinum', timing: 'Personal eligibility', title: 'Global Entry or TSA PreCheck', used: 0, usedLabel: null, available: 0, leftLabel: '$0 value', text: 'Not applicable for your current eligibility, so it is excluded from personal value.', tone: 'muted', status: 'Skip' },
   { card: 'Gold', timing: 'Personal choice', title: 'Dunkin’ credit', used: usedBenefitCredit('Dunkin'), usedLabel: null, available: 0, leftLabel: '$0 value', text: 'Not part of your routine, so it carries no personal value here.', tone: 'muted', status: 'Skip' },
 ];
 
 export const benefitValueCaptured = benefits.reduce((sum, benefit) => sum + benefit.used, 0);
 export const benefitValueAvailable = benefits.reduce((sum, benefit) => sum + benefit.available, 0);
-export const unusedAnnualBenefitValue = benefits.reduce((sum, benefit) => sum + (benefit.additionalAnnualValue ?? 0), 0);
 
 export const accessBenefits = [
   { name: 'Global Lounge Collection', card: 'Platinum', status: 'Included' },
