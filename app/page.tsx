@@ -15,16 +15,16 @@ export default function OverviewPage() {
 
       <section className="app-metrics" aria-label="Year-to-date card performance">
         <article className="app-metric hero-metric">
-          <span>Eligible spend</span><strong>{money.format(metrics.spend)}</strong><small>Across both cards</small>
+          <span>Eligible spend</span><strong>{money.format(metrics.spend)}</strong>
         </article>
         <article className="app-metric">
-          <span>Points earned</span><strong>{number.format(metrics.current)}</strong><small>Estimated YTD</small>
+          <span>Points earned</span><strong>{number.format(metrics.current)}</strong>
         </article>
         <article className="app-metric">
-          <span>Optimized potential</span><strong>{number.format(metrics.optimized)}</strong><small>With ideal routing</small>
+          <span>Optimized potential</span><strong>{number.format(metrics.optimized)}</strong>
         </article>
         <article className="app-metric warning-metric">
-          <span>Recoverable points</span><strong>{number.format(metrics.missed)}</strong><small>About {preciseMoney.format(metrics.missed * .015)} of value</small>
+          <span>Recoverable points</span><strong>{number.format(metrics.missed)}</strong>
         </article>
       </section>
 
