@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import {
   Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts';
@@ -26,6 +27,7 @@ function axisMoney(value: number) {
 }
 
 export default function CategoryTrendChart({ data, series }: Props) {
+  const [highlightedSeries, setHighlightedSeries] = useState<string | null>(null);
   const firstMonth = String(data[0]?.month ?? '');
   const lastMonth = String(data.at(-1)?.month ?? '');
   const range = firstMonth && lastMonth
@@ -37,7 +39,18 @@ export default function CategoryTrendChart({ data, series }: Props) {
       <div className="surface-heading"><h2>Monthly spend mix</h2><small>Eligible purchases · {range}</small></div>
       <div className="category-trend-legend" aria-label="Chart legend">
         {series.map((name, index) => (
-          <span key={name}><i style={{ backgroundColor: palette[index % palette.length] }} />{name}</span>
+          <button
+            type="button"
+            className={highlightedSeries && highlightedSeries !== name ? 'dimmed' : ''}
+            aria-label={`Highlight ${name}`}
+            key={name}
+            onMouseEnter={() => setHighlightedSeries(name)}
+            onMouseLeave={() => setHighlightedSeries(null)}
+            onFocus={() => setHighlightedSeries(name)}
+            onBlur={() => setHighlightedSeries(null)}
+          >
+            <i style={{ backgroundColor: palette[index % palette.length] }} />{name}
+          </button>
         ))}
       </div>
       <div className="category-trend-chart">
@@ -63,7 +76,7 @@ export default function CategoryTrendChart({ data, series }: Props) {
                 name={name}
                 stackId="category"
                 fill={palette[index % palette.length]}
-                fillOpacity={index < 5 ? 1 : .78}
+                fillOpacity={highlightedSeries ? (highlightedSeries === name ? 1 : .1) : (index < 5 ? 1 : .78)}
                 maxBarSize={52}
                 isAnimationActive={false}
               />
