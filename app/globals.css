@@ -296,7 +296,6 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .benefit-list-state { width: fit-content; padding: 5px 8px; border-radius: 999px; background: #edf3f0; color: #37765f; font-size: 8px; font-weight: 750; white-space: nowrap; }
 .benefit-list-row.muted .benefit-list-state { background: #f0f1f1; color: #737d82; }
 .setup-surface { margin-top: 14px; overflow: hidden; }
-.setup-surface .surface-heading > small { color: #879196; font-size: 9px; }
 .setup-list { display: grid; grid-template-columns: 1fr 1fr; }
 .setup-list > div { min-height: 56px; padding: 0 22px; display: grid; grid-template-columns: 24px 1fr auto; gap: 9px; align-items: center; border-top: 1px solid #eceeed; }
 .setup-list > div:nth-child(odd) { border-right: 1px solid #eceeed; }

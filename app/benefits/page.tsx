@@ -19,7 +19,7 @@ export default function BenefitsPage() {
       </section>
 
       <section className="surface benefit-list-surface">
-        <div className="surface-heading"><h2>Gold + Platinum benefits</h2><small>Ordered by what needs attention first</small></div>
+        <div className="surface-heading"><h2>Gold + Platinum benefits</h2></div>
         <div className="benefit-list">
           {benefits.map((benefit, index) => (
             <article className={`benefit-list-row ${benefit.tone}`} key={`${benefit.card}-${benefit.title}`}>
@@ -36,7 +36,7 @@ export default function BenefitsPage() {
       </section>
 
       <section className="surface setup-surface">
-        <div className="surface-heading"><h2>Benefits to enroll</h2><small>Complete these in your AMEX account</small></div>
+        <div className="surface-heading"><h2>Benefits to enroll</h2></div>
         <div className="setup-list">
           {enrollments.map(([name, source]) => <div key={name}><span>○</span><strong>{name}</strong><small>{source}</small></div>)}
         </div>
