@@ -200,10 +200,49 @@ export const protectionBenefits = [
   { name: 'Extended warranty', card: 'Both' },
 ];
 
-export const offers = [
-  { label: 'Available · Platinum', title: '$200 back on Lufthansa', text: 'Spend $1,000 through Amex Travel. Your YTD Lufthansa activity was close to the threshold.', action: 'Check before the next booking', fit: 'High fit' },
-  { label: 'Added · Gold', title: '$150 back at Function Health', text: 'Spend $799. You already showed some Function Health spend, so this may fit naturally.', action: 'Only pursue planned care', fit: 'Medium fit' },
-  { label: 'Added · Platinum', title: '$40 back on Airbnb', text: 'Spend $80 or more. Useful if an eligible stay is already planned.', action: 'Use Platinum at checkout', fit: 'High fit' },
-  { label: 'Available · Amazon', title: 'Pay with Points promotion', text: 'Relevant to your Amazon spend, but the implied point value is only about 1.08¢.', action: 'Use only for the discount', fit: 'Low value' },
-  { label: 'Skip duplicate', title: 'Annual Uber One credit', text: 'Platinum already earned the annual credit. Avoid a second overlapping membership benefit on Gold.', action: 'Keep one membership', fit: 'Skip' },
+export const activeOffers = [
+  { card: 'Platinum', status: 'Available', title: '$200 back on Lufthansa', requirement: 'Spend $1,000 through Amex Travel', text: 'Your YTD Lufthansa activity was close to the threshold.', value: 200, valueLabel: '$200', fit: 'High fit' },
+  { card: 'Gold', status: 'Added', title: '$150 back at Function Health', requirement: 'Spend $799', text: 'You already showed some Function Health spend, so this may fit naturally.', value: 150, valueLabel: '$150', fit: 'Medium fit' },
+  { card: 'Platinum', status: 'Added', title: '$40 back on Airbnb', requirement: 'Spend $80 or more', text: 'Useful if an eligible stay is already planned.', value: 40, valueLabel: '$40', fit: 'High fit' },
+  { card: 'Account', status: 'Available', title: 'Pay with Points promotion', requirement: 'Use Membership Rewards at Amazon checkout', text: 'The implied point value is only about 1.08¢; use points only to unlock the discount.', value: 0, valueLabel: 'Variable', fit: 'Low value' },
+  { card: 'Gold', status: 'Skip', title: 'Annual Uber One credit', requirement: 'One annual membership credit', text: 'Platinum already earned the annual credit, so this would duplicate the same membership.', value: 0, valueLabel: 'Duplicate', fit: 'Skip' },
 ];
+
+type RedeemedOfferDefinition = {
+  card: Transaction['card'];
+  title: string;
+  merchantMatch: string;
+};
+
+const redeemedOfferDefinitions: RedeemedOfferDefinition[] = [
+  { card: 'Platinum', title: 'Oliver Peoples offer', merchantMatch: 'OLIVER PEOPLES' },
+  { card: 'Gold', title: 'CookUnity offer', merchantMatch: 'COOKUNITY' },
+];
+
+export const redeemedOffers = redeemedOfferDefinitions.map((definition) => {
+  const activity = transactions.filter(
+    (item) => item.card === definition.card && item.description.toUpperCase().includes(definition.merchantMatch),
+  );
+  const qualifyingSpend = activity
+    .filter((item) => item.amount > 0)
+    .reduce((sum, item) => sum + item.amount, 0);
+  const cashBack = activity
+    .filter((item) => item.amount < 0)
+    .reduce((sum, item) => sum - item.amount, 0);
+  const redeemedDate = activity
+    .filter((item) => item.amount < 0)
+    .map((item) => item.date)
+    .sort()
+    .at(-1) ?? '';
+
+  return {
+    ...definition,
+    qualifyingSpend,
+    cashBack,
+    redeemedDate,
+    savingsRate: qualifyingSpend ? cashBack / qualifyingSpend : 0,
+  };
+});
+
+export const offerSavingsYTD = redeemedOffers.reduce((sum, offer) => sum + offer.cashBack, 0);
+export const activeOfferValue = activeOffers.reduce((sum, offer) => sum + offer.value, 0);
