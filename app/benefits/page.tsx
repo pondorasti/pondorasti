@@ -11,8 +11,8 @@ export default function BenefitsPage() {
       </header>
 
       <section className="benefit-value-summary" aria-label="Benefit value overview">
-        <article className="surface captured-value"><span>Used YTD</span><strong>{money.format(benefitValueCaptured)}</strong><small>Statements plus confirmed Uber Cash usage</small></article>
-        <article className="surface available-value"><span>Left to use</span><strong>{money.format(benefitValueAvailable)}</strong><small>Available through year-end, including skipped benefits</small></article>
+        <article className="surface captured-value"><span>Used YTD</span><strong>{money.format(benefitValueCaptured)}</strong></article>
+        <article className="surface available-value"><span>Left to use</span><strong>{money.format(benefitValueAvailable)}</strong></article>
       </section>
 
       <section className="surface benefit-list-surface">
