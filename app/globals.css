@@ -272,9 +272,9 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .app-table-row b { color: #31936a; }
 
 .benefit-value-summary { display: grid; grid-template-columns: 1fr 1fr .8fr; gap: 12px; }
-.benefit-value-summary article { min-height: 126px; padding: 17px; display: flex; flex-direction: column; }
+.benefit-value-summary article { min-height: 104px; padding: 15px; display: flex; flex-direction: column; }
 .benefit-value-summary span { color: #7d888e; font-size: 9px; font-weight: 750; letter-spacing: .07em; text-transform: uppercase; }
-.benefit-value-summary strong { margin: auto 0 3px; font-size: 30px; letter-spacing: -.04em; }
+.benefit-value-summary strong { margin: 12px 0 3px; font-size: 30px; letter-spacing: -.04em; }
 .benefit-value-summary small { color: #8b959a; font-size: 9px; }
 .benefit-value-summary .captured-value { background: #122b3a; color: white; }
 .benefit-value-summary .captured-value span, .benefit-value-summary .captured-value small { color: #b9c6cc; }
