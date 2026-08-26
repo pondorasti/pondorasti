@@ -306,15 +306,13 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .setup-list small { color: #8a9499; font-size: 9px; }
 .protection-list span { color: #3b8b68; }
 
-.offer-value-summary { display: grid; grid-template-columns: 1.15fr .75fr 1fr; gap: 12px; }
+.offer-value-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .offer-value-summary article { min-height: 104px; padding: 15px; display: flex; flex-direction: column; }
 .offer-value-summary span { color: #7d888e; font-size: 9px; font-weight: 750; letter-spacing: .07em; text-transform: uppercase; }
 .offer-value-summary strong { margin: 12px 0 3px; font-size: 30px; letter-spacing: -.04em; }
 .offer-value-summary small { color: #8b959a; font-size: 9px; }
 .offer-value-summary .saved-value { background: #122b3a; color: white; }
 .offer-value-summary .saved-value span, .offer-value-summary .saved-value small { color: #b9c6cc; }
-.offer-value-summary .active-value { background: #fff8f4; }
-.offer-value-summary .active-value strong { color: #bd4e32; }
 .offer-list-surface { margin-top: 14px; overflow: hidden; }
 .offer-list-row { min-height: 78px; padding: 12px 18px; display: grid; grid-template-columns: 28px minmax(0,1fr) 86px 76px 76px; gap: 12px; align-items: center; border-top: 1px solid #eceeed; }
 .offer-list-row.redeemed { grid-template-columns: 28px minmax(0,1fr) 74px 78px 78px 76px; }
@@ -407,7 +405,6 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
   .priority-card { grid-column: 1 / -1; min-height: 190px; }
   .dashboard-columns { grid-template-columns: 1fr; }
   .offer-value-summary { grid-template-columns: 1fr 1fr; }
-  .offer-value-summary article:last-child { grid-column: 1 / -1; }
   .detail-metrics { grid-template-columns: 1fr 1fr; }
 }
 
@@ -437,7 +434,6 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
   .compact-category-list > a { grid-template-columns: 34px 1fr auto 10px; }
   .compact-category-list .mini-share { display: none; }
   .benefit-value-summary, .offer-value-summary, .detail-metrics { grid-template-columns: 1fr; }
-  .offer-value-summary article:last-child { grid-column: auto; }
   .benefit-list-row { grid-template-columns: 24px 1fr 1fr; gap: 10px; }
   .benefit-list-index { grid-column: 1; grid-row: 1; }
   .benefit-list-main { grid-column: 2 / 4; grid-row: 1; }

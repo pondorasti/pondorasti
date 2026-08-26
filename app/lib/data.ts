@@ -251,4 +251,3 @@ export const redeemedOffers = redeemedOfferDefinitions.map((definition) => {
 });
 
 export const offerSavingsYTD = redeemedOffers.reduce((sum, offer) => sum + offer.cashBack, 0);
-export const activeOfferValue = activeOffers.reduce((sum, offer) => sum + offer.value, 0);

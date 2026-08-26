@@ -1,5 +1,5 @@
 import {
-  activeOffers, activeOfferValue, money, offerSavingsYTD, preciseMoney, redeemedOffers,
+  activeOffers, money, offerSavingsYTD, preciseMoney, redeemedOffers,
 } from '../lib/data';
 
 const percent = new Intl.NumberFormat('en-US', { style: 'percent', maximumFractionDigits: 1 });
@@ -19,7 +19,6 @@ export default function OffersPage() {
       <section className="offer-value-summary" aria-label="Offer value overview">
         <article className="surface saved-value"><span>Saved YTD</span><strong>{money.format(offerSavingsYTD)}</strong></article>
         <article className="surface"><span>Offers redeemed</span><strong>{redeemedOffers.length}</strong></article>
-        <article className="surface active-value"><span>Active cash back</span><strong>{money.format(activeOfferValue)}</strong></article>
       </section>
 
       <section className="surface offer-list-surface">
