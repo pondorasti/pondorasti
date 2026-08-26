@@ -38,7 +38,7 @@ button, input, select { font: inherit; }
 .app-brand div { display: grid; gap: 2px; }
 .app-brand strong { font-size: 13px; letter-spacing: -.015em; }
 .app-brand small { color: var(--muted); font-size: 9px; }
-.app-sidebar nav { margin-top: 23px; display: grid; gap: 15px; }
+.app-sidebar nav { margin-top: 4px; display: grid; gap: 15px; }
 .nav-section { display: grid; gap: 3px; }
 .nav-section-label { padding: 0 9px 4px; color: #8d8b94; font-size: 10px; font-weight: 600; letter-spacing: 0; }
 .app-sidebar nav a { min-height: 32px; padding: 0 9px; display: flex; align-items: center; gap: 9px; border-radius: 7px; color: #3e4248; font-size: 13px; font-weight: 520; }

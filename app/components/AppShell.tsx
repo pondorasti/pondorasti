@@ -27,10 +27,6 @@ export default function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="app-shell">
       <aside className="app-sidebar">
-        <Link className="app-brand" href="/">
-          <span><HugeiconsIcon icon={CreditCardIcon} size={18} strokeWidth={1.8} /></span>
-          <div><strong>Card Playbook</strong><small>AMEX Gold + Platinum</small></div>
-        </Link>
         <nav aria-label="Primary navigation">
           {sections.map((section) => (
             <div className="nav-section" key={section.label}>
