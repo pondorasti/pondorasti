@@ -13,13 +13,13 @@ export default function BenefitsPage() {
       </header>
 
       <section className="benefit-value-summary" aria-label="Benefit value overview">
-        <article className="surface captured-value"><span>Credits received</span><strong>{money.format(benefitValueCaptured)}</strong><small>Recognized on statements this year</small></article>
-        <article className="surface available-value"><span>Still available</span><strong>{money.format(benefitValueAvailable)}</strong><small>Known value before upcoming deadlines</small></article>
-        <article className="surface"><span>Value captured</span><strong>{capturedShare}%</strong><small>Of {money.format(trackedValue)} tracked value</small></article>
+        <article className="surface captured-value"><span>Used YTD</span><strong>{money.format(benefitValueCaptured)}</strong><small>Credits recognized on statements</small></article>
+        <article className="surface available-value"><span>Left to use</span><strong>{money.format(benefitValueAvailable)}</strong><small>Known value still available</small></article>
+        <article className="surface"><span>Share used</span><strong>{capturedShare}%</strong><small>Of {money.format(trackedValue)} tracked value</small></article>
       </section>
 
       <section className="surface benefit-list-surface">
-        <div className="surface-heading"><h2>Gold + Platinum benefits</h2></div>
+        <div className="surface-heading"><h2>Benefit usage</h2></div>
         <div className="benefit-list">
           {benefits.map((benefit, index) => (
             <article className={`benefit-list-row ${benefit.tone}`} key={`${benefit.card}-${benefit.title}`}>
@@ -28,7 +28,9 @@ export default function BenefitsPage() {
                 <div><h2>{benefit.title}</h2><span className={`benefit-card-tag ${benefit.card.toLowerCase()}`}>{benefit.card}</span></div>
                 <p>{benefit.text}</p>
               </div>
-              <div className="benefit-list-value"><strong>{benefit.amount}</strong><small>{benefit.timing}</small></div>
+              <div className="benefit-list-metric used"><small>Used YTD</small><strong>{money.format(benefit.used)}</strong></div>
+              <div className="benefit-list-metric left"><small>Left</small><strong>{benefit.leftLabel}</strong></div>
+              <div className="benefit-list-deadline"><small>Deadline</small><strong>{benefit.timing}</strong></div>
               <span className="benefit-list-state">{benefit.status}</span>
             </article>
           ))}

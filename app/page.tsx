@@ -76,7 +76,7 @@ export default function OverviewPage() {
               <div key={benefit.title}>
                 <span className={`benefit-dot ${benefit.tone}`} />
                 <span><strong>{benefit.title}</strong><small>{benefit.timing}</small></span>
-                <b>{benefit.amount}</b>
+                <b>{benefit.leftLabel}</b>
               </div>
             ))}
           </div>

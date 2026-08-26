@@ -128,26 +128,26 @@ export const categoryMonthlySpend = trendMonths.map((month) => {
   return point;
 });
 
+function usedBenefitCredit(description: string) {
+  return transactions
+    .filter((item) => item.amount < 0 && item.description.includes(description))
+    .reduce((sum, item) => sum - item.amount, 0);
+}
+
 export const benefits = [
-  { card: 'Gold', timing: 'By Aug 31', title: 'Dining credit', amount: '$10', available: 10, text: 'Use at an eligible partner before the monthly credit resets.', tone: 'gold', status: 'Use next' },
-  { card: 'Platinum', timing: 'By Aug 31', title: 'Digital entertainment', amount: '$10', available: 10, text: 'About $10 remained available for August at review time.', tone: 'platinum', status: 'Use next' },
-  { card: 'Platinum', timing: 'By Sep 30', title: 'Resy + lululemon', amount: '$134', available: 134, text: '$100 quarterly Resy credit plus about $34 at lululemon.', tone: 'platinum', status: 'Upcoming' },
-  { card: 'Gold', timing: 'By Dec 31', title: 'Resy credit', amount: '$50', available: 50, text: 'Second-half dining credit at participating Resy restaurants.', tone: 'gold', status: 'Upcoming' },
-  { card: 'Platinum', timing: 'By Dec 31', title: 'Hotel + airline', amount: '$500', available: 500, text: '$300 prepaid hotel credit plus $200 airline incidental credit.', tone: 'platinum', status: 'Upcoming' },
-  { card: 'Platinum', timing: 'At renewal', title: 'CLEAR+ renewal', amount: 'Covered', available: 0, text: 'Already active. Keep Platinum as the payment card when it renews.', tone: 'clear', status: 'On autopilot' },
-  { card: 'Gold', timing: 'Personal preference', title: 'Dunkin’ credit', amount: '$0 value', available: 0, text: 'Not part of your routine. Ignore it instead of manufacturing spend.', tone: 'muted', status: 'Skip' },
+  { card: 'Gold', timing: 'Aug 31', title: 'Dining credit', used: usedBenefitCredit('AMEX Dining Credit'), available: 10, leftLabel: '$10', text: 'Use the remaining monthly credit at an eligible dining partner.', tone: 'gold', status: 'Use next' },
+  { card: 'Platinum', timing: 'Aug 31', title: 'Digital entertainment credit', used: usedBenefitCredit('Platinum Digital Entertainment Credit'), available: 10, leftLabel: '$10', text: 'About $10 remained in the current monthly benefit at review time.', tone: 'platinum', status: 'Use next' },
+  { card: 'Platinum', timing: 'Sep 30', title: 'Resy credit', used: usedBenefitCredit('Platinum Resy Credit'), available: 100, leftLabel: '$100', text: 'The current quarterly Resy benefit remains available.', tone: 'platinum', status: 'Upcoming' },
+  { card: 'Platinum', timing: 'Sep 30', title: 'lululemon credit', used: usedBenefitCredit('Platinum Lululemon Credit'), available: 34, leftLabel: '$34', text: 'About $34 remains in the current quarterly benefit.', tone: 'platinum', status: 'Upcoming' },
+  { card: 'Gold', timing: 'Dec 31', title: 'Resy credit', used: usedBenefitCredit('Gold Resy Credit'), available: 50, leftLabel: '$50', text: 'The second-half Resy benefit remains available.', tone: 'gold', status: 'Upcoming' },
+  { card: 'Platinum', timing: 'Dec 31', title: 'Hotel credit', used: usedBenefitCredit('Platinum Hotel Credit'), available: 300, leftLabel: '$300', text: 'Use the current half-year credit on an eligible prepaid Amex Travel hotel.', tone: 'platinum', status: 'Upcoming' },
+  { card: 'Platinum', timing: 'Dec 31', title: 'Airline fee credit', used: usedBenefitCredit('Platinum Airline Fee Credit'), available: 200, leftLabel: '$200', text: 'Incidental-fee credit remains available with your selected airline.', tone: 'platinum', status: 'Upcoming' },
+  { card: 'Platinum', timing: 'Used YTD', title: 'Uber One credit', used: usedBenefitCredit('Platinum Uber One Credit'), available: 0, leftLabel: '$0', text: 'The annual membership credit has already posted.', tone: 'platinum', status: 'Used' },
+  { card: 'Platinum', timing: 'At renewal', title: 'CLEAR+', used: usedBenefitCredit('CLEAR'), available: 219, leftLabel: '$219', text: 'Your active membership is set to renew on Platinum.', tone: 'clear', status: 'Scheduled' },
+  { card: 'Gold', timing: 'Personal choice', title: 'Dunkin’ credit', used: usedBenefitCredit('Dunkin'), available: 0, leftLabel: '$0 value', text: 'Not part of your routine, so it carries no personal value here.', tone: 'muted', status: 'Skip' },
 ];
 
-const recognizedBenefitCredits = [
-  'Platinum Digital Entertainment Credit',
-  'Platinum Lululemon Credit',
-  'Platinum Uber One Credit',
-  'AMEX Dining Credit',
-];
-
-export const benefitValueCaptured = transactions
-  .filter((item) => item.amount < 0 && recognizedBenefitCredits.some((credit) => item.description.includes(credit)))
-  .reduce((sum, item) => sum - item.amount, 0);
+export const benefitValueCaptured = benefits.reduce((sum, benefit) => sum + benefit.used, 0);
 export const benefitValueAvailable = benefits.reduce((sum, benefit) => sum + benefit.available, 0);
 
 export const enrollments = [

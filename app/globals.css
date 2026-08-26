@@ -281,7 +281,7 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .benefit-value-summary .available-value { background: #fff8f4; }
 .benefit-value-summary .available-value strong { color: #bd4e32; }
 .benefit-list-surface { margin-top: 14px; overflow: hidden; }
-.benefit-list-row { min-height: 86px; padding: 14px 18px; display: grid; grid-template-columns: 28px minmax(0,1fr) 92px 94px; gap: 14px; align-items: center; border-top: 1px solid #eceeed; }
+.benefit-list-row { min-height: 86px; padding: 14px 18px; display: grid; grid-template-columns: 28px minmax(0,1fr) 76px 76px 84px 82px; gap: 12px; align-items: center; border-top: 1px solid #eceeed; }
 .benefit-list-row.muted { opacity: .58; }
 .benefit-list-index { color: #9aa3a7; font-size: 10px; font-variant-numeric: tabular-nums; }
 .benefit-list-main { min-width: 0; }
@@ -290,9 +290,11 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .benefit-list-main p { margin: 5px 0 0; overflow: hidden; color: #778288; font-size: 10px; line-height: 1.45; text-overflow: ellipsis; white-space: nowrap; }
 .benefit-card-tag { padding: 3px 6px; border-radius: 5px; background: #e5e9e8; color: #405159; font-size: 7px; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; }
 .benefit-card-tag.gold { background: #f0e2bd; color: #77591d; }
-.benefit-list-value { display: grid; gap: 4px; }
-.benefit-list-value strong { color: var(--ink); font-size: 15px; }
-.benefit-list-value small { color: #8a9499; font-size: 8px; }
+.benefit-list-metric, .benefit-list-deadline { display: grid; gap: 4px; }
+.benefit-list-metric small, .benefit-list-deadline small { color: #8a9499; font-size: 7px; font-weight: 750; letter-spacing: .05em; text-transform: uppercase; }
+.benefit-list-metric strong { color: var(--ink); font-size: 14px; font-variant-numeric: tabular-nums; }
+.benefit-list-metric.left strong { color: #bd4e32; }
+.benefit-list-deadline strong { color: #59676e; font-size: 10px; font-weight: 650; }
 .benefit-list-state { width: fit-content; padding: 5px 8px; border-radius: 999px; background: #edf3f0; color: #37765f; font-size: 8px; font-weight: 750; white-space: nowrap; }
 .benefit-list-row.muted .benefit-list-state { background: #f0f1f1; color: #737d82; }
 .setup-surface { margin-top: 14px; overflow: hidden; }
@@ -422,10 +424,14 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
   .compact-category-list > a { grid-template-columns: 34px 1fr auto 10px; }
   .compact-category-list .mini-share { display: none; }
   .benefit-value-summary, .offer-app-grid, .detail-metrics { grid-template-columns: 1fr; }
-  .benefit-list-row { grid-template-columns: 24px minmax(0,1fr) auto; gap: 10px; }
+  .benefit-list-row { grid-template-columns: 24px 1fr 1fr; gap: 10px; }
+  .benefit-list-index { grid-column: 1; grid-row: 1; }
+  .benefit-list-main { grid-column: 2 / 4; grid-row: 1; }
   .benefit-list-main p { white-space: normal; }
-  .benefit-list-value { grid-column: 3; grid-row: 1; text-align: right; }
-  .benefit-list-state { grid-column: 2 / 4; grid-row: 2; }
+  .benefit-list-metric.used { grid-column: 2; grid-row: 2; }
+  .benefit-list-metric.left { grid-column: 3; grid-row: 2; }
+  .benefit-list-deadline { grid-column: 2; grid-row: 3; }
+  .benefit-list-state { grid-column: 3; grid-row: 3; justify-self: start; }
   .category-table-head { display: none; }
   .category-trend-legend { max-height: 52px; overflow: auto; }
   .category-trend-chart { height: 220px; padding-inline: 2px; }
