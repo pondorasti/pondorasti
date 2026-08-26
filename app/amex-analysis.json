@@ -3058,7 +3058,7 @@
       "reward_eligible": "Yes",
       "reward_category": "Transit",
       "parent_category": null,
-      "copilot_name": "Aplpay Clipper Transsan Francisco"
+      "copilot_name": null
     },
     {
       "date": "2026-05-17",
@@ -3198,11 +3198,11 @@
       "description": "AplPay CLIPPER TRANSSAN FRANCISCO       CA",
       "amount": 2.85,
       "transaction_type": "Purchase",
-      "category": "Transit",
+      "category": "Transportation",
       "reward_eligible": "Yes",
       "reward_category": "Transit",
       "parent_category": null,
-      "copilot_name": null
+      "copilot_name": "Aplpay Clipper Transsan Francisco"
     },
     {
       "date": "2026-05-12",
