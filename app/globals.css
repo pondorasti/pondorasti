@@ -319,12 +319,12 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .principle-card h2 { margin: 12px 0 8px; font-size: 24px; }
 .principle-card p { margin: 0; color: #b9c6cc; font-size: 11px; }
 
-.category-trend-surface { margin-bottom: 12px; overflow: hidden; }
+.category-trend-surface { position: relative; z-index: 2; margin-bottom: 12px; overflow: visible; }
 .category-trend-surface .surface-heading > small { color: #879196; font-size: 9px; }
 .category-trend-legend { padding: 1px 16px 10px; display: flex; flex-wrap: wrap; gap: 7px 15px; color: #657178; font-size: 8px; }
 .category-trend-legend span { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 .category-trend-legend i { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; }
-.category-trend-chart { height: 248px; padding: 0 10px 10px; }
+.category-trend-chart { position: relative; z-index: 2; height: 248px; padding: 0 10px 10px; }
 .category-table { overflow: hidden; }
 .category-table-head, .category-table-row { display: grid; grid-template-columns: minmax(180px,1.35fr) minmax(110px,.7fr) minmax(150px,1fr) minmax(86px,.55fr) minmax(100px,.65fr) 18px; gap: 16px; align-items: center; }
 .category-table-head { min-height: 36px; padding: 0 18px; background: #f5f6f7; color: #858f94; font-size: 8px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
