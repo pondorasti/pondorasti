@@ -42,7 +42,7 @@ export default async function CategoryDetailPage({ params }: Props) {
         <article className="surface"><span>Missed points</span><strong className={category.missed ? 'warn-text' : ''}>{number.format(category.missed)}</strong><small>{category.missed ? 'Recoverable with better routing' : 'Already optimized'}</small></article>
       </section>
       <section className="surface category-transaction-surface">
-        <div className="surface-heading"><div><span className="page-kicker">All activity</span><h2>{rows.length} transactions</h2></div></div>
+        <div className="surface-heading"><h2>{rows.length} transactions</h2></div>
         <div className="detail-transaction-table">
           <div className="detail-row detail-head"><span>Date</span><span>Merchant</span><span>Card</span><span>Type</span><span>Amount</span></div>
           {rows.map((item, index) => (

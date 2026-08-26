@@ -50,7 +50,7 @@ export default function OverviewPage() {
       <section className="dashboard-columns">
         <article className="surface data-surface">
           <div className="surface-heading">
-            <div><span className="page-kicker">Spending</span><h2>Top categories</h2></div>
+            <h2>Top categories</h2>
             <Link href="/categories">View all</Link>
           </div>
           <div className="compact-category-list">
@@ -68,7 +68,7 @@ export default function OverviewPage() {
 
         <article className="surface data-surface">
           <div className="surface-heading">
-            <div><span className="page-kicker">Coming up</span><h2>Benefit deadlines</h2></div>
+            <h2>Benefit deadlines</h2>
             <Link href="/benefits">View all</Link>
           </div>
           <div className="deadline-list">
@@ -85,7 +85,7 @@ export default function OverviewPage() {
 
       <section className="surface data-surface recent-routing">
         <div className="surface-heading">
-          <div><span className="page-kicker">Routing correction</span><h2>Use Gold next time</h2></div>
+          <h2>Use Gold next time</h2>
           <Link href="/transactions?view=misrouted">See all {misroutedTransactions.length}</Link>
         </div>
         <div className="app-table">

@@ -207,14 +207,13 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .app-page { width: min(1180px, calc(100% - 48px)); margin: 0 auto; padding: 0 0 52px; }
 .app-page-header { position: sticky; top: 0; z-index: 20; height: 54px; min-height: 54px; margin-bottom: 16px; display: flex; align-items: center; isolation: isolate; }
 .app-page-header::before { content: ''; position: absolute; inset: 0 auto 0 50%; z-index: -1; width: 100vw; transform: translateX(-50%); background: rgba(251,251,252,.76); box-shadow: inset 0 -1px 0 rgba(13,33,48,.085); -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%); }
-.page-kicker { color: #7e898f; font-size: 10px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
 .app-page-header h1 { margin: 0; font-size: 19px; line-height: 1.15; letter-spacing: -.025em; }
 .surface { border: 0; border-radius: 14px; background: rgba(255,255,255,.9); background-clip: padding-box; box-shadow: inset 0 0 0 1px rgba(13,33,48,.07); }
 .surface-title { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
 .surface-title > span { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .surface-title small { color: rgba(13,33,48,.58); font-size: 10px; font-weight: 650; }
 .surface-heading { padding: 17px 18px 13px; display: flex; align-items: end; justify-content: space-between; gap: 18px; }
-.surface-heading h2 { margin: 3px 0 0; font-size: 18px; letter-spacing: -.03em; }
+.surface-heading h2 { margin: 0; font-size: 18px; letter-spacing: -.03em; }
 .surface-heading > a { padding: 6px 10px; border-radius: 999px; background: #f0f0f2; color: #4c5055; font-size: 9px; font-weight: 700; }
 
 .app-metrics { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1.1fr; gap: 12px; }

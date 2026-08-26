@@ -26,7 +26,7 @@ export default function BenefitsPage() {
       </section>
 
       <section className="surface setup-surface">
-        <div className="surface-heading"><div><span className="page-kicker">One-time setup</span><h2>Benefits to enroll</h2></div><small>Complete these in your AMEX account</small></div>
+        <div className="surface-heading"><h2>Benefits to enroll</h2><small>Complete these in your AMEX account</small></div>
         <div className="setup-list">
           {enrollments.map(([name, source]) => <div key={name}><span>○</span><strong>{name}</strong><small>{source}</small></div>)}
         </div>
