@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "vinext build",
-    "build:hunk": "HUNK_STATIC_EXPORT=1 next build --webpack",
+    "build:hunk": "HUNK_STATIC_EXPORT=1 next build --webpack && node scripts/copy-hunk-config.mjs",
     "start": "vinext start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
   },
