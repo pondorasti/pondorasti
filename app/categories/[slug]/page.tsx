@@ -25,8 +25,9 @@ export default async function CategoryDetailPage({ params }: Props) {
   const category = categories.find((item) => item.slug === slug);
   if (!category) notFound();
   const rows = transactions.filter((item) => item.category === category.name).sort((a, b) => b.date.localeCompare(a.date));
-  const goldSpend = rows.filter((item) => item.card === 'Gold' && item.amount > 0).reduce((sum, item) => sum + item.amount, 0);
-  const platinumSpend = rows.filter((item) => item.card === 'Platinum' && item.amount > 0).reduce((sum, item) => sum + item.amount, 0);
+  const eligibleRows = rows.filter((item) => item.reward_eligible === 'Yes' && item.amount > 0);
+  const goldSpend = eligibleRows.filter((item) => item.card === 'Gold').reduce((sum, item) => sum + item.amount, 0);
+  const platinumSpend = eligibleRows.filter((item) => item.card === 'Platinum').reduce((sum, item) => sum + item.amount, 0);
 
   return (
     <main className="app-page">
@@ -35,7 +36,7 @@ export default async function CategoryDetailPage({ params }: Props) {
         <h1>{category.name}</h1>
       </header>
       <section className="detail-metrics">
-        <article className="surface"><span>Total spend</span><strong>{money.format(category.spend)}</strong><small>{(category.share * 100).toFixed(1)}% of eligible spend</small></article>
+        <article className="surface"><span>Eligible spend</span><strong>{money.format(category.spend)}</strong><small>{(category.share * 100).toFixed(1)}% of eligible spend</small></article>
         <article className="surface"><span>Gold</span><strong>{money.format(goldSpend)}</strong><small>Purchases on Gold</small></article>
         <article className="surface"><span>Platinum</span><strong>{money.format(platinumSpend)}</strong><small>Purchases on Platinum</small></article>
         <article className="surface"><span>Missed points</span><strong className={category.missed ? 'warn-text' : ''}>{number.format(category.missed)}</strong><small>{category.missed ? 'Recoverable with better routing' : 'Already optimized'}</small></article>

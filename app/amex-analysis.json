@@ -449,24 +449,24 @@
       "card": "Platinum",
       "description": "VENMO *JAYLEN SCHELB8558124430          NY",
       "amount": 233.81,
-      "transaction_type": "Purchase",
-      "category": "Services",
-      "reward_eligible": "Yes",
-      "reward_category": "Services",
+      "transaction_type": "Person-to-person",
+      "category": "Travel & Vacation",
+      "reward_eligible": "No",
+      "reward_category": "Other",
       "parent_category": null,
-      "copilot_name": "Venmo"
+      "copilot_name": "\ud83c\udfe0 to Jaylen Schelb"
     },
     {
       "date": "2026-08-06",
       "card": "Platinum",
       "description": "VENMO *JAYLEN SCHELB8558124430          NY",
       "amount": 318.27,
-      "transaction_type": "Purchase",
-      "category": "Services",
-      "reward_eligible": "Yes",
-      "reward_category": "Services",
+      "transaction_type": "Person-to-person",
+      "category": "Travel & Vacation",
+      "reward_eligible": "No",
+      "reward_category": "Other",
       "parent_category": null,
-      "copilot_name": "Venmo"
+      "copilot_name": "\u26fd to Jaylen Schelb"
     },
     {
       "date": "2026-08-05",
@@ -4193,12 +4193,12 @@
       "card": "Gold",
       "description": "Amex Send: Add Money",
       "amount": 25.0,
-      "transaction_type": "Purchase",
-      "category": "Other",
-      "reward_eligible": "Yes",
+      "transaction_type": "Person-to-person",
+      "category": "Entertainment",
+      "reward_eligible": "No",
       "reward_category": "Other",
       "parent_category": null,
-      "copilot_name": "Amex Send: Add Money"
+      "copilot_name": "Partiful.com \ud83c\udf9f for \"Uncle Chris\u2019 BBQ Party\" \ud83c\udf89 to YingYin Chang"
     },
     {
       "date": "2026-04-06",
