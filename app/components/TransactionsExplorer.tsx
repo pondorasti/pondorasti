@@ -1,17 +1,23 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Search01Icon } from '@hugeicons/core-free-icons';
 import {
   categories, displayMerchant, multiplier, preciseMoney, rewardCategory, transactions,
 } from '../lib/data';
 
-export default function TransactionsExplorer({ initialView = 'all' }: { initialView?: string }) {
+export default function TransactionsExplorer() {
   const [query, setQuery] = useState('');
   const [card, setCard] = useState('All cards');
   const [category, setCategory] = useState('All categories');
-  const [view, setView] = useState(initialView === 'misrouted' ? 'misrouted' : 'all');
+  const [view, setView] = useState('all');
+
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('view') === 'misrouted') {
+      setView('misrouted');
+    }
+  }, []);
 
   const filtered = useMemo(() => {
     const normalized = query.trim().toLowerCase();
