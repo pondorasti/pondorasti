@@ -233,7 +233,7 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .card-guide h2 { margin: 27px 0 20px; font-size: 22px; letter-spacing: -.035em; }
 .mini-rules { display: grid; gap: 8px; }
 .mini-rules span { font-size: 11px; font-weight: 650; }
-.mini-rules b { width: 30px; display: inline-block; font-size: 13px; }
+.mini-rules b { width: 30px; display: inline-block; font-size: 13px; font-weight: 600; }
 .priority-card { display: flex; flex-direction: column; background: #fff8f4; }
 .priority-card > strong { margin: 27px 0 7px; color: #bd4e32; font-size: 30px; letter-spacing: -.04em; }
 .priority-card p { margin: 0; color: #6d777c; font-size: 12px; line-height: 1.5; }
