@@ -168,7 +168,7 @@ export const benefits: BenefitItem[] = [
   { card: 'Platinum', timing: 'Dec 31', title: 'Saks credit', used: usedBenefitCredit('Saks'), usedLabel: null, available: 0, leftLabel: '$50', text: 'Up to $50 remains in the second half of the year after enrollment.', tone: 'external', status: 'Check', additionalAnnualValue: 100 },
   { card: 'Platinum', timing: 'Dec 31', title: 'Equinox credit', used: usedBenefitCredit('Equinox'), usedLabel: null, available: 0, leftLabel: '$300/yr', text: 'Optional annual credit for an eligible club membership or digital subscription.', tone: 'external', status: 'Optional', additionalAnnualValue: 300 },
   { card: 'Platinum', timing: 'Dec 31', title: 'Oura Ring credit', used: usedBenefitCredit('Oura'), usedLabel: null, available: 0, leftLabel: '$200/yr', text: 'Optional annual credit on an eligible Oura Ring purchase.', tone: 'external', status: 'Optional', additionalAnnualValue: 200 },
-  { card: 'Platinum', timing: 'Every 4 years', title: 'Global Entry or TSA PreCheck', used: 0, usedLabel: 'Check date', available: 0, leftLabel: '$120 / $85', text: 'Eligibility depends on when the last application credit was used.', tone: 'external', status: 'Periodic' },
+  { card: 'Platinum', timing: 'Personal eligibility', title: 'Global Entry or TSA PreCheck', used: 0, usedLabel: null, available: 0, leftLabel: '$0 value', text: 'Not applicable for your current eligibility, so it is excluded from personal value.', tone: 'muted', status: 'Skip' },
   { card: 'Gold', timing: 'Personal choice', title: 'Dunkin’ credit', used: usedBenefitCredit('Dunkin'), usedLabel: null, available: 0, leftLabel: '$0 value', text: 'Not part of your routine, so it carries no personal value here.', tone: 'muted', status: 'Skip' },
 ];
 
