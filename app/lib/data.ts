@@ -212,16 +212,22 @@ type RedeemedOfferDefinition = {
   card: Transaction['card'];
   title: string;
   merchantMatch: string;
+  creditMatch?: string;
 };
 
 const redeemedOfferDefinitions: RedeemedOfferDefinition[] = [
   { card: 'Platinum', title: 'Oliver Peoples offer', merchantMatch: 'OLIVER PEOPLES' },
   { card: 'Gold', title: 'CookUnity offer', merchantMatch: 'COOKUNITY' },
+  { card: 'Platinum', title: 'Peak Design offer', merchantMatch: 'PEAKDESIGN', creditMatch: 'PD SAMPLE' },
 ];
 
 export const redeemedOffers = redeemedOfferDefinitions.map((definition) => {
   const activity = transactions.filter(
-    (item) => item.card === definition.card && item.description.toUpperCase().includes(definition.merchantMatch),
+    (item) => item.card === definition.card && (
+      item.amount > 0
+        ? item.description.toUpperCase().includes(definition.merchantMatch)
+        : item.description.toUpperCase().includes(definition.creditMatch ?? definition.merchantMatch)
+    ),
   );
   const qualifyingSpend = activity
     .filter((item) => item.amount > 0)
