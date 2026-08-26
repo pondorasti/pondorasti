@@ -31,10 +31,10 @@ export default async function CategoryDetailPage({ params }: Props) {
 
   return (
     <main className="app-page">
-      <Link className="back-link" href="/categories">‹ All categories</Link>
       <header className="app-page-header">
         <h1>{category.name}</h1>
       </header>
+      <Link className="back-link" href="/categories">‹ All categories</Link>
       <section className="detail-metrics">
         <article className="surface"><span>Eligible spend</span><strong>{money.format(category.spend)}</strong><small>{(category.share * 100).toFixed(1)}% of eligible spend</small></article>
         <article className="surface"><span>Gold</span><strong>{money.format(goldSpend)}</strong><small>Purchases on Gold</small></article>
