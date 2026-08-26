@@ -15,6 +15,7 @@
   --rust: #9a4d36;
   --accent: #007aff;
   --accent-soft: rgba(0, 122, 255, .1);
+  --sidebar-width: 208px;
 }
 
 * { box-sizing: border-box; }
@@ -31,22 +32,22 @@ a { color: inherit; text-decoration: none; }
 button, input, select { font: inherit; }
 
 .app-shell { min-height: 100vh; }
-.app-sidebar { position: fixed; inset: 0 auto 0 0; z-index: 30; width: 220px; padding: 18px 12px 14px; display: flex; flex-direction: column; border-right: 1px solid rgba(13,33,48,.065); background: rgba(244,243,248,.92); backdrop-filter: blur(28px) saturate(160%); }
+.app-sidebar { position: fixed; inset: 0 auto 0 0; z-index: 30; width: var(--sidebar-width); padding: 16px 10px 14px; display: flex; flex-direction: column; border-right: 1px solid rgba(13,33,48,.065); background: rgba(244,243,248,.92); backdrop-filter: blur(28px) saturate(160%); }
 .app-brand { padding: 0 8px; display: flex; align-items: center; gap: 11px; }
 .app-brand > span { width: 32px; height: 32px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 9px; background: var(--accent); color: white; }
 .app-brand div { display: grid; gap: 2px; }
 .app-brand strong { font-size: 13px; letter-spacing: -.015em; }
 .app-brand small { color: var(--muted); font-size: 9px; }
-.app-sidebar nav { margin-top: 25px; display: grid; gap: 17px; }
+.app-sidebar nav { margin-top: 23px; display: grid; gap: 15px; }
 .nav-section { display: grid; gap: 3px; }
-.nav-section-label { padding: 0 10px 5px; color: #8d8b94; font-size: 9px; font-weight: 700; letter-spacing: .02em; }
-.app-sidebar nav a { min-height: 36px; padding: 0 10px; display: flex; align-items: center; gap: 10px; border-radius: 9px; color: #3e4248; font-size: 12px; font-weight: 600; }
+.nav-section-label { padding: 0 9px 4px; color: #8d8b94; font-size: 10px; font-weight: 600; letter-spacing: 0; }
+.app-sidebar nav a { min-height: 32px; padding: 0 9px; display: flex; align-items: center; gap: 9px; border-radius: 7px; color: #3e4248; font-size: 13px; font-weight: 520; }
 .app-sidebar nav a:hover { background: rgba(13,33,48,.045); color: var(--ink); }
-.app-sidebar nav a.active { background: rgba(13,33,48,.075); color: #15171a; box-shadow: inset 0 0 0 1px rgba(13,33,48,.025); }
-.app-sidebar nav i { width: 20px; display: grid; place-items: center; color: var(--accent); font-style: normal; }
+.app-sidebar nav a.active { background: rgba(13,33,48,.075); color: #15171a; font-weight: 620; box-shadow: inset 0 0 0 1px rgba(13,33,48,.025); }
+.app-sidebar nav i { width: 19px; display: grid; place-items: center; color: var(--accent); font-style: normal; }
 .private-dot { display: inline-flex; align-items: center; gap: 8px; color: #536169; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
 .private-dot i { width: 7px; height: 7px; border-radius: 50%; background: #34a979; box-shadow: 0 0 0 4px #e0f2ea; }
-.app-workspace { min-height: 100vh; margin-left: 220px; background: #fbfbfc; }
+.app-workspace { min-height: 100vh; margin-left: var(--sidebar-width); background: #fbfbfc; }
 .mobile-app-bar { display: none; }
 
 .section-shell { width: min(1240px, calc(100% - 48px)); margin-inline: auto; }
@@ -205,9 +206,9 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 
 /* Multi-page application surfaces */
 .app-page { width: min(1180px, calc(100% - 48px)); margin: 0 auto; padding: 0 0 52px; }
-.app-page-header { position: sticky; top: 0; z-index: 20; height: 54px; min-height: 54px; margin-bottom: 16px; display: flex; align-items: center; isolation: isolate; }
+.app-page-header { position: sticky; top: 0; z-index: 20; height: 50px; min-height: 50px; margin-bottom: 16px; display: flex; align-items: center; isolation: isolate; }
 .app-page-header::before { content: ''; position: absolute; inset: 0 auto 0 50%; z-index: -1; width: 100vw; transform: translateX(-50%); background: rgba(251,251,252,.76); box-shadow: inset 0 -1px 0 rgba(13,33,48,.085); -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%); }
-.app-page-header h1 { margin: 0; font-size: 19px; line-height: 1.15; letter-spacing: -.025em; }
+.app-page-header h1 { margin: 0; font-size: 15px; font-weight: 620; line-height: 1.15; letter-spacing: -.01em; }
 .surface { border: 0; border-radius: 14px; background: rgba(255,255,255,.9); background-clip: padding-box; box-shadow: inset 0 0 0 1px rgba(13,33,48,.07); }
 .surface-title { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
 .surface-title > span { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
@@ -382,8 +383,6 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 }
 
 @media (max-width: 980px) {
-  .app-sidebar { width: 210px; }
-  .app-workspace { margin-left: 210px; }
   .topbar nav { display: none; }
   .metric-grid { grid-template-columns: 1fr 1fr; }
   .card-routing-grid, .callout-grid { grid-template-columns: 1fr; }
@@ -402,7 +401,7 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
   .mobile-app-bar .app-brand > span { width: 30px; height: 30px; border-radius: 9px; }
   .app-page { width: calc(100% - 28px); padding: 0 0 48px; }
   .app-page-header { top: 58px; }
-  .app-page-header h1 { font-size: 19px; }
+  .app-page-header h1 { font-size: 15px; }
   .app-metrics, .overview-grid { grid-template-columns: 1fr; }
   .app-metric { min-height: 122px; }
   .priority-card { grid-column: auto; }
