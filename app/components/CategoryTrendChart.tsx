@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import {
-  Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis,
+  Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts';
 
 type ChartDatum = Record<string, string | number>;
@@ -55,7 +55,7 @@ export default function CategoryTrendChart({ data, series }: Props) {
       </div>
       <div className="category-trend-chart">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} margin={{ top: 8, right: 18, bottom: 2, left: 4 }} barCategoryGap="32%" accessibilityLayer>
+          <AreaChart data={data} margin={{ top: 8, right: 18, bottom: 2, left: 4 }} accessibilityLayer>
             <CartesianGrid vertical={false} stroke="#e8ebea" />
             <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: '#7d888e', fontSize: 9 }} dy={7} />
             <YAxis axisLine={false} tickLine={false} tick={{ fill: '#7d888e', fontSize: 9 }} tickFormatter={axisMoney} width={46} />
@@ -66,22 +66,25 @@ export default function CategoryTrendChart({ data, series }: Props) {
               contentStyle={{ border: '1px solid rgba(13,33,48,.1)', borderRadius: 10, boxShadow: '0 10px 30px rgba(13,33,48,.12)', fontSize: 10 }}
               labelStyle={{ color: '#0d2130', fontWeight: 700, marginBottom: 5 }}
               wrapperStyle={{ zIndex: 20 }}
-              cursor={{ fill: 'rgba(13,33,48,.035)' }}
+              cursor={{ stroke: '#aeb7bb', strokeDasharray: '3 3' }}
               isAnimationActive={false}
             />
             {series.map((name, index) => (
-              <Bar
+              <Area
                 key={name}
+                type="monotone"
                 dataKey={name}
                 name={name}
                 stackId="category"
                 fill={palette[index % palette.length]}
-                fillOpacity={highlightedSeries ? (highlightedSeries === name ? 1 : .1) : (index < 5 ? 1 : .78)}
-                maxBarSize={52}
+                stroke={palette[index % palette.length]}
+                strokeWidth={1.5}
+                fillOpacity={highlightedSeries ? (highlightedSeries === name ? .72 : .06) : (index < 5 ? .62 : .42)}
+                strokeOpacity={highlightedSeries ? (highlightedSeries === name ? 1 : .12) : .92}
                 isAnimationActive={false}
               />
             ))}
-          </BarChart>
+          </AreaChart>
         </ResponsiveContainer>
       </div>
     </section>

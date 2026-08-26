@@ -326,7 +326,7 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .category-trend-legend button.dimmed { opacity: .34; }
 .category-trend-legend i { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; }
 .category-trend-chart { position: relative; z-index: 2; height: 248px; padding: 0 10px 10px; }
-.category-trend-chart .recharts-rectangle { transition: fill-opacity 140ms ease; }
+.category-trend-chart .recharts-area-area, .category-trend-chart .recharts-area-curve { transition: fill-opacity 140ms ease, stroke-opacity 140ms ease; }
 .category-table { overflow: hidden; }
 .category-table-head, .category-table-row { display: grid; grid-template-columns: minmax(180px,1.35fr) minmax(110px,.7fr) minmax(150px,1fr) minmax(86px,.55fr) minmax(100px,.65fr) 18px; gap: 16px; align-items: center; }
 .category-table-head { min-height: 36px; padding: 0 18px; background: #f5f6f7; color: #858f94; font-size: 8px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
