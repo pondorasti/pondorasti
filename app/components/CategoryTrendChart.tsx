@@ -1,7 +1,7 @@
 'use client';
 
 import {
-  CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,
+  Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts';
 
 type ChartDatum = Record<string, string | number>;
@@ -33,8 +33,8 @@ export default function CategoryTrendChart({ data, series }: Props) {
     : 'Monthly';
 
   return (
-    <section className="surface category-trend-surface" aria-label="Monthly spending by category">
-      <div className="surface-heading"><h2>Monthly category spend</h2><small>Eligible purchases · {range}</small></div>
+    <section className="surface category-trend-surface" aria-label="Monthly spending mix by category">
+      <div className="surface-heading"><h2>Monthly spend mix</h2><small>Eligible purchases · {range}</small></div>
       <div className="category-trend-legend" aria-label="Chart legend">
         {series.map((name, index) => (
           <span key={name}><i style={{ backgroundColor: palette[index % palette.length] }} />{name}</span>
@@ -42,7 +42,7 @@ export default function CategoryTrendChart({ data, series }: Props) {
       </div>
       <div className="category-trend-chart">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data} margin={{ top: 8, right: 18, bottom: 2, left: 4 }} accessibilityLayer>
+          <BarChart data={data} margin={{ top: 8, right: 18, bottom: 2, left: 4 }} barCategoryGap="32%" accessibilityLayer>
             <CartesianGrid vertical={false} stroke="#e8ebea" />
             <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: '#7d888e', fontSize: 9 }} dy={7} />
             <YAxis axisLine={false} tickLine={false} tick={{ fill: '#7d888e', fontSize: 9 }} tickFormatter={axisMoney} width={46} />
@@ -51,24 +51,22 @@ export default function CategoryTrendChart({ data, series }: Props) {
               itemSorter={(item) => -Number(item.value ?? 0)}
               contentStyle={{ border: '1px solid rgba(13,33,48,.1)', borderRadius: 10, boxShadow: '0 10px 30px rgba(13,33,48,.12)', fontSize: 10 }}
               labelStyle={{ color: '#0d2130', fontWeight: 700, marginBottom: 5 }}
-              cursor={{ stroke: '#aeb7bb', strokeDasharray: '3 3' }}
+              cursor={{ fill: 'rgba(13,33,48,.035)' }}
               isAnimationActive={false}
             />
             {series.map((name, index) => (
-              <Line
+              <Bar
                 key={name}
-                type="monotone"
                 dataKey={name}
                 name={name}
-                stroke={palette[index % palette.length]}
-                strokeWidth={index < 5 ? 2 : 1.5}
-                strokeOpacity={index < 5 ? 1 : .72}
-                dot={false}
-                activeDot={{ r: 3, strokeWidth: 0 }}
+                stackId="category"
+                fill={palette[index % palette.length]}
+                fillOpacity={index < 5 ? 1 : .78}
+                maxBarSize={52}
                 isAnimationActive={false}
               />
             ))}
-          </LineChart>
+          </BarChart>
         </ResponsiveContainer>
       </div>
     </section>
