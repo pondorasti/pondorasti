@@ -170,7 +170,7 @@ export const benefits: BenefitItem[] = [
   { card: 'Platinum', timing: 'Dec 31', title: 'Saks credit', used: 0, usedLabel: null, available: 50, leftLabel: '$50', text: 'The current second-half credit is available and unused.', tone: 'external', status: 'Available' },
   { card: 'Platinum', timing: 'Dec 31', title: 'Equinox credit', used: 0, usedLabel: null, available: 300, leftLabel: '$300', text: 'The annual credit is available and unused.', tone: 'external', status: 'Available' },
   { card: 'Platinum', timing: 'Dec 31', title: 'Oura Ring credit', used: 0, usedLabel: null, available: 200, leftLabel: '$200', text: 'The annual credit is available and unused.', tone: 'external', status: 'Available' },
-  { card: 'Platinum', timing: 'Personal eligibility', title: 'Global Entry or TSA PreCheck', used: 0, usedLabel: null, available: 0, leftLabel: '$0 value', text: 'Not applicable for your current eligibility, so it is excluded from personal value.', tone: 'muted', status: 'Skip' },
+  { card: 'Platinum', timing: 'Every 4 years', title: 'Global Entry or TSA PreCheck', used: 0, usedLabel: null, available: 120, leftLabel: 'Up to $120', text: 'The card offers $120 for Global Entry or up to $85 for TSA PreCheck; kept visible as skipped value.', tone: 'muted', status: 'Skip' },
   { card: 'Gold', timing: 'Monthly', title: 'Dunkin’ credit', used: 0, usedLabel: null, available: dunkinAvailable, leftLabel: money.format(dunkinAvailable), text: `${remainingBenefitMonthsIncludingCurrent} monthly credits remain, even though you plan to skip them.`, tone: 'muted', status: 'Skip' },
 ];
 
