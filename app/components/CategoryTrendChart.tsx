@@ -28,15 +28,10 @@ function axisMoney(value: number) {
 
 export default function CategoryTrendChart({ data, series }: Props) {
   const [highlightedSeries, setHighlightedSeries] = useState<string | null>(null);
-  const firstMonth = String(data[0]?.month ?? '');
-  const lastMonth = String(data.at(-1)?.month ?? '');
-  const range = firstMonth && lastMonth
-    ? `${new Date(`${firstMonth}-01T12:00:00Z`).toLocaleDateString('en-US', { month: 'short' })}–${new Date(`${lastMonth}-01T12:00:00Z`).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`
-    : 'Monthly';
 
   return (
     <section className="surface category-trend-surface" aria-label="Monthly spending mix by category">
-      <div className="surface-heading"><h2>Monthly spend mix</h2><small>Eligible purchases · {range}</small></div>
+      <div className="surface-heading"><h2>Monthly spend mix</h2></div>
       <div className="category-trend-legend" aria-label="Chart legend">
         {series.map((name, index) => (
           <button
