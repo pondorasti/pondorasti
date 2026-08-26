@@ -134,6 +134,10 @@ function usedBenefitCredit(description: string) {
     .reduce((sum, item) => sum - item.amount, 0);
 }
 
+const elapsedBenefitMonths = latestTransactionMonth ? Number(latestTransactionMonth.slice(5, 7)) : 0;
+const platinumUberCashUsed = elapsedBenefitMonths === 12 ? 200 : Math.min(elapsedBenefitMonths * 15, 200);
+const goldUberCashUsed = Math.min(elapsedBenefitMonths * 10, 120);
+
 type BenefitItem = {
   card: 'Gold' | 'Platinum';
   timing: string;
@@ -158,8 +162,8 @@ export const benefits: BenefitItem[] = [
   { card: 'Platinum', timing: 'Dec 31', title: 'Airline fee credit', used: usedBenefitCredit('Platinum Airline Fee Credit'), usedLabel: null, available: 200, leftLabel: '$200', text: 'Incidental-fee credit remains available with your selected airline.', tone: 'platinum', status: 'Upcoming' },
   { card: 'Platinum', timing: 'Used YTD', title: 'Uber One credit', used: usedBenefitCredit('Platinum Uber One Credit'), usedLabel: null, available: 0, leftLabel: '$0', text: 'The annual membership credit has already posted.', tone: 'platinum', status: 'Used' },
   { card: 'Platinum', timing: 'At renewal', title: 'CLEAR+', used: usedBenefitCredit('CLEAR'), usedLabel: null, available: 219, leftLabel: '$219', text: 'Your active membership is set to renew on Platinum.', tone: 'clear', status: 'Scheduled' },
-  { card: 'Platinum', timing: 'Monthly', title: 'Uber Cash', used: 0, usedLabel: 'Check Uber', available: 0, leftLabel: '$200/yr', text: 'Added inside Uber, so statement exports cannot measure how much you used.', tone: 'external', status: 'External', additionalAnnualValue: 200 },
-  { card: 'Gold', timing: 'Monthly', title: 'Uber Cash', used: 0, usedLabel: 'Check Uber', available: 0, leftLabel: '$120/yr', text: 'Stacks with Platinum Uber Cash when both cards are added to Uber.', tone: 'external', status: 'External', additionalAnnualValue: 120 },
+  { card: 'Platinum', timing: 'Monthly', title: 'Uber Cash', used: platinumUberCashUsed, usedLabel: null, available: 200 - platinumUberCashUsed, leftLabel: money.format(200 - platinumUberCashUsed), text: 'Assumed fully used every month; December includes the extra $20.', tone: 'platinum', status: 'Used monthly' },
+  { card: 'Gold', timing: 'Monthly', title: 'Uber Cash', used: goldUberCashUsed, usedLabel: null, available: 120 - goldUberCashUsed, leftLabel: money.format(120 - goldUberCashUsed), text: 'Assumed fully used every month alongside Platinum Uber Cash.', tone: 'gold', status: 'Used monthly' },
   { card: 'Platinum', timing: 'Monthly', title: 'Walmart+ credit', used: usedBenefitCredit('Walmart+'), usedLabel: null, available: 0, leftLabel: '$13/mo', text: 'Covers one eligible monthly Walmart+ membership after enrollment.', tone: 'external', status: 'Check', additionalAnnualValue: 155 },
   { card: 'Platinum', timing: 'Dec 31', title: 'Saks credit', used: usedBenefitCredit('Saks'), usedLabel: null, available: 0, leftLabel: '$50', text: 'Up to $50 remains in the second half of the year after enrollment.', tone: 'external', status: 'Check', additionalAnnualValue: 100 },
   { card: 'Platinum', timing: 'Dec 31', title: 'Equinox credit', used: usedBenefitCredit('Equinox'), usedLabel: null, available: 0, leftLabel: '$300/yr', text: 'Optional annual credit for an eligible club membership or digital subscription.', tone: 'external', status: 'Optional', additionalAnnualValue: 300 },
