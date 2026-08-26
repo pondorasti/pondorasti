@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
 import {
-  benefits, categories, categorySlug, displayMerchant, metrics,
-  misroutedTransactions, money, number, preciseMoney,
+  annualCardFees, benefits, categories, categorySlug, displayMerchant, metrics,
+  misroutedTransactions, money, number, preciseMoney, totalCardValueYTD,
 } from './lib/data';
 
 export default function OverviewPage() {
@@ -25,6 +25,12 @@ export default function OverviewPage() {
         </article>
         <article className="app-metric warning-metric">
           <span>Recoverable points</span><strong>{number.format(metrics.missed)}</strong>
+        </article>
+        <article className="app-metric fee-metric" title="Platinum $895 + Gold $325">
+          <span>Annual fees</span><strong>{money.format(annualCardFees.total)}</strong>
+        </article>
+        <article className="app-metric value-metric" title="Benefits used + redeemed offers + points valued at 1.5¢ each">
+          <span>Value captured YTD</span><strong>{money.format(totalCardValueYTD)}</strong>
         </article>
       </section>
 

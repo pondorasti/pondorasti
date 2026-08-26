@@ -251,3 +251,14 @@ export const redeemedOffers = redeemedOfferDefinitions.map((definition) => {
 });
 
 export const offerSavingsYTD = redeemedOffers.reduce((sum, offer) => sum + offer.cashBack, 0);
+
+export const annualCardFees = {
+  Gold: 325,
+  Platinum: 895,
+  total: 1220,
+} as const;
+
+export const membershipRewardsPointValue = 0.015;
+export const totalCardValueYTD = benefitValueCaptured
+  + offerSavingsYTD
+  + metrics.current * membershipRewardsPointValue;
