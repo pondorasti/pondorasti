@@ -60,7 +60,7 @@ export default function CategoryTrendChart({ data, series }: Props) {
             <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: '#7d888e', fontSize: 9 }} dy={7} />
             <YAxis axisLine={false} tickLine={false} tick={{ fill: '#7d888e', fontSize: 9 }} tickFormatter={axisMoney} width={46} />
             <Tooltip
-              allowEscapeViewBox={{ x: true, y: true }}
+              allowEscapeViewBox={{ x: false, y: true }}
               formatter={(value, name) => [tooltipMoney.format(Number(value ?? 0)), String(name ?? '')]}
               itemSorter={(item) => -Number(item.value ?? 0)}
               contentStyle={{ border: '1px solid rgba(13,33,48,.1)', borderRadius: 10, boxShadow: '0 10px 30px rgba(13,33,48,.12)', fontSize: 10 }}
