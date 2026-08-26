@@ -1,7 +1,10 @@
 import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
-import { categories, categorySlug, money, number } from '../lib/data';
+import CategoryTrendChart from '../components/CategoryTrendChart';
+import {
+  categories, categoryMonthlySpend, categorySlug, money, number,
+} from '../lib/data';
 
 export default function CategoriesPage() {
   return (
@@ -9,6 +12,11 @@ export default function CategoriesPage() {
       <header className="app-page-header">
         <h1>Categories</h1>
       </header>
+
+      <CategoryTrendChart
+        data={categoryMonthlySpend}
+        series={categories.map((category) => category.name)}
+      />
 
       <section className="surface category-table">
         <div className="category-table-head" aria-hidden="true">

@@ -101,6 +101,33 @@ export const categories = [...categoryMap.entries()]
   }))
   .sort((a, b) => b.spend - a.spend);
 
+const latestTransactionMonth = eligibleTransactions
+  .map((item) => item.date.slice(0, 7))
+  .sort()
+  .at(-1);
+
+const trendMonths: string[] = [];
+if (latestTransactionMonth) {
+  const latest = new Date(`${latestTransactionMonth}-01T12:00:00Z`);
+  const cursor = new Date(Date.UTC(latest.getUTCFullYear(), 0, 1, 12));
+  while (cursor <= latest) {
+    trendMonths.push(cursor.toISOString().slice(0, 7));
+    cursor.setUTCMonth(cursor.getUTCMonth() + 1);
+  }
+}
+
+export const categoryMonthlySpend = trendMonths.map((month) => {
+  const point: Record<string, string | number> = {
+    month,
+    label: new Date(`${month}-01T12:00:00Z`).toLocaleDateString('en-US', { month: 'short' }),
+  };
+  for (const category of categories) point[category.name] = 0;
+  for (const item of eligibleTransactions) {
+    if (item.date.startsWith(month)) point[item.category] = Number(point[item.category]) + item.amount;
+  }
+  return point;
+});
+
 export const benefits = [
   { card: 'Gold', timing: 'By Aug 31', title: 'Dining credit', amount: '$10', available: 10, text: 'Use at an eligible partner before the monthly credit resets.', tone: 'gold', status: 'Use next' },
   { card: 'Platinum', timing: 'By Aug 31', title: 'Digital entertainment', amount: '$10', available: 10, text: 'About $10 remained available for August at review time.', tone: 'platinum', status: 'Use next' },
