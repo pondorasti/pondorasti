@@ -139,6 +139,7 @@ const platinumUberCashUsed = elapsedBenefitMonths === 12 ? 200 : Math.min(elapse
 const goldUberCashUsed = Math.min(elapsedBenefitMonths * 10, 120);
 const remainingBenefitMonthsIncludingCurrent = elapsedBenefitMonths ? 13 - elapsedBenefitMonths : 0;
 const walmartPlusAvailable = remainingBenefitMonthsIncludingCurrent * 13;
+const dunkinAvailable = remainingBenefitMonthsIncludingCurrent * 7;
 
 type BenefitItem = {
   card: 'Gold' | 'Platinum';
@@ -170,7 +171,7 @@ export const benefits: BenefitItem[] = [
   { card: 'Platinum', timing: 'Dec 31', title: 'Equinox credit', used: 0, usedLabel: null, available: 300, leftLabel: '$300', text: 'The annual credit is available and unused.', tone: 'external', status: 'Available' },
   { card: 'Platinum', timing: 'Dec 31', title: 'Oura Ring credit', used: 0, usedLabel: null, available: 200, leftLabel: '$200', text: 'The annual credit is available and unused.', tone: 'external', status: 'Available' },
   { card: 'Platinum', timing: 'Personal eligibility', title: 'Global Entry or TSA PreCheck', used: 0, usedLabel: null, available: 0, leftLabel: '$0 value', text: 'Not applicable for your current eligibility, so it is excluded from personal value.', tone: 'muted', status: 'Skip' },
-  { card: 'Gold', timing: 'Personal choice', title: 'Dunkin’ credit', used: usedBenefitCredit('Dunkin'), usedLabel: null, available: 0, leftLabel: '$0 value', text: 'Not part of your routine, so it carries no personal value here.', tone: 'muted', status: 'Skip' },
+  { card: 'Gold', timing: 'Monthly', title: 'Dunkin’ credit', used: 0, usedLabel: null, available: dunkinAvailable, leftLabel: money.format(dunkinAvailable), text: `${remainingBenefitMonthsIncludingCurrent} monthly credits remain, even though you plan to skip them.`, tone: 'muted', status: 'Skip' },
 ];
 
 export const benefitValueCaptured = benefits.reduce((sum, benefit) => sum + benefit.used, 0);
