@@ -29,7 +29,7 @@ export default function OverviewPage() {
         <article className="app-metric fee-metric" title="Platinum $895 + Gold $325">
           <span>Annual fees</span><strong>{money.format(annualCardFees.total)}</strong>
         </article>
-        <article className="app-metric value-metric" title="Benefits used + redeemed offers + points valued at 1.5¢ each">
+        <article className="app-metric value-metric" title="Benefits used + redeemed offers + points valued at 1¢ each">
           <span>Value captured YTD</span><strong>{money.format(totalCardValueYTD)}</strong>
         </article>
       </section>

@@ -48,7 +48,7 @@ hunk push out --json
 - Copilot Money categories are authoritative for display; `reward_category` is used for AMEX multiplier analysis.
 - Gold is preferred for restaurants and U.S. groceries; Platinum is preferred for flights and card benefits.
 - Annual fees are modeled as $895 for Platinum and $325 for Gold ($1,220 total).
-- Overview “Value captured YTD” combines benefits used, redeemed-offer cash back, and earned Membership Rewards points valued at 1.5¢ each.
+- Overview “Value captured YTD” combines benefits used, redeemed-offer cash back, and earned Membership Rewards points valued at 1¢ each, matching the observed Amex Travel flight redemption.
 - CLEAR+ is treated as fully used for the current benefit year.
 - Gold and Platinum Uber Cash are assumed to be fully used each month.
 - Dunkin’ is intentionally skipped but its remaining dollar value is still included in “Left to use.”

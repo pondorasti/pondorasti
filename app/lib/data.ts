@@ -258,7 +258,7 @@ export const annualCardFees = {
   total: 1220,
 } as const;
 
-export const membershipRewardsPointValue = 0.015;
+export const membershipRewardsPointValue = 0.01;
 export const totalCardValueYTD = benefitValueCaptured
   + offerSavingsYTD
   + metrics.current * membershipRewardsPointValue;
