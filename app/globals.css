@@ -282,7 +282,6 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .benefit-value-summary .available-value strong { color: #bd4e32; }
 .benefit-list-surface { margin-top: 14px; overflow: hidden; }
 .benefit-list-row { min-height: 86px; padding: 14px 18px; display: grid; grid-template-columns: 28px minmax(0,1fr) 76px 76px 84px 82px; gap: 12px; align-items: center; border-top: 1px solid #eceeed; }
-.benefit-list-row.muted { opacity: .58; }
 .benefit-list-index { color: #9aa3a7; font-size: 10px; font-variant-numeric: tabular-nums; }
 .benefit-list-main { min-width: 0; }
 .benefit-list-main > div { display: flex; align-items: center; gap: 8px; }
