@@ -1,6 +1,7 @@
 import {
-  accessBenefits, additionalAnnualBenefitValue, benefitValueAvailable, benefitValueCaptured,
+  accessBenefits, benefitValueAvailable, benefitValueCaptured,
   benefits, money, protectionBenefits,
+  unusedAnnualBenefitValue,
 } from '../lib/data';
 
 export default function BenefitsPage() {
@@ -13,7 +14,7 @@ export default function BenefitsPage() {
       <section className="benefit-value-summary" aria-label="Benefit value overview">
         <article className="surface captured-value"><span>Used YTD</span><strong>{money.format(benefitValueCaptured)}</strong><small>Statements plus confirmed Uber Cash usage</small></article>
         <article className="surface available-value"><span>Left to use</span><strong>{money.format(benefitValueAvailable)}</strong><small>Known value still available</small></article>
-        <article className="surface"><span>Additional face value</span><strong>{money.format(additionalAnnualBenefitValue)}</strong><small>Annual benefits not fully visible in statements</small></article>
+        <article className="surface"><span>Unused benefit value</span><strong>{money.format(unusedAnnualBenefitValue)}</strong><small>Walmart+, Saks, Equinox, and Oura · $0 used YTD</small></article>
       </section>
 
       <section className="surface benefit-list-surface">
