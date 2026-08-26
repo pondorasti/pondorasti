@@ -237,7 +237,8 @@ footer p { max-width: 660px; margin: 0; text-align: right; font-size: 10px; line
 .priority-card { display: flex; flex-direction: column; background: #fff8f4; }
 .priority-card > strong { margin: 27px 0 7px; color: #bd4e32; font-size: 30px; letter-spacing: -.04em; }
 .priority-card p { margin: 0; color: #6d777c; font-size: 12px; line-height: 1.5; }
-.priority-card > a { width: fit-content; margin-top: auto; padding: 7px 11px; border-radius: 999px; background: var(--accent-soft); color: #006bd6; font-size: 9px; font-weight: 750; }
+.priority-card > a { width: fit-content; margin-top: auto; padding: 7px 11px; display: inline-flex; align-items: center; gap: 4px; border-radius: 999px; background: var(--accent-soft); color: #006bd6; font-size: 9px; font-weight: 750; white-space: nowrap; }
+.priority-card > a svg { flex: 0 0 auto; }
 
 .dashboard-columns { margin-top: 10px; display: grid; grid-template-columns: 1.25fr .75fr; gap: 10px; }
 .data-surface { overflow: hidden; }
