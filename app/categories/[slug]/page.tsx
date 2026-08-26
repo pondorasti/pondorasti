@@ -36,10 +36,10 @@ export default async function CategoryDetailPage({ params }: Props) {
       </header>
       <Link className="back-link" href="/categories">‹ All categories</Link>
       <section className="detail-metrics">
-        <article className="surface"><span>Eligible spend</span><strong>{money.format(category.spend)}</strong><small>{(category.share * 100).toFixed(1)}% of eligible spend</small></article>
-        <article className="surface"><span>Gold</span><strong>{money.format(goldSpend)}</strong><small>Purchases on Gold</small></article>
-        <article className="surface"><span>Platinum</span><strong>{money.format(platinumSpend)}</strong><small>Purchases on Platinum</small></article>
-        <article className="surface"><span>Missed points</span><strong className={category.missed ? 'warn-text' : ''}>{number.format(category.missed)}</strong><small>{category.missed ? 'Recoverable with better routing' : 'Already optimized'}</small></article>
+        <article className="surface"><span>Eligible spend</span><strong>{money.format(category.spend)}</strong></article>
+        <article className="surface"><span>Gold</span><strong>{money.format(goldSpend)}</strong></article>
+        <article className="surface"><span>Platinum</span><strong>{money.format(platinumSpend)}</strong></article>
+        <article className="surface"><span>Missed points</span><strong className={category.missed ? 'warn-text' : ''}>{number.format(category.missed)}</strong></article>
       </section>
       <section className="surface category-transaction-surface">
         <div className="surface-heading"><h2>{rows.length} transactions</h2></div>
