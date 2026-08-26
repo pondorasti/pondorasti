@@ -102,14 +102,26 @@ export const categories = [...categoryMap.entries()]
   .sort((a, b) => b.spend - a.spend);
 
 export const benefits = [
-  { timing: 'By Aug 31', title: 'Gold dining credit', amount: '$10', text: 'Use at an eligible partner before the monthly credit resets.', tone: 'gold', status: 'Use next' },
-  { timing: 'By Aug 31', title: 'Digital entertainment', amount: '$10', text: 'About $10 remained available for August at review time.', tone: 'platinum', status: 'Use next' },
-  { timing: 'By Sep 30', title: 'Resy + lululemon', amount: '$134', text: '$100 quarterly Resy credit plus about $34 at lululemon.', tone: 'platinum', status: 'Upcoming' },
-  { timing: 'By Dec 31', title: 'Gold Resy credit', amount: '$50', text: 'Second-half dining credit at participating Resy restaurants.', tone: 'gold', status: 'Upcoming' },
-  { timing: 'By Dec 31', title: 'Hotel + airline', amount: '$500', text: '$300 prepaid hotel credit plus $200 airline incidental credit.', tone: 'platinum', status: 'Upcoming' },
-  { timing: 'At renewal', title: 'CLEAR+ renewal', amount: 'Covered', text: 'Already active. Keep Platinum as the payment card when it renews.', tone: 'clear', status: 'On autopilot' },
-  { timing: 'Personal preference', title: 'Dunkin’ credit', amount: '$0 value', text: 'Not part of your routine. Ignore it instead of manufacturing spend.', tone: 'muted', status: 'Skip' },
+  { card: 'Gold', timing: 'By Aug 31', title: 'Dining credit', amount: '$10', available: 10, text: 'Use at an eligible partner before the monthly credit resets.', tone: 'gold', status: 'Use next' },
+  { card: 'Platinum', timing: 'By Aug 31', title: 'Digital entertainment', amount: '$10', available: 10, text: 'About $10 remained available for August at review time.', tone: 'platinum', status: 'Use next' },
+  { card: 'Platinum', timing: 'By Sep 30', title: 'Resy + lululemon', amount: '$134', available: 134, text: '$100 quarterly Resy credit plus about $34 at lululemon.', tone: 'platinum', status: 'Upcoming' },
+  { card: 'Gold', timing: 'By Dec 31', title: 'Resy credit', amount: '$50', available: 50, text: 'Second-half dining credit at participating Resy restaurants.', tone: 'gold', status: 'Upcoming' },
+  { card: 'Platinum', timing: 'By Dec 31', title: 'Hotel + airline', amount: '$500', available: 500, text: '$300 prepaid hotel credit plus $200 airline incidental credit.', tone: 'platinum', status: 'Upcoming' },
+  { card: 'Platinum', timing: 'At renewal', title: 'CLEAR+ renewal', amount: 'Covered', available: 0, text: 'Already active. Keep Platinum as the payment card when it renews.', tone: 'clear', status: 'On autopilot' },
+  { card: 'Gold', timing: 'Personal preference', title: 'Dunkin’ credit', amount: '$0 value', available: 0, text: 'Not part of your routine. Ignore it instead of manufacturing spend.', tone: 'muted', status: 'Skip' },
 ];
+
+const recognizedBenefitCredits = [
+  'Platinum Digital Entertainment Credit',
+  'Platinum Lululemon Credit',
+  'Platinum Uber One Credit',
+  'AMEX Dining Credit',
+];
+
+export const benefitValueCaptured = transactions
+  .filter((item) => item.amount < 0 && recognizedBenefitCredits.some((credit) => item.description.includes(credit)))
+  .reduce((sum, item) => sum - item.amount, 0);
+export const benefitValueAvailable = benefits.reduce((sum, benefit) => sum + benefit.available, 0);
 
 export const enrollments = [
   ['Hilton Honors Gold', 'Platinum'],
