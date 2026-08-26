@@ -17,9 +17,9 @@ export default function OffersPage() {
       </header>
 
       <section className="offer-value-summary" aria-label="Offer value overview">
-        <article className="surface saved-value"><span>Saved YTD</span><strong>{money.format(offerSavingsYTD)}</strong><small>Statement credits from redeemed offers</small></article>
-        <article className="surface"><span>Offers redeemed</span><strong>{redeemedOffers.length}</strong><small>Confirmed from transaction history</small></article>
-        <article className="surface active-value"><span>Active cash back</span><strong>{money.format(activeOfferValue)}</strong><small>Fixed-value offers currently available</small></article>
+        <article className="surface saved-value"><span>Saved YTD</span><strong>{money.format(offerSavingsYTD)}</strong></article>
+        <article className="surface"><span>Offers redeemed</span><strong>{redeemedOffers.length}</strong></article>
+        <article className="surface active-value"><span>Active cash back</span><strong>{money.format(activeOfferValue)}</strong></article>
       </section>
 
       <section className="surface offer-list-surface">
