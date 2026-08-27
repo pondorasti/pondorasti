@@ -4,7 +4,9 @@ Read `README.md` first. Treat `app/amex-analysis.json` as the immutable source s
 
 ## Working rules
 
-- Preserve the compact macOS-inspired interface: Inter, blue accent, 54px sticky/blurred page header, compact sidebar rows, rounded controls, hairline borders, and no card shadows.
+- Preserve the native-macOS design language. Every color flows through the CSS custom-property tokens at the top of `app/globals.css` (light `:root` plus a `prefers-color-scheme: dark` override that redefines tokens only) — never hardcode hex/rgba values in components or below the token layer. Any visual change must be checked in both light and dark mode.
+- Typography is Inter Variable tuned to SF Pro rhythm: a 6-step scale (11/12/13/15/22/28px), variable weights capped at 650 (400/510/590/650), negative tracking at 13px and up, `tabular-nums` for figures, an 11px minimum font size, and sentence case everywhere — no uppercase or letter-spaced labels.
+- Chrome details: vibrancy (translucent token + backdrop blur) on the sidebar, 50px sticky page headers, and the mobile bar; rounded-square gray selection for the active sidebar row; hairline separators inset within lists; pill search fields and status pills; radius scale 5/7/10/12px; no drop shadows except the segmented-control thumb and the chart tooltip.
 - Prefer dense lists or tables over card grids. Keep page and section headers to one concise title; avoid eyebrow/subtitle pairs and explanatory labels beneath metric values.
 - Use Hugeicons for interface icons. Category emoji are intentional.
 - Keep category drill-downs and transaction recommendations grounded in the committed data. Do not infer categories from merchant names when Copilot categories are present.

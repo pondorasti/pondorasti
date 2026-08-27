@@ -12,10 +12,7 @@ type Props = {
   series: string[];
 };
 
-const palette = [
-  '#007aff', '#d49a21', '#e4573d', '#38a169', '#7c5ce7', '#24a7a2',
-  '#d16b9b', '#7a8791', '#9b6a3c', '#5e80b8', '#a2a930', '#6f7780',
-];
+const palette = Array.from({ length: 12 }, (_, index) => `var(--chart-${index + 1})`);
 
 const tooltipMoney = new Intl.NumberFormat('en-US', {
   style: 'currency', currency: 'USD', maximumFractionDigits: 0,
@@ -51,17 +48,17 @@ export default function CategoryTrendChart({ data, series }: Props) {
       <div className="category-trend-chart">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 8, right: 18, bottom: 2, left: 4 }} accessibilityLayer>
-            <CartesianGrid vertical={false} stroke="#e8ebea" />
-            <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: '#7d888e', fontSize: 9 }} dy={7} />
-            <YAxis axisLine={false} tickLine={false} tick={{ fill: '#7d888e', fontSize: 9 }} tickFormatter={axisMoney} width={46} />
+            <CartesianGrid vertical={false} stroke="var(--chart-grid)" />
+            <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: 'var(--chart-tick)', fontSize: 11 }} dy={7} />
+            <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--chart-tick)', fontSize: 11 }} tickFormatter={axisMoney} width={46} />
             <Tooltip
               allowEscapeViewBox={{ x: false, y: true }}
               formatter={(value, name) => [tooltipMoney.format(Number(value ?? 0)), String(name ?? '')]}
               itemSorter={(item) => -Number(item.value ?? 0)}
-              contentStyle={{ border: '1px solid rgba(13,33,48,.1)', borderRadius: 10, boxShadow: '0 10px 30px rgba(13,33,48,.12)', fontSize: 10 }}
-              labelStyle={{ color: '#0d2130', fontWeight: 700, marginBottom: 5 }}
+              contentStyle={{ background: 'var(--chart-tooltip-bg)', border: '1px solid var(--separator)', borderRadius: 10, boxShadow: '0 8px 24px rgba(0, 0, 0, .18)', fontSize: 12 }}
+              labelStyle={{ color: 'var(--text-1)', fontWeight: 590, marginBottom: 5 }}
               wrapperStyle={{ zIndex: 20 }}
-              cursor={{ stroke: '#aeb7bb', strokeDasharray: '3 3' }}
+              cursor={{ stroke: 'var(--chart-cursor)', strokeDasharray: '3 3' }}
               isAnimationActive={false}
             />
             {series.map((name, index) => (

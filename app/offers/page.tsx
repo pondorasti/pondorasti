@@ -28,12 +28,12 @@ export default function OffersPage() {
             <article className="offer-list-row" key={`${offer.card}-${offer.title}`}>
               <span className="offer-list-index">{String(index + 1).padStart(2, '0')}</span>
               <div className="offer-list-main">
-                <div><h2>{offer.title}</h2><span className={`benefit-card-tag ${offer.card.toLowerCase()}`}>{offer.card}</span></div>
+                <div><h2>{offer.title}</h2><span className={`card-tag ${offer.card.toLowerCase()}`}>{offer.card}</span></div>
                 <p><strong>{offer.requirement}</strong><span> · {offer.text}</span></p>
               </div>
               <div className="offer-list-metric value"><small>Value</small><strong>{offer.valueLabel}</strong></div>
               <div className="offer-list-metric status"><small>Status</small><strong>{offer.status}</strong></div>
-              <span className={`offer-list-state fit-${offer.fit.toLowerCase().replace(' ', '-')}`}>{offer.fit}</span>
+              <span className={`status-pill fit-${offer.fit.toLowerCase().replace(' ', '-')}`}>{offer.fit}</span>
             </article>
           ))}
         </div>
@@ -46,13 +46,13 @@ export default function OffersPage() {
             <article className="offer-list-row redeemed" key={`${offer.card}-${offer.title}`}>
               <span className="offer-list-index">{String(index + 1).padStart(2, '0')}</span>
               <div className="offer-list-main">
-                <div><h2>{offer.title}</h2><span className={`benefit-card-tag ${offer.card.toLowerCase()}`}>{offer.card}</span></div>
+                <div><h2>{offer.title}</h2><span className={`card-tag ${offer.card.toLowerCase()}`}>{offer.card}</span></div>
                 <p>{preciseMoney.format(offer.qualifyingSpend)} in qualifying purchases</p>
               </div>
               <div className="offer-list-metric redeemed-date"><small>Redeemed</small><strong>{displayDate(offer.redeemedDate)}</strong></div>
               <div className="offer-list-metric saved"><small>Cash back</small><strong>{money.format(offer.cashBack)}</strong></div>
               <div className="offer-list-metric rate"><small>Savings rate</small><strong>{percent.format(offer.savingsRate)}</strong></div>
-              <span className="offer-list-state redeemed">Redeemed</span>
+              <span className="status-pill">Redeemed</span>
             </article>
           ))}
         </div>

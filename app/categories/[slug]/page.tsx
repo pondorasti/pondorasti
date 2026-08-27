@@ -48,7 +48,7 @@ export default async function CategoryDetailPage({ params }: Props) {
           {rows.map((item, index) => (
             <div className="detail-row" key={`${item.date}-${item.description}-${index}`}>
               <span>{new Date(`${item.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-              <strong>{displayMerchant(item)}</strong><span><i className={`small-card ${item.card.toLowerCase()}`}>{item.card}</i></span>
+              <strong>{displayMerchant(item)}</strong><span><i className={`card-tag ${item.card.toLowerCase()}`}>{item.card}</i></span>
               <span>{item.transaction_type}</span><b className={item.amount < 0 ? 'credit-text' : ''}>{preciseMoney.format(item.amount)}</b>
             </div>
           ))}

@@ -22,13 +22,13 @@ export default function BenefitsPage() {
             <article className={`benefit-list-row ${benefit.tone}`} key={`${benefit.card}-${benefit.title}`}>
               <span className="benefit-list-index">{String(index + 1).padStart(2, '0')}</span>
               <div className="benefit-list-main">
-                <div><h2>{benefit.title}</h2><span className={`benefit-card-tag ${benefit.card.toLowerCase()}`}>{benefit.card}</span></div>
+                <div><h2>{benefit.title}</h2><span className={`card-tag ${benefit.card.toLowerCase()}`}>{benefit.card}</span></div>
                 <p>{benefit.text}</p>
               </div>
               <div className="benefit-list-metric used"><small>Used YTD</small><strong>{benefit.usedLabel ?? money.format(benefit.used)}</strong></div>
               <div className="benefit-list-metric left"><small>Left</small><strong>{benefit.leftLabel}</strong></div>
               <div className="benefit-list-deadline"><small>Deadline</small><strong>{benefit.timing}</strong></div>
-              <span className="benefit-list-state">{benefit.status}</span>
+              <span className="status-pill">{benefit.status}</span>
             </article>
           ))}
         </div>

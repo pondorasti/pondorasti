@@ -1,6 +1,13 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import AppShell from './components/AppShell';
 import './globals.css';
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f7f7f8' },
+    { media: '(prefers-color-scheme: dark)', color: '#1e1e1e' },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://amex-card-playbook.hunk.851.sh'),

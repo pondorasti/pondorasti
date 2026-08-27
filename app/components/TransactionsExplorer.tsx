@@ -57,7 +57,7 @@ export default function TransactionsExplorer() {
               <div className={`transaction-app-row ${misrouted ? 'misrouted-row' : ''}`} key={`${item.date}-${item.description}-${index}`}>
                 <span>{new Date(`${item.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
                 <strong>{displayMerchant(item)}<small>{item.transaction_type}</small></strong>
-                <span><i className={`small-card ${item.card.toLowerCase()}`}>{item.card}</i></span><span>{item.category}</span>
+                <span><i className={`card-tag ${item.card.toLowerCase()}`}>{item.card}</i></span><span>{item.category}</span>
                 <b className={item.amount < 0 ? 'credit-text' : ''}>{preciseMoney.format(item.amount)}</b>
                 <span>{item.reward_eligible === 'Yes' && item.amount > 0 ? `${multiplier(item.card, rewardCategory(item))}×` : '—'}</span>
                 <span>{misrouted ? <em>Use Gold · +{Math.round(item.amount * 3)} pts</em> : '—'}</span>
