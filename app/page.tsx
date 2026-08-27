@@ -20,9 +20,6 @@ export default function OverviewPage() {
         <article className="app-metric">
           <span>Points earned</span><strong>{number.format(metrics.current)}</strong>
         </article>
-        <article className="app-metric">
-          <span>Optimized potential</span><strong>{number.format(metrics.optimized)}</strong>
-        </article>
         <article className="app-metric warning-metric">
           <span>Recoverable points</span><strong>{number.format(metrics.missed)}</strong>
         </article>
