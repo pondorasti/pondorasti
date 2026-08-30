@@ -1,0 +1,1648 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Health · Lab Results</title>
+<style>
+  :root{
+    /* iOS systemGroupedBackground / secondarySystemGroupedBackground */
+    --bg:#F2F2F7;
+    --card:#FFFFFF;
+    --card-2:#F9F9FB;
+    --sep:rgba(60,60,67,.12);
+    --sep-strong:rgba(60,60,67,.29);
+    --text:#000;
+    --text-2:rgba(60,60,67,.78);
+    --text-3:rgba(60,60,67,.6);
+    --text-4:rgba(60,60,67,.42);
+
+    /* Apple Health category colors */
+    --heart:#FF2D55;
+    --liver:#FF9500;
+    --kidney:#34C759;
+    --blood:#FF3B30;
+    --hormone:#FF375F;
+    --vit:#AF52DE;
+    --omega:#FFCC00;
+    --immune:#5AC8FA;
+    --infect:#8E8E93;
+    --cancer:#007AFF;
+    --vital:#FF2D55;
+    --metab:#30B0C7;
+    --gut:#A2845E;
+
+    --good:#34C759;
+    --warn:#FF9500;
+    --bad:#FF3B30;
+
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 6px 24px rgba(0,0,0,.04);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#000;
+      --card:#1C1C1E;
+      --card-2:#2C2C2E;
+      --sep:rgba(84,84,88,.36);
+      --sep-strong:rgba(84,84,88,.65);
+      --text:#fff;
+      --text-2:rgba(235,235,245,.78);
+      --text-3:rgba(235,235,245,.6);
+      --text-4:rgba(235,235,245,.42);
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 24px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;background:var(--bg);color:var(--text);
+    font:15px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,-apple-system,sans-serif,"SF Pro Display",system-ui,-apple-system,sans-serif,"Inter",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    font-variant-numeric: tabular-nums;
+  }
+  .wrap{max-width:780px;margin:0 auto;padding:8px 16px 64px}
+
+  /* Top large title + segmented */
+  .topbar{padding:8px 0 0;position:sticky;top:0;background:linear-gradient(180deg,var(--bg) 80%,rgba(242,242,247,0));z-index:5;backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px)}
+  @media (prefers-color-scheme: dark){ .topbar{background:linear-gradient(180deg,var(--bg) 80%,rgba(0,0,0,0))} }
+  .lg-title{font:700 34px/1.1 "SF Pro Display",system-ui,-apple-system,sans-serif,-apple-system,system-ui;letter-spacing:-.03em;padding:14px 0 4px;display:flex;justify-content:space-between;align-items:end;gap:12px}
+  .lg-title .sub{font:500 13px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);letter-spacing:0}
+  .seg{display:inline-flex;padding:2px;background:rgba(118,118,128,.12);border-radius:9px;margin:8px 0 12px;width:100%;gap:0}
+  @media (prefers-color-scheme: dark){ .seg{background:rgba(118,118,128,.24)} }
+  .seg button{flex:1;font:600 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;padding:7px 10px;border:0;background:transparent;color:var(--text);border-radius:7px;cursor:pointer;transition:background .12s}
+  .seg button.active{background:var(--card);box-shadow:0 3px 8px rgba(0,0,0,.04),0 3px 1px rgba(0,0,0,.04)}
+  @media (prefers-color-scheme: dark){ .seg button.active{background:rgba(99,99,102,1)} }
+
+  /* Section headers (Apple Health subtitle style) */
+  h2.section{font:700 22px/1.1 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.02em;margin:24px 0 10px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  h2.section .more{font:500 15px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:#007AFF;cursor:pointer}
+  h3.sub{font:600 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;text-transform:uppercase;letter-spacing:.04em;color:var(--text-3);margin:18px 4px 10px}
+
+  /* Cards */
+  .card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+  .card + .card{margin-top:14px}
+
+  /* Highlights horizontal row */
+  .highlights{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+  .hl{background:var(--card);border-radius:14px;padding:14px 14px 12px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .hl .lbl{display:flex;align-items:center;gap:8px;font:600 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
+  .hl .lbl .dot{width:18px;height:18px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700}
+  .hl .head{font:600 17px/1.2 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.01em;margin-top:8px}
+  .hl .body{font:400 13px/1.35 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-2);margin-top:4px}
+  .hl .num{font:700 28px/1 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.02em;margin-top:8px}
+  .hl .num small{font:500 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-left:4px}
+
+  /* Metric card (used everywhere) */
+  .mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  @media (max-width:520px){ .mgrid{grid-template-columns:1fr} }
+  .mcard{background:var(--card);border-radius:14px;padding:14px 14px 14px;box-shadow:var(--shadow);position:relative;display:flex;flex-direction:column;min-height:148px}
+  .mcard .row1{display:flex;align-items:center;gap:8px;font:600 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--cat,var(--vit));text-transform:uppercase;letter-spacing:.04em}
+  .mcard .row1 .ic{width:22px;height:22px;border-radius:6px;background:var(--cat,var(--vit));color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+  .mcard .name{font:600 16px/1.2 "SF Pro Display",system-ui,-apple-system,sans-serif;color:var(--text);margin-top:8px;letter-spacing:-.01em}
+  .mcard .meta{font:400 12px/1.3 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:3px}
+  .mcard .big{font:700 30px/1.05 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.02em;margin-top:auto;padding-top:12px;display:flex;align-items:baseline;gap:6px}
+  .mcard .big.qual{font:700 22px/1.15 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.01em}
+  .mcard .big small{font:500 14px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3)}
+  .tag{display:inline-flex;align-items:center;font:600 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;padding:5px 8px;border-radius:999px;background:var(--card-2);color:var(--text-2);white-space:nowrap}
+  .mcard .tag{position:absolute;top:14px;right:14px}
+
+  /* Mini range bar (cards for single-point metrics) */
+  .mini-range{margin-top:12px}
+  .mini-range .bar{position:relative;height:6px;background:var(--card-2);border-radius:999px}
+  .mini-range .bar .ok{position:absolute;top:0;bottom:0;background:rgba(52,199,89,.85);border-radius:999px}
+  .mini-range .bar .pin{position:absolute;top:-4px;width:3px;height:14px;border-radius:2px;background:var(--text);box-shadow:0 0 0 2px var(--card)}
+  .mini-range .lo-hi{display:flex;justify-content:space-between;font:500 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:6px}
+  .tag.in{background:rgba(52,199,89,.14);color:#1e7a3a}
+  .tag.lo{background:rgba(255,149,0,.14);color:#a85b00}
+  .tag.hi{background:rgba(255,59,48,.14);color:#a82016}
+  @media (prefers-color-scheme: dark){
+    .tag.in{color:#7ee2a0}
+    .tag.lo{color:#ffb965}
+    .tag.hi{color:#ff8b85}
+  }
+
+  /* Range bar (Apple Health style) */
+  .range{position:relative;height:6px;background:var(--card-2);border-radius:999px;overflow:visible;margin-top:8px}
+  .range .ok{position:absolute;top:0;bottom:0;background:var(--good);border-radius:999px;opacity:.85}
+  .range .pin{position:absolute;top:-4px;width:2px;height:14px;background:var(--text);border-radius:2px;box-shadow:0 0 0 2px var(--card)}
+  .range .pin.prev{background:var(--text-4);opacity:.6;height:10px;top:-2px}
+  .range-legend{display:flex;justify-content:space-between;font:500 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:6px}
+
+  /* List rows */
+  .list{padding:0}
+  .row{display:grid;grid-template-columns:34px 1fr auto auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--sep);min-height:54px;cursor:pointer;-webkit-user-select:none;user-select:none;transition:background .12s}
+  .row:hover{background:var(--card-2)}
+  .row:active{background:var(--card-2);opacity:.85}
+  .row.last,.row:last-child{border-bottom:none}
+  .row .ic{width:30px;height:30px;border-radius:8px;background:var(--cat,var(--vit));color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600}
+  .row .meta{min-width:0}
+  .row .meta .t{font:600 15px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text);letter-spacing:-.005em}
+  .row .meta .s{font:400 12px/1.3 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap}
+  .row .v{font:600 17px/1 "SF Pro Display",system-ui,-apple-system,sans-serif;color:var(--text);letter-spacing:-.01em;text-align:right;white-space:nowrap}
+  .row .v small{font:500 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);font-weight:500;margin-left:3px}
+  .row .v.lo{color:var(--warn)} .row .v.hi{color:var(--bad)}
+  .row .chev{color:var(--text-4);font-size:14px;width:12px;transition:transform .18s ease;display:inline-block;text-align:center}
+  .row.open .chev{transform:rotate(90deg);color:var(--text-2)}
+
+  /* Detail panel (expanded) */
+  .row-detail{display:none;padding:6px 16px 18px 16px;border-bottom:1px solid var(--sep);background:var(--card-2)}
+  .row.open + .row-detail{display:block}
+  .row-detail .rng-wrap{padding:10px 4px 4px}
+  .row-detail .rng-wrap .range{height:8px}
+  .row-detail .rng-wrap .pin{height:18px;top:-5px;width:3px}
+  .row-detail .rng-wrap .pin.prev{height:14px;top:-3px;width:2px}
+  .row-detail .legend{display:flex;justify-content:space-between;font:500 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:8px}
+  .row-detail .legend .it{display:flex;align-items:center;gap:6px}
+  .row-detail .legend .sw{width:8px;height:8px;border-radius:2px;background:var(--text)}
+  .row-detail .legend .sw.prev{background:var(--text-4)}
+  .row-detail .legend .sw.ok{background:var(--good);border-radius:2px}
+  .row-detail .spark-big{margin-top:14px}
+  .row-detail .spark-big svg{height:80px;width:100%;display:block}
+  .row-detail .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid var(--sep)}
+  .row-detail .stat .k{font:500 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
+  .row-detail .stat .vv{font:600 17px/1.1 "SF Pro Display",system-ui,-apple-system,sans-serif;margin-top:4px;letter-spacing:-.01em}
+  .row-detail .stat .vv small{font:500 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-left:3px}
+  .row-detail .notes{font:400 13px/1.4 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-2);margin-top:14px}
+
+  /* Browse categories — large icon cards */
+  .browse-list{padding:0}
+  .browse-row{display:grid;grid-template-columns:36px 1fr auto;gap:14px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--sep);cursor:pointer;transition:background .12s}
+  .browse-row:last-child{border-bottom:none}
+  .browse-row:active{background:var(--card-2)}
+  .browse-row .ic{width:32px;height:32px;border-radius:8px;background:var(--cat,var(--vit));color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+  .browse-row .nm{font:600 17px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif;letter-spacing:-.005em}
+  .browse-row .ct{font:400 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:3px}
+  .browse-row .count{font:500 14px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);display:flex;align-items:center;gap:4px}
+  .browse-row.open{background:var(--card-2)}
+  .browse-children{display:none;border-bottom:1px solid var(--sep)}
+  .browse-row.open + .browse-children{display:block}
+
+  /* PDF year-grouped list */
+  .pdf-year{margin-top:22px}
+  .pdf-year:first-child{margin-top:6px}
+  .pdf-year-hdr{font:700 22px/1.15 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.02em;padding:0 4px;display:flex;justify-content:space-between;align-items:baseline}
+  .pdf-year-hdr .ct{font:500 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);letter-spacing:0}
+  .pdf-rows{margin-top:10px;background:var(--card);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+  .pdf-row{display:flex;align-items:center;gap:14px;padding:13px 16px;text-decoration:none;color:var(--text);border-bottom:1px solid var(--sep);transition:background .12s}
+  .pdf-row:last-child{border-bottom:none}
+  .pdf-row:active{background:var(--card-2)}
+  .pdf-row .ic{position:relative;width:38px;height:38px;border-radius:10px;background:#fff;color:var(--cat,var(--vit));display:flex;align-items:center;justify-content:center;font:700 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;flex:none;letter-spacing:.04em;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(60,60,67,.1)}
+  .pdf-row .ic img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box}
+  .pdf-row .ic img.cover{padding:0;object-fit:cover}
+  .pdf-row .body{flex:1;min-width:0}
+  .pdf-row .body .t{font:600 15px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif}
+  .pdf-row .body .s{font:400 12px/1.3 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:3px}
+  .pdf-row .when{font:500 14px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);white-space:nowrap}
+  .pdf-row .chev{color:var(--text-4);font-size:18px;flex:none;margin-left:-4px}
+
+  /* Mini sparkline (favorites) — CSS-positioned, no SVG stretch */
+  .mini-trend{position:relative;height:36px;margin-top:10px;overflow:visible}
+  .mini-trend .opt-band{position:absolute;left:0;right:0;background:rgba(52,199,89,.14);border-radius:3px;min-height:2px}
+  .mini-trend svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .mini-trend .dot{position:absolute;width:9px;height:9px;border-radius:50%;transform:translate(-50%,-50%);background:var(--text-3);box-shadow:0 0 0 2px var(--card);z-index:2}
+
+  /* Big trend chart (detail panel) */
+  .big-trend{margin-top:18px}
+  .big-trend .chart{position:relative;height:90px}
+  .big-trend .chart .opt-band{position:absolute;left:0;right:0;background:rgba(52,199,89,.12);border-radius:3px;min-height:2px}
+  .big-trend .chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .big-trend .chart .dot{position:absolute;width:11px;height:11px;border-radius:50%;transform:translate(-50%,-50%);background:var(--text-3);box-shadow:0 0 0 2.5px var(--card-2);z-index:2}
+  .big-trend .chart .dot .lbl{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font:600 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;white-space:nowrap;color:var(--text-2)}
+  .big-trend .chart .dot.cur .lbl{font-weight:700}
+  .big-trend .x-lbls{display:flex;justify-content:space-between;font:500 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:10px;padding:0 4px}
+
+  /* Chips for IgG sensitivities */
+  .chips{display:flex;flex-wrap:wrap;gap:6px;padding:14px 16px}
+  .chip{padding:6px 10px;border-radius:999px;font:500 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;background:var(--card-2);color:var(--text-2);display:inline-flex;align-items:center;gap:6px}
+  .chip.bad{background:rgba(255,59,48,.12);color:#a82016}
+  .chip.warn{background:rgba(255,149,0,.14);color:#a85b00}
+  .chip.good{background:rgba(52,199,89,.14);color:#1e7a3a}
+  @media (prefers-color-scheme: dark){
+    .chip.bad{color:#ff8b85}.chip.warn{color:#ffb965}.chip.good{color:#7ee2a0}
+  }
+  .chip small{color:var(--text-3)}
+
+  .note{padding:12px 16px;color:var(--text-3);font:400 12px/1.4 "SF Pro Text",system-ui,-apple-system,sans-serif}
+  .panes > section{display:none}
+  .panes > section.active{display:block}
+
+  footer{text-align:center;color:var(--text-3);font:400 12px/1.4 "SF Pro Text",system-ui,-apple-system,sans-serif;margin-top:40px}
+  footer a{color:#007AFF;text-decoration:none}
+
+  /* Detail (sub-page) view */
+  .detail-view{display:none}
+  body.detail .detail-view{display:block}
+  body.detail .panes{display:none}
+  body.detail .topbar .seg{display:none}
+  body.detail .topbar .lg-title{display:none}
+  .back{display:inline-flex;align-items:center;gap:4px;background:none;border:0;color:#007AFF;font:500 17px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif;cursor:pointer;padding:14px 0 12px;letter-spacing:-.005em}
+  .back:active{opacity:.6}
+  .back svg{width:14px;height:22px;margin-right:2px}
+  .hero-card{background:var(--card);border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-top:6px;position:relative}
+  .hero-card .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .hero-card .cat{display:inline-flex;align-items:center;gap:10px;font:600 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--cat);text-transform:uppercase;letter-spacing:.04em}
+  .hero-card .cat .ic{width:28px;height:28px;border-radius:8px;background:var(--cat);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+  .hero-card .name{font:700 26px/1.15 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.02em;margin-top:16px}
+  .hero-card .big-val{display:flex;align-items:baseline;gap:8px;margin-top:10px;font:700 52px/1 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.03em}
+  .hero-card .big-val.qual{font-size:32px}
+  .hero-card .big-val small{font:500 18px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);font-weight:500}
+  .hero-card .big-val.lo{color:var(--warn)} .hero-card .big-val.hi{color:var(--bad)}
+  .hero-card .date{color:var(--text-3);margin-top:8px;font:500 13px "SF Pro Text",system-ui,-apple-system,sans-serif}
+  .hero-card .delta{margin-top:14px;padding-top:14px;border-top:1px solid var(--sep);display:flex;justify-content:space-between;font:500 13px "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-2)}
+  .hero-card .delta b{color:var(--text);font-weight:600}
+
+  h3.dsub{font:600 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;text-transform:uppercase;letter-spacing:.04em;color:var(--text-3);margin:26px 4px 10px}
+  .detail-card{background:var(--card);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+  .detail-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:var(--card);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
+  .detail-stats .stat{padding:0 4px}
+  .detail-stats .stat .k{font:600 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;text-transform:uppercase;letter-spacing:.04em;color:var(--text-3)}
+  .detail-stats .stat .vv{font:600 17px/1.1 "SF Pro Display",system-ui,-apple-system,sans-serif;margin-top:6px;letter-spacing:-.01em}
+  .detail-stats .stat .vv.in{color:var(--good)} .detail-stats .stat .vv.lo{color:var(--warn)} .detail-stats .stat .vv.hi{color:var(--bad)}
+  .detail-sources{background:var(--card);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+  .detail-source{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;text-decoration:none;color:var(--text);border-bottom:1px solid var(--sep);transition:background .12s}
+  .detail-source:last-child{border-bottom:none}
+  .detail-source:active{background:var(--card-2)}
+  .detail-source .left{min-width:0;flex:1}
+  .detail-source .left .t{font:600 15px/1.2 "SF Pro Text",system-ui,-apple-system,sans-serif}
+  .detail-source .left .s{font:400 12px/1.3 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:3px}
+  .detail-source .chev{color:var(--text-4);font-size:18px;flex:none}
+
+  /* card as anchor */
+  a.mcard{text-decoration:none;color:inherit;cursor:pointer;transition:transform .12s, box-shadow .12s}
+  a.mcard:active{transform:scale(.985)}
+  a.mcard:hover{box-shadow:0 2px 4px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.06)}
+  @media (prefers-color-scheme: dark){
+    a.mcard:hover{box-shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 30px rgba(0,0,0,.5)}
+  }
+
+  /* Big chart in detail */
+  .detail-card.chart-card{padding:22px 22px 18px}
+  .detail-card .ch-title{font:600 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
+  .detail-card .ch-summary{font:700 22px/1.2 "SF Pro Display",system-ui,-apple-system,sans-serif;margin-top:6px;letter-spacing:-.01em}
+  .detail-card .ch-trend{margin-top:18px}
+  .detail-card .ch-trend .chart{position:relative;height:140px}
+  .detail-card .ch-trend .chart .opt-band{position:absolute;left:0;right:0;background:rgba(52,199,89,.12);border-radius:4px;min-height:2px}
+  .detail-card .ch-trend .chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .detail-card .ch-trend .chart .dot{position:absolute;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);background:var(--text-3);box-shadow:0 0 0 3px var(--card);z-index:2}
+  .detail-card .ch-trend .chart .dot .lbl{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);font:700 13px/1 "SF Pro Display",system-ui,-apple-system,sans-serif;white-space:nowrap;color:var(--text-2);letter-spacing:-.01em}
+  .detail-card .ch-trend .x-lbls{display:flex;justify-content:space-between;font:500 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:14px;padding:0 4px}
+
+  /* Hero-sized 3-segment bar used in the "Where you land" card */
+  .hero-bar-wrap{margin-top:22px}
+  .hero-status{position:relative;height:13px;margin-bottom:10px}
+  .hero-status span{position:absolute;transform:translateX(-50%);font:700 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;top:0}
+  .hero-status.in span{color:var(--good)}
+  .hero-status.lo span,.hero-status.hi span{color:var(--warn)}
+  .bar3.hero{height:10px;gap:5px}
+  .bar3.hero .pin{width:14px;height:14px;box-shadow:0 0 0 2px var(--card)}
+  .hero-lohi{position:relative;height:16px;margin-top:10px;font:500 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3)}
+  .hero-lohi span{position:absolute;transform:translateX(-50%);top:0}
+
+  /* Records list (per-measurement cards) */
+  .records{margin-top:6px}
+  .rec-group{margin-top:22px}
+  .rec-group:first-child{margin-top:0}
+  .rec-date{font:700 22px/1.15 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.02em;padding:0 4px}
+  .rec-sub{font:500 14px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:6px;padding:0 4px;margin-bottom:12px}
+  .rec-card{background:var(--card);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);position:relative;display:block;text-decoration:none;color:inherit}
+  .rec-card .rc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .rec-card .rc-cat{font:700 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--cat,var(--vit));text-transform:uppercase;letter-spacing:.06em;display:inline-flex;align-items:center;gap:8px}
+  .rec-card .rc-cat .vial{width:16px;height:16px;border-radius:4px;background:var(--cat,var(--vit));display:inline-block;position:relative;flex:none}
+  .rec-card .rc-cat .vial::after{content:"";position:absolute;left:50%;top:3px;bottom:3px;width:2px;background:rgba(255,255,255,.85);border-radius:1px;transform:translateX(-50%)}
+  .rec-card .rc-date{font:500 14px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);display:inline-flex;align-items:center;gap:4px}
+  .rec-card .rc-date .ch{color:var(--text-4);font-size:18px}
+  .rec-card .rc-val{font:700 36px/1 "SF Pro Display",system-ui,-apple-system,sans-serif;letter-spacing:-.025em;margin-top:14px;display:flex;align-items:baseline;gap:6px}
+  .rec-card .rc-val small{font:500 16px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);font-weight:500}
+  .rec-card .rc-val.qual{font-size:24px;letter-spacing:-.01em}
+  .rec-card .rc-bar{margin-top:14px;position:relative}
+  .rec-card .rc-bar .status{position:relative;height:11px;margin-bottom:8px}
+  .rec-card .rc-bar .status span{position:absolute;transform:translateX(-50%);font:700 11px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;top:0}
+  .rec-card .rc-bar .status.in span{color:var(--good)}
+  .rec-card .rc-bar .status.lo span,.rec-card .rc-bar .status.hi span{color:var(--warn)}
+  .bar3{position:relative;display:flex;gap:4px;height:8px}
+  .bar3 .b3s{flex:1;background:rgba(120,120,128,.30);border-radius:999px;align-self:stretch}
+  .bar3 .b3s.on{background:var(--good)}
+  .bar3.lo .b3s.on,.bar3.hi .b3s.on{background:var(--warn)}
+  .bar3 .pin{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 1.5px var(--card)}
+  .rec-card .rc-bar .lo-hi{display:flex;font:500 12px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:8px;position:relative;height:14px}
+  .rec-card .rc-bar .lo-hi span{position:absolute;transform:translateX(-50%)}
+  .rec-card .rc-collected{font:500 13px/1 "SF Pro Text",system-ui,-apple-system,sans-serif;color:var(--text-3);margin-top:14px;padding-top:12px;border-top:1px solid var(--sep)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="lg-title">
+      <span>Health</span>
+      <span class="sub">Alexandru · 24M</span>
+    </div>
+    <div class="seg" id="seg">
+      <button class="active" data-pane="summary">Summary</button>
+      <button data-pane="browse">Browse</button>
+      <button data-pane="docs">PDFs</button>
+    </div>
+  </div>
+
+<!-- ============ DETAIL SUB-PAGE ============ -->
+<section class="detail-view" id="detail-view">
+  <button class="back" id="back-btn"><svg viewBox="0 0 14 22" fill="none"><path d="M12 2 2 11l10 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button>
+  <div id="detail-content"></div>
+</section>
+
+<div class="panes">
+
+  <!-- ============ SUMMARY ============ -->
+  <section id="summary" class="active">
+
+    <h2 class="section">Highlights</h2>
+    <div class="highlights">
+      <div class="hl">
+        <div class="lbl"><span class="dot" style="background:var(--liver)">L</span> Liver</div>
+        <div class="head">Your liver enzymes returned to normal</div>
+        <div class="body">ALT dropped from <b>68 U/L</b> in December to <b>19 U/L</b> in May. AST went from <b>41 → 24</b>. Both back inside the reference range.</div>
+      </div>
+      <div class="hl">
+        <div class="lbl"><span class="dot" style="background:var(--vit)">V</span> Vitamins</div>
+        <div class="head">Homocysteine normalized</div>
+        <div class="body">From <b>14.3 µmol/L (high)</b> down to <b>8.5</b> — well below the 12.9 ceiling. Often a sign of better B12/folate utilization.</div>
+      </div>
+      <div class="hl">
+        <div class="lbl"><span class="dot" style="background:var(--blood)">B</span> Blood</div>
+        <div class="head">Iron stores still low</div>
+        <div class="body">Ferritin nudged up <b>30 → 35 ng/mL</b> but is still below the 38 floor. Worth tracking and considering supplementation.</div>
+      </div>
+      <div class="hl">
+        <div class="lbl"><span class="dot" style="background:var(--vit)">V</span> Vitamins</div>
+        <div class="head">Vitamin D is insufficient</div>
+        <div class="body">25-OH Vitamin D was <b>27 ng/mL</b> in December — below the 30 ng/mL "optimal" threshold. Not re-tested in May.</div>
+      </div>
+    </div>
+
+    <h2 class="section">Favorites</h2>
+    <div class="mgrid" id="favs"></div>
+
+    <h2 class="section">Out of range <span style="font:500 13px;color:var(--text-3);letter-spacing:0">May 28, 2026</span></h2>
+    <div class="mgrid" id="flags"></div>
+
+    <h2 class="section">Most recent panel <span id="recent-meta" style="font:500 13px;color:var(--text-3);letter-spacing:0">May 28, 2026 · Quest</span></h2>
+    <div class="mgrid" id="recent"></div>
+
+  </section>
+
+  <!-- ============ BROWSE ============ -->
+  <section id="browse">
+    <h2 class="section">Browse</h2>
+    <div class="card browse-list" id="browse-cats"></div>
+
+    <h2 class="section">Food sensitivities <span style="font:500 13px;color:var(--text-3);letter-spacing:0">IgG · Dec 19, 2025</span></h2>
+    <div class="card">
+      <div class="chips" id="igg-high"></div>
+      <div class="note">Reference: &lt;2.0 mcg/mL. Quest's own note: IgG testing "should not be used for the diagnosis of allergic or atopic disease states" — most useful for tracking elimination/reintroduction responses. All <b>IgE</b> food &amp; environmental allergens were <b>Class 0 (Absent)</b>.</div>
+    </div>
+
+    <h2 class="section">Allergens tested · all negative</h2>
+    <div class="card"><div class="chips" id="ige-negs"></div></div>
+  </section>
+
+  <!-- ============ DOCS ============ -->
+  <section id="docs">
+    <h2 class="section">Lab reports <span style="font:500 13px;color:var(--text-3);letter-spacing:0" id="pdf-count"></span></h2>
+    <div id="pdf-years"></div>
+  </section>
+
+</div>
+
+<footer>Sources: Function · Quest · Labcorp · Kaiser Permanente<br>Not medical advice.</footer>
+</div>
+
+
+<script>
+/* ============ SOURCES & DATES ============ */
+const SOURCES = {
+  function: {label:"Function Health", color:"#0a0a0a"},
+  quest:    {label:"Quest Diagnostics", color:"#005e9c"},
+  labcorp:  {label:"Labcorp", color:"#41a8e0"},
+  kaiser:   {label:"Kaiser Permanente", color:"#006fb9"},
+};
+const PDFS = {
+  "function|2025-12-18":["pdfs/function-2025-12-18.pdf","Function · Baseline panel"],
+  "function|2025-12-19":["pdfs/function-2025-12-19.pdf","Function · Micronutrient + allergy"],
+  "function|2026-05-28":["pdfs/function-2026-05-28.pdf","Function · 6-month follow-up"],
+  "labcorp|2024-04-05":["pdfs/labcorp-2024-04-10.pdf","Labcorp · Annual physical"],
+  "quest|2025-04-11":  ["pdfs/quest-2025-04-11.pdf","Quest · STI screen"],
+  "quest|2025-04-14":  ["pdfs/quest-2025-04-14.pdf","Quest · Comprehensive panel"],
+  "quest|2026-03-03":  ["pdfs/quest-2026-03-03.pdf","Quest · Comprehensive panel"],
+  "labcorp|2026-06-11":["pdfs/labcorp-2026-06-11.pdf","Labcorp · Calprotectin + CRP"],
+  "kaiser|2023-04-05": ["pdfs/kaiser-summary.pdf","Kaiser · Initial workup"],
+  "kaiser|2023-04-19": ["pdfs/kaiser-summary.pdf","Kaiser · Stool panel"],
+  "kaiser|2024-02-01": ["pdfs/kaiser-summary.pdf","Kaiser · Lipid + allergens"],
+};
+
+/* ============ CATEGORIES ============ */
+const CATS = {
+  heart:   {name:"Heart",            desc:"Lipids, ApoB, hs-CRP, LDL subfractions", letter:"H"},
+  liver:   {name:"Liver",            desc:"AST, ALT, bilirubin, proteins, GGT",     letter:"L"},
+  kidney:  {name:"Kidney",           desc:"BUN, creatinine, eGFR, uric acid",       letter:"K"},
+  blood:   {name:"Blood",            desc:"CBC, iron studies, ferritin, coag",      letter:"B"},
+  metab:   {name:"Metabolic",        desc:"Glucose, A1c, insulin, electrolytes",    letter:"M"},
+  hormone: {name:"Hormones",         desc:"Sex, thyroid, adrenal",                  letter:"E"},
+  vit:     {name:"Vitamins & minerals", desc:"D, B12, iodine, copper, MMA",         letter:"V"},
+  omega:   {name:"Omega-3 / fatty acids", desc:"OmegaCheck panel",                  letter:"O"},
+  gut:     {name:"Gut health",       desc:"Calprotectin, stool pathogens",          letter:"G"},
+  immune:  {name:"Immunology",       desc:"ANA, RF, IgE, autoantibodies",           letter:"I"},
+  infect:  {name:"Infectious",       desc:"HIV, HSV, syphilis, hepatitis, TB",      letter:"S"},
+  cancer:  {name:"Cancer screen",    desc:"PSA",                                    letter:"C"},
+};
+
+/* ============ METRIC REGISTRY ============ */
+// id: { n:displayName, cat, fd? (good-floor: >=lo is optimal) }
+const M = {
+  // ----- LIVER -----
+  alt:{n:"ALT",cat:"liver"}, ast:{n:"AST",cat:"liver"},
+  alk_phos:{n:"Alkaline phosphatase",cat:"liver"},
+  bilirubin_total:{n:"Bilirubin, total",cat:"liver"},
+  bilirubin_direct:{n:"Bilirubin, direct",cat:"liver"},
+  albumin:{n:"Albumin",cat:"liver"},
+  protein_total:{n:"Total protein",cat:"liver"},
+  globulin:{n:"Globulin",cat:"liver"},
+  ag_ratio:{n:"A/G ratio",cat:"liver"},
+  ggt:{n:"GGT",cat:"liver"}, amylase:{n:"Amylase",cat:"liver"}, lipase:{n:"Lipase",cat:"liver"},
+
+  // ----- KIDNEY -----
+  bun:{n:"BUN",cat:"kidney"}, creatinine:{n:"Creatinine",cat:"kidney"},
+  egfr:{n:"eGFR",cat:"kidney",fd:"good-floor"},
+  bun_creat:{n:"BUN / Creat ratio",cat:"kidney"},
+  uric_acid:{n:"Uric acid",cat:"kidney"},
+  urine_sg:{n:"Urine specific gravity",cat:"kidney"},
+  urine_ph:{n:"Urine pH",cat:"kidney"},
+
+  // ----- BLOOD -----
+  iron:{n:"Iron",cat:"blood"}, tibc:{n:"TIBC",cat:"blood"}, uibc:{n:"UIBC",cat:"blood"},
+  iron_sat:{n:"Iron % saturation",cat:"blood"}, ferritin:{n:"Ferritin",cat:"blood"},
+  wbc:{n:"WBC",cat:"blood"}, rbc:{n:"RBC",cat:"blood"},
+  hemoglobin:{n:"Hemoglobin",cat:"blood"}, hematocrit:{n:"Hematocrit",cat:"blood"},
+  mcv:{n:"MCV",cat:"blood"}, mch:{n:"MCH",cat:"blood"}, mchc:{n:"MCHC",cat:"blood"},
+  rdw:{n:"RDW",cat:"blood"}, platelets:{n:"Platelets",cat:"blood"}, mpv:{n:"MPV",cat:"blood"},
+  neut_abs:{n:"Neutrophils (abs)",cat:"blood"},
+  lymph_abs:{n:"Lymphocytes (abs)",cat:"blood"},
+  mono_abs:{n:"Monocytes (abs)",cat:"blood"},
+  eos_abs:{n:"Eosinophils (abs)",cat:"blood"},
+  baso_abs:{n:"Basophils (abs)",cat:"blood"},
+  immature_grans:{n:"Immature granulocytes (abs)",cat:"blood"},
+  pt:{n:"Prothrombin time",cat:"blood"},
+  pt_inr:{n:"PT INR",cat:"blood"},
+
+  // ----- METAB -----
+  glucose:{n:"Glucose (fasting)",cat:"metab"},
+  hba1c:{n:"Hemoglobin A1c",cat:"metab"},
+  insulin:{n:"Insulin (fasting)",cat:"metab"},
+  sodium:{n:"Sodium",cat:"metab"}, potassium:{n:"Potassium",cat:"metab"},
+  chloride:{n:"Chloride",cat:"metab"}, co2:{n:"CO₂",cat:"metab"},
+  calcium:{n:"Calcium",cat:"metab"}, leptin:{n:"Leptin",cat:"metab"},
+
+  // ----- HEART -----
+  chol_total:{n:"Total cholesterol",cat:"heart"},
+  hdl:{n:"HDL cholesterol",cat:"heart",fd:"good-floor"},
+  ldl:{n:"LDL cholesterol",cat:"heart"},
+  trig:{n:"Triglycerides",cat:"heart"},
+  chol_hdl:{n:"Cholesterol / HDL ratio",cat:"heart"},
+  non_hdl:{n:"Non-HDL cholesterol",cat:"heart"},
+  apob:{n:"Apolipoprotein B",cat:"heart"},
+  lpa:{n:"Lipoprotein (a)",cat:"heart"},
+  hs_crp:{n:"hs-CRP",cat:"heart"},
+  crp:{n:"C-reactive protein",cat:"heart"},
+  ldl_p:{n:"LDL particle number",cat:"heart"},
+  ldl_small:{n:"LDL small",cat:"heart"},
+  ldl_med:{n:"LDL medium",cat:"heart"},
+  hdl_large:{n:"HDL large",cat:"heart",fd:"good-floor"},
+  ldl_peak:{n:"LDL peak size",cat:"heart",fd:"good-floor"},
+
+  // ----- HORMONE -----
+  testo_total:{n:"Testosterone, total",cat:"hormone"},
+  testo_free:{n:"Testosterone, free",cat:"hormone"},
+  shbg:{n:"SHBG",cat:"hormone"}, dheas:{n:"DHEA sulfate",cat:"hormone"},
+  estradiol:{n:"Estradiol",cat:"hormone"},
+  prolactin:{n:"Prolactin",cat:"hormone"},
+  lh:{n:"LH",cat:"hormone"}, fsh:{n:"FSH",cat:"hormone"},
+  tsh:{n:"TSH",cat:"hormone"}, ft4:{n:"Free T4",cat:"hormone"}, ft3:{n:"Free T3",cat:"hormone"},
+  cortisol:{n:"Cortisol (LC/MS)",cat:"hormone"},
+
+  // ----- VITAMINS / MINERALS -----
+  vit_d:{n:"Vitamin D, 25-OH",cat:"vit"},
+  b12:{n:"Vitamin B12",cat:"vit"},
+  folate_serum:{n:"Folate, serum",cat:"vit",fd:"good-floor"},
+  folate_rbc:{n:"Folate, RBC",cat:"vit",fd:"good-floor"},
+  vit_a:{n:"Vitamin A (retinol)",cat:"vit"},
+  vit_e_a:{n:"Vitamin E, alpha-tocopherol",cat:"vit"},
+  vit_e_bg:{n:"Vitamin E, β/γ-tocopherol",cat:"vit"},
+  mma:{n:"Methylmalonic acid",cat:"vit"},
+  homocysteine:{n:"Homocysteine",cat:"vit"},
+  iodine:{n:"Iodine",cat:"vit"},
+  copper:{n:"Copper",cat:"vit"},
+  zinc:{n:"Zinc",cat:"vit"},
+  selenium:{n:"Selenium",cat:"vit"},
+  mg_rbc:{n:"Magnesium, RBC",cat:"vit"},
+  chromium:{n:"Chromium",cat:"vit"},
+  molybdenum:{n:"Molybdenum",cat:"vit"},
+  lead:{n:"Lead",cat:"vit"}, mercury:{n:"Mercury",cat:"vit"},
+  coq10:{n:"Coenzyme Q10",cat:"vit",fd:"good-floor"},
+
+  // ----- OMEGA -----
+  omega3_total:{n:"Omega-3 total",cat:"omega"},
+  epa_dpa_dha:{n:"EPA + DPA + DHA",cat:"omega"},
+  epa:{n:"EPA",cat:"omega"}, dpa:{n:"DPA",cat:"omega"}, dha:{n:"DHA",cat:"omega"},
+  omega6_3_ratio:{n:"Omega-6 / Omega-3 ratio",cat:"omega"},
+
+  // ----- GUT -----
+  calprotectin_fecal:{n:"Calprotectin, fecal",cat:"gut"},
+
+  // ----- IMMUNE -----
+  ana:{n:"ANA screen",cat:"immune"},
+  rf:{n:"Rheumatoid factor",cat:"immune"},
+  ige_total:{n:"Immunoglobulin E (total)",cat:"immune"},
+  tpo_ab:{n:"TPO antibodies",cat:"immune"},
+  tg_ab:{n:"Thyroglobulin antibodies",cat:"immune"},
+
+  // ----- INFECT -----
+  hiv:{n:"HIV 1/2 Ag/Ab",cat:"infect"},
+  syphilis:{n:"Syphilis (RPR)",cat:"infect"},
+  hsv1:{n:"HSV-1 IgG",cat:"infect"},
+  hsv2:{n:"HSV-2 IgG",cat:"infect"},
+  chlamydia:{n:"Chlamydia trachomatis",cat:"infect"},
+  gonorrhea:{n:"Neisseria gonorrhoeae",cat:"infect"},
+  trich:{n:"Trichomonas vaginalis",cat:"infect"},
+  hepb_core:{n:"Hep B core Ab",cat:"infect"},
+  hepb_surface_ag:{n:"Hep B surface Ag",cat:"infect"},
+  hepb_surface_ab:{n:"Hep B surface Ab",cat:"infect"},
+  hepa_ab:{n:"Hep A Ab",cat:"infect"},
+  hepb_dna:{n:"Hep B DNA PCR",cat:"infect"},
+  qft_tb:{n:"QuantiFERON TB Gold",cat:"infect"},
+
+  // ----- CANCER -----
+  psa_total:{n:"PSA, total",cat:"cancer"},
+  psa_free:{n:"PSA, free",cat:"cancer"},
+  psa_pct_free:{n:"PSA, % free",cat:"cancer",fd:"good-floor"},
+};
+
+/* ============ RAW RECORDS ============
+   id: [ [value, "YYYY-MM-DD", "source", lo, hi, "unit"], ...]
+   For qualitative: [value (string), "date", "source"]  (omit lo/hi/unit)
+*/
+const REC = {
+  // ----- LIVER -----
+  alt:[
+    [19,'2026-05-28','function',9,46,'U/L'],
+    [25,'2026-03-03','quest',9,46,'U/L'],
+    [68,'2025-12-18','function',9,46,'U/L'],
+    [10,'2025-04-14','quest',9,46,'U/L'],
+    [17,'2024-04-05','labcorp',0,44,'IU/L'],
+    [15,'2023-04-05','kaiser',0,47,'U/L'],
+  ],
+  ast:[
+    [24,'2026-05-28','function',10,40,'U/L'],
+    [29,'2026-03-03','quest',10,40,'U/L'],
+    [41,'2025-12-18','function',10,40,'U/L'],
+    [15,'2025-04-14','quest',10,40,'U/L'],
+    [20,'2024-04-05','labcorp',0,40,'IU/L'],
+    [19,'2023-04-05','kaiser',10,40,'U/L'],
+  ],
+  alk_phos:[
+    [46,'2026-05-28','function',36,130,'U/L'],
+    [49,'2026-03-03','quest',36,130,'U/L'],
+    [49,'2025-12-18','function',36,130,'U/L'],
+    [39,'2025-04-14','quest',36,130,'U/L'],
+    [57,'2024-04-05','labcorp',44,121,'IU/L'],
+    [61,'2023-04-05','kaiser',37,117,'U/L'],
+  ],
+  bilirubin_total:[
+    [0.7,'2026-05-28','function',0.2,1.2,'mg/dL'],
+    [0.6,'2026-03-03','quest',0.2,1.2,'mg/dL'],
+    [1.0,'2025-12-18','function',0.2,1.2,'mg/dL'],
+    [0.7,'2025-04-14','quest',0.2,1.2,'mg/dL'],
+    [0.8,'2024-04-05','labcorp',0,1.2,'mg/dL'],
+    [0.5,'2023-04-05','kaiser',0.2,1.2,'mg/dL'],
+  ],
+  bilirubin_direct:[
+    [0.1,'2023-04-05','kaiser',0,0.3,'mg/dL'],
+  ],
+  albumin:[
+    [4.9,'2026-05-28','function',3.6,5.1,'g/dL'],
+    [5.0,'2026-03-03','quest',3.6,5.1,'g/dL'],
+    [5.0,'2025-12-18','function',3.6,5.1,'g/dL'],
+    [5.1,'2025-04-14','quest',3.6,5.1,'g/dL'],
+    [5.1,'2024-04-05','labcorp',4.3,5.2,'g/dL'],
+    [5.2,'2023-04-05','kaiser',3.7,5.7,'g/dL'],
+  ],
+  protein_total:[
+    [7.2,'2026-05-28','function',6.1,8.1,'g/dL'],
+    [7.2,'2026-03-03','quest',6.1,8.1,'g/dL'],
+    [7.4,'2025-12-18','function',6.1,8.1,'g/dL'],
+    [7.2,'2025-04-14','quest',6.1,8.1,'g/dL'],
+    [7.3,'2024-04-05','labcorp',6.0,8.5,'g/dL'],
+  ],
+  globulin:[
+    [2.3,'2026-05-28','function',1.9,3.7,'g/dL'],
+    [2.2,'2026-03-03','quest',1.9,3.7,'g/dL'],
+    [2.4,'2025-12-18','function',1.9,3.7,'g/dL'],
+    [2.1,'2025-04-14','quest',1.9,3.7,'g/dL'],
+    [2.2,'2024-04-05','labcorp',1.5,4.5,'g/dL'],
+  ],
+  ag_ratio:[
+    [2.1,'2026-05-28','function',1.0,2.5,''],
+    [2.3,'2026-03-03','quest',1.0,2.5,''],
+    [2.1,'2025-12-18','function',1.0,2.5,''],
+    [2.4,'2025-04-14','quest',1.0,2.5,''],
+    [2.3,'2024-04-05','labcorp',1.2,2.2,''],
+  ],
+  ggt:[ [16,'2025-12-18','function',3,70,'U/L'] ],
+  amylase:[ [62,'2025-12-18','function',21,101,'U/L'] ],
+  lipase:[ [23,'2025-12-18','function',7,60,'U/L'] ],
+
+  // ----- KIDNEY -----
+  bun:[
+    [15,'2026-05-28','function',7,25,'mg/dL'],
+    [18,'2026-03-03','quest',7,25,'mg/dL'],
+    [13,'2025-12-18','function',7,25,'mg/dL'],
+    [17,'2025-04-14','quest',7,25,'mg/dL'],
+    [12,'2024-04-05','labcorp',6,20,'mg/dL'],
+  ],
+  creatinine:[
+    [0.98,'2026-05-28','function',0.60,1.24,'mg/dL'],
+    [0.97,'2026-03-03','quest',0.60,1.24,'mg/dL'],
+    [0.93,'2025-12-18','function',0.60,1.24,'mg/dL'],
+    [0.96,'2025-04-14','quest',0.60,1.24,'mg/dL'],
+    [0.95,'2024-04-05','labcorp',0.76,1.27,'mg/dL'],
+    [0.98,'2023-04-05','kaiser',0.50,1.34,'mg/dL'],
+  ],
+  egfr:[
+    [110,'2026-05-28','function',60,120,'mL/min/1.73m²'],
+    [112,'2026-03-03','quest',60,120,'mL/min/1.73m²'],
+    [118,'2025-12-18','function',60,120,'mL/min/1.73m²'],
+    [114,'2025-04-14','quest',60,120,'mL/min/1.73m²'],
+    [116,'2024-04-05','labcorp',60,120,'mL/min/1.73m²'],
+    [60,'2023-04-05','kaiser',60,120,'mL/min/1.73m²'],
+  ],
+  bun_creat:[
+    [15,'2026-05-28','function',6,22,''],
+    [19,'2026-03-03','quest',6,22,''],
+    [14,'2025-12-18','function',6,22,''],
+    [13,'2024-04-05','labcorp',9,20,''],
+  ],
+  uric_acid:[ [5.1,'2025-12-18','function',4.0,8.0,'mg/dL'] ],
+  urine_sg:[ [1.037,'2026-05-28','function',1.001,1.035,''], [1.006,'2025-12-18','function',1.001,1.035,''] ],
+  urine_ph:[ [5.5,'2026-05-28','function',5.0,8.0,''], [7.5,'2025-12-18','function',5.0,8.0,''] ],
+
+  // ----- BLOOD -----
+  iron:[
+    [104,'2026-05-28','function',50,195,'mcg/dL'],
+    [116,'2026-03-03','quest',50,195,'mcg/dL'],
+    [180,'2025-12-18','function',50,195,'mcg/dL'],
+    [138,'2024-04-05','labcorp',38,169,'ug/dL'],
+    [106,'2023-04-05','kaiser',50,212,'ug/dL'],
+  ],
+  tibc:[
+    [347,'2026-05-28','function',250,425,'mcg/dL'],
+    [351,'2026-03-03','quest',250,425,'mcg/dL'],
+    [386,'2025-12-18','function',250,425,'mcg/dL'],
+    [326,'2024-04-05','labcorp',250,450,'ug/dL'],
+    [344,'2023-04-05','kaiser',228,428,'ug/dL'],
+  ],
+  uibc:[ [188,'2024-04-05','labcorp',111,343,'ug/dL'], [238,'2023-04-05','kaiser',110,370,'ug/dL'] ],
+  iron_sat:[
+    [30,'2026-05-28','function',20,48,'%'],
+    [33,'2026-03-03','quest',20,48,'%'],
+    [47,'2025-12-18','function',20,48,'%'],
+    [42,'2024-04-05','labcorp',15,55,'%'],
+    [31,'2023-04-05','kaiser',14,57,'%'],
+  ],
+  ferritin:[
+    [35,'2026-05-28','function',38,380,'ng/mL'],
+    [28,'2026-03-03','quest',38,380,'ng/mL'],
+    [30,'2025-12-18','function',38,380,'ng/mL'],
+    [125,'2024-04-05','labcorp',30,400,'ng/mL'],
+    [52,'2023-04-05','kaiser',22,365,'ng/mL'],
+  ],
+  wbc:[
+    [5.0,'2026-05-28','function',3.8,10.8,'K/µL'],
+    [5.9,'2026-03-03','quest',3.8,10.8,'K/µL'],
+    [4.1,'2025-12-18','function',3.8,10.8,'K/µL'],
+    [4.5,'2025-04-14','quest',3.8,10.8,'K/µL'],
+    [5.0,'2024-04-05','labcorp',3.4,10.8,'K/µL'],
+    [9.0,'2023-04-05','kaiser',3.7,11.1,'K/µL'],
+  ],
+  rbc:[
+    [5.13,'2026-05-28','function',4.20,5.80,'M/µL'],
+    [5.16,'2026-03-03','quest',4.20,5.80,'M/µL'],
+    [5.19,'2025-12-18','function',4.20,5.80,'M/µL'],
+    [4.90,'2025-04-14','quest',4.20,5.80,'M/µL'],
+    [5.21,'2024-04-05','labcorp',4.14,5.80,'M/µL'],
+    [5.03,'2023-04-05','kaiser',4.10,5.70,'M/µL'],
+  ],
+  hemoglobin:[
+    [15.3,'2026-05-28','function',13.2,17.1,'g/dL'],
+    [15.4,'2026-03-03','quest',13.2,17.1,'g/dL'],
+    [15.4,'2025-12-18','function',13.2,17.1,'g/dL'],
+    [14.5,'2025-04-14','quest',13.2,17.1,'g/dL'],
+    [15.6,'2024-04-05','labcorp',13.0,17.7,'g/dL'],
+    [14.5,'2023-04-05','kaiser',13.0,17.0,'g/dL'],
+  ],
+  hematocrit:[
+    [46.4,'2026-05-28','function',39.4,51.1,'%'],
+    [46.4,'2026-03-03','quest',39.4,51.1,'%'],
+    [46.5,'2025-12-18','function',39.4,51.1,'%'],
+    [43.7,'2025-04-14','quest',38.5,50.0,'%'],
+    [46.2,'2024-04-05','labcorp',37.5,51.0,'%'],
+    [44.8,'2023-04-05','kaiser',39.0,51.0,'%'],
+  ],
+  mcv:[
+    [90.4,'2026-05-28','function',81.4,101.7,'fL'],
+    [89.9,'2026-03-03','quest',81.4,101.7,'fL'],
+    [89.6,'2025-12-18','function',81.4,101.7,'fL'],
+    [89.2,'2025-04-14','quest',80.0,100.0,'fL'],
+    [89,'2024-04-05','labcorp',79,97,'fL'],
+    [89,'2023-04-05','kaiser',80,100,'fL'],
+  ],
+  mch:[
+    [29.8,'2026-05-28','function',27.0,33.0,'pg'],
+    [29.8,'2026-03-03','quest',27.0,33.0,'pg'],
+    [29.7,'2025-12-18','function',27.0,33.0,'pg'],
+    [29.6,'2025-04-14','quest',27.0,33.0,'pg'],
+    [29.9,'2024-04-05','labcorp',26.6,33.0,'pg'],
+  ],
+  mchc:[
+    [33.0,'2026-05-28','function',31.6,35.4,'g/dL'],
+    [33.2,'2026-03-03','quest',31.6,35.4,'g/dL'],
+    [33.1,'2025-12-18','function',31.6,35.4,'g/dL'],
+    [33.2,'2025-04-14','quest',32.0,36.0,'g/dL'],
+    [33.8,'2024-04-05','labcorp',31.5,35.7,'g/dL'],
+  ],
+  rdw:[
+    [12.7,'2026-05-28','function',11.0,15.0,'%'],
+    [12.9,'2026-03-03','quest',11.0,15.0,'%'],
+    [12.7,'2025-12-18','function',11.0,15.0,'%'],
+    [12.0,'2025-04-14','quest',11.0,15.0,'%'],
+    [12.1,'2024-04-05','labcorp',11.6,15.4,'%'],
+    [12.9,'2023-04-05','kaiser',12.0,16.5,'%'],
+  ],
+  platelets:[
+    [329,'2026-05-28','function',140,400,'K/µL'],
+    [313,'2026-03-03','quest',140,400,'K/µL'],
+    [305,'2025-12-18','function',140,400,'K/µL'],
+    [319,'2025-04-14','quest',140,400,'K/µL'],
+    [324,'2024-04-05','labcorp',150,450,'K/µL'],
+    [350,'2023-04-05','kaiser',140,400,'K/µL'],
+  ],
+  mpv:[
+    [11.5,'2026-05-28','function',7.5,12.5,'fL'],
+    [11.3,'2026-03-03','quest',7.5,12.5,'fL'],
+    [11.7,'2025-12-18','function',7.5,12.5,'fL'],
+    [11.7,'2025-04-14','quest',7.5,12.5,'fL'],
+  ],
+  neut_abs:[
+    [2560,'2026-05-28','function',1500,7800,'cells/µL'],
+    [2519,'2026-03-03','quest',1500,7800,'cells/µL'],
+    [2009,'2025-12-18','function',1500,7800,'cells/µL'],
+    [1971,'2025-04-14','quest',1500,7800,'cells/µL'],
+    [2000,'2024-04-05','labcorp',1400,7000,'cells/µL'],
+  ],
+  lymph_abs:[
+    [1905,'2026-05-28','function',850,3900,'cells/µL'],
+    [2738,'2026-03-03','quest',850,3900,'cells/µL'],
+    [1640,'2025-12-18','function',850,3900,'cells/µL'],
+    [2075,'2025-04-14','quest',850,3900,'cells/µL'],
+    [2400,'2024-04-05','labcorp',700,3100,'cells/µL'],
+  ],
+  mono_abs:[
+    [415,'2026-05-28','function',200,950,'cells/µL'],
+    [454,'2026-03-03','quest',200,950,'cells/µL'],
+    [373,'2025-12-18','function',200,950,'cells/µL'],
+    [383,'2025-04-14','quest',200,950,'cells/µL'],
+    [500,'2024-04-05','labcorp',100,900,'cells/µL'],
+  ],
+  eos_abs:[
+    [70,'2026-05-28','function',15,500,'cells/µL'],
+    [118,'2026-03-03','quest',15,500,'cells/µL'],
+    [29,'2025-12-18','function',15,500,'cells/µL'],
+    [32,'2025-04-14','quest',15,500,'cells/µL'],
+    [100,'2024-04-05','labcorp',0,400,'cells/µL'],
+  ],
+  baso_abs:[
+    [50,'2026-05-28','function',0,200,'cells/µL'],
+    [71,'2026-03-03','quest',0,200,'cells/µL'],
+    [49,'2025-12-18','function',0,200,'cells/µL'],
+    [41,'2025-04-14','quest',0,200,'cells/µL'],
+    [100,'2024-04-05','labcorp',0,200,'cells/µL'],
+  ],
+  immature_grans:[ [0.0,'2024-04-05','labcorp',0.0,0.1,'K/µL'] ],
+  pt:[ [14.7,'2023-04-05','kaiser',11.7,14.9,'s'] ],
+  pt_inr:[ [1.1,'2023-04-05','kaiser',0.8,1.2,''] ],
+
+  // ----- METAB -----
+  glucose:[
+    [92,'2026-05-28','function',65,99,'mg/dL'],
+    [98,'2026-03-03','quest',65,99,'mg/dL'],
+    [93,'2025-12-18','function',65,99,'mg/dL'],
+    [94,'2025-04-14','quest',65,99,'mg/dL'],
+    [98,'2024-04-05','labcorp',70,99,'mg/dL'],
+    [90,'2024-02-01','kaiser',60,99,'mg/dL'],
+    [88,'2023-04-05','kaiser',60,99,'mg/dL'],
+  ],
+  hba1c:[
+    [5.4,'2026-05-28','function',4.0,5.7,'%'],
+    [5.4,'2026-03-03','quest',4.0,5.7,'%'],
+    [5.3,'2025-12-18','function',4.0,5.7,'%'],
+  ],
+  insulin:[
+    [6.9,'2026-05-28','function',0,18.4,'µIU/mL'],
+    [5.8,'2025-12-18','function',0,18.4,'µIU/mL'],
+  ],
+  sodium:[
+    [141,'2026-05-28','function',135,146,'mmol/L'],
+    [141,'2026-03-03','quest',135,146,'mmol/L'],
+    [139,'2025-12-18','function',135,146,'mmol/L'],
+    [141,'2025-04-14','quest',135,146,'mmol/L'],
+    [138,'2024-04-05','labcorp',134,144,'mmol/L'],
+    [141,'2023-04-05','kaiser',135,145,'mmol/L'],
+  ],
+  potassium:[
+    [4.3,'2026-05-28','function',3.5,5.3,'mmol/L'],
+    [4.5,'2026-03-03','quest',3.5,5.3,'mmol/L'],
+    [4.3,'2025-12-18','function',3.5,5.3,'mmol/L'],
+    [4.1,'2025-04-14','quest',3.5,5.3,'mmol/L'],
+    [4.2,'2024-04-05','labcorp',3.5,5.2,'mmol/L'],
+    [4.1,'2023-04-05','kaiser',3.5,5.3,'mmol/L'],
+  ],
+  chloride:[
+    [102,'2026-05-28','function',98,110,'mmol/L'],
+    [104,'2026-03-03','quest',98,110,'mmol/L'],
+    [101,'2025-12-18','function',98,110,'mmol/L'],
+    [100,'2025-04-14','quest',98,110,'mmol/L'],
+    [98,'2024-04-05','labcorp',96,106,'mmol/L'],
+    [101,'2023-04-05','kaiser',100,111,'mmol/L'],
+  ],
+  co2:[
+    [30,'2026-05-28','function',20,32,'mmol/L'],
+    [29,'2026-03-03','quest',20,32,'mmol/L'],
+    [28,'2025-12-18','function',20,32,'mmol/L'],
+    [28,'2025-04-14','quest',20,32,'mmol/L'],
+    [26,'2024-04-05','labcorp',20,29,'mmol/L'],
+    [31,'2023-04-05','kaiser',24,33,'mmol/L'],
+  ],
+  calcium:[
+    [9.7,'2026-05-28','function',8.6,10.3,'mg/dL'],
+    [9.6,'2026-03-03','quest',8.6,10.3,'mg/dL'],
+    [9.9,'2025-12-18','function',8.6,10.3,'mg/dL'],
+    [9.9,'2025-04-14','quest',8.6,10.3,'mg/dL'],
+    [10.1,'2024-04-05','labcorp',8.7,10.2,'mg/dL'],
+  ],
+  leptin:[ [1.0,'2025-12-18','function',0.3,13.4,'ng/mL'] ],
+
+  // ----- HEART -----
+  chol_total:[
+    [151,'2026-05-28','function',0,200,'mg/dL'],
+    [153,'2026-03-03','quest',0,200,'mg/dL'],
+    [154,'2025-12-18','function',0,200,'mg/dL'],
+    [141,'2025-04-14','quest',0,200,'mg/dL'],
+    [129,'2024-02-01','kaiser',0,239,'mg/dL'],
+    [126,'2023-04-05','kaiser',0,239,'mg/dL'],
+  ],
+  hdl:[
+    [57,'2026-05-28','function',40,90,'mg/dL'],
+    [62,'2026-03-03','quest',40,90,'mg/dL'],
+    [66,'2025-12-18','function',40,90,'mg/dL'],
+    [54,'2025-04-14','quest',40,90,'mg/dL'],
+    [58,'2024-02-01','kaiser',40,90,'mg/dL'],
+    [45,'2023-04-05','kaiser',40,90,'mg/dL'],
+  ],
+  ldl:[
+    [79,'2026-05-28','function',0,100,'mg/dL'],
+    [77,'2026-03-03','quest',0,100,'mg/dL'],
+    [75,'2025-12-18','function',0,100,'mg/dL'],
+    [73,'2025-04-14','quest',0,100,'mg/dL'],
+    [61,'2024-02-01','kaiser',0,159,'mg/dL'],
+    [67,'2023-04-05','kaiser',0,159,'mg/dL'],
+  ],
+  trig:[
+    [66,'2026-05-28','function',0,150,'mg/dL'],
+    [64,'2026-03-03','quest',0,150,'mg/dL'],
+    [54,'2025-12-18','function',0,150,'mg/dL'],
+    [63,'2025-04-14','quest',0,150,'mg/dL'],
+    [51,'2024-02-01','kaiser',0,499,'mg/dL'],
+    [71,'2023-04-05','kaiser',0,499,'mg/dL'],
+  ],
+  chol_hdl:[
+    [2.6,'2026-05-28','function',0,5.0,''],
+    [2.5,'2026-03-03','quest',0,5.0,''],
+    [2.3,'2025-12-18','function',0,5.0,''],
+    [2.6,'2025-04-14','quest',0,5.0,''],
+  ],
+  non_hdl:[
+    [94,'2026-05-28','function',0,130,'mg/dL'],
+    [91,'2026-03-03','quest',0,130,'mg/dL'],
+    [88,'2025-12-18','function',0,130,'mg/dL'],
+    [87,'2025-04-14','quest',0,130,'mg/dL'],
+  ],
+  apob:[ [59,'2025-12-18','function',0,90,'mg/dL'] ],
+  lpa:[ [10,'2025-12-18','function',0,75,'nmol/L'] ],
+  hs_crp:[
+    [0.2,'2026-05-28','function',0,1.0,'mg/L'],
+    [0.2,'2025-12-18','function',0,1.0,'mg/L'],
+  ],
+  crp:[
+    [1,'2026-06-11','labcorp',0,10,'mg/L'],
+    [1,'2024-04-05','labcorp',0,10,'mg/L'],
+    [0.4,'2023-04-05','kaiser',0,0.5,'mg/dL'],
+  ],
+  ldl_p:[ [974,'2025-12-18','function',0,1138,'nmol/L'] ],
+  ldl_small:[ [140,'2025-12-18','function',0,142,'nmol/L'] ],
+  ldl_med:[ [193,'2025-12-18','function',0,215,'nmol/L'] ],
+  hdl_large:[ [6596,'2025-12-18','function',6729,17886,'nmol/L'] ],
+  ldl_peak:[ [221.7,'2025-12-18','function',222.9,234.3,'Å'] ],
+
+  // ----- HORMONE -----
+  testo_total:[ [491,'2025-12-18','function',250,1100,'ng/dL'] ],
+  testo_free:[ [87.5,'2025-12-18','function',35.0,155.0,'pg/mL'] ],
+  shbg:[ [23,'2025-12-18','function',10,50,'nmol/L'] ],
+  dheas:[ [461,'2025-12-18','function',74,617,'mcg/dL'] ],
+  estradiol:[ [30,'2025-12-18','function',0,39,'pg/mL'] ],
+  prolactin:[ [7.3,'2025-12-18','function',2.0,18.0,'ng/mL'] ],
+  lh:[ [2.8,'2025-12-18','function',1.5,9.3,'mIU/mL'] ],
+  fsh:[ [2.5,'2025-12-18','function',1.4,12.8,'mIU/mL'] ],
+  tsh:[
+    [1.21,'2026-03-03','quest',0.40,4.50,'mIU/L'],
+    [0.85,'2025-12-18','function',0.40,4.50,'mIU/L'],
+  ],
+  ft4:[ [1.3,'2025-12-18','function',0.8,1.8,'ng/dL'] ],
+  ft3:[ [3.7,'2025-12-18','function',2.3,4.2,'pg/mL'] ],
+  cortisol:[ [8.2,'2025-12-18','function',1.8,13.6,'mcg/dL'] ],
+
+  // ----- VITAMINS / MINERALS -----
+  vit_d:[
+    [49,'2026-03-03','quest',30,100,'ng/mL'],
+    [27,'2025-12-18','function',30,100,'ng/mL'],
+    [49,'2025-04-14','quest',30,100,'ng/mL'],
+    [56.6,'2024-04-05','labcorp',30,100,'ng/mL'],
+    [43,'2024-02-01','kaiser',20,79,'ng/mL'],
+    [11,'2023-04-05','kaiser',20,79,'ng/mL'],
+  ],
+  b12:[
+    [412,'2026-03-03','quest',200,1100,'pg/mL'],
+    [341,'2025-12-19','function',200,1100,'pg/mL'],
+    [453,'2024-04-05','labcorp',232,1245,'pg/mL'],
+    [318,'2023-04-05','kaiser',200,1100,'pg/mL'],
+  ],
+  folate_serum:[
+    [17.0,'2026-03-03','quest',5.4,99,'ng/mL'],
+    [17.0,'2024-04-05','labcorp',3.0,99,'ng/mL'],
+  ],
+  folate_rbc:[ [399,'2025-12-19','function',280,2000,'ng/mL'] ],
+  vit_a:[ [56,'2025-12-19','function',38,98,'mcg/dL'] ],
+  vit_e_a:[ [9.3,'2025-12-19','function',5.7,19.9,'mg/L'] ],
+  vit_e_bg:[ [1.0,'2025-12-19','function',0,4.4,'mg/L'] ],
+  mma:[ [262,'2025-12-18','function',55,335,'nmol/L'] ],
+  homocysteine:[
+    [8.5,'2026-05-28','function',0,12.9,'µmol/L'],
+    [14.3,'2025-12-18','function',0,12.9,'µmol/L'],
+  ],
+  iodine:[ [46,'2025-12-19','function',52,109,'mcg/L'] ],
+  copper:[ [67,'2025-12-19','function',80,180,'mcg/dL'] ],
+  zinc:[
+    [82,'2025-12-18','function',60,130,'mcg/dL'],
+    [91,'2024-04-05','labcorp',44,115,'mcg/dL'],
+  ],
+  selenium:[ [100,'2025-12-19','function',63,160,'mcg/L'] ],
+  mg_rbc:[ [5.3,'2025-12-18','function',4.0,6.4,'mg/dL'] ],
+  chromium:[ [0.4,'2025-12-19','function',0,1.2,'mcg/L'] ],
+  molybdenum:[ [0.4,'2025-12-19','function',0,2.2,'mcg/L'] ],
+  lead:[ [0.5,'2025-12-18','function',0,3.5,'mcg/dL'] ],
+  mercury:[ [2.5,'2025-12-18','function',0,11,'mcg/L'] ],
+  coq10:[ [0.83,'2025-12-19','function',0.35,2.5,'µg/mL'] ],
+
+  // ----- OMEGA -----
+  omega3_total:[ [2.6,'2025-12-18','function',3.7,14.4,'% by wt'] ],
+  epa_dpa_dha:[ [2.6,'2025-12-18','function',5.4,12,'% by wt'] ],
+  epa:[ [0.3,'2025-12-18','function',0.2,2.3,'% by wt'] ],
+  dpa:[ [0.7,'2025-12-18','function',0.8,1.8,'% by wt'] ],
+  dha:[ [1.7,'2025-12-18','function',1.4,5.1,'% by wt'] ],
+  omega6_3_ratio:[ [13.6,'2025-12-18','function',3.7,14.4,''] ],
+
+  // ----- GUT -----
+  calprotectin_fecal:[
+    [38,'2026-06-11','labcorp',0,120,'µg/g'],
+    [5,'2024-04-05','labcorp',0,120,'µg/g'],
+    [1370,'2023-04-19','kaiser',0,49,'µg/g'],
+  ],
+
+  // ----- IMMUNE -----
+  ana:[ ['Negative','2025-12-18','function'] ],
+  rf:[ ['<10 IU/mL','2025-12-18','function'] ],
+  ige_total:[ [76,'2025-12-18','function',0,114,'kU/L'] ],
+  tpo_ab:[ ['<1 IU/mL','2025-12-18','function'] ],
+  tg_ab:[ ['<1 IU/mL','2025-12-18','function'] ],
+
+  // ----- INFECT -----
+  hiv:[ ['Negative','2025-12-19','function'] ],
+  syphilis:[ ['Non-reactive','2025-12-19','function'] ],
+  hsv1:[ ['Negative','2025-12-19','function'] ],
+  hsv2:[ ['Negative','2025-12-19','function'] ],
+  chlamydia:[
+    ['Not detected','2025-12-19','function'],
+    ['Not detected','2025-04-11','quest'],
+  ],
+  gonorrhea:[
+    ['Not detected','2025-12-19','function'],
+    ['Not detected','2025-04-11','quest'],
+  ],
+  trich:[ ['Not detected','2025-12-19','function'] ],
+  hepb_core:[ ['Negative','2023-04-05','kaiser'] ],
+  hepb_surface_ag:[ ['Negative','2023-04-05','kaiser'] ],
+  hepb_surface_ab:[ ['Negative','2023-04-05','kaiser'] ],
+  hepa_ab:[ ['Negative','2023-04-05','kaiser'] ],
+  hepb_dna:[ ['Not detected','2023-04-05','kaiser'] ],
+  qft_tb:[ ['Negative','2023-04-05','kaiser'] ],
+
+  // ----- CANCER -----
+  psa_total:[ [0.5,'2025-12-18','function',0,4.0,'ng/mL'] ],
+  psa_free:[ [0.3,'2025-12-18','function',0,4.0,'ng/mL'] ],
+  psa_pct_free:[ [60,'2025-12-18','function',25,100,'%'] ],
+};
+
+/* Food IgG sensitivities (Function Dec 19) */
+const IGG = [
+  ["Wheat",7.2],["Maize / Corn",5.5],["Yeast",4.7],["Egg white",3.9],["Tomato",3.5],
+  ["Cacao (chocolate)",3.4],["Coffee",3.1],["Casein",3.1],["Soybean",2.9],["Codfish",2.6],["Peanut",2.5]
+];
+const IGE_NEGS = [
+  "Dust mites","Cat","Dog","Cockroach","Penicillium","Cladosporium","Aspergillus","Alternaria",
+  "Alder","Birch","Mountain cedar","Olive","Sycamore","Oak","Elm","White mulberry","Bermuda grass",
+  "Timothy grass","Ragweed","Mugwort","Russian thistle","Pigweed","Mouse urine",
+  "Egg white","Peanut","Wheat","Walnut","Codfish","Cow's milk","Soybean","Shrimp","Scallop",
+  "Sesame","Hazelnut","Cashew","Almond","Salmon","Tuna","Brazil nut","Macadamia","Crab","Lobster","Clam"
+];
+
+/* ============ BUILD METRICS ============ */
+const metrics = {};
+Object.entries(REC).forEach(([id, rows]) => {
+  if(!M[id]) return;
+  const def = M[id];
+  rows.sort((a,b) => b[1].localeCompare(a[1])); // newest first
+  const latest = rows[0];
+  const qual = typeof latest[0] === "string";
+  const records = rows.map(r => qual
+    ? {v:r[0], d:r[1], s:r[2], qual:true}
+    : {v:r[0], d:r[1], s:r[2], lo:r[3], hi:r[4], u:r[5]}
+  );
+  metrics[id] = {
+    id, n: def.n, cat: def.cat, fd: def.fd, qual,
+    records,
+    latest: records[0],
+    // Latest range/unit (used for cards)
+    u: qual ? "" : records[0].u,
+    lo: qual ? null : records[0].lo,
+    hi: qual ? null : records[0].hi,
+    cur: records[0].v,
+    prev: records[1] ? records[1].v : null,
+    date: records[0].d,
+  };
+});
+
+/* ============ HELPERS ============ */
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function fmtDate(d){
+  const [y,m,dd] = d.split('-').map(Number);
+  return `${MONTHS[m-1]} ${dd}, ${y}`;
+}
+function fmtDateShort(d){
+  const [y,m,dd] = d.split('-').map(Number);
+  return `${MONTHS[m-1]} ${dd}`;
+}
+function classify(m){
+  if(m.qual) return "in";
+  const v = typeof m.cur === "number" ? m.cur : (m.v ?? m.cur);
+  if(m.fd==="good-floor") return v >= m.lo ? "in" : "lo";
+  if(v < m.lo) return "lo";
+  if(v > m.hi) return "hi";
+  return "in";
+}
+function classifyVal(v, lo, hi, fd){
+  if(fd==="good-floor") return v >= lo ? "in" : "lo";
+  if(v < lo) return "lo"; if(v > hi) return "hi"; return "in";
+}
+function fmt(n){
+  if(typeof n !== "number") return n == null ? "—" : n;
+  if(Number.isInteger(n)) return n.toString();
+  return (+n.toPrecision(6)).toString();
+}
+function statusText(cls){ return cls==="in"?"In Range":cls==="lo"?"Below Range":"Above Range"; }
+
+/* mini sparkline now supports N points */
+function spark(records, lo, hi, fd){
+  // records is newest-first; chart left=oldest, right=newest
+  const rs = [...records].reverse();
+  const vals = rs.map(r=>r.v);
+  const minV = Math.min(...vals, lo);
+  const maxV = Math.max(...vals, hi);
+  const sp = (maxV - minV) || 1;
+  const yPct = v => 100 * (maxV - v) / sp;
+  const okTop = yPct(hi), okBottom = yPct(lo);
+  const latest = rs[rs.length-1];
+  const cls = classifyVal(latest.v, lo, hi, fd);
+  const color = cls==="in" ? "var(--good)" : "var(--warn)";
+  const n = rs.length;
+  const xAt = i => n===1 ? 50 : (i/(n-1)) * 100;
+  const points = rs.map((r,i) => `${xAt(i)},${yPct(r.v)}`).join(" ");
+  const dots = rs.map((r,i) => {
+    const isLast = i === rs.length-1;
+    const c = isLast ? color : "var(--text-3)";
+    return `<div class="dot" style="left:${i===0?"1px":i===n-1?"calc(100% - 1px)":`${xAt(i)}%`};top:${yPct(r.v)}%;background:${c}"></div>`;
+  }).join("");
+  return `<div class="mini-trend">
+    <div class="opt-band" style="top:${okTop}%;height:${Math.max(2,okBottom-okTop)}%"></div>
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      <polyline points="${points}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    </svg>
+    ${dots}
+  </div>`;
+}
+
+/* Mini range bar for single-point cards */
+function miniRange(m, cls){
+  const lo=m.lo, hi=m.hi;
+  const span = (hi - lo) || 1;
+  const a = lo - span*0.25;
+  const b = hi + span*0.25;
+  const p = Math.max(2, Math.min(98, (m.cur-a)/(b-a)*100));
+  const okL = (lo-a)/(b-a)*100, okW = (hi-lo)/(b-a)*100;
+  const pinColor = cls==="in"?"var(--good)":"var(--warn)";
+  return `<div class="mini-range">
+    <div class="bar">
+      <div class="ok" style="left:${okL}%;width:${okW}%"></div>
+      <div class="pin" style="left:calc(${p}% - 1.5px);background:${pinColor}"></div>
+    </div>
+    <div class="lo-hi"><span>${fmt(lo)}</span><span>${fmt(hi)}</span></div>
+  </div>`;
+}
+
+/* ============ RENDER CARDS ============ */
+function cardHTML(m){
+  const cls = m.qual ? "in" : classify(m);
+  const color = `var(--${m.cat})`;
+  let viz = "", tag, valHTML;
+
+  if(m.qual){
+    const isNeg = /negative|not detected|non-reactive|<\s*\d/i.test(String(m.cur));
+    tag = `<span class="tag ${isNeg?'in':''}">${isNeg?'Negative':'Result'}</span>`;
+    valHTML = `<div class="big qual">${m.cur}</div>`;
+  } else {
+    tag = `<span class="tag ${cls}">${statusText(cls)}</span>`;
+    valHTML = `<div class="big">${fmt(m.cur)}${m.u?`<small>${m.u}</small>`:""}</div>`;
+    if(m.records.length >= 2){
+      viz = spark(m.records, m.lo, m.hi, m.fd);
+    } else {
+      viz = miniRange(m, cls);
+    }
+  }
+
+  const sourceName = (SOURCES[m.latest.s] && SOURCES[m.latest.s].label) || m.latest.s;
+  const metaParts = [`${fmtDate(m.latest.d)} · ${sourceName}`];
+  if(m.records.length >= 2 && !m.qual) metaParts.push(`${m.records.length} records`);
+  else if(!m.qual) metaParts.push(`Range ${fmt(m.lo)}–${fmt(m.hi)} ${m.u||""}`);
+
+  return `<a class="mcard" href="#/m/${m.id}" style="--cat:${color}">
+    <div class="row1"><span class="ic">${CATS[m.cat].letter}</span> ${CATS[m.cat].name}</div>
+    ${tag}
+    <div class="name">${m.n}</div>
+    <div class="meta">${metaParts.join(" · ")}</div>
+    ${valHTML}
+    ${viz}
+  </a>`;
+}
+
+/* ============ DETAIL PAGE ============ */
+function detailHTML(m){
+  const cls = m.qual ? "in" : classify(m);
+  const pinColor = cls==="in"?"var(--good)":"var(--warn)";
+  const color = `var(--${m.cat})`;
+  const status = m.qual
+    ? (/negative|not detected|non-reactive/i.test(String(m.cur))?"Negative":"Result")
+    : statusText(cls);
+  const valClass = cls==="in"?"":(cls==="lo"?"lo":"hi");
+  const big = m.qual
+    ? `<div class="big-val qual">${m.cur}</div>`
+    : `<div class="big-val ${valClass}">${fmt(m.cur)}<small>${m.u||""}</small></div>`;
+
+  // Delta vs previous (if any)
+  let delta = "";
+  if(typeof m.cur === "number" && typeof m.prev === "number"){
+    const d = m.cur - m.prev;
+    const prevDate = fmtDate(m.records[1].d);
+    delta = `<div class="delta"><span>Previous: <b>${fmt(m.prev)} ${m.u||""}</b> on ${prevDate}</span><span>Change: <b>${d>=0?'+':''}${fmt(d)} ${m.u||""}</b></span></div>`;
+  }
+
+  // Trend chart (≥2 points)
+  let chartCard = "";
+  if(!m.qual && m.records.length >= 2){
+    chartCard = `<h3 class="dsub">Trend</h3>${trendChartHTML(m, pinColor)}`;
+  } else if(!m.qual){
+    const b1=33, b2=67;
+    let pinLeft, segMid;
+    if(cls==="in"){
+      const rel = (m.cur - m.lo) / Math.max(0.0001, m.hi - m.lo);
+      pinLeft = b1 + rel*(b2-b1); segMid = (b1+b2)/2;
+    } else if(cls==="lo"){
+      const rel = Math.max(0, Math.min(1, m.cur / Math.max(0.0001, m.lo)));
+      pinLeft = rel*b1; segMid = b1/2;
+    } else {
+      const rel = Math.max(0, Math.min(1, (m.cur-m.hi)/Math.max(0.0001, m.hi)));
+      pinLeft = b2 + rel*(100-b2); segMid = (b2+100)/2;
+    }
+    chartCard = `<h3 class="dsub">Where you land</h3>
+    <div class="detail-card chart-card">
+      <div class="ch-title">Single measurement · ${fmtDate(m.latest.d)}</div>
+      <div class="ch-summary">${fmt(m.cur)} ${m.u||""}</div>
+      <div class="hero-bar-wrap">
+        <div class="hero-status ${cls}"><span style="left:${segMid}%">${status}</span></div>
+        <div class="bar3 hero ${cls}">
+          <div class="b3s ${cls==='lo'?'on':''}"></div>
+          <div class="b3s ${cls==='in'?'on':''}"></div>
+          <div class="b3s ${cls==='hi'?'on':''}"></div>
+          <div class="pin" style="left:${pinLeft}%"></div>
+        </div>
+        <div class="hero-lohi"><span style="left:${b1}%">${fmt(m.lo)} ${m.u||""}</span><span style="left:${b2}%">${fmt(m.hi)} ${m.u||""}</span></div>
+      </div>
+    </div>`;
+  }
+
+  const statusClass = cls==="in"?"in":cls==="lo"?"lo":"hi";
+  const refTxt = m.qual ? "Qualitative"
+    : (m.fd==="good-floor" ? `≥ ${fmt(m.lo)} ${m.u||""}` : `${fmt(m.lo)} – ${fmt(m.hi)} ${m.u||""}`);
+  const labels = new Set(m.records.map(r => SOURCES[r.s]?.label || r.s));
+
+  // Records cards (every measurement)
+  const recordsHTML = `<h3 class="dsub">Records · ${m.records.length}</h3>
+    <div class="records">${m.records.map(r => recordCardHTML(m, r)).join("")}</div>`;
+
+  // Source PDFs (unique sources)
+  const sourceKeys = [...new Set(m.records.map(r => `${r.s}|${r.d}`))]
+    .filter(k => PDFS[k]).slice(0, 6);
+  const sourcesHTML = sourceKeys.length ? `<h3 class="dsub">Source reports</h3>
+    <div class="detail-sources">` +
+    sourceKeys.map(k => {
+      const [pdf, label] = PDFS[k];
+      const date = k.split('|')[1];
+      const labelOnly = label.replace(/^.*?·\s*/, '');
+      const src = SOURCES[k.split('|')[0]]?.label || k.split('|')[0];
+      return `<a class="detail-source" href="${pdf}" target="_blank" rel="noopener">
+        <div class="left"><div class="t">${src} · ${labelOnly}</div><div class="s">${fmtDate(date)} · open PDF ↗</div></div>
+        <div class="chev">›</div>
+      </a>`;
+    }).join("") + `</div>` : "";
+
+  return `<div class="hero-card" style="--cat:${color}">
+    <div class="top">
+      <div class="cat"><span class="ic">${CATS[m.cat].letter}</span> ${CATS[m.cat].name}</div>
+      <span class="tag ${m.qual?'in':cls}">${status}</span>
+    </div>
+    <div class="name">${m.n}</div>
+    ${big}
+    <div class="date">Collected ${fmtDate(m.latest.d)} · ${SOURCES[m.latest.s]?.label || m.latest.s}</div>
+    ${delta}
+  </div>
+  ${chartCard}
+  <h3 class="dsub">Details</h3>
+  <div class="detail-stats">
+    <div class="stat"><div class="k">Status</div><div class="vv ${statusClass}">${status}</div></div>
+    <div class="stat"><div class="k">Reference</div><div class="vv">${refTxt}</div></div>
+    <div class="stat"><div class="k">Sources</div><div class="vv">${[...labels].join(", ")}</div></div>
+  </div>
+  ${recordsHTML}
+  ${sourcesHTML}`;
+}
+
+/* Big trend chart for N records */
+function trendChartHTML(m, pinColor){
+  const rs = [...m.records].reverse(); // oldest → newest
+  const n = rs.length;
+  const vals = rs.map(r=>r.v);
+  const minVraw = Math.min(...vals, m.lo);
+  const maxVraw = Math.max(...vals, m.hi);
+  const spanR = maxVraw - minVraw || 1;
+  const minV = minVraw - spanR*0.2;
+  const maxV = maxVraw + spanR*0.2;
+  const sp2 = (maxV - minV) || 1;
+  const yPct = v => 100 * (maxV - v) / sp2;
+  const okTop = yPct(m.hi), okBottom = yPct(m.lo);
+
+  // X positions: time-scaled if dates span, else even
+  const ts = rs.map(r => Date.parse(r.d));
+  const tMin = Math.min(...ts), tMax = Math.max(...ts);
+  const xAt = i => (tMax === tMin) ? (n===1?50:(i/(n-1))*100) : ((ts[i]-tMin)/(tMax-tMin))*100;
+
+  // Polyline (svg, stretched)
+  const poly = rs.map((r,i)=>`${xAt(i)},${yPct(r.v)}`).join(" ");
+
+  // HTML positioned dots
+  const dots = rs.map((r,i) => {
+    const isLast = i === n - 1;
+    const cls = classifyVal(r.v, m.lo, m.hi, m.fd);
+    const color = isLast ? pinColor : (cls==="in" ? "var(--text-3)" : "var(--warn)");
+    return `<div class="dot ${isLast?'cur':'prev'}" style="left:${xAt(i)}%;top:${yPct(r.v)}%;background:${color}"><span class="lbl"${isLast?` style="color:${color}"`:''}>${fmt(r.v)}</span></div>`;
+  }).join("");
+
+  const dateRange = `${fmtDate(rs[0].d)} → ${fmtDate(rs[n-1].d)}`;
+  const summary = `${fmt(rs[0].v)} → <span style="color:${pinColor}">${fmt(rs[n-1].v)}</span> ${m.u||""}`;
+
+  return `<div class="detail-card chart-card">
+    <div class="ch-title">${dateRange} · ${n} measurements</div>
+    <div class="ch-summary">${summary}</div>
+    <div class="big-trend">
+      <div class="chart">
+        <div class="opt-band" style="top:${okTop}%;height:${Math.max(2,okBottom-okTop)}%"></div>
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+          <polyline points="${poly}" fill="none" stroke="${pinColor}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+        </svg>
+        ${dots}
+      </div>
+      <div class="x-lbls"><span>${fmtDateShort(rs[0].d)}</span><span>${fmtDateShort(rs[n-1].d)}</span></div>
+    </div>
+  </div>`;
+}
+
+/* Record card (Apple Health style, per measurement) */
+function recordCardHTML(m, r){
+  const sourceName = (SOURCES[r.s] && SOURCES[r.s].label) || r.s;
+  const fullDate = fmtDate(r.d);
+  const shortDate = fmtDateShort(r.d);
+  const labelName = m.n.toUpperCase();
+  const color = `var(--${m.cat})`;
+
+  if(m.qual || typeof r.v === "string"){
+    return `<div class="rec-group">
+      <div class="rec-date">${fullDate}</div>
+      <div class="rec-sub">${sourceName}</div>
+      <div class="rec-card" style="--cat:${color}">
+        <div class="rc-top">
+          <div class="rc-cat"><span class="vial"></span>${labelName}</div>
+          <div class="rc-date">${shortDate}</div>
+        </div>
+        <div class="rc-val qual">${r.v}</div>
+        <div class="rc-collected">Collected · ${fullDate} · ${sourceName}</div>
+      </div>
+    </div>`;
+  }
+
+  // Quantitative
+  const lo = r.lo, hi = r.hi;
+  const cls = classifyVal(r.v, lo, hi, m.fd);
+  const b1 = 33, b2 = 67;
+  let pinLeft, segMid;
+  if(cls === "in"){
+    const rel = (r.v - lo) / Math.max(0.0001, hi - lo);
+    pinLeft = b1 + rel*(b2-b1); segMid = (b1+b2)/2;
+  } else if(cls === "lo"){
+    const rel = Math.max(0, Math.min(1, r.v / Math.max(0.0001, lo)));
+    pinLeft = rel*b1; segMid = b1/2;
+  } else {
+    const rel = Math.max(0, Math.min(1, (r.v - hi) / Math.max(0.0001, hi)));
+    pinLeft = b2 + rel*(100-b2); segMid = (b2+100)/2;
+  }
+  return `<div class="rec-group">
+    <div class="rec-date">${fullDate}</div>
+    <div class="rec-sub">${sourceName}</div>
+    <div class="rec-card" style="--cat:${color}">
+      <div class="rc-top">
+        <div class="rc-cat"><span class="vial"></span>${labelName}</div>
+        <div class="rc-date">${shortDate}</div>
+      </div>
+      <div class="rc-val">${fmt(r.v)}<small>${r.u||""}</small></div>
+      <div class="rc-bar">
+        <div class="status ${cls}"><span style="left:${segMid}%">${statusText(cls)}</span></div>
+        <div class="bar3 ${cls}">
+          <div class="b3s ${cls==='lo'?'on':''}"></div>
+          <div class="b3s ${cls==='in'?'on':''}"></div>
+          <div class="b3s ${cls==='hi'?'on':''}"></div>
+          <div class="pin" style="left:${pinLeft}%"></div>
+        </div>
+        <div class="lo-hi"><span style="left:${b1}%">${fmt(lo)}</span><span style="left:${b2}%">${fmt(hi)}</span></div>
+      </div>
+      <div class="rc-collected">Collected · ${fullDate} · ${sourceName}</div>
+    </div>
+  </div>`;
+}
+
+/* ============ POPULATE PAGE ============ */
+// Favorites
+const FAVS = ["alt","homocysteine","ferritin","vit_d"].map(id => metrics[id]).filter(Boolean);
+document.getElementById('favs').innerHTML = FAVS.map(cardHTML).join("");
+
+// Out of range (latest is out of range)
+const FLAGS = Object.values(metrics).filter(m => !m.qual && classify(m) !== "in")
+  .sort((a,b) => b.latest.d.localeCompare(a.latest.d));
+document.getElementById('flags').innerHTML = FLAGS.map(cardHTML).join("") || `<div style="color:var(--text-3);padding:20px;text-align:center;font-size:14px">All current measurements are in range.</div>`;
+
+// Most recent panel — find latest date overall, show all metrics with that date
+const allDates = Object.values(metrics).map(m => m.latest.d).sort();
+const latestDate = allDates[allDates.length - 1];
+const RECENT = Object.values(metrics).filter(m => m.latest.d === latestDate);
+const RECENT_ORDER = ["heart","liver","kidney","blood","metab","vit","hormone","omega","gut","immune","infect","cancer"];
+RECENT.sort((a,b) => RECENT_ORDER.indexOf(a.cat) - RECENT_ORDER.indexOf(b.cat));
+document.getElementById('recent').innerHTML = RECENT.map(cardHTML).join("");
+// Update "Most recent panel" date label dynamically from the newest record
+const recentMetaEl = document.getElementById('recent-meta');
+if(recentMetaEl && RECENT.length){
+  const srcName = SOURCES[RECENT[0].latest.s]?.label.replace(/\s+(Health|Diagnostics|Permanente)$/,'') || RECENT[0].latest.s;
+  recentMetaEl.textContent = `${fmtDate(latestDate)} · ${srcName}`;
+}
+// browse
+const browseEl = document.getElementById('browse-cats');
+let browseHTML = "";
+Object.entries(CATS).forEach(([key, info]) => {
+  const items = Object.values(metrics).filter(m => m.cat === key);
+  if(items.length === 0) return;
+  items.sort((a,b) => a.n.localeCompare(b.n));
+  const flagged = items.filter(m => !m.qual && classify(m) !== "in").length;
+  const flagDot = flagged > 0 ? `<span style="display:inline-block;width:8px;height:8px;background:var(--warn);border-radius:999px;margin-right:8px"></span>` : "";
+  browseHTML += `<div class="browse-row" data-key="${key}" style="--cat:var(--${key})">
+    <div class="ic">${info.letter}</div>
+    <div><div class="nm">${info.name}</div><div class="ct">${info.desc}</div></div>
+    <div class="count">${flagDot}${items.length} <span style="color:var(--text-4);font-size:18px">›</span></div>
+  </div>
+  <div class="browse-children"><div class="mgrid" style="padding:12px">${items.map(cardHTML).join("")}</div></div>`;
+});
+browseEl.innerHTML = browseHTML;
+browseEl.addEventListener('click', e=>{
+  const r = e.target.closest('.browse-row'); if(!r) return;
+  r.classList.toggle('open');
+});
+
+// IgG/IgE chips
+document.getElementById('igg-high').innerHTML = IGG.sort((a,b)=>b[1]-a[1])
+  .map(([n,v])=>`<span class="chip ${v>=4?'bad':'warn'}">${n} <small>${v}</small></span>`).join('');
+document.getElementById('ige-negs').innerHTML = IGE_NEGS.map(n=>`<span class="chip good">${n}</span>`).join('');
+
+// Update header dates display
+const headerDates = document.querySelector('.dates');
+if(headerDates){
+  const allRecs = Object.values(metrics).flatMap(m => m.records);
+  const dateLabels = {};
+  allRecs.forEach(r => {
+    const key = `${r.s}|${r.d}`;
+    if(PDFS[key]) dateLabels[key] = PDFS[key];
+  });
+  headerDates.innerHTML = Object.entries(dateLabels)
+    .sort((a,b) => a[0].split('|')[1].localeCompare(b[0].split('|')[1]))
+    .map(([k, [pdf, label]]) => {
+      const date = k.split('|')[1];
+      return `<a class="date" href="${pdf}" target="_blank" rel="noopener"><b>${fmtDate(date)}</b> · ${label.replace(/^.*?·\s*/, '')} · PDF ↗</a>`;
+    }).join("");
+}
+
+// Replace top highlight cards' content programmatically (dynamic from data)
+const altM = metrics.alt, homM = metrics.homocysteine, ferM = metrics.ferritin, vdM = metrics.vit_d;
+const highlightsEl = document.querySelector('.highlights');
+if(highlightsEl){
+  const hls = [];
+  if(altM && altM.records.length >= 2){
+    const r0 = altM.records[0], r1 = altM.records[1];
+    const dropped = r1.v - r0.v;
+    if(Math.abs(dropped) > 5){
+      hls.push({cat:"liver", title:"ALT trend", body:`Latest reading <b>${fmt(r0.v)} ${r0.u}</b> on ${fmtDate(r0.d)}${dropped>0?` — down <b>${fmt(dropped)}</b> from ${fmt(r1.v)}.`:` — up <b>${fmt(-dropped)}</b> from ${fmt(r1.v)}.`}`});
+    }
+  }
+  if(homM && homM.records.length >= 2){
+    hls.push({cat:"vit", title:"Homocysteine", body:`Latest: <b>${fmt(homM.cur)} ${homM.u}</b> on ${fmtDate(homM.latest.d)}. Was <b>${fmt(homM.prev)}</b> in ${fmtDate(homM.records[1].d).split(',')[0]}.`});
+  }
+  if(ferM){
+    const cls = classify(ferM);
+    if(cls !== "in") hls.push({cat:"blood", title:"Iron stores", body:`Ferritin is <b>${fmt(ferM.cur)} ${ferM.u}</b> — below the ${fmt(ferM.lo)} floor as of ${fmtDate(ferM.latest.d)}.`});
+  }
+  if(vdM){
+    const cls = classify(vdM);
+    if(cls !== "in") hls.push({cat:"vit", title:"Vitamin D", body:`<b>${fmt(vdM.cur)} ${vdM.u}</b> — below optimal (≥${fmt(vdM.lo)}) on ${fmtDate(vdM.latest.d)}.`});
+  }
+  if(hls.length){
+    highlightsEl.innerHTML = hls.map(h => `<div class="hl">
+      <div class="lbl"><span class="dot" style="background:var(--${h.cat})">${CATS[h.cat].letter}</span> ${CATS[h.cat].name}</div>
+      <div class="head">${h.title}</div>
+      <div class="body">${h.body}</div>
+    </div>`).join("");
+  }
+}
+
+// Docs pane — group reports by year, newest first
+const SRC_COLOR = { function:"var(--vit)", quest:"var(--cancer)", labcorp:"var(--immune)", kaiser:"var(--hormone)" };
+const SRC_LETTER = { function:"F", quest:"Q", labcorp:"L", kaiser:"K" };
+// Official brand symbol marks (high-res), used to identify each report's source lab.
+const SRC_LOGO = {
+  function: "logos/function.png",
+  quest:    "logos/quest.png",
+  labcorp:  "logos/labcorp-mark.svg",
+  kaiser:   "logos/kaiser-mark.svg",
+};
+const pdfYears = document.getElementById('pdf-years');
+const pdfCount = document.getElementById('pdf-count');
+if(pdfYears){
+  const all = Object.entries(PDFS).map(([k, [pdf, label]]) => {
+    const [src, date] = k.split('|');
+    return {
+      src, date, pdf,
+      year: date.slice(0,4),
+      labelOnly: label.replace(/^.*?·\s*/, ''),
+      sourceName: SOURCES[src]?.label || src,
+    };
+  });
+  // Newest first
+  all.sort((a,b) => b.date.localeCompare(a.date));
+  const byYear = {};
+  all.forEach(r => { (byYear[r.year] ||= []).push(r); });
+  const years = Object.keys(byYear).sort((a,b) => b.localeCompare(a));
+  pdfYears.innerHTML = years.map(y => {
+    const rows = byYear[y].map(r => `<a class="pdf-row" href="${r.pdf}" style="--cat:${SRC_COLOR[r.src]||'var(--vit)'}">
+      <div class="ic">${SRC_LOGO[r.src]?`<img src="${SRC_LOGO[r.src]}" class="${r.src==='function'?'cover':''}" alt="${r.sourceName}" onerror="this.closest('.ic').textContent='${SRC_LETTER[r.src]||"·"}'">`:(SRC_LETTER[r.src]||"·")}</div>
+      <div class="body">
+        <div class="t">${r.labelOnly}</div>
+        <div class="s">${r.sourceName}</div>
+      </div>
+      <div class="when">${fmtDateShort(r.date)}</div>
+      <div class="chev">›</div>
+    </a>`).join("");
+    return `<div class="pdf-year">
+      <div class="pdf-year-hdr"><span>${y}</span><span class="ct">${byYear[y].length} report${byYear[y].length===1?'':'s'}</span></div>
+      <div class="pdf-rows">${rows}</div>
+    </div>`;
+  }).join("");
+  if(pdfCount) pdfCount.textContent = `${all.length} report${all.length===1?'':'s'}`;
+}
+
+// Header summary count
+const stats = {
+  records: Object.values(metrics).reduce((s,m)=>s+m.records.length, 0),
+  metrics: Object.keys(metrics).length,
+  sources: new Set(Object.values(metrics).flatMap(m=>m.records.map(r=>r.s))).size,
+};
+const subEl = document.querySelector('.lg-title .sub');
+if(subEl) subEl.textContent = `Alexandru · 24M · ${stats.records} records · ${stats.metrics} metrics · ${stats.sources} labs`;
+
+/* ============ SEGMENTED CONTROL ============ */
+document.getElementById('seg').addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  document.querySelectorAll('#seg button').forEach(x=>x.classList.toggle('active', x===b));
+  const p = b.dataset.pane;
+  document.querySelectorAll('.panes > section').forEach(s=>s.classList.toggle('active', s.id===p));
+  window.scrollTo({top:0,behavior:'instant'});
+});
+
+/* ============ ROUTER ============ */
+function router(){
+  const h = location.hash || "";
+  const match = h.match(/^#\/m\/(.+)$/);
+  if(match){
+    const id = decodeURIComponent(match[1]);
+    const m = metrics[id];
+    if(m){
+      document.getElementById('detail-content').innerHTML = detailHTML(m);
+      document.body.classList.add('detail');
+      window.scrollTo({top:0,behavior:'instant'});
+      return;
+    }
+  }
+  document.body.classList.remove('detail');
+}
+window.addEventListener('hashchange', router);
+document.getElementById('back-btn').addEventListener('click', ()=>{
+  if(history.length > 1) history.back();
+  else { location.hash = ""; }
+});
+router();
+
+/* ============ PDF inline viewer ============
+   Intercept clicks on .pdf links. Fetch the file ourselves, re-wrap as a
+   blob with type:application/pdf, and open the blob URL — bypasses any
+   Content-Disposition: attachment the host may be sending. */
+const _pdfCache = new Map();
+async function openPdfInline(url){
+  let blobUrl = _pdfCache.get(url);
+  if(!blobUrl){
+    const res = await fetch(url);
+    if(!res.ok) throw new Error("Failed to load PDF: " + res.status);
+    const buf = await res.arrayBuffer();
+    const blob = new Blob([buf], {type: "application/pdf"});
+    blobUrl = URL.createObjectURL(blob);
+    _pdfCache.set(url, blobUrl);
+  }
+  const win = window.open(blobUrl, "_blank");
+  if(!win) location.href = blobUrl; // popup blocked → navigate
+}
+document.addEventListener('click', e=>{
+  const a = e.target.closest('a[href$=".pdf"], a[href*=".pdf?"]');
+  if(!a) return;
+  // Allow modifier-clicks and same-tab nav to bypass
+  if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+  e.preventDefault();
+  openPdfInline(a.getAttribute('href')).catch(err => {
+    console.error(err);
+    window.open(a.href, "_blank"); // fall back to default behavior
+  });
+});
+</script>
+</body>
+</html>
