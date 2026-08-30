@@ -112,24 +112,6 @@ export const days: Day[] = [
     { ex: 'leg-curl',      gear: 'tg-legext',    sets: '3 × 10–12' },
     { ex: 'calf-raise',    gear: 'tg-legpress',  hint: 'calf setting', sets: '4 × 12–20' },
   ]},
-  { id: 'd4', slug: 'upper', name: 'Upper', focus: 'DELT/ARM', sets: 23, time: '55–60 min', items: [
-    { ex: 'overhead-press', gear: 'freedom-rack', sets: '4 × 6–10' },
-    { ex: 'lat-pulldown',   gear: 'tg-pulls', hint: 'high pull, wide grip', sets: '3 × 10–12' },
-    { name: 'Incline Chest Press', primary: 'Upper chest', secondary: ['Shoulders'], gear: 'freedom-rack', hint: 'incline bench, or machine', sets: '3 × 8–12' },
-    { ex: 'lateral-raise',  gear: 'nautilus-ft', hint: 'single-arm', sets: '4 × 15–20', star: true },
-    { ex: 'seated-row',     gear: 'tg-pulls', hint: 'low pull', sets: '3 × 10–12' },
-    { name: 'Superset: Curl + Pushdown', primary: 'Biceps', secondary: ['Triceps'], gear: 'nautilus-ft', sets: '3 × 12 ea' },
-    { ex: 'face-pull',      gear: 'nautilus-ft', hint: 'rope', sets: '3 × 20' },
-  ]},
-  { id: 'd5', slug: 'lower-plus', name: 'Lower+', focus: 'LEG·ARM·CORE', sets: 22, time: '55–60 min', items: [
-    { ex: 'rdl',           gear: 'freedom-rack', sets: '4 × 6–10' },
-    { ex: 'leg-press',     gear: 'tg-legpress', hint: 'wide stance', sets: '3 × 10–12' },
-    { ex: 'leg-curl',      gear: 'tg-legext',   sets: '3 × 12' },
-    { ex: 'leg-extension', gear: 'tg-legext',   sets: '3 × 15' },
-    { ex: 'calf-raise',    gear: 'tg-legpress', hint: 'calf setting', sets: '4 × 15' },
-    { name: 'Arm Giant Set: Curl+Hammer+OH Tri', primary: 'Biceps', secondary: ['Triceps'], gear: 'gymrax', hint: 'cables / DBs', sets: '3–4 rds' },
-    { name: 'Core: Rollout · Knee Raise · Crunch', primary: 'Core', secondary: ['Abs'], gear: 'gymrax', hint: 'rings, cable', sets: '3 × 10–15' },
-  ]},
 ]
 
 /* ---- Load targets (grouped; rows with `ex` link to the exercise page) ---- */
@@ -176,8 +158,8 @@ export const week: WeekEntry[] = [
   { d: 'Tue', slug: 'pull', name: 'Pull' },
   { d: 'Wed', slug: 'legs', name: 'Legs' },
   { d: 'Thu' },
-  { d: 'Fri', slug: 'upper', name: 'Upper' },
-  { d: 'Sat', slug: 'lower-plus', name: 'Lower+' },
+  { d: 'Fri' },
+  { d: 'Sat' },
   { d: 'Sun' },
 ]
 
