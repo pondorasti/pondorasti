@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cost of Living in Sibiu, Romania — Weather</title>
+<style>
+  :root {
+    --blue:#5aa9e6; --blue-deep:#4a9fe0; --teal:#4cb5b0;
+    --green:#5fc27e; --lime:#a9d038; --yellow:#f4d35e;
+    --orange:#f4a03c; --red:#ec5e57; --grey:#d2d7d9; --grey-l:#e6e9ea;
+    --ink:#2b2b2b; --muted:#6b7280;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:#fafafa;
+    min-height:100vh;
+  }
+  .card {
+    background:#fafafa;
+    margin:0 auto;
+    max-width:1880px;
+  }
+  .grid-wrap { padding:34px 18px 30px; overflow-x:auto; }
+  table { border-collapse:separate; border-spacing:6px; width:100%; }
+  th.month { font-size:15px; font-weight:700; color:#333; padding:6px 0; text-align:center; }
+  td.rowlabel, th.corner { font-size:14px; font-weight:600; color:#444; text-align:left; padding-right:14px; width:90px; }
+  td.cell {
+    border-radius:10px; text-align:center; color:#1c2b22;
+    padding:12px 6px; min-width:78px; line-height:1.32;
+  }
+  td.cell .v { font-size:16px; font-weight:500; }
+  td.cell .s { font-size:13px; font-weight:400; opacity:.92; }
+  td.cell.dark { color:#11202b; }
+  .highlight { outline:3px solid #111; border-radius:4px; }
+  .footnote { padding:18px 40px 40px; color:#9aa0a6; font-size:15px; line-height:1.5; max-width:1400px; }
+  @media (max-width:700px){ nav a{font-size:18px;} td.cell{min-width:66px;} }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="grid-wrap">
+      <table id="grid"></table>
+    </div>
+  </div>
+
+<script>
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const HILITE = -1; // no month highlighted
+
+// ---- Sibiu data — sourced from Open-Meteo (ERA5 historical 2020–2024 + Air Quality 2022–2024) ----
+// Temps = median of daily highs; Rain = median monthly total; Humidity/Cloud = median hourly; AQI/UV = median.
+const feels = [0,5,7,14,19,26,29,29,23,16,7,3];     // apparent_temperature_max, °C
+const real  = [4,8,11,15,20,24,28,28,23,17,10,6];    // temperature_2m_max, °C
+const humidity = [77,73,67,70,69,74,69,68,72,75,83,84]; // relative_humidity_2m, %
+const common = ["Clear","Clear","Clear","Clear","Rain","Rain","Clear","Clear","Clear","Clear","Clear","Clear"]; // ≥40% rainy days
+const rain  = [26,52,61,77,91,112,80,58,68,34,53,56]; // precipitation_sum, mm/month
+const cloud = [90,90,86,64,78,57,29,25,41,59,95,99]; // cloud_cover, %
+const aqi   = [58,52,54,41,37,36,37,39,38,46,56,62]; // US AQI
+const uvi   = [1,2,3,4,5,6,7,6,4,3,1,1];             // uv_index daily max
+// Tourists: real INS annual total for Sibiu county (~578,000 arrivals, 2023),
+// distributed across months by documented seasonality (summer + Dec Christmas-market peak).
+const tourists = [31300,33700,38500,45800,53000,53000,60200,65000,53000,45800,36100,62600];
+
+// ---- color helpers ----
+function lerp(a,b,t){return a+(b-a)*t;}
+function rgb(c){return `rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;}
+const C = {
+  blue:[90,169,230], teal:[76,181,176], green:[95,194,126],
+  lime:[169,208,56], yellow:[244,211,94], orange:[244,160,60],
+  red:[236,94,87], grey:[210,215,217], greyL:[230,233,234]
+};
+function scale(t, stops){ // stops: [[pos,color],...]
+  t=Math.max(0,Math.min(1,t));
+  for(let i=0;i<stops.length-1;i++){
+    const [p0,c0]=stops[i],[p1,c1]=stops[i+1];
+    if(t>=p0&&t<=p1){const f=(t-p0)/(p1-p0||1);return [lerp(c0[0],c1[0],f),lerp(c0[1],c1[1],f),lerp(c0[2],c1[2],f)];}
+  }
+  return stops[stops.length-1][1];
+}
+
+function tempColor(v){
+  // -5..32 mapped blue->teal->green->lime->yellow->orange->red
+  const t=(v+5)/37;
+  return scale(t,[[0,C.blue],[.25,C.blue],[.42,C.teal],[.55,C.green],[.68,C.lime],[.8,C.yellow],[.9,C.orange],[1,C.red]]);
+}
+function tempLabel(v){
+  if(v<=0)return"freezing"; if(v<5)return"very cold"; if(v<10)return"cold";
+  if(v<18)return"cool"; if(v<24)return"mild"; if(v<29)return"warm"; return"hot";
+}
+function humColor(v){ // 60 best (green) ... high or very low worse
+  const d=Math.abs(v-62)/30; return scale(d,[[0,C.green],[1,C.yellow]]);
+}
+function humLabel(v){ return v>=78?"damp":"nice"; }
+function rainColor(v){ // low green, high red
+  const t=(v-20)/90; return scale(t,[[0,C.green],[.4,C.lime],[.6,C.yellow],[.8,C.orange],[1,C.red]]);
+}
+function rainLabel(v){ return v<50?"dry":"rainy"; }
+function cloudColor(v){ const t=v/100; return scale(t,[[0,C.greyL],[1,C.grey]]); }
+function cloudLabel(v){ return v<51?"pockets":"cloudy"; }
+function aqiColor(v){ const t=v/90; return scale(t,[[0,C.green],[.4,C.lime],[.7,C.yellow],[1,C.orange]]); }
+function aqiLabel(v){ return v<=50?"clean":v<=100?"okay":"poor"; }
+function uvColor(v){ const t=v/9; return scale(t,[[0,C.green],[.45,C.lime],[.65,C.yellow],[1,C.orange]]); }
+function uvLabel(v){ return v<=2?"safe":v<=5?"seek shade":v<=7?"seek shade":"avoid sun"; }
+function touristColor(v){ const t=(v-30000)/40000; return scale(t,[[0,C.orange],[.5,C.yellow],[1,C.lime]]); }
+
+function commonColor(c){ return c==="Clear"?C.green:C.red; }
+function commonIcon(c){ return c==="Clear"?"☀️ Clear":"🌧️ Rain"; }
+
+const ROWS = [
+  {label:"Feels<br>(median)", data:feels, color:tempColor, v:x=>x+"°", s:tempLabel},
+  {label:"Real<br>(median)", data:real, color:tempColor, v:x=>x+"°", s:tempLabel},
+  {label:"Humidity", data:humidity, color:humColor, v:humLabel, s:x=>x+"%"},
+  {label:"Most<br>common", data:common, color:commonColor, v:commonIcon, s:()=>""},
+  {label:"Rain", data:rain, color:rainColor, v:rainLabel, s:x=>x+"mm"},
+  {label:"Cloud", data:cloud, color:cloudColor, v:cloudLabel, s:x=>x+"%", dark:true},
+  {label:"Air quality", data:aqi, color:aqiColor, v:aqiLabel, s:x=>x+" US AQI"},
+  {label:"Sun", data:uvi, color:uvColor, v:uvLabel, s:x=>x+" UVI"},
+  {label:"Tourists", data:tourists, color:touristColor, v:x=>x.toLocaleString(), s:()=>"arrivals"},
+];
+
+function build(){
+  const t=document.getElementById("grid");
+  let html="<tr><th class='corner'></th>";
+  MONTHS.forEach((m,i)=>{ html+=`<th class='month ${i===HILITE?'highlight':''}'>${m}</th>`; });
+  html+="</tr>";
+  ROWS.forEach(row=>{
+    html+=`<tr><td class='rowlabel'>${row.label}</td>`;
+    row.data.forEach((d,i)=>{
+      const col = rgb(typeof row.color(d)[0]!=="undefined"?row.color(d):row.color(d));
+      const v=row.v(d), s=row.s(d);
+      html+=`<td class='cell ${row.dark?'dark':''} ${i===HILITE?'highlight':''}' style='background:${col}'>
+        <div class='v'>${v}</div>${s?`<div class='s'>${s}</div>`:""}</td>`;
+    });
+    html+="</tr>";
+  });
+  t.innerHTML=html;
+}
+build();
+</script>
+</body>
+</html>

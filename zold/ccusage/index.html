@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Usage — ccusage</title>
+<style>
+  :root {
+    --bg: #0b0e14;
+    --card: #11151f;
+    --border: #1e2533;
+    --text: #e6e9f0;
+    --muted: #8b93a7;
+    --faint: #58607a;
+    --accent: #f97316;
+    --gpt55: #4ade80;
+    --gpt54: #22d3ee;
+    --codex: #818cf8;
+    --fable: #f97316;
+    --opus: #fbbf24;
+    --other: #64748b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, -apple-system, "SF Pro Text", "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding: 48px 24px 80px;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+  header .sub { color: var(--muted); margin-top: 6px; font-size: 14px; }
+  header .sub b { color: var(--text); font-weight: 600; }
+
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin: 28px 0 12px;
+  }
+  .kpi {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .kpi .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--faint); }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 6px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .kpi .hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-top: 16px;
+  }
+  .card h2 { font-size: 15px; font-weight: 600; }
+  .card .desc { font-size: 13px; color: var(--muted); margin-top: 2px; margin-bottom: 14px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 800px) { .row { grid-template-columns: 1fr; } }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 12px; font-size: 12px; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+  svg { display: block; width: 100%; height: auto; }
+  svg text { font-family: inherit; }
+
+  #tooltip {
+    position: fixed;
+    pointer-events: none;
+    background: #1a2030;
+    border: 1px solid #2a3349;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12px;
+    line-height: 1.6;
+    z-index: 10;
+    display: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    min-width: 170px;
+  }
+  #tooltip .tt-title { font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  #tooltip .tt-row { display: flex; justify-content: space-between; gap: 18px; color: var(--muted); }
+  #tooltip .tt-row b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+  #tooltip .tt-row i { width: 8px; height: 8px; border-radius: 2px; display: inline-block; margin-right: 6px; }
+
+  .bars-list .bar-row { display: grid; grid-template-columns: 190px 1fr 150px; align-items: center; gap: 12px; margin: 7px 0; font-size: 13px; }
+  .bars-list .name { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; }
+  .bars-list .track { background: #0d1118; border-radius: 4px; height: 18px; overflow: hidden; }
+  .bars-list .fill { height: 100%; border-radius: 4px; min-width: 2px; }
+  .bars-list .nums { color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .bars-list .nums b { color: var(--text); }
+
+  .comp-bar { display: flex; height: 26px; border-radius: 6px; overflow: hidden; margin-bottom: 12px; }
+  .comp-bar div { min-width: 3px; }
+  .comp-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; font-size: 13px; }
+  .comp-legend .item { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+  .comp-legend i { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .comp-legend b { color: var(--text); font-variant-numeric: tabular-nums; }
+
+  .heat-months { display: flex; font-size: 11px; color: var(--faint); margin-bottom: 4px; }
+  footer { margin-top: 28px; color: var(--faint); font-size: 12px; text-align: center; }
+  footer code { font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Token usage &amp; spend</h1>
+    <div class="sub" id="subtitle"></div>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="card">
+    <h2>Daily spend</h2>
+    <div class="desc">Stacked by model family — hover for the per-day breakdown.</div>
+    <div class="legend" id="daily-legend"></div>
+    <div id="daily-chart"></div>
+  </div>
+
+  <div class="row">
+    <div class="card">
+      <h2>Cumulative spend</h2>
+      <div class="desc">Running total since the first recorded day.</div>
+      <div id="cumulative-chart"></div>
+    </div>
+    <div class="card">
+      <h2>Monthly spend</h2>
+      <div class="desc">Total cost per calendar month.</div>
+      <div id="monthly-chart"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Activity heatmap</h2>
+    <div class="desc">Daily spend intensity, GitHub-style. Weeks run left to right.</div>
+    <div class="heat-months" id="heat-months"></div>
+    <div id="heatmap"></div>
+  </div>
+
+  <div class="card">
+    <h2>Cost by model</h2>
+    <div class="desc">Every model that showed up in the logs, ranked by spend.</div>
+    <div class="bars-list" id="models"></div>
+  </div>
+
+  <div class="card">
+    <h2>Token composition</h2>
+    <div class="desc">Where the 13B+ tokens actually went.</div>
+    <div class="comp-bar" id="comp-bar"></div>
+    <div class="comp-legend" id="comp-legend"></div>
+  </div>
+
+  <footer>Generated from <code>bunx ccusage</code> on <span id="gen-date"></span> · static file, no external dependencies</footer>
+</div>
+<div id="tooltip"></div>
+
+<script src="data.js"></script>
+<script>
+const U = window.USAGE;
+const FAMS = [
+  { key: "gpt-5.5",      label: "GPT-5.5",      color: "var(--gpt55)", hex: "#4ade80" },
+  { key: "gpt-5.4",      label: "GPT-5.4",      color: "var(--gpt54)", hex: "#22d3ee" },
+  { key: "gpt-codex",    label: "GPT Codex",    color: "var(--codex)", hex: "#818cf8" },
+  { key: "claude-fable", label: "Claude Fable", color: "var(--fable)", hex: "#f97316" },
+  { key: "claude-opus",  label: "Claude Opus",  color: "var(--opus)",  hex: "#fbbf24" },
+  { key: "other",        label: "Other",        color: "var(--other)", hex: "#64748b" },
+];
+
+const fmt$ = (n, d = 2) => "$" + n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+const fmtTok = (n) => {
+  if (n >= 1e9) return (n / 1e9).toFixed(2) + "B";
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + "M";
+  if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
+  return String(n);
+};
+const fmtDate = (iso) => new Date(iso + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+const MONTH_NAMES = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+// ---- build a calendar-complete day series (fill gaps with zeros) ----
+const byDate = Object.fromEntries(U.days.map(d => [d.d, d]));
+const first = new Date(U.days[0].d + "T12:00:00");
+const last = new Date(U.days[U.days.length - 1].d + "T12:00:00");
+const series = [];
+for (let t = new Date(first); t <= last; t.setDate(t.getDate() + 1)) {
+  const iso = t.toISOString().slice(0, 10);
+  series.push(byDate[iso] || { d: iso, c: 0, t: 0, in: 0, out: 0, cc: 0, cr: 0, f: {}, m: {} });
+}
+
+// ---- totals ----
+const totals = U.days.reduce((acc, d) => {
+  acc.cost += d.c; acc.tok += d.t; acc.in += d.in; acc.out += d.out; acc.cc += d.cc; acc.cr += d.cr;
+  return acc;
+}, { cost: 0, tok: 0, in: 0, out: 0, cc: 0, cr: 0 });
+const peak = U.days.reduce((a, b) => (b.c > a.c ? b : a));
+const modelTotals = {};
+for (const d of U.days) for (const [m, [c, t]] of Object.entries(d.m)) {
+  if (!modelTotals[m]) modelTotals[m] = { c: 0, t: 0 };
+  modelTotals[m].c += c; modelTotals[m].t += t;
+}
+const topModel = Object.entries(modelTotals).sort((a, b) => b[1].c - a[1].c)[0];
+
+// ---- header & KPIs ----
+document.getElementById("subtitle").innerHTML =
+  `<b>${fmtDate(U.days[0].d)}, ${U.days[0].d.slice(0,4)}</b> → <b>${fmtDate(U.days[U.days.length-1].d)}, ${U.days[U.days.length-1].d.slice(0,4)}</b>` +
+  ` · ${U.days.length} active days · agents: claude, codex, opencode`;
+document.getElementById("gen-date").textContent = U.generated;
+
+const kpis = [
+  { label: "Total spend", value: fmt$(totals.cost, 0), hint: "API-equivalent cost" },
+  { label: "Total tokens", value: fmtTok(totals.tok), hint: `${fmtTok(totals.out)} generated` },
+  { label: "Active days", value: U.days.length, hint: `of ${series.length} calendar days` },
+  { label: "Avg / active day", value: fmt$(totals.cost / U.days.length, 0), hint: "cost per day used" },
+  { label: "Peak day", value: fmt$(peak.c, 0), hint: fmtDate(peak.d) },
+  { label: "Top model", value: topModel[0].replace("claude-", ""), hint: fmt$(topModel[1].c, 0) + " total" },
+];
+document.getElementById("kpis").innerHTML = kpis.map(k =>
+  `<div class="kpi"><div class="label">${k.label}</div><div class="value">${k.value}</div><div class="hint">${k.hint}</div></div>`
+).join("");
+
+// ---- tooltip ----
+const tt = document.getElementById("tooltip");
+function showTip(html, ev) {
+  tt.innerHTML = html;
+  tt.style.display = "block";
+  const pad = 14;
+  let x = ev.clientX + pad, y = ev.clientY + pad;
+  const r = tt.getBoundingClientRect();
+  if (x + r.width > innerWidth - 8) x = ev.clientX - r.width - pad;
+  if (y + r.height > innerHeight - 8) y = ev.clientY - r.height - pad;
+  tt.style.left = x + "px";
+  tt.style.top = y + "px";
+}
+function hideTip() { tt.style.display = "none"; }
+
+// ---- daily stacked bar chart ----
+function dailyChart() {
+  const W = 1040, H = 300, padL = 46, padB = 22, padT = 8;
+  const n = series.length;
+  const maxC = Math.max(...series.map(d => d.c)) * 1.05;
+  const bw = (W - padL) / n;
+  const y = (v) => padT + (H - padT - padB) * (1 - v / maxC);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+
+  // gridlines
+  const step = maxC > 400 ? 100 : maxC > 150 ? 50 : 25;
+  for (let v = 0; v <= maxC; v += step) {
+    svg += `<line x1="${padL}" x2="${W}" y1="${y(v)}" y2="${y(v)}" stroke="#1a2030" stroke-width="1"/>`;
+    svg += `<text x="${padL - 8}" y="${y(v) + 4}" fill="#58607a" font-size="11" text-anchor="end">$${v}</text>`;
+  }
+  // month ticks
+  series.forEach((d, i) => {
+    if (d.d.endsWith("-01") || i === 0) {
+      const mIdx = parseInt(d.d.slice(5, 7), 10) - 1;
+      svg += `<text x="${padL + i * bw}" y="${H - 6}" fill="#58607a" font-size="11">${MONTH_NAMES[mIdx]}</text>`;
+    }
+  });
+  // bars
+  series.forEach((d, i) => {
+    const x = padL + i * bw + 0.5;
+    let acc = 0;
+    let bar = "";
+    for (const f of FAMS) {
+      const v = d.f[f.key] || 0;
+      if (v <= 0) continue;
+      const y1 = y(acc + v), y0 = y(acc);
+      bar += `<rect x="${x}" y="${y1}" width="${Math.max(bw - 1.4, 1)}" height="${Math.max(y0 - y1, 0.5)}" fill="${f.hex}" rx="0.5"/>`;
+      acc += v;
+    }
+    svg += `<g class="day-col" data-i="${i}">${bar}<rect x="${x - 0.5}" y="${padT}" width="${bw}" height="${H - padT - padB}" fill="transparent"/></g>`;
+  });
+  svg += `</svg>`;
+  const el = document.getElementById("daily-chart");
+  el.innerHTML = svg;
+
+  el.querySelectorAll(".day-col").forEach(g => {
+    g.addEventListener("mousemove", (ev) => {
+      const d = series[+g.dataset.i];
+      let rows = FAMS.filter(f => (d.f[f.key] || 0) > 0.005)
+        .map(f => `<div class="tt-row"><span><i style="background:${f.hex}"></i>${f.label}</span><b>${fmt$(d.f[f.key])}</b></div>`).join("");
+      if (!rows) rows = `<div class="tt-row"><span>No paid usage</span></div>`;
+      showTip(`<div class="tt-title">${fmtDate(d.d)} — ${fmt$(d.c)}</div>${rows}
+        <div class="tt-row" style="margin-top:4px"><span>Tokens</span><b>${fmtTok(d.t)}</b></div>`, ev);
+    });
+    g.addEventListener("mouseleave", hideTip);
+  });
+
+  document.getElementById("daily-legend").innerHTML = FAMS.map(f =>
+    `<span><i style="background:${f.hex}"></i>${f.label}</span>`).join("");
+}
+
+// ---- cumulative area chart ----
+function cumulativeChart() {
+  const W = 500, H = 240, padL = 52, padB = 22, padT = 10;
+  let acc = 0;
+  const pts = series.map((d, i) => { acc += d.c; return [i, acc]; });
+  const maxV = acc * 1.04;
+  const x = (i) => padL + (W - padL - 4) * (i / (series.length - 1));
+  const y = (v) => padT + (H - padT - padB) * (1 - v / maxV);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  const step = maxV > 8000 ? 4000 : 2000;
+  for (let v = 0; v <= maxV; v += step) {
+    svg += `<line x1="${padL}" x2="${W}" y1="${y(v)}" y2="${y(v)}" stroke="#1a2030"/>`;
+    svg += `<text x="${padL - 8}" y="${y(v) + 4}" fill="#58607a" font-size="11" text-anchor="end">$${v >= 1000 ? (v/1000) + "k" : v}</text>`;
+  }
+  series.forEach((d, i) => {
+    if (d.d.endsWith("-01")) {
+      const m = parseInt(d.d.slice(5, 7), 10) - 1;
+      svg += `<text x="${x(i)}" y="${H - 6}" fill="#58607a" font-size="11" text-anchor="middle">${MONTH_NAMES[m]}</text>`;
+    }
+  });
+  const line = pts.map(([i, v], k) => `${k ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join("");
+  svg += `<path d="${line}L${x(series.length - 1)},${y(0)}L${x(0)},${y(0)}Z" fill="#f97316" opacity="0.12"/>`;
+  svg += `<path d="${line}" fill="none" stroke="#f97316" stroke-width="2"/>`;
+  const endY = y(acc);
+  svg += `<circle cx="${x(series.length - 1)}" cy="${endY}" r="3.5" fill="#f97316"/>`;
+  svg += `<text x="${x(series.length - 1) - 8}" y="${endY - 8}" fill="#e6e9f0" font-size="12" font-weight="600" text-anchor="end">${fmt$(acc, 0)}</text>`;
+  svg += `</svg>`;
+  document.getElementById("cumulative-chart").innerHTML = svg;
+}
+
+// ---- monthly bar chart ----
+function monthlyChart() {
+  const W = 500, H = 240, padL = 52, padB = 24, padT = 24;
+  const ms = U.months;
+  const maxV = Math.max(...ms.map(m => m.c)) * 1.08;
+  const bw = (W - padL) / ms.length;
+  const y = (v) => padT + (H - padT - padB) * (1 - v / maxV);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  for (let v = 0; v <= maxV; v += 1000) {
+    svg += `<line x1="${padL}" x2="${W}" y1="${y(v)}" y2="${y(v)}" stroke="#1a2030"/>`;
+    svg += `<text x="${padL - 8}" y="${y(v) + 4}" fill="#58607a" font-size="11" text-anchor="end">$${v >= 1000 ? (v/1000) + "k" : v}</text>`;
+  }
+  ms.forEach((m, i) => {
+    const x = padL + i * bw + bw * 0.16;
+    const w = bw * 0.68;
+    const mi = parseInt(m.d.slice(5, 7), 10) - 1;
+    svg += `<rect class="m-bar" data-i="${i}" x="${x}" y="${y(m.c)}" width="${w}" height="${y(0) - y(m.c)}" rx="4" fill="#f97316" opacity="0.85"/>`;
+    svg += `<text x="${x + w / 2}" y="${y(m.c) - 7}" fill="#e6e9f0" font-size="11" font-weight="600" text-anchor="middle">${fmt$(m.c, 0)}</text>`;
+    svg += `<text x="${x + w / 2}" y="${H - 7}" fill="#8b93a7" font-size="11" text-anchor="middle">${MONTH_NAMES[mi]}</text>`;
+  });
+  svg += `</svg>`;
+  const el = document.getElementById("monthly-chart");
+  el.innerHTML = svg;
+  el.querySelectorAll(".m-bar").forEach(r => {
+    r.addEventListener("mousemove", (ev) => {
+      const m = U.months[+r.dataset.i];
+      const rows = FAMS.filter(f => (m.f[f.key] || 0) > 0.01)
+        .map(f => `<div class="tt-row"><span><i style="background:${f.hex}"></i>${f.label}</span><b>${fmt$(m.f[f.key], 0)}</b></div>`).join("");
+      showTip(`<div class="tt-title">${MONTH_NAMES[parseInt(m.d.slice(5,7),10)-1]} ${m.d.slice(0,4)} — ${fmt$(m.c, 0)}</div>${rows}
+        <div class="tt-row" style="margin-top:4px"><span>Tokens</span><b>${fmtTok(m.t)}</b></div>`, ev);
+    });
+    r.addEventListener("mouseleave", hideTip);
+  });
+}
+
+// ---- heatmap ----
+function heatmap() {
+  const cell = 13, gap = 3;
+  const start = new Date(first);
+  start.setDate(start.getDate() - start.getDay()); // back to Sunday
+  const weeks = Math.ceil((last - start) / (7 * 864e5)) + 1;
+  const W = weeks * (cell + gap) + 30, H = 7 * (cell + gap) + 4;
+  const maxC = Math.max(...U.days.map(d => d.c));
+  const ramp = (v) => {
+    if (v <= 0) return "#141927";
+    const t = Math.pow(v / maxC, 0.45);
+    if (t < 0.25) return "#3b2a14";
+    if (t < 0.5) return "#7c4a12";
+    if (t < 0.75) return "#c2580e";
+    return "#f97316";
+  };
+  let svg = `<svg viewBox="0 0 ${W} ${H}" style="max-width:${W}px" xmlns="http://www.w3.org/2000/svg">`;
+  const dayLabels = ["", "Mon", "", "Wed", "", "Fri", ""];
+  dayLabels.forEach((l, i) => {
+    if (l) svg += `<text x="0" y="${i * (cell + gap) + cell - 2}" fill="#58607a" font-size="10">${l}</text>`;
+  });
+  let monthsHtml = "";
+  const seen = new Set();
+  for (let w = 0; w < weeks; w++) {
+    for (let dow = 0; dow < 7; dow++) {
+      const t = new Date(start);
+      t.setDate(t.getDate() + w * 7 + dow);
+      if (t < first || t > last) continue;
+      const iso = t.toISOString().slice(0, 10);
+      const d = byDate[iso];
+      const c = d ? d.c : 0;
+      const mKey = iso.slice(0, 7);
+      if (!seen.has(mKey) && t.getDate() <= 7) {
+        seen.add(mKey);
+        svg += `<text x="${30 + w * (cell + gap)}" y="${H}" fill="#58607a" font-size="10"></text>`;
+        monthsHtml += `<span style="position:absolute;left:${30 + w * (cell + gap)}px">${MONTH_NAMES[t.getMonth()]}</span>`;
+      }
+      svg += `<rect class="hm" data-d="${iso}" x="${30 + w * (cell + gap)}" y="${dow * (cell + gap)}" width="${cell}" height="${cell}" rx="3" fill="${ramp(c)}"/>`;
+    }
+  }
+  svg += `</svg>`;
+  document.getElementById("heat-months").style.position = "relative";
+  document.getElementById("heat-months").style.height = "14px";
+  document.getElementById("heat-months").innerHTML = monthsHtml;
+  const el = document.getElementById("heatmap");
+  el.innerHTML = svg;
+  el.querySelectorAll(".hm").forEach(r => {
+    r.addEventListener("mousemove", (ev) => {
+      const d = byDate[r.dataset.d];
+      showTip(`<div class="tt-title">${fmtDate(r.dataset.d)}</div>
+        <div class="tt-row"><span>Spend</span><b>${d ? fmt$(d.c) : "$0.00"}</b></div>
+        <div class="tt-row"><span>Tokens</span><b>${d ? fmtTok(d.t) : "0"}</b></div>`, ev);
+    });
+    r.addEventListener("mouseleave", hideTip);
+  });
+}
+
+// ---- model leaderboard ----
+function modelList() {
+  const entries = Object.entries(modelTotals).sort((a, b) => b[1].c - a[1].c);
+  const maxC = entries[0][1].c;
+  const famOf = (m) => {
+    if (m.startsWith("gpt-5.5")) return FAMS[0];
+    if (m.startsWith("gpt-5.4")) return FAMS[1];
+    if (m.includes("codex")) return FAMS[2];
+    if (m.includes("fable")) return FAMS[3];
+    if (m.includes("opus")) return FAMS[4];
+    return FAMS[5];
+  };
+  document.getElementById("models").innerHTML = entries.map(([name, v]) => {
+    const f = famOf(name);
+    const pct = Math.max((v.c / maxC) * 100, 0.4);
+    return `<div class="bar-row">
+      <div class="name" title="${name}">${name}</div>
+      <div class="track"><div class="fill" style="width:${pct}%;background:${f.hex}"></div></div>
+      <div class="nums"><b>${fmt$(v.c, v.c >= 100 ? 0 : 2)}</b> · ${fmtTok(v.t)}</div>
+    </div>`;
+  }).join("");
+}
+
+// ---- token composition ----
+function composition() {
+  const parts = [
+    { label: "Cache reads", v: totals.cr, hex: "#334566" },
+    { label: "Input", v: totals.in, hex: "#22d3ee" },
+    { label: "Cache writes", v: totals.cc, hex: "#818cf8" },
+    { label: "Output", v: totals.out, hex: "#4ade80" },
+  ];
+  const sum = parts.reduce((a, p) => a + p.v, 0);
+  document.getElementById("comp-bar").innerHTML = parts.map(p =>
+    `<div style="width:${(p.v / sum * 100).toFixed(2)}%;background:${p.hex}" title="${p.label}"></div>`).join("");
+  document.getElementById("comp-legend").innerHTML = parts.map(p =>
+    `<div class="item"><i style="background:${p.hex}"></i>${p.label}: <b>${fmtTok(p.v)}</b>&nbsp;(${(p.v / sum * 100).toFixed(1)}%)</div>`).join("");
+}
+
+dailyChart();
+cumulativeChart();
+monthlyChart();
+heatmap();
+modelList();
+composition();
+</script>
+</body>
+</html>
