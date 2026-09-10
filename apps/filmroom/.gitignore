@@ -1,0 +1,8 @@
+# Personal studies stay outside source control.
+local/
+*.dcm
+*.dicom
+*.zip
+DICOMDIR
+.DS_Store
+dist/
