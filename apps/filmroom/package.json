@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
+    "deploy": "bun run build && mkdir -p dist/.hunk && cp .hunk/config.json dist/.hunk/config.json && hunk push dist",
     "preview": "vite preview --host 127.0.0.1",
     "test": "bun test"
   },

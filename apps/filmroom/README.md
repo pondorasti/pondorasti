@@ -23,6 +23,18 @@ bun run --cwd apps/filmroom preview
 
 The production build is in `apps/filmroom/dist`. Serve that directory with a static HTTP server; it is not a standalone HTML file. Relative asset URLs support hosting under a subpath. The decoder and WebAssembly binary are bundled locally, so no CDN is needed. Development and preview servers bind to `127.0.0.1` by default.
 
+## Deploy to Hunk
+
+[Open Filmroom in Hunk](https://app.hunk.851.sh/domain-851-sh/filmroom). The deployment is visible to the `851.sh` workspace.
+
+Install the [Hunk CLI](https://www.npmjs.com/package/@851-labs/hunk) and run `hunk login` with an account in that workspace. Then, from the repository root:
+
+```sh
+bun run --cwd apps/filmroom deploy
+```
+
+The checked-in `.hunk/config.json` contains the stable Hunk ID, with no credentials. The deploy command rebuilds the app, copies that link into the build directory, and pushes only `dist` to the existing hunk. Hunk excludes `.hunk` from uploaded assets. Keep the source configuration in place: Vite replaces the build directory on each build.
+
 ## Controls
 
 | Action | Control |
