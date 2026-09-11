@@ -291,11 +291,21 @@ import bundledStudy from './study.json';
       toast(`PNG exported · ${output.width} × ${output.height}`);
     }, 'image/png');
   });
-  $('export-dicom').addEventListener('click', () => {
-    const anchor = document.createElement('a');
-    anchor.href = new URL(bundledStudy.archive.file, assetBase);
-    anchor.download = bundledStudy.archive.name;
-    document.body.append(anchor); anchor.click(); anchor.remove();
+  $('export-dicom').addEventListener('click', async () => {
+    const button = $('export-dicom'); button.disabled = true;
+    toast('Preparing original DICOM archive…');
+    try {
+      const response = await fetch(new URL(bundledStudy.archive.file, assetBase));
+      if (!response.ok) throw new Error('Archive unavailable');
+      const bytes = await response.arrayBuffer();
+      const digest = await crypto.subtle.digest('SHA-256', bytes);
+      const hash = [...new Uint8Array(digest)].map(value => value.toString(16).padStart(2, '0')).join('');
+      if (hash !== bundledStudy.archive.sha256) throw new Error('Archive checksum mismatch');
+      download(new Blob([bytes], { type: 'application/zip' }), bundledStudy.archive.name);
+      toast('Original DICOM archive exported');
+    } catch {
+      toast('The original archive could not be downloaded. Please try again.');
+    } finally { button.disabled = false; }
   });
   $('help-button').addEventListener('click', () => $('help-dialog').showModal());
   $('close-help').addEventListener('click', () => $('help-dialog').close());
