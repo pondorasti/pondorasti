@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#272729" media="(prefers-color-scheme: dark)">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; worker-src 'self' blob:; base-uri 'none'; form-action 'none'">
-  <title>Filmroom</title>
+  <title>Right shoulder — Filmroom</title>
   <link rel="stylesheet" href="/src/styles.css">
 </head>
 <body>
@@ -31,7 +31,7 @@
     <div class="brand"><span class="app-icon"><svg><use href="#i-image"/></svg></span><span>Filmroom</span></div>
     <div class="document-toolbar">
       <button id="toggle-sidebar" class="icon-button panel-button" aria-label="Toggle image sidebar" aria-pressed="true" aria-controls="study-sidebar" title="Show or hide sidebar"><svg><use href="#i-sidebar"/></svg></button>
-      <div class="study-heading"><h1 id="study-title">Filmroom</h1><span id="study-date">No study open</span></div><button id="open-files" class="open-button" title="Open DICOM files or ZIP">Open…</button><button id="close-study" class="icon-button" aria-label="Close study" title="Close study" disabled>×</button>
+      <div class="study-heading"><h1 id="study-title">Right shoulder</h1><span id="study-date">September 8, 2026</span></div>
       <div class="toolbar" aria-label="Image controls">
         <div class="tool-group mode-switch"><button id="pan-tool" class="tool active" aria-label="Pan" aria-pressed="true" title="Drag to pan (V)"><svg><use href="#i-pan"/></svg><span>Pan</span></button><button id="window-tool" class="tool" aria-label="Window" aria-pressed="false" title="Drag to adjust contrast and brightness (W)"><svg><use href="#i-window"/></svg><span>Window</span></button></div>
         <span class="divider"></span>
@@ -46,17 +46,17 @@
   </header>
   <div class="workspace">
     <aside id="study-sidebar" class="filmstrip" aria-label="Study images">
-      <div class="sidebar-study"><span class="section-heading">Study</span><div class="study-summary"><svg><use href="#i-image"/></svg><div><strong id="sidebar-title">No study open</strong><span id="study-count">Choose a DICOM study</span></div></div></div>
-      <div class="section-heading images-heading">Images <span id="image-count">0</span></div>
+      <div class="sidebar-study"><span class="section-heading">Study</span><div class="study-summary"><svg><use href="#i-image"/></svg><div><strong id="sidebar-title">Right shoulder</strong><span id="study-count">4 images</span></div></div></div>
+      <div class="section-heading images-heading">Images <span id="image-count">4</span></div>
       <nav id="image-list" aria-label="Choose a projection"></nav>
-      <div class="study-note"><svg><use href="#i-lock"/></svg><div>On-device viewing<span>Nothing is uploaded</span></div></div>
+      <div class="study-note"><svg><use href="#i-image"/></svg><div>Original study<span>Four shoulder projections</span></div></div>
     </aside>
     <main class="viewer">
-      <div id="stage" class="stage" aria-label="X-ray image area"><div id="empty-state" class="empty-state"><svg><use href="#i-image"/></svg><h2>Open your images</h2><p>Drop a DICOM ZIP or image files here.<br>Your images stay on this device.</p><div><button id="choose-files" class="primary-button">Choose Files…</button><button id="choose-folder" class="secondary-button">Choose Folder…</button></div><small>Single-frame grayscale DICOM · Native or JPEG 2000</small></div></div>
-      <footer class="viewer-footer"><span id="interaction-hint">Drag to pan <b>·</b> Scroll to zoom <b>·</b> Double-click to fit</span><span id="frame-status">No study open</span></footer>
+      <div id="stage" class="stage" aria-label="X-ray image area"><div id="load-state" class="empty-state" role="status" aria-live="polite"><svg><use href="#i-image"/></svg><h2 id="load-title">Opening your study</h2><p id="load-message">Loading four original projections…</p><button id="retry-study" class="primary-button" hidden>Try again</button></div></div>
+      <footer class="viewer-footer"><span id="interaction-hint">Drag to pan <b>·</b> Scroll to zoom <b>·</b> Double-click to fit</span><span id="frame-status">4 projections</span></footer>
     </main>
     <aside id="image-inspector" class="inspector" aria-label="Display settings">
-      <section class="projection-details"><div class="section-heading">Image</div><div class="projection-title"><h2 id="selected-name">No image selected</h2><span id="laterality" class="tag" hidden></span></div><p id="image-description">Open a study to begin</p><dl><div><dt>Dimensions</dt><dd id="resolution">—</dd></div><div><dt>Format</dt><dd id="bit-depth">—</dd></div></dl></section>
+      <section class="projection-details"><div class="section-heading">Image</div><div class="projection-title"><h2 id="selected-name">Right shoulder</h2><span id="laterality" class="tag" hidden></span></div><p id="image-description">September 8, 2026</p><dl><div><dt>Dimensions</dt><dd id="resolution">—</dd></div><div><dt>Format</dt><dd id="bit-depth">—</dd></div></dl></section>
       <section class="display-settings"><div class="section-heading">Adjustments <button id="reset" class="text-button" title="Reset selected image (R)">Reset</button></div>
         <div class="adjustment-card">
         <div class="preset-switch"><button id="original-preset" class="active" aria-pressed="true">Original</button><button id="auto-preset" aria-pressed="false">Auto contrast</button></div>
@@ -67,11 +67,11 @@
         <div id="transform-status" class="transform-status">Original orientation</div>
       </section>
       <section class="export-section"><button id="export-png" class="primary-button"><svg><use href="#i-download"/></svg>Export PNG</button><p>Full resolution, with your adjustments.</p><button id="export-dicom" class="secondary-button">Save DICOM originals<svg><use href="#i-download"/></svg></button></section>
-      <div class="privacy-note"><svg><use href="#i-lock"/></svg>Processed locally. Never uploaded.</div>
+      <div class="privacy-note"><svg><use href="#i-image"/></svg>Original DICOM images included.</div>
     </aside>
   </div>
-  <input id="file-input" type="file" multiple hidden><input id="folder-input" type="file" webkitdirectory multiple hidden><div id="import-banner" role="status" aria-live="polite" hidden><span id="import-message"></span><button id="cancel-import">Cancel</button></div><div id="import-warning" hidden><button id="show-import-details"></button></div><dialog id="import-dialog"><div class="dialog-heading"><h2>Import details</h2><button id="close-import-details" class="icon-button" aria-label="Close import details">×</button></div><p id="import-details"></p></dialog><div id="toast" role="status" aria-live="polite"></div>
-  <dialog id="help-dialog"><div class="dialog-heading"><h2>Filmroom Help</h2><button id="close-help" class="icon-button" aria-label="Close help">×</button></div><p>Open a DICOM ZIP, folder, or image files. Images are decoded on your device. No account or uploads are needed.</p><div class="shortcut-list"><div><span>Choose an image</span><kbd>1–9 / ← →</kbd></div><div><span>Pan / adjust window</span><kbd>V / W</kbd></div><div><span>Zoom</span><kbd>Scroll / + −</kbd></div><div><span>Fit / reset selected image</span><kbd>F / R</kbd></div><div><span>Invert grayscale</span><kbd>I</kbd></div><div><span>Compare up to four images</span><kbd>C</kbd></div></div><p>In comparison mode, select an image to adjust it. Each projection keeps its own settings. PNG export includes the full image, with the current window and orientation. DICOM export preserves the unchanged originals.</p><p class="muted">Close the study or tab to release the loaded images. This viewer does not save them between sessions. DICOM export includes the original DICOM files from your selection.</p></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <dialog id="help-dialog"><div class="dialog-heading"><h2>Filmroom Help</h2><button id="close-help" class="icon-button" aria-label="Close help">×</button></div><p>The four original images from your September 8, 2026 right shoulder study are included and open automatically.</p><div class="shortcut-list"><div><span>Choose an image</span><kbd>1–4 / ← →</kbd></div><div><span>Pan / adjust window</span><kbd>V / W</kbd></div><div><span>Zoom</span><kbd>Scroll / + −</kbd></div><div><span>Fit / reset selected image</span><kbd>F / R</kbd></div><div><span>Invert grayscale</span><kbd>I</kbd></div><div><span>Compare up to four images</span><kbd>C</kbd></div></div><p>In comparison mode, select an image to adjust it. Each projection keeps its own settings. PNG export includes the full image, with the current window and orientation. DICOM export preserves the unchanged originals.</p><p class="muted">Reloading restores the original display settings. Save DICOM originals downloads the included ZIP unchanged, with all four images and DICOMDIR.</p></dialog>
   <script type="module" src="/src/app.js"></script>
 </body>
 </html>

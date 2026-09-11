@@ -380,8 +380,7 @@ dialog p.muted { color: #a0a0a8; font-size: 10px; }
   *, *::before, *::after { transition: none !important; }
 }
 
-/* Opening a study is entirely local to the browser. */
-.open-button { font-size: 12px; padding: 5px 9px; border-radius: 6px; flex-shrink: 0; }
+/* Bundled study loading and compact labels. */
 .study-heading { min-width: 100px; max-width: 205px; }
 .study-heading h1, .study-summary strong, .image-card-label > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .study-summary > div { min-width: 0; }
@@ -392,11 +391,3 @@ dialog p.muted { color: #a0a0a8; font-size: 10px; }
 .empty-state p { color: #92929d; font-size: 13px; line-height: 1.8; }
 .empty-state > div { display: flex; gap: 10px; margin: 15px 0 22px; }
 .empty-state small { color: #737380; font-size: 10px; }
-#import-banner, #import-warning { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 4; max-width: calc(100vw - 32px); padding: 10px 14px; border-radius: 9px; background: #eeeeeff5; color: #353540; box-shadow: 0 3px 20px #0003; font-size: 12px; }
-#import-banner { display: flex; align-items: center; gap: 16px; }
-#import-banner button, #import-warning button { color: #007aff; border-radius: 4px; }
-#import-details { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 55dvh; overflow: auto; }
-@media(prefers-color-scheme:dark) {
-  #import-banner, #import-warning { background: #424248f5; color: #eeeef3; }
-  #import-banner button, #import-warning button { color: #68afff; }
-}

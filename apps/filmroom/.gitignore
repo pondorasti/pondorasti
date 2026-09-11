@@ -1,8 +1,10 @@
-# Personal studies stay outside source control.
+# Scratch files stay outside source control; the bundled study is tracked.
 local/
 *.dcm
 *.dicom
 *.zip
 DICOMDIR
+!public/study/right-shoulder-xray-dicom.zip
+!public/study/DICOMDIR
 .DS_Store
 dist/

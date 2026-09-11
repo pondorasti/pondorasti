@@ -1,9 +1,10 @@
 import { clamp, lookup } from './renderer.js';
-import { zipSync } from 'fflate';
+import bundledStudy from './study.json';
 
 (() => {
   const $ = id => document.getElementById(id);
-  let study = null, importWorker = null;
+  let study = null, studyWorker = null;
+  const assetBase = new URL(import.meta.env.BASE_URL, document.baseURI);
   const stage = $('stage');
   let active = 0, tool = 'pan', compare = false, toastTimer;
   const views = [];
@@ -248,9 +249,6 @@ import { zipSync } from 'fflate';
     });
     select(0); views[0].fit();
     setTool('pan');
-    $('import-warning').hidden = !study.warnings.length;
-    $('show-import-details').textContent = `${study.warnings.length} file(s) could not be opened. Show details…`;
-    $('import-details').textContent = study.warnings.join('\n\n');
   }
   $('center').addEventListener('input', event => views[active].setWindow(Number(event.target.value), views[active].width));
   $('width').addEventListener('input', event => views[active].setWindow(views[active].center, Number(event.target.value)));
@@ -289,21 +287,21 @@ import { zipSync } from 'fflate';
     ctx.drawImage(view.raster, -view.data.columns / 2, -view.data.rows / 2);
     output.toBlob(blob => {
       if (!blob) { toast('Export failed. Try again.'); return; }
-      download(blob, `filmroom-image-${view.index + 1}.png`);
+      download(blob, `right-shoulder-${view.data.name.toLowerCase().replaceAll(" ", "-")}.png`);
       toast(`PNG exported · ${output.width} × ${output.height}`);
     }, 'image/png');
   });
   $('export-dicom').addEventListener('click', () => {
-    const files = Object.create(null);
-    for (const file of study.originals) files[file.name] = file.bytes;
-    download(new Blob([zipSync(files, { level: 0 })], { type: 'application/zip' }), 'filmroom-dicom-originals.zip');
-    toast('Original DICOM archive exported');
+    const anchor = document.createElement('a');
+    anchor.href = new URL(bundledStudy.archive.file, assetBase);
+    anchor.download = bundledStudy.archive.name;
+    document.body.append(anchor); anchor.click(); anchor.remove();
   });
   $('help-button').addEventListener('click', () => $('help-dialog').showModal());
   $('close-help').addEventListener('click', () => $('help-dialog').close());
   $('help-dialog').addEventListener('click', event => { if (event.target === $('help-dialog')) { const r = event.target.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) event.target.close(); } });
   document.addEventListener('keydown', event => {
-    if (!views.length || event.ctrlKey || event.metaKey || event.altKey || event.target.matches('input,textarea,select') || $('help-dialog').open || $('import-dialog').open) return;
+    if (!views.length || event.ctrlKey || event.metaKey || event.altKey || event.target.matches('input,textarea,select') || $('help-dialog').open) return;
     const key = event.key.toLowerCase();
     const actions = { 'v': () => setTool('pan'), 'w': () => setTool('window'), 'f': () => views[active].fit(),
       'r': () => $('reset').click(), 'i': () => $('invert').click(), 'c': () => setLayout(!compare),
@@ -313,62 +311,40 @@ import { zipSync } from 'fflate';
     if (/^[1-9]$/.test(key) && Number(key) <= views.length) actions[key] = () => select(Number(key) - 1);
     if (actions[key]) { event.preventDefault(); actions[key](); }
   });
-  const emptyMarkup = stage.innerHTML;
   function formatDate(date) {
-    if (!/^\d{8}$/.test(date)) return 'DICOM study';
     return new Date(Number(date.slice(0, 4)), Number(date.slice(4, 6)) - 1, Number(date.slice(6, 8))).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
   }
   function setLoadedControls(enabled) {
-    document.querySelectorAll('.toolbar button, .display-settings button, .display-settings input, .export-section button, #close-study').forEach(button => button.disabled = !enabled);
+    document.querySelectorAll('.toolbar button, .display-settings button, .display-settings input, #export-png').forEach(control => control.disabled = !enabled);
   }
-  function setImporting(busy) {
-    $('import-banner').hidden = !busy;
-    for (const id of ['open-files', 'choose-files', 'choose-folder']) if ($(id)) $(id).disabled = busy;
+  function finishLoading() { studyWorker?.terminate(); studyWorker = null; }
+  function showLoadError(message) {
+    finishLoading();
+    $('load-title').textContent = 'Couldn’t open the study';
+    $('load-message').textContent = message;
+    $('retry-study').hidden = false;
   }
-  function finishImport() { importWorker?.terminate(); importWorker = null; setImporting(false); }
-  function importError(message) {
-    finishImport();
-    $('import-details').textContent = message;
-    $('import-dialog').showModal();
-  }
-  function openFiles(files) {
-    if (!files.length || importWorker) return;
-    setImporting(true); $('import-message').textContent = 'Opening study…';
-    importWorker = new Worker(new URL('./import.worker.js', import.meta.url), { type: 'module' });
-    importWorker.onmessage = ({ data }) => {
-      if (data.type === 'progress') $('import-message').textContent = data.message;
-      else if (data.type === 'error') importError(data.message);
-      else if (data.type === 'study') { finishImport(); showStudy(data.study); }
+  function openBundledStudy() {
+    if (studyWorker) return;
+    $('retry-study').hidden = true;
+    $('load-title').textContent = 'Opening your study';
+    $('load-message').textContent = 'Loading four original projections…';
+    studyWorker = new Worker(new URL('./study.worker.js', import.meta.url), { type: 'module' });
+    studyWorker.onmessage = ({ data }) => {
+      if (data.type === 'progress') $('load-message').textContent = data.message;
+      else if (data.type === 'error') showLoadError(data.message);
+      else if (data.type === 'study') { finishLoading(); showStudy(data.study); }
     };
-    importWorker.onerror = () => importError('The image decoder could not start. Please try again or open a smaller study.');
-    importWorker.postMessage([...files]);
+    studyWorker.onerror = () => showLoadError('The image decoder could not start. Please try again.');
+    studyWorker.postMessage({ baseUrl: assetBase.href });
   }
-  function bindEmptyState() {
-    $('choose-files').addEventListener('click', () => $('file-input').click());
-    $('choose-folder').addEventListener('click', () => $('folder-input').click());
-  }
-  $('open-files').addEventListener('click', () => $('file-input').click());
-  for (const id of ['file-input', 'folder-input']) $(id).addEventListener('change', event => { openFiles(event.target.files); event.target.value = ''; });
-  $('cancel-import').addEventListener('click', finishImport);
-  $('close-study').addEventListener('click', () => {
-    finishImport();
-    views.forEach(view => view.resizeObserver.disconnect()); views.length = 0; study = null; active = 0; compare = false;
-    stage.classList.remove('compare'); stage.innerHTML = emptyMarkup; $('image-list').replaceChildren();
-    document.title = 'Filmroom'; $('study-title').textContent = 'Filmroom'; $('study-date').textContent = 'No study open';
-    $('sidebar-title').textContent = 'No study open'; $('study-count').textContent = 'Choose a DICOM study'; $('image-count').textContent = '0';
-    $('selected-name').textContent = 'No image selected'; $('image-description').textContent = 'Open a study to begin'; $('laterality').hidden = true;
-    $('resolution').textContent = '—'; $('bit-depth').textContent = '—'; $('frame-status').textContent = 'No study open'; $('zoom-actual').textContent = '100%';
-    $('center-value').textContent = '—'; $('width-value').textContent = '—';
-    $('transform-status').textContent = 'Original orientation';
-    for (const id of ['invert', 'flip', 'auto-preset', 'compare-layout']) setPressed(id, false);
-    for (const id of ['original-preset', 'single-layout']) setPressed(id, true);
-    setTool('pan');
-    $('import-warning').hidden = true; $('import-details').textContent = '';
-    setLoadedControls(false); bindEmptyState();
-  });
-  $('show-import-details').addEventListener('click', () => { $('import-details').textContent = study.warnings.join('\n\n'); $('import-dialog').showModal(); });
-  $('close-import-details').addEventListener('click', () => $('import-dialog').close());
-  document.addEventListener('dragover', event => { event.preventDefault(); });
-  document.addEventListener('drop', event => { event.preventDefault(); openFiles(event.dataTransfer.files); });
-  setLoadedControls(false); bindEmptyState();
+  document.title = `${bundledStudy.title} — Filmroom`;
+  $('study-title').textContent = bundledStudy.title;
+  $('sidebar-title').textContent = bundledStudy.title;
+  $('study-date').textContent = formatDate(bundledStudy.date);
+  $('study-count').textContent = `${bundledStudy.images.length} images`;
+  $('image-count').textContent = bundledStudy.images.length;
+  $('retry-study').addEventListener('click', openBundledStudy);
+  setLoadedControls(false);
+  openBundledStudy();
 })();

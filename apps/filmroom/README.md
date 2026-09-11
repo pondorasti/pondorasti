@@ -1,8 +1,17 @@
 # Filmroom
 
-A small DICOM image viewer with a macOS-inspired interface, automatic light and dark appearance, and local file import. Open a study, adjust each image, compare projections, and export a full-resolution PNG or the original DICOM files.
+A personal viewer for the four original projections from the September 8, 2026 right shoulder study. The images and DICOM ZIP are committed with the app, like the bundled data in `biomarkers` and `buff`. Opening the page loads the study automatically.
 
-The app starts empty. No patient images, study metadata, accounts, analytics, or upload service are included. Files are read and decoded in the browser, with JPEG 2000 decoding in a worker. Closing the study or reloading the page clears the loaded study; it is not saved in browser storage.
+The interface follows macOS light and dark appearance. Full-resolution DICOM pixels are decoded in a browser worker, preserving their 12-bit values for windowing, comparison, and PNG export.
+
+## Bundled study
+
+- `public/study/DICOM/` contains the four unchanged original DICOM images.
+- `public/study/DICOMDIR` is the original study index.
+- `public/study/right-shoulder-xray-dicom.zip` is the unchanged four-image archive, including DICOMDIR.
+- `src/study.json` defines projection names, ordering, asset paths, dimensions, and reference hashes.
+
+These are the actual medical images, with their original DICOM metadata. They are included in the public repository and copied into each deployed build. This is a fixed study app; there is no file-import step or upload service. It is a personal image browser, not a validated diagnostic workstation.
 
 ## Run locally
 
@@ -13,7 +22,7 @@ bun install --frozen-lockfile
 bun run --cwd apps/filmroom dev
 ```
 
-Open the loopback URL printed by Vite. Choose **Files** for a ZIP or individual DICOM files, or **Folder** for an extracted study. ZIPs and files can also be dropped onto the page. Open one study at a time.
+Open the loopback URL printed by Vite. The study loads automatically.
 
 ```sh
 bun run --cwd apps/filmroom test
@@ -21,7 +30,7 @@ bun run --cwd apps/filmroom build
 bun run --cwd apps/filmroom preview
 ```
 
-The production build is in `apps/filmroom/dist`. Serve that directory with a static HTTP server; it is not a standalone HTML file. Relative asset URLs support hosting under a subpath. The decoder and WebAssembly binary are bundled locally, so no CDN is needed. Development and preview servers bind to `127.0.0.1` by default.
+The production build in `apps/filmroom/dist` contains the application, decoder, WebAssembly binary, and complete `study` asset directory. Serve it over HTTP; no external CDN or local file selection is needed. Relative URLs support hosting under a subpath.
 
 ## Deploy to Hunk
 
@@ -39,34 +48,24 @@ The checked-in `.hunk/config.json` contains the stable Hunk ID, with no credenti
 
 | Action | Control |
 | --- | --- |
-| Select image | Sidebar, `1`–`9`, or left/right arrows |
+| Select image | Sidebar, `1`–`4`, or left/right arrows |
 | Pan | Drag with the Pan tool (`V`) |
 | Window level / width | Inspector sliders, or vertical/horizontal drag with Window (`W`) |
 | Zoom | Scroll, pinch, or `+` / `−` |
 | Fit | Double-click or `F` |
 | Reset selected image | `R` |
 | Invert | `I` |
-| Compare | `C`; up to four consecutive images per page |
+| Compare | `C`; all four projections |
 | Rotate / flip | Toolbar |
 
-Each image keeps its own window, zoom, and orientation. In comparison mode, select a viewport before adjusting it; the sidebar and arrow keys can move to another group of four.
+Each image keeps its own window, zoom, and orientation. In comparison mode, select a viewport before adjusting it. Reloading restores the original display settings.
 
-**Export PNG** saves the full image with its current window, inversion, rotation, and flip. Zoom and pan do not crop the export. **Save DICOM originals** creates a new ZIP containing the original DICOM bytes and relative paths, including DICOMDIR when present. It does not include the bundled viewer software or other non-DICOM files from the input archive. The source metadata remains in those originals; export does not anonymize them.
+**Export PNG** saves the full image with its current window, inversion, rotation, and flip. Zoom and pan do not crop the export. **Save DICOM originals** downloads the committed ZIP byte for byte, including all four images and DICOMDIR. The original metadata is preserved.
 
-## Supported images
+## Validation
 
-- DICOM Part 10 files with a `DICM` prefix, with `.dcm`, `.dicom`, or extensionless filenames.
-- Single-frame, single-channel `MONOCHROME1` and `MONOCHROME2` images.
-- Aligned 8-bit or 16-bit allocation, signed or unsigned stored values, positive rescale slopes, and LINEAR windowing.
-- Implicit VR Little Endian, Explicit VR Little Endian, Explicit VR Big Endian, and JPEG 2000 transfer syntaxes `.90` and `.91`.
-- Source window presets, with a min/max fallback and a separate 1st–99th percentile auto-contrast option that excludes padding.
+The bundled-study tests verify every source DICOM against its reference SHA-256 hash, compare the extracted originals with the ZIP entries, and check the archive hash. All four decoded pixel buffers must match the independent pydicom reference hashes in the manifest.
 
-Color, multi-frame images, other compressed transfer syntaxes, modality/VOI/presentation LUT sequences, and non-LINEAR windowing are rejected with an explanation. Unsupported DICOM files remain available in the originals export when other images in the selection load successfully. Display supports a limited subset of DICOM and is not a validated diagnostic workstation.
+The renderer and parser also have synthetic tests for windowing boundaries, signed pixels, rescale, grayscale polarity, unsupported formats, and lossless JPEG 2000 decoding. `test/fixtures/gradient.j2k` is a synthetic 16 × 16 grayscale ramp.
 
-Import limits are 256 MiB of selected files, 256 MiB of expanded candidate files, 64 MiB per candidate file, 96 images, 16 million pixels per image, and 48 million pixels per study. The importer ignores common non-image archive contents such as the original Windows viewer. Encrypted ZIPs are not supported.
-
-## Tests and dependencies
-
-Tests exercise windowing boundaries, signed pixels, rescale, grayscale polarity, ZIP handling, unsupported formats, and the actual WebAssembly JPEG 2000 decoder. All fixtures are synthetic. `test/fixtures/gradient.j2k` is a lossless 16 × 16 grayscale ramp whose samples are `index * 257`, encoded as a raw codestream with Pillow; it contains no medical data.
-
-The app uses [dicom-parser](https://github.com/cornerstonejs/dicomParser), [Cornerstone's OpenJPEG codec](https://github.com/cornerstonejs/codecs), and [fflate](https://github.com/101arrowz/fflate), bundled with Vite. Tests use Bun's built-in runner.
+The app uses [dicom-parser](https://github.com/cornerstonejs/dicomParser) and [Cornerstone's OpenJPEG codec](https://github.com/cornerstonejs/codecs), bundled with Vite. Tests use Bun's built-in runner and fflate for archive verification.
