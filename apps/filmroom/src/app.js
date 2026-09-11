@@ -220,7 +220,6 @@ import bundledStudy from './study.json';
     document.title = `${study.title} — Filmroom`;
     $('study-title').textContent = study.title;
     $('study-date').textContent = formatDate(study.date);
-    $('image-count').textContent = study.images.length;
     study.images.forEach((data, index) => {
       const view = new View(data, index); views.push(view);
       const card = document.createElement('button'); card.className = 'image-card';
@@ -346,7 +345,6 @@ import bundledStudy from './study.json';
   document.title = `${bundledStudy.title} — Filmroom`;
   $('study-title').textContent = bundledStudy.title;
   $('study-date').textContent = formatDate(bundledStudy.date);
-  $('image-count').textContent = bundledStudy.images.length;
   $('retry-study').addEventListener('click', openBundledStudy);
   setLoadedControls(false);
   openBundledStudy();
