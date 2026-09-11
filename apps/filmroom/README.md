@@ -7,7 +7,6 @@ The interface follows macOS light and dark appearance. Full-resolution DICOM pix
 ## Bundled study
 
 - `public/study/DICOM/` contains the four unchanged original DICOM images.
-- `public/study/DICOMDIR` is the original study index.
 - `public/study/right-shoulder-xray-dicom.zip` is the unchanged four-image archive, including DICOMDIR.
 - `src/study.json` defines projection names, ordering, asset paths, dimensions, and reference hashes.
 
