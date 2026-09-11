@@ -180,7 +180,6 @@ import bundledStudy from './study.json';
     setPressed('auto-preset', close(view.center, view.data.autoCenter) && close(view.width, view.data.autoWidth));
     $('transform-status').textContent = transformText(view) || 'Original orientation';
     $('zoom-actual').textContent = `${Math.round(view.scale * 100)}%`;
-    $('frame-status').textContent = `${active + 1} / ${views.length}`;
   }
   function select(index) {
     if (!views.length) return;
@@ -206,9 +205,6 @@ import bundledStudy from './study.json';
     tool = value;
     setPressed('pan-tool', tool === 'pan'); setPressed('window-tool', tool === 'window');
     views.forEach(view => view.panel.dataset.tool = tool);
-    $('interaction-hint').textContent = tool === 'pan'
-      ? 'Drag to pan · Scroll to zoom · Double-click to fit'
-      : 'Drag ↔ for width · ↕ for level · Scroll to zoom';
   }
   function download(blob, name) {
     const url = URL.createObjectURL(blob), anchor = document.createElement('a');

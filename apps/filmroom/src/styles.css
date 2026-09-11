@@ -160,9 +160,6 @@ svg {
 .corner-tag { position: absolute; right: 20px; top: 16px; color: #bbbcc4; background: #ffffff0c; border: 1px solid #ffffff1a; border-radius: 4px; padding: 2px 5px; font-size: 10px; pointer-events: none; }
 .viewport-stats { position: absolute; bottom: 16px; left: 20px; color: #94949e; font: 10px ui-monospace, SFMono-Regular, Menlo, monospace; pointer-events: none; text-shadow: 0 1px 3px #000; }
 .orientation { position: absolute; bottom: 16px; right: 18px; color: #d4c392; font-size: 10px; text-shadow: 0 1px 3px #000; pointer-events: none; }
-.viewer-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-shrink: 0; height: 30px; padding: 0 18px; background: #202023; border-top: 1px solid #ffffff06; color: #8d8d95; font-size: 10px; }
-.viewer-footer b { font-weight: 400; margin: 0 5px; }
-#frame-status { font-variant-numeric: tabular-nums; white-space: nowrap; color: #a3a3aa; }
 
 /* Familiar grouped inspector controls and macOS-style segmented buttons. */
 .inspector { grid-column: 3; grid-row: 1; display: flex; flex-direction: column; overflow: auto; min-height: 0; padding: 21px 17px 13px; border-left: 1px solid #00000018; background: #f5f5f7; }
@@ -328,7 +325,6 @@ dialog p.muted { color: #a0a0a8; font-size: 10px; }
   .thumbnail img { max-height: 53px; }
   .image-card-label > span { font-size: 11px; }
   .image-card-label small { font-size: 8px; }
-  .viewer-footer { padding-inline: 10px; font-size: 8px; }
   .range-control > div, .setting-button { font-size: 10px; }
   .preset-switch button { font-size: 10px; }
   .privacy-note { font-size: 8px; }
