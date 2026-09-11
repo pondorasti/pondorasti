@@ -218,9 +218,8 @@ import bundledStudy from './study.json';
     stage.classList.remove('compare'); setPressed('single-layout', true); setPressed('compare-layout', false);
     setLoadedControls(true);
     document.title = `${study.title} — Filmroom`;
-    $('study-title').textContent = study.title; $('sidebar-title').textContent = study.title;
+    $('study-title').textContent = study.title;
     $('study-date').textContent = formatDate(study.date);
-    $('study-count').textContent = `${study.images.length} image${study.images.length === 1 ? '' : 's'}`;
     $('image-count').textContent = study.images.length;
     study.images.forEach((data, index) => {
       const view = new View(data, index); views.push(view);
@@ -346,9 +345,7 @@ import bundledStudy from './study.json';
   }
   document.title = `${bundledStudy.title} — Filmroom`;
   $('study-title').textContent = bundledStudy.title;
-  $('sidebar-title').textContent = bundledStudy.title;
   $('study-date').textContent = formatDate(bundledStudy.date);
-  $('study-count').textContent = `${bundledStudy.images.length} images`;
   $('image-count').textContent = bundledStudy.images.length;
   $('retry-study').addEventListener('click', openBundledStudy);
   setLoadedControls(false);

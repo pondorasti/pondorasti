@@ -126,11 +126,6 @@ svg {
   backdrop-filter: blur(32px) saturate(160%);
 }
 .section-heading { display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 600; color: #818187; line-height: 20px; }
-.sidebar-study { padding: 0 9px; }
-.study-summary { display: flex; gap: 10px; align-items: center; margin: 12px 0 24px; }
-.study-summary > svg { color: var(--accent); width: 25px; height: 25px; stroke-width: 1.4; }
-.study-summary strong { display: block; font-size: 13px; font-weight: 600; letter-spacing: -.1px; }
-.study-summary span { display: block; color: #83838a; font-size: 11px; margin-top: 3px; }
 .images-heading { padding: 0 9px; margin-bottom: 9px; }
 .images-heading > span { font-size: 11px; font-weight: 400; color: #8f8f95; }
 #image-list { display: flex; flex-direction: column; gap: 5px; }
@@ -258,7 +253,7 @@ dialog p.muted { color: #a0a0a8; font-size: 10px; }
     background: linear-gradient(155deg, #2b2d33eb, #26282ef0 70%, #2b2930eb);
   }
   .section-heading { color: #a1a1ac; }
-  .study-summary span, .images-heading > span { color: #a1a1ab; }
+  .images-heading > span { color: #a1a1ab; }
   .image-card:hover { background: #ffffff09; }
   .image-card.active { background: linear-gradient(#167ee7, #096cd3); box-shadow: inset 0 1px #ffffff12, 0 1px 2px #00000020; }
   .thumbnail { box-shadow: 0 0 0 .5px #ffffff18, 0 1px 2px #00000035; }
@@ -337,7 +332,7 @@ dialog p.muted { color: #a0a0a8; font-size: 10px; }
   .workspace { display: flex; flex-direction: column; }
   .viewer { min-height: 360px; height: 60dvh; order: 1; }
   .filmstrip { order: 2; padding: 10px; border: 0; border-bottom: 1px solid var(--line); }
-  .sidebar-study, .images-heading { display: none; }
+  .images-heading { display: none; }
   #image-list { flex-direction: row; gap: 4px; }
   .image-card { flex: 1; flex-direction: column; gap: 7px; padding: 7px 3px; }
   .image-card-label { align-items: center; gap: 3px; }
@@ -373,8 +368,7 @@ dialog p.muted { color: #a0a0a8; font-size: 10px; }
 
 /* Bundled study loading and compact labels. */
 .study-heading { min-width: 100px; max-width: 205px; }
-.study-heading h1, .study-summary strong, .image-card-label > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.study-summary > div { min-width: 0; }
+.study-heading h1, .image-card-label > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .projection-title h2 { overflow-wrap: anywhere; font-size: 17px; }
 .empty-state { grid-column: 1 / -1; grid-row: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px; text-align: center; background: var(--canvas); color: #ececf1; }
 .empty-state > svg { width: 54px; height: 54px; color: #8c8c99; stroke-width: 1; margin-bottom: 12px; }
