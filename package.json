@@ -10,9 +10,13 @@
   ],
   "private": true,
   "scripts": {
+    "check": "bun run format:check && bun run lint && bun run typecheck && bun run test && bun run build",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
-    "lint": "oxlint --deny-warnings"
+    "lint": "oxlint --deny-warnings",
+    "typecheck": "bun run --filter \"./apps/*\" --filter \"./packages/*\" typecheck",
+    "test": "bun run --filter \"./apps/*\" --filter \"./packages/*\" test",
+    "build": "bun run --filter \"./apps/*\" --filter \"./packages/*\" build"
   },
   "devDependencies": {
     "@types/bun": "^1.3.14",

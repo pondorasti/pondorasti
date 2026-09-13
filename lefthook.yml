@@ -1,0 +1,5 @@
+# Pre-commit runs the full repo check. It never rewrites or re-stages files.
+pre-commit:
+  commands:
+    check:
+      run: unset $(git rev-parse --local-env-vars) && bun run check
