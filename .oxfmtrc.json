@@ -7,7 +7,7 @@
   "ignorePatterns": [
     "zold/**",
     "bun.lock",
-    "apps/www/index.html",
+    "**/*.html",
     "apps/buff/docs/history/**",
     "**/routeTree.gen.ts",
     "**/worker-configuration.d.ts",
