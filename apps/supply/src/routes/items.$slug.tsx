@@ -11,6 +11,7 @@ import { NotionBody } from "../components/notion-body"
 export const Route = createFileRoute("/items/$slug")({
   validateSearch: validateFilters,
   loader: async ({ context, params }) => {
+    if (!/^[a-z0-9-]{1,150}$/.test(params.slug)) throw notFound()
     const product = await context.queryClient.fetchQuery(productQuery(params.slug))
     if (!product) throw notFound()
     return product

@@ -27,7 +27,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#f7f7f6", media: "(prefers-color-scheme: light)" },
       { name: "theme-color", content: "#161917", media: "(prefers-color-scheme: dark)" }
     ],
-    links: [{ rel: "stylesheet", href: styles }]
+    links: [
+      { rel: "stylesheet", href: styles },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }
+    ]
   }),
   component: Root,
   notFoundComponent: NotFound,
