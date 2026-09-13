@@ -45,7 +45,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
 
   // <main> is the scroll container on desktop — reset it on navigation.
   useEffect(() => {
-    mainRef.current?.scrollTop && (mainRef.current.scrollTop = 0)
+    if (mainRef.current) mainRef.current.scrollTop = 0
     window.scrollTo({ top: 0 })
   }, [pathname])
 

@@ -41,7 +41,7 @@ export interface HevyTemplate {
 export async function hevy(path: string, init?: RequestInit): Promise<any> {
   const res = await fetch(`${API}${path}`, {
     ...init,
-    headers: { "api-key": KEY!, "Content-Type": "application/json", ...(init?.headers ?? {}) }
+    headers: { "api-key": KEY!, "Content-Type": "application/json", ...init?.headers }
   })
   if (!res.ok) {
     const body = await res.text()

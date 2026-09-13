@@ -44,7 +44,7 @@ const bootstrapCommand: CommandModule = {
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       await OhMyZsh.install()
-    } catch (error) {
+    } catch {
       console.error("✗ Failed to install Oh My Zsh")
       process.exit(1)
     }
@@ -55,7 +55,7 @@ const bootstrapCommand: CommandModule = {
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       await Homebrew.install()
-    } catch (error) {
+    } catch {
       console.error("✗ Failed to install Homebrew")
       process.exit(1)
     }
@@ -66,7 +66,7 @@ const bootstrapCommand: CommandModule = {
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       await Homebrew.bundle()
-    } catch (error) {
+    } catch {
       console.error("✗ Failed to run brew bundle")
       process.exit(1)
     }
@@ -77,7 +77,7 @@ const bootstrapCommand: CommandModule = {
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     try {
       await installGhosttyTerminfo()
-    } catch (error) {
+    } catch {
       console.log("  \x1b[33m!\x1b[0m Failed to install Ghostty terminfo (skipped)")
     }
 
@@ -97,7 +97,7 @@ const bootstrapCommand: CommandModule = {
       } else {
         console.log("  \x1b[90m✓ Repository already exists\x1b[0m")
       }
-    } catch (error) {
+    } catch {
       console.error("✗ Failed to clone repository")
       process.exit(1)
     }
@@ -109,7 +109,7 @@ const bootstrapCommand: CommandModule = {
     try {
       Dotfiles.basePath = path.join(cliDir, "dotfiles")
       Dotfiles.linkAll({ force: true })
-    } catch (error) {
+    } catch {
       console.error("✗ Failed to link dotfiles")
       process.exit(1)
     }
@@ -129,7 +129,7 @@ const bootstrapCommand: CommandModule = {
       for (const { def, error } of result.errors) {
         console.log(`  \x1b[31m✗\x1b[0m ${def.description}: ${error}`)
       }
-    } catch (error) {
+    } catch {
       console.error("✗ Failed to apply defaults")
       process.exit(1)
     }
@@ -150,7 +150,7 @@ const bootstrapCommand: CommandModule = {
         fs.unlinkSync(execPath)
         console.log("  \x1b[32m✓\x1b[0m Cleaned up downloaded binary")
       }
-    } catch (error) {
+    } catch {
       console.error("✗ Failed to link pd from source")
       process.exit(1)
     }

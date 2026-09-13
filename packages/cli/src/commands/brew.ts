@@ -12,7 +12,7 @@ const installCommand: CommandModule = {
   handler: async () => {
     try {
       await Homebrew.install()
-    } catch (error) {
+    } catch {
       console.error("✗ Failed to install Homebrew")
       process.exit(1)
     }

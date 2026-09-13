@@ -88,7 +88,7 @@ const cloneCommand: CommandModule<{}, { url: string; open: boolean }> = {
         await $`cursor ${targetDir}`.quiet()
       }
       await openShell(targetDir)
-    } catch (error) {
+    } catch {
       console.error(`\n✗ Failed to clone repository`)
       process.exit(1)
     }
