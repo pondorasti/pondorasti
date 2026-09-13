@@ -9,7 +9,7 @@ export const readCatalog = createServerFn({ method: "GET" }).handler(async () =>
 })
 
 export const readProduct = createServerFn({ method: "GET" })
-  .inputValidator((slug: unknown) => {
+  .validator((slug: unknown) => {
     if (typeof slug !== "string" || !/^[a-z0-9-]{1,150}$/.test(slug)) {
       throw new Error("Invalid product URL")
     }
