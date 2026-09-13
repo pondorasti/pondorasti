@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "supply",
+  "account_id": "630f294bcb2c1e9b751d9fe0655a453a",
   "main": "src/worker.ts",
   "compatibility_date": "2026-09-13",
   "compatibility_flags": ["nodejs_compat"],
@@ -14,7 +15,7 @@
     {
       "binding": "DB",
       "database_name": "supply",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "60353be0-ecd0-49b8-9f05-14fed95e7d67",
       "migrations_dir": "drizzle"
     }
   ],

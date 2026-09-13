@@ -6,7 +6,7 @@ import { getCatalog, getProduct } from "../src/server/catalog"
 import { assets, products, syncRuns, syncState } from "../src/server/schema"
 import { runSync } from "../src/server/sync"
 import type { HttpFetch } from "../src/server/runtime"
-import { fakeClock, list, notionHttp, notionPage, paragraph, PNG } from "./fixtures"
+import { fakeClock, list, notionHttp, notionPage, paragraph, PNG, rich } from "./fixtures"
 
 const bindings = { ...env, NOTION_TOKEN: "test-token" }
 const db = drizzle(env.DB)
@@ -29,6 +29,105 @@ function setup(rows = [notionPage()], bodies: Record<string, unknown[]> = {}) {
 }
 
 describe("atomic Notion mirror", () => {
+  test("publishes 175 unique image assets across a paginated scan within D1 binding limits", async () => {
+    const rows = Array.from({ length: 175 }, (_, i) =>
+      notionPage(`p${i}`, { status: i < 15 ? "Retired" : i < 20 ? "Wishlist" : "Owned" })
+    )
+    const sync = setup(rows)
+    const normal = sync.http.request.getMockImplementation()!
+    sync.http.request.mockImplementation(async (input, init) => {
+      if (String(input).endsWith("/query")) {
+        const body = JSON.parse(String(init?.body))
+        return Response.json(
+          body.start_cursor ? list(rows.slice(100)) : list(rows.slice(0, 100), "second")
+        )
+      }
+      return normal(input, init)
+    })
+    sync.imageFetch.mockImplementation(async (input) => {
+      const index = Number(new URL(String(input)).pathname.match(/p(\d+)\.png/)![1])
+      return new Response(new Uint8Array([...PNG, index]))
+    })
+    expect(await sync.run()).toEqual({
+      status: "succeeded",
+      scanned: 175,
+      changed: 175,
+      uploaded: 175
+    })
+    expect(await db.select().from(assets)).toHaveLength(175)
+    expect(await getCatalog(env.DB)).toHaveLength(160)
+    expect((await db.select().from(syncState))[0]).toMatchObject({
+      leaseOwner: null,
+      lastSuccess: expect.any(Number)
+    })
+    sync.imageFetch.mockClear()
+    expect((await sync.run()).changed).toBe(0)
+    expect(sync.imageFetch).not.toHaveBeenCalled()
+  })
+
+  test("retiring and restoring an item changes public visibility without changing its URL", async () => {
+    const rows = [notionPage()]
+    const sync = setup(rows)
+    await sync.run()
+    const [before] = await getCatalog(env.DB)
+    rows[0] = notionPage("p1", { status: "Retired", revision: "retired" })
+    await sync.run()
+    expect(await getCatalog(env.DB)).toEqual([])
+    expect(await getProduct(env.DB, before.slug)).toBeNull()
+    rows[0] = notionPage("p1", { status: "Wishlist", revision: "restored" })
+    await sync.run()
+    expect(await getProduct(env.DB, before.slug)).toMatchObject({ ownership: "Wishlist" })
+  })
+
+  test("force refresh repairs content missed by an unchanged Notion revision", async () => {
+    const bodies = { p1: [paragraph("body", "Before")] }
+    const sync = setup([notionPage()], bodies)
+    await sync.run()
+    bodies.p1 = [paragraph("body", "After")]
+    expect((await sync.run()).changed).toBe(0)
+    expect((await runSync(bindings, { ...sync.options, force: true })).changed).toBe(1)
+    expect((await db.select().from(products))[0].body).toContain("After")
+  })
+
+  test("nested body images are copied before publication and captions survive", async () => {
+    const image = {
+      object: "block",
+      id: "image",
+      type: "image",
+      has_children: false,
+      image: {
+        type: "file",
+        file: { url: "https://prod-files-secure.s3.us-west-2.amazonaws.com/body.png" },
+        caption: [rich("Caption")]
+      }
+    }
+    const sync = setup([notionPage()], { p1: [paragraph("parent", "Note", true)], parent: [image] })
+    await sync.run()
+    const [product] = await getCatalog(env.DB)
+    const detail = await getProduct(env.DB, product.slug)
+    const block = detail!.body[0].children[0]
+    expect(block.text[0].text).toBe("Caption")
+    expect(block.image).toBe(product.thumbnail)
+    expect(await env.IMAGES.head(`images/${block.image}`)).not.toBeNull()
+    expect(JSON.stringify(detail)).not.toContain("amazonaws.com")
+  })
+
+  test("deleting the lease row just before publication also rolls the transaction back", async () => {
+    const normal = env.DB.batch.bind(env.DB)
+    const batch = vi.spyOn(env.DB, "batch").mockImplementationOnce(async (statements) => {
+      await db.delete(syncState)
+      return normal(statements)
+    })
+    try {
+      await expect(setup().run()).rejects.toThrow("sync_failed")
+      expect(await db.select().from(products)).toEqual([])
+      expect(await db.select().from(assets)).toEqual([])
+      expect(await db.select().from(syncState)).toEqual([])
+    } finally {
+      batch.mockRestore()
+    }
+  })
+
   test("mirrors every status but only exposes non-retired products", async () => {
     const sync = setup([
       notionPage("a"),
