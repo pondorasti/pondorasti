@@ -1,0 +1,129 @@
+@import "@fontsource-variable/inter";
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter Variable", sans-serif;
+  --color-page: #f7f7f6;
+  --color-surface: #ffffff;
+  --color-ink: #202321;
+  --color-muted: #686d69;
+  --color-line: #e0e3df;
+  --color-accent: #2e684c;
+  --color-wishlist: #98621c;
+}
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+    background: var(--color-page);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    letter-spacing: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-page: #161917;
+      --color-surface: #222623;
+      --color-ink: #f1f3f0;
+      --color-muted: #a5aea7;
+      --color-line: #363e38;
+      --color-accent: #97c9a9;
+      --color-wishlist: #e1b97b;
+    }
+  }
+
+  body {
+    margin: 0;
+  }
+  button,
+  a,
+  input {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+  ::selection {
+    background: #c9e7d4;
+    color: #16271c;
+  }
+}
+
+@layer components {
+  .page-width {
+    @apply mx-auto w-full max-w-[1600px] px-5 sm:px-8 lg:px-12;
+  }
+  .control {
+    @apply inline-flex h-10 min-w-0 items-center justify-center gap-2 rounded-md border border-line bg-surface px-3 text-sm font-medium text-ink transition-colors hover:border-muted;
+  }
+  .icon-control {
+    @apply inline-flex size-10 shrink-0 items-center justify-center rounded-md text-muted transition-colors hover:bg-surface hover:text-ink;
+  }
+  .product-stage {
+    @apply flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-white;
+  }
+  .product-stage img {
+    @apply h-full w-full object-contain p-[12%];
+  }
+  .notion-body {
+    @apply space-y-5 text-[15px] leading-7 text-muted;
+    overflow-wrap: anywhere;
+  }
+  .notion-body a {
+    @apply text-ink underline decoration-line underline-offset-4 hover:decoration-ink;
+  }
+  .notion-body h2 {
+    @apply mt-9 text-xl font-medium text-ink;
+  }
+  .notion-body h3 {
+    @apply mt-7 text-lg font-medium text-ink;
+  }
+  .notion-body h4 {
+    @apply mt-6 font-medium text-ink;
+  }
+  .notion-body ul {
+    @apply list-disc space-y-2 pl-5;
+  }
+  .notion-body ol {
+    @apply list-decimal space-y-2 pl-5;
+  }
+  .notion-body blockquote {
+    @apply border-l-2 border-line pl-4;
+  }
+  .notion-body code {
+    @apply rounded bg-surface px-1 py-0.5 font-mono text-sm text-ink;
+  }
+  .notion-body pre {
+    @apply overflow-x-auto rounded-md border border-line bg-surface p-4;
+  }
+  .notion-body summary {
+    @apply cursor-pointer text-ink;
+  }
+  .notion-body strong {
+    @apply font-semibold text-ink;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .product-stage {
+    background: #e4e7e3;
+  }
+  .product-stage img {
+    mix-blend-mode: multiply;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
