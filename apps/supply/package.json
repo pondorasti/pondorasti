@@ -10,7 +10,8 @@
     "test": "vitest run",
     "cf-typegen": "wrangler types",
     "db:generate": "drizzle-kit generate",
-    "db:migrate:local": "wrangler d1 migrations apply supply --local"
+    "db:migrate:local": "wrangler d1 migrations apply supply --local",
+    "sync": "bun --env-file=.dev.vars scripts/sync.ts"
   },
   "dependencies": {
     "@notionhq/client": "5.26.0",

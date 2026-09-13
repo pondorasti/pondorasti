@@ -19,6 +19,7 @@ export interface SupplyEnv {
 
 export interface SyncOptions extends NotionOptions {
   imageFetch?: HttpFetch
+  force?: boolean
 }
 
 const LEASE_MS = 180_000
@@ -97,7 +98,7 @@ export async function runSync(env: SupplyEnv, options: SyncOptions = {}) {
     for (const row of rows) {
       await heartbeat()
       const previous = existing.get(row.id)
-      if (previous?.sourceRevision === row.revision) {
+      if (!options.force && previous?.sourceRevision === row.revision) {
         if (previous.removedAt !== null)
           updates.push({ ...previous, removedAt: null, updatedAt: clock.now() })
         continue
