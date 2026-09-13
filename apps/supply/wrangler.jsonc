@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "supply",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-09-13",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "workers_dev": false,
+  "vars": {
+    "NOTION_DATA_SOURCE_ID": "3b6b49ce-7f0b-80cd-ad07-000b96417ff1",
+    "PUBLIC_ORIGIN": "https://alexandru.supply"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "supply",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "drizzle"
+    }
+  ],
+  "r2_buckets": [{ "binding": "IMAGES", "bucket_name": "supply-images" }],
+  "triggers": { "crons": ["*/5 * * * *"] }
+}

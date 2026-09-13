@@ -1,0 +1,35 @@
+{
+  "name": "supply",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "wrangler types --check && tsc --noEmit",
+    "test": "vitest run",
+    "cf-typegen": "wrangler types",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:local": "wrangler d1 migrations apply supply --local"
+  },
+  "dependencies": {
+    "@notionhq/client": "5.26.0",
+    "@tanstack/react-router": "1.170.36",
+    "@tanstack/react-start": "1.168.53",
+    "drizzle-orm": "0.45.2",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.54.8",
+    "@cloudflare/vitest-plugin": "1.1.8",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "drizzle-kit": "0.31.10",
+    "typescript": "5.9.3",
+    "vite": "8.3.0",
+    "vitest": "4.1.11",
+    "wrangler": "4.131.1"
+  }
+}

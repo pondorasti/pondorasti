@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1789340056961,
+      "tag": "0000_spotty_blur",
+      "breakpoints": true
+    }
+  ]
+}
