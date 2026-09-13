@@ -3,9 +3,8 @@ import { describe, expect, test, vi } from "vitest"
 import { AssetStore, imageType, imageUrl } from "../src/server/assets"
 import { NotionSource } from "../src/server/notion"
 import type { HttpFetch } from "../src/server/runtime"
-import { fakeClock, notionHttp, notionPage, SOURCE_ID } from "./fixtures"
+import { fakeClock, notionHttp, notionPage, PNG, SOURCE_ID } from "./fixtures"
 
-export const PNG = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10, 0, 1, 2, 3])
 const file = {
   url: "https://prod-files-secure.s3.us-west-2.amazonaws.com/a.png?signature=old",
   ownerId: "a",
