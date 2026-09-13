@@ -25,7 +25,6 @@
   },
   "scripts": {
     "test": "bun test",
-    "prepublishOnly": "bun test",
     "clean": "rm -rf dist .*.bun-build",
     "clean:bun-build": "rm -f .*.bun-build",
     "build": "bun run clean && bun run build:compile && bun run build:sign && bun run clean:bun-build",
