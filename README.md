@@ -2,7 +2,6 @@
 
 working on [emojis.com](https://www.emojis.com/), and vibe coding out the kazoo
 
-
 ## projects
 
 - 📊 **[tokenmaxxing.sh](https://github.com/851-labs/tokenmaxxing)** - The best place to track token usage.

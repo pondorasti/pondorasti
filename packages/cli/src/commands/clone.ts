@@ -12,7 +12,7 @@ const openShell = async (cwd: string) => {
     cwd,
     stdin: "inherit",
     stdout: "inherit",
-    stderr: "inherit",
+    stderr: "inherit"
   })
   await proc.exited
 }
@@ -25,13 +25,13 @@ const cloneCommand: CommandModule<{}, { url: string; open: boolean }> = {
       .positional("url", {
         describe: "GitHub repository URL",
         type: "string",
-        demandOption: true,
+        demandOption: true
       })
       .option("open", {
         alias: "o",
         describe: "Open the repository in Cursor after cloning",
         type: "boolean",
-        default: false,
+        default: false
       })
   },
   handler: async (argv) => {
@@ -92,7 +92,7 @@ const cloneCommand: CommandModule<{}, { url: string; open: boolean }> = {
       console.error(`\n✗ Failed to clone repository`)
       process.exit(1)
     }
-  },
+  }
 }
 
 // -------------------------------------------------------------------------------------------------------------------

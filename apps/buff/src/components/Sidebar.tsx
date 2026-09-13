@@ -1,5 +1,5 @@
-import { Link, useLocation } from '@tanstack/react-router'
-import { NAV, isActive } from './nav'
+import { Link, useLocation } from "@tanstack/react-router"
+import { NAV, isActive } from "./nav"
 
 export function Sidebar() {
   const { pathname } = useLocation()
@@ -16,11 +16,11 @@ export function Sidebar() {
             to={n.to}
             params={n.params as never}
             className={
-              'flex w-full items-center gap-3 rounded-[11px] px-3 py-2.5 text-left text-[14.5px] font-semibold ' +
-              (active ? 'bg-panel-2 text-txt' : 'text-muted hover:bg-panel hover:text-txt')
+              "flex w-full items-center gap-3 rounded-[11px] px-3 py-2.5 text-left text-[14.5px] font-semibold " +
+              (active ? "bg-panel-2 text-txt" : "text-muted hover:bg-panel hover:text-txt")
             }
           >
-            <n.icon className={'h-[19px] w-[19px] flex-none ' + (active ? 'text-accent' : '')} />
+            <n.icon className={"h-[19px] w-[19px] flex-none " + (active ? "text-accent" : "")} />
             {n.label}
           </Link>
         )

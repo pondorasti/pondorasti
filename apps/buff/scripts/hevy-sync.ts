@@ -8,36 +8,36 @@
  * the exercise. Rows whose exercises have never been logged are left alone.
  * Run from repo root (bun loads .env for HEVY_API_KEY).
  */
-import { readFileSync, writeFileSync } from 'node:fs'
-import { loads, loadRowExercises, type ExerciseId } from '../src/data'
-import { getAllWorkouts } from './hevy'
+import { readFileSync, writeFileSync } from "node:fs"
+import { loads, loadRowExercises, type ExerciseId } from "../src/data"
+import { getAllWorkouts } from "./hevy"
 
-const DRY = process.argv.includes('--dry')
+const DRY = process.argv.includes("--dry")
 
 /** Hevy exercise_template_id → our ExerciseId */
 const TEMPLATE_TO_EX: Record<string, ExerciseId> = {
-  '79D0BB3A': 'bench-press',
-  '07B38369': 'incline-db-press',
-  '7B8D84E8': 'overhead-press',
-  '9237BAD1': 'machine-overhead-press',
-  '059E835D': 'machine-overhead-press', // old Machine Plates template
-  'DE68C825': 'lateral-raise',
-  '94B7239B': 'triceps-pushdown',
-  'B5EFBF9C': 'overhead-triceps',
-  '55E6546F': 'barbell-row',
-  '6A6C31A5': 'lat-pulldown',
-  'F1D60854': 'seated-row',
-  'BE640BA0': 'face-pull',
-  '8BAB2735': 'incline-curl',
-  'ADA8623C': 'incline-curl', // cable curl logs count toward the curl row
-  '7E3BC8B6': 'hammer-curl',
-  '37FCC2BB': 'hammer-curl', // db curl (giant set)
-  'D04AC939': 'squat',
-  'C7973E0E': 'leg-press',
-  '75A4F6C4': 'leg-extension',
-  'B8127AD1': 'leg-curl',
-  '91237BDD': 'calf-raise',
-  '2B4B7310': 'rdl',
+  "79D0BB3A": "bench-press",
+  "07B38369": "incline-db-press",
+  "7B8D84E8": "overhead-press",
+  "9237BAD1": "machine-overhead-press",
+  "059E835D": "machine-overhead-press", // old Machine Plates template
+  DE68C825: "lateral-raise",
+  "94B7239B": "triceps-pushdown",
+  B5EFBF9C: "overhead-triceps",
+  "55E6546F": "barbell-row",
+  "6A6C31A5": "lat-pulldown",
+  F1D60854: "seated-row",
+  BE640BA0: "face-pull",
+  "8BAB2735": "incline-curl",
+  ADA8623C: "incline-curl", // cable curl logs count toward the curl row
+  "7E3BC8B6": "hammer-curl",
+  "37FCC2BB": "hammer-curl", // db curl (giant set)
+  D04AC939: "squat",
+  C7973E0E: "leg-press",
+  "75A4F6C4": "leg-extension",
+  B8127AD1: "leg-curl",
+  "91237BDD": "calf-raise",
+  "2B4B7310": "rdl"
 }
 
 // latest per exercise: {when, topWeightKg}
@@ -49,7 +49,7 @@ for (const w of await getAllWorkouts()) {
     const weights = e.sets.map((s: any) => s.weight_kg).filter((x: any) => x != null) as number[]
     if (!weights.length) continue
     const top = Math.max(...weights)
-    const when = w.start_time ?? ''
+    const when = w.start_time ?? ""
     const prev = latest.get(ex)
     if (!prev || when > prev.when) latest.set(ex, { when, kg: top })
   }
@@ -62,8 +62,8 @@ const fmt = (kg: number): string => {
   return `${kgS} kg / ${lb} lb`
 }
 
-const path = new URL('../src/data.ts', import.meta.url).pathname
-let src = readFileSync(path, 'utf8')
+const path = new URL("../src/data.ts", import.meta.url).pathname
+let src = readFileSync(path, "utf8")
 let changed = 0
 
 for (const g of loads) {
@@ -88,7 +88,9 @@ for (const g of loads) {
     }
     src = src.replace(needle, `current: '${next}'`)
     changed++
-    console.log(`✓ ${row.name.padEnd(22)} ${row.current}  →  ${next}  (logged ${newest.when.slice(0, 10)})`)
+    console.log(
+      `✓ ${row.name.padEnd(22)} ${row.current}  →  ${next}  (logged ${newest.when.slice(0, 10)})`
+    )
   }
 }
 

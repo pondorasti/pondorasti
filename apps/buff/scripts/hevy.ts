@@ -3,17 +3,17 @@
  * Run scripts from the repo root so bun auto-loads .env (HEVY_API_KEY).
  */
 
-const API = 'https://api.hevyapp.com/v1'
+const API = "https://api.hevyapp.com/v1"
 const KEY = process.env.HEVY_API_KEY
 
 if (!KEY) {
-  console.error('✗ HEVY_API_KEY not set — run from repo root so bun loads .env')
+  console.error("✗ HEVY_API_KEY not set — run from repo root so bun loads .env")
   process.exit(1)
 }
 
 // ---------- request types ----------
 export interface HevySet {
-  type: 'normal' | 'warmup' | 'failure' | 'dropset'
+  type: "normal" | "warmup" | "failure" | "dropset"
   weight_kg: number | null
   reps: number | null
   rep_range?: { start: number; end: number } | null
@@ -41,11 +41,11 @@ export interface HevyTemplate {
 export async function hevy(path: string, init?: RequestInit): Promise<any> {
   const res = await fetch(`${API}${path}`, {
     ...init,
-    headers: { 'api-key': KEY!, 'Content-Type': 'application/json', ...(init?.headers ?? {}) },
+    headers: { "api-key": KEY!, "Content-Type": "application/json", ...(init?.headers ?? {}) }
   })
   if (!res.ok) {
     const body = await res.text()
-    throw new Error(`${init?.method ?? 'GET'} ${path} → ${res.status}: ${body.slice(0, 300)}`)
+    throw new Error(`${init?.method ?? "GET"} ${path} → ${res.status}: ${body.slice(0, 300)}`)
   }
   return res.json()
 }
@@ -62,12 +62,12 @@ async function paginate<T>(path: string, key: string, pageSize: number): Promise
   }
 }
 
-export const getAllRoutines = () => paginate<any>('/routines', 'routines', 10)
-export const getAllWorkouts = () => paginate<any>('/workouts', 'workouts', 10)
+export const getAllRoutines = () => paginate<any>("/routines", "routines", 10)
+export const getAllWorkouts = () => paginate<any>("/workouts", "workouts", 10)
 
 /** All exercise templates as a case-insensitive title → template map. */
 export async function getTemplatesByTitle(): Promise<Map<string, HevyTemplate>> {
-  const list = await paginate<any>('/exercise_templates', 'exercise_templates', 100)
+  const list = await paginate<any>("/exercise_templates", "exercise_templates", 100)
   return new Map(list.map((t) => [t.title.toLowerCase(), { id: t.id, title: t.title }]))
 }
 
@@ -86,13 +86,13 @@ export function cleanExercisesForPut(exercises: any[]): HevyExercise[] {
     notes: e.notes ?? null,
     sets: e.sets.map((s: any) => {
       const set: HevySet = {
-        type: s.type ?? 'normal',
+        type: s.type ?? "normal",
         weight_kg: s.weight_kg ?? null,
-        reps: s.reps ?? null,
+        reps: s.reps ?? null
       }
       if (s.rep_range) set.rep_range = s.rep_range
       if (s.duration_seconds != null) set.duration_seconds = s.duration_seconds
       return set
-    }),
+    })
   }))
 }

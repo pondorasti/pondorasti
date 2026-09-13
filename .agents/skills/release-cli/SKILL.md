@@ -10,6 +10,7 @@ Follow these steps to release a new version of the `pd` CLI.
 ## Pre-flight Checks
 
 Before starting:
+
 1. Verify you're on the `main` branch
 2. Ensure working tree is clean (no uncommitted changes)
 3. Pull latest changes
@@ -93,17 +94,22 @@ Note: the public package name is `pondorasti` (unscoped), not `@pondorasti/cli`.
 ## Troubleshooting
 
 ### Tests Fail
+
 Fix failing tests before releasing.
 
 ### Tag Already Exists
+
 Delete the tag and retry:
+
 ```bash
 git tag -d vX.Y.Z
 git push origin :refs/tags/vX.Y.Z
 ```
 
 ### Push Rejected
+
 Pull latest and retry:
+
 ```bash
 git pull --rebase origin main
 ```

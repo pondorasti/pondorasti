@@ -7,7 +7,9 @@ import * as fs from "fs"
 // Helpers
 // -------------------------------------------------------------------------------------------------------------------
 
-function statusIcon(status: PackageStatus | "linked" | "unlinked" | "conflict" | "dangling"): string {
+function statusIcon(
+  status: PackageStatus | "linked" | "unlinked" | "conflict" | "dangling"
+): string {
   switch (status) {
     case "linked":
       return "✓"
@@ -22,7 +24,9 @@ function statusIcon(status: PackageStatus | "linked" | "unlinked" | "conflict" |
   }
 }
 
-function statusColor(status: PackageStatus | "linked" | "unlinked" | "conflict" | "dangling"): string {
+function statusColor(
+  status: PackageStatus | "linked" | "unlinked" | "conflict" | "dangling"
+): string {
   switch (status) {
     case "linked":
       return "\x1b[32m" // green
@@ -50,18 +54,18 @@ const linkCommand: CommandModule<{}, { package?: string; force?: boolean; prune?
     return yargs
       .positional("package", {
         describe: "Package name to link (links all if omitted)",
-        type: "string",
+        type: "string"
       })
       .option("force", {
         alias: "f",
         describe: "Backup and replace existing files",
         type: "boolean",
-        default: false,
+        default: false
       })
       .option("prune", {
         describe: "Remove dangling symlinks before linking",
         type: "boolean",
-        default: true,
+        default: true
       })
   },
   handler: async (argv) => {
@@ -99,19 +103,27 @@ const linkCommand: CommandModule<{}, { package?: string; force?: boolean; prune?
       }
 
       for (const file of result.skipped) {
-        console.log(`  ${statusColor("linked")}${statusIcon("linked")}${reset} ${file} (already linked)`)
+        console.log(
+          `  ${statusColor("linked")}${statusIcon("linked")}${reset} ${file} (already linked)`
+        )
       }
 
       for (const file of result.pruned) {
-        console.log(`  ${statusColor("linked")}${statusIcon("linked")}${reset} ${file} (removed dangling symlink)`)
+        console.log(
+          `  ${statusColor("linked")}${statusIcon("linked")}${reset} ${file} (removed dangling symlink)`
+        )
       }
 
       for (const extension of result.installedExtensions) {
-        console.log(`  ${statusColor("linked")}${statusIcon("linked")}${reset} ${extension} (extension installed)`)
+        console.log(
+          `  ${statusColor("linked")}${statusIcon("linked")}${reset} ${extension} (extension installed)`
+        )
       }
 
       for (const extension of result.skippedExtensions) {
-        console.log(`  ${statusColor("linked")}${statusIcon("linked")}${reset} ${extension} (extension already installed)`)
+        console.log(
+          `  ${statusColor("linked")}${statusIcon("linked")}${reset} ${extension} (extension already installed)`
+        )
       }
 
       for (const error of result.errors) {
@@ -124,7 +136,7 @@ const linkCommand: CommandModule<{}, { package?: string; force?: boolean; prune?
     }
 
     console.log()
-  },
+  }
 }
 
 const unlinkCommand: CommandModule<{}, { package?: string }> = {
@@ -133,7 +145,7 @@ const unlinkCommand: CommandModule<{}, { package?: string }> = {
   builder: (yargs) => {
     return yargs.positional("package", {
       describe: "Package name to unlink (unlinks all if omitted)",
-      type: "string",
+      type: "string"
     })
   },
   handler: async (argv) => {
@@ -162,20 +174,26 @@ const unlinkCommand: CommandModule<{}, { package?: string }> = {
       }
 
       for (const file of result.skipped) {
-        console.log(`  ${statusColor("unlinked")}${statusIcon("unlinked")}${reset} ${file} (not linked)`)
+        console.log(
+          `  ${statusColor("unlinked")}${statusIcon("unlinked")}${reset} ${file} (not linked)`
+        )
       }
 
       for (const error of result.errors) {
         console.log(`  ${statusColor("conflict")}${statusIcon("conflict")}${reset} ${error}`)
       }
 
-      if (result.unlinked.length === 0 && result.skipped.length === 0 && result.errors.length === 0) {
+      if (
+        result.unlinked.length === 0 &&
+        result.skipped.length === 0 &&
+        result.errors.length === 0
+      ) {
         console.log("  (no files)")
       }
     }
 
     console.log()
-  },
+  }
 }
 
 const statusCommand: CommandModule = {
@@ -203,12 +221,14 @@ const statusCommand: CommandModule = {
 
       for (const file of pkg.files) {
         const relativePath = file.target.replace(process.env.HOME || "", "~")
-        console.log(`    ${statusColor(file.status)}${statusIcon(file.status)}${reset} ${relativePath}`)
+        console.log(
+          `    ${statusColor(file.status)}${statusIcon(file.status)}${reset} ${relativePath}`
+        )
       }
     }
 
     console.log()
-  },
+  }
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -228,7 +248,7 @@ const dotfilesCommand: CommandModule = {
       .strict()
       .fail(failHandler)
   },
-  handler: () => {},
+  handler: () => {}
 }
 
 // -------------------------------------------------------------------------------------------------------------------

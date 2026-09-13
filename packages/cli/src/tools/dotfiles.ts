@@ -13,21 +13,21 @@ enum DotfilesPackage {
   Vscode = "vscode",
   Claude = "claude",
   Nvim = "nvim",
-  Opencode = "opencode",
+  Opencode = "opencode"
 }
 
 const PACKAGE_TARGET_PATHS: Partial<Record<DotfilesPackage, string[]>> = {
   [DotfilesPackage.Vscode]: [
     "~/Library/Application Support/Code/User",
-    "~/Library/Application Support/Cursor/User",
+    "~/Library/Application Support/Cursor/User"
   ],
   [DotfilesPackage.Claude]: ["~/.claude"],
   [DotfilesPackage.Nvim]: ["~/.config/nvim"],
-  [DotfilesPackage.Opencode]: ["~/.config/opencode"],
+  [DotfilesPackage.Opencode]: ["~/.config/opencode"]
 }
 
 const PACKAGE_LEGACY_SOURCE_NAMES: Partial<Record<DotfilesPackage, string[]>> = {
-  [DotfilesPackage.Vscode]: ["cursor"],
+  [DotfilesPackage.Vscode]: ["cursor"]
 }
 
 function isDotfilesPackage(value: string): value is DotfilesPackage {
@@ -139,7 +139,11 @@ class Dotfiles {
 
         if (entry.isDirectory()) {
           walkDir(fullPath, relPath)
-        } else if (entry.isFile() && entry.name !== ".gitkeep" && !this.isPackageMetadataFile(packageName, relPath)) {
+        } else if (
+          entry.isFile() &&
+          entry.name !== ".gitkeep" &&
+          !this.isPackageMetadataFile(packageName, relPath)
+        ) {
           files.push(relPath)
         }
       }
@@ -221,7 +225,7 @@ class Dotfiles {
 
         const isCurrentPackageSource = this.isWithinDir(resolvedTarget, packagePath)
         const isLegacyPackageSource = legacyPackagePaths.some((legacyPackagePath) =>
-          this.isWithinDir(resolvedTarget, legacyPackagePath),
+          this.isWithinDir(resolvedTarget, legacyPackagePath)
         )
 
         if (!isCurrentPackageSource && !isLegacyPackageSource) {
@@ -235,7 +239,7 @@ class Dotfiles {
         results.push({
           source: resolvedTarget,
           target: fullPath,
-          status: "dangling",
+          status: "dangling"
         })
       }
     }
@@ -257,7 +261,7 @@ class Dotfiles {
     }
 
     return (PACKAGE_LEGACY_SOURCE_NAMES[packageName] ?? []).map((legacyPackageName) =>
-      path.join(this.getPath(), legacyPackageName),
+      path.join(this.getPath(), legacyPackageName)
     )
   }
 
@@ -406,7 +410,9 @@ class Dotfiles {
             fs.renameSync(target, backupPath)
             backedUp.push(displayPath)
           } catch (err) {
-            errors.push(`${displayPath} (failed to backup: ${err instanceof Error ? err.message : "unknown error"})`)
+            errors.push(
+              `${displayPath} (failed to backup: ${err instanceof Error ? err.message : "unknown error"})`
+            )
             continue
           }
         }
@@ -522,11 +528,18 @@ class Dotfiles {
       try {
         const output = childProcess.execFileSync(command, ["--list-extensions"], {
           encoding: "utf8",
-          stdio: ["ignore", "pipe", "ignore"],
+          stdio: ["ignore", "pipe", "ignore"]
         })
-        installedExtensions = new Set(output.split("\n").map((line) => line.trim()).filter(Boolean))
+        installedExtensions = new Set(
+          output
+            .split("\n")
+            .map((line) => line.trim())
+            .filter(Boolean)
+        )
       } catch (err) {
-        errors.push(`${command} --list-extensions (${err instanceof Error ? err.message : "unknown error"})`)
+        errors.push(
+          `${command} --list-extensions (${err instanceof Error ? err.message : "unknown error"})`
+        )
         continue
       }
 
@@ -541,11 +554,13 @@ class Dotfiles {
         try {
           childProcess.execFileSync(command, ["--install-extension", extension], {
             encoding: "utf8",
-            stdio: ["ignore", "pipe", "pipe"],
+            stdio: ["ignore", "pipe", "pipe"]
           })
           installed.push(`${command}:${extension}`)
         } catch (err) {
-          errors.push(`${command}:${extension} (${err instanceof Error ? err.message : "unknown error"})`)
+          errors.push(
+            `${command}:${extension} (${err instanceof Error ? err.message : "unknown error"})`
+          )
         }
       }
     }
@@ -559,7 +574,7 @@ class Dotfiles {
       recommendations?: unknown
       codeRecommendations?: unknown
       cursorRecommendations?: unknown
-    },
+    }
   ): string[] {
     const sharedRecommendations = this.getStringArray(manifest.recommendations)
     const editorRecommendations =
@@ -571,13 +586,15 @@ class Dotfiles {
   }
 
   private static getStringArray(value: unknown): string[] {
-    return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : []
+    return Array.isArray(value)
+      ? value.filter((item): item is string => typeof item === "string")
+      : []
   }
 
   private static isCommandAvailable(command: string): boolean {
     try {
       childProcess.execFileSync("/bin/zsh", ["-lc", `command -v ${command}`], {
-        stdio: "ignore",
+        stdio: "ignore"
       })
       return true
     } catch {

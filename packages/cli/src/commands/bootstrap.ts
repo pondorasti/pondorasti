@@ -161,7 +161,7 @@ const bootstrapCommand: CommandModule = {
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     console.log("\nNext steps:")
     console.log("  1. Restart your terminal to load shell changes")
-  },
+  }
 }
 
 // -------------------------------------------------------------------------------------------------------------------

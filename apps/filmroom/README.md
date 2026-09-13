@@ -45,17 +45,17 @@ The checked-in `.hunk/config.json` contains the stable Hunk ID, with no credenti
 
 ## Controls
 
-| Action | Control |
-| --- | --- |
-| Select image | Sidebar, `1`–`4`, or left/right arrows |
-| Pan | Drag with the Pan tool (`V`) |
+| Action               | Control                                                          |
+| -------------------- | ---------------------------------------------------------------- |
+| Select image         | Sidebar, `1`–`4`, or left/right arrows                           |
+| Pan                  | Drag with the Pan tool (`V`)                                     |
 | Window level / width | Inspector sliders, or vertical/horizontal drag with Window (`W`) |
-| Zoom | Scroll, pinch, or `+` / `−` |
-| Fit | Double-click or `F` |
-| Reset selected image | `R` |
-| Invert | `I` |
-| Compare | `C`; all four projections |
-| Rotate / flip | Toolbar |
+| Zoom                 | Scroll, pinch, or `+` / `−`                                      |
+| Fit                  | Double-click or `F`                                              |
+| Reset selected image | `R`                                                              |
+| Invert               | `I`                                                              |
+| Compare              | `C`; all four projections                                        |
+| Rotate / flip        | Toolbar                                                          |
 
 Each image keeps its own window, zoom, and orientation. In comparison mode, select a viewport before adjusting it. Reloading restores the original display settings.
 

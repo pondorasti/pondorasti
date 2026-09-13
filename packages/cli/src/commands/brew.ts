@@ -16,7 +16,7 @@ const installCommand: CommandModule = {
       console.error("✗ Failed to install Homebrew")
       process.exit(1)
     }
-  },
+  }
 }
 
 const bundleCommand: CommandModule = {
@@ -33,7 +33,7 @@ const bundleCommand: CommandModule = {
       }
       process.exit(1)
     }
-  },
+  }
 }
 
 const masCommand: CommandModule = {
@@ -50,7 +50,7 @@ const masCommand: CommandModule = {
       }
       process.exit(1)
     }
-  },
+  }
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -70,7 +70,7 @@ const brewCommand: CommandModule = {
       .strict()
       .fail(failHandler)
   },
-  handler: () => {},
+  handler: () => {}
 }
 
 // -------------------------------------------------------------------------------------------------------------------

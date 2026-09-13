@@ -11,10 +11,10 @@
   "editor.lineNumbers": "relative",
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "[json]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[markdown]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
 
   "explorer.confirmDelete": false,
@@ -41,7 +41,7 @@
   "diffEditor.experimental.showMoves": true,
 
   "accessibility.signals.onDebugBreak": {
-    "sound": "on",
+    "sound": "on"
   },
 
   "git.autofetch": true,
@@ -52,5 +52,5 @@
 
   "typescript.updateImportsOnFileMove.enabled": "always",
 
-  "cursor.composer.shouldChimeAfterChatFinishes": true,
+  "cursor.composer.shouldChimeAfterChatFinishes": true
 }

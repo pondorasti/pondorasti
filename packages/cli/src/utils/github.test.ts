@@ -5,105 +5,105 @@ describe("parseGitHubUrl", () => {
   test("parses standard HTTPS URLs", () => {
     expect(parseGitHubUrl("https://github.com/owner/repo")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
   test("parses HTTPS URLs with .git suffix", () => {
     expect(parseGitHubUrl("https://github.com/owner/repo.git")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
   test("parses SSH URLs", () => {
     expect(parseGitHubUrl("git@github.com:owner/repo.git")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
   test("parses SSH URLs without .git suffix", () => {
     expect(parseGitHubUrl("git@github.com:owner/repo")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
   test("parses short owner/repo format", () => {
     expect(parseGitHubUrl("owner/repo")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
   test("parses tree URLs (branch paths)", () => {
     expect(parseGitHubUrl("https://github.com/owner/repo/tree/main")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
   test("parses tree URLs with nested paths", () => {
     expect(parseGitHubUrl("https://github.com/owner/repo/tree/main/src/components")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
   test("parses commits URLs", () => {
     expect(parseGitHubUrl("https://github.com/owner/repo/commits/main/")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
   test("parses blob URLs (file paths)", () => {
     expect(parseGitHubUrl("https://github.com/owner/repo/blob/main/file.ts")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
   test("parses blob URLs with nested file paths", () => {
     expect(parseGitHubUrl("https://github.com/owner/repo/blob/main/src/utils/helpers.ts")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
   test("parses other GitHub subpages", () => {
     expect(parseGitHubUrl("https://github.com/owner/repo/pull/123/files")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
   test("handles trailing slashes", () => {
     expect(parseGitHubUrl("https://github.com/owner/repo/")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
   test("handles whitespace", () => {
     expect(parseGitHubUrl("  https://github.com/owner/repo  ")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
   test("handles query params and hash fragments", () => {
     expect(parseGitHubUrl("https://github.com/owner/repo?tab=readme-ov-file#top")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
   test("parses github.com URLs without protocol", () => {
     expect(parseGitHubUrl("github.com/owner/repo/issues/1")).toEqual({
       owner: "owner",
-      repo: "repo",
+      repo: "repo"
     })
   })
 
@@ -122,14 +122,14 @@ describe("parseGitHubUrl", () => {
   test("parses repos with dots in name", () => {
     expect(parseGitHubUrl("https://github.com/calcom/cal.com")).toEqual({
       owner: "calcom",
-      repo: "cal.com",
+      repo: "cal.com"
     })
   })
 
   test("parses repos with dots in name and .git suffix", () => {
     expect(parseGitHubUrl("https://github.com/calcom/cal.com.git")).toEqual({
       owner: "calcom",
-      repo: "cal.com",
+      repo: "cal.com"
     })
   })
 })

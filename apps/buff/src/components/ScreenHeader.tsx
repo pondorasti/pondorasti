@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ReactNode } from "react"
 
 export function ScreenHeader({ title }: { title: ReactNode }) {
   return (
@@ -10,7 +10,9 @@ export function ScreenHeader({ title }: { title: ReactNode }) {
 
 /** Standard content container matching the old .pad */
 export function Pad({ children }: { children: ReactNode }) {
-  return <div className="max-w-[900px] px-4 pt-[18px] pb-10 md:px-[26px] md:pt-[22px]">{children}</div>
+  return (
+    <div className="max-w-[900px] px-4 pt-[18px] pb-10 md:px-[26px] md:pt-[22px]">{children}</div>
+  )
 }
 
 export function BlockTitle({ children }: { children: ReactNode }) {

@@ -13,7 +13,7 @@ const clearCommand: CommandModule = {
     console.log("Clearing Dock...")
     Dock.clear()
     console.log("✓ Dock cleared")
-  },
+  }
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ const dockCommand: CommandModule = {
   builder: (yargs) => {
     return yargs.command(clearCommand).demandCommand(1).help().strict().fail(failHandler)
   },
-  handler: () => {},
+  handler: () => {}
 }
 
 // -------------------------------------------------------------------------------------------------------------------

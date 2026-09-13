@@ -1,15 +1,15 @@
-import { Fragment } from 'react'
-import { createFileRoute, Link, notFound } from '@tanstack/react-router'
-import { equipment, exerciseUsage, getExercise, loadsForExercise } from '~/data'
-import { ScreenHeader, Pad, BlockTitle } from '~/components/ScreenHeader'
+import { Fragment } from "react"
+import { createFileRoute, Link, notFound } from "@tanstack/react-router"
+import { equipment, exerciseUsage, getExercise, loadsForExercise } from "~/data"
+import { ScreenHeader, Pad, BlockTitle } from "~/components/ScreenHeader"
 
-export const Route = createFileRoute('/exercise/$id')({
+export const Route = createFileRoute("/exercise/$id")({
   loader: ({ params }) => {
     const ex = getExercise(params.id)
     if (!ex) throw notFound()
     return { ex }
   },
-  component: ExercisePage,
+  component: ExercisePage
 })
 
 function ExercisePage() {
@@ -25,7 +25,11 @@ function ExercisePage() {
         <div className="flex flex-col gap-5 md:flex-row md:items-start">
           {/* demo */}
           <div className="w-full max-w-[340px] flex-none">
-            <img src={ex.gif} alt={`${ex.name} demonstration`} className="aspect-square w-full rounded-xl bg-white object-contain" />
+            <img
+              src={ex.gif}
+              alt={`${ex.name} demonstration`}
+              className="aspect-square w-full rounded-xl bg-white object-contain"
+            />
             <div className="mt-2 flex flex-wrap gap-1.5">
               <span className="rounded-full bg-accent px-2.5 py-[3px] text-[11px] font-bold text-accent-fg">
                 {ex.primary}
@@ -48,16 +52,29 @@ function ExercisePage() {
               <table className="w-full border-collapse">
                 <thead>
                   <tr>
-                    <th className="bg-panel-2 px-[15px] py-3 text-left text-[10.5px] font-bold uppercase tracking-[0.08em] text-dim">Day</th>
-                    <th className="bg-panel-2 px-[15px] py-3 text-left text-[10.5px] font-bold uppercase tracking-[0.08em] text-dim">Equipment</th>
-                    <th className="bg-panel-2 px-[15px] py-3 text-right text-[10.5px] font-bold uppercase tracking-[0.08em] text-dim">Sets × Reps</th>
+                    <th className="bg-panel-2 px-[15px] py-3 text-left text-[10.5px] font-bold uppercase tracking-[0.08em] text-dim">
+                      Day
+                    </th>
+                    <th className="bg-panel-2 px-[15px] py-3 text-left text-[10.5px] font-bold uppercase tracking-[0.08em] text-dim">
+                      Equipment
+                    </th>
+                    <th className="bg-panel-2 px-[15px] py-3 text-right text-[10.5px] font-bold uppercase tracking-[0.08em] text-dim">
+                      Sets × Reps
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {usage.map(({ day, item }, i) => (
-                    <tr key={i} className="relative border-b border-line last:border-0 hover:bg-panel-2">
+                    <tr
+                      key={i}
+                      className="relative border-b border-line last:border-0 hover:bg-panel-2"
+                    >
                       <td className="px-[15px] py-3 text-[13.5px] font-semibold text-txt">
-                        <Link to="/routine/$day" params={{ day: day.slug }} className="after:absolute after:inset-0">
+                        <Link
+                          to="/routine/$day"
+                          params={{ day: day.slug }}
+                          className="after:absolute after:inset-0"
+                        >
                           {day.name}
                         </Link>
                       </td>
@@ -83,12 +100,20 @@ function ExercisePage() {
                   {loadRows.map((r) => (
                     <Fragment key={r.name}>
                       <div className="rounded-card border border-line bg-panel p-4">
-                        <div className="mb-[5px] text-[11px] uppercase tracking-[0.08em] text-dim">Current</div>
-                        <div className="text-[20px] font-extrabold tracking-[-0.02em] text-accent">{r.current}</div>
+                        <div className="mb-[5px] text-[11px] uppercase tracking-[0.08em] text-dim">
+                          Current
+                        </div>
+                        <div className="text-[20px] font-extrabold tracking-[-0.02em] text-accent">
+                          {r.current}
+                        </div>
                       </div>
                       <div className="rounded-card border border-line bg-panel p-4">
-                        <div className="mb-[5px] text-[11px] uppercase tracking-[0.08em] text-dim">3-mo target</div>
-                        <div className="text-[20px] font-extrabold tracking-[-0.02em] text-accent">{r.target}</div>
+                        <div className="mb-[5px] text-[11px] uppercase tracking-[0.08em] text-dim">
+                          3-mo target
+                        </div>
+                        <div className="text-[20px] font-extrabold tracking-[-0.02em] text-accent">
+                          {r.target}
+                        </div>
                       </div>
                     </Fragment>
                   ))}
@@ -108,7 +133,11 @@ function ExercisePage() {
                     params={{ id: gid }}
                     className="flex items-center gap-3 rounded-card border border-line bg-panel p-2.5 hover:border-dim"
                   >
-                    <img src={g.photo} alt={g.name} className="h-[58px] w-[58px] flex-none rounded-[10px] bg-panel-2 object-cover" />
+                    <img
+                      src={g.photo}
+                      alt={g.name}
+                      className="h-[58px] w-[58px] flex-none rounded-[10px] bg-panel-2 object-cover"
+                    />
                     <div className="text-xs text-muted">
                       Your gym · <b className="font-semibold text-txt">{g.name}</b>
                     </div>

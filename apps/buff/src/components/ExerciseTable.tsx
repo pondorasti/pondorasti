@@ -1,5 +1,5 @@
-import { Link } from '@tanstack/react-router'
-import { equipment, itemName, itemPrimary, itemSecondary, type DayItem } from '~/data'
+import { Link } from "@tanstack/react-router"
+import { equipment, itemName, itemPrimary, itemSecondary, type DayItem } from "~/data"
 
 /** The routine-day exercise table. Rows with an `ex` id link to /exercise/$id
     via a stretched link (real <a>, whole row clickable). */
@@ -28,8 +28,8 @@ function Th({ children, right }: { children: React.ReactNode; right?: boolean })
   return (
     <th
       className={
-        'bg-panel-2 px-[15px] py-3 text-[10.5px] font-bold uppercase tracking-[0.08em] text-dim ' +
-        (right ? 'text-right' : 'text-left')
+        "bg-panel-2 px-[15px] py-3 text-[10.5px] font-bold uppercase tracking-[0.08em] text-dim " +
+        (right ? "text-right" : "text-left")
       }
     >
       {children}
@@ -48,11 +48,13 @@ function Row({ item }: { item: DayItem }) {
       <span className="text-[13.5px] font-semibold text-txt">
         {item.star ? <span className="text-accent">★ </span> : null}
         {name}
-        {linked ? <span className="ml-[7px] align-middle text-[9px] text-accent opacity-55">▶</span> : null}
+        {linked ? (
+          <span className="ml-[7px] align-middle text-[9px] text-accent opacity-55">▶</span>
+        ) : null}
       </span>
       <span className="mt-[3px] block text-[11.5px] font-medium text-dim">
         <b className="font-semibold text-accent-2">{primary}</b>
-        {secondary.length ? <> · {secondary.join(', ')}</> : null}
+        {secondary.length ? <> · {secondary.join(", ")}</> : null}
       </span>
     </>
   )
@@ -60,8 +62,7 @@ function Row({ item }: { item: DayItem }) {
   return (
     <tr
       className={
-        'relative border-b border-line last:border-0 ' +
-        (linked ? 'hover:bg-panel-2' : '')
+        "relative border-b border-line last:border-0 " + (linked ? "hover:bg-panel-2" : "")
       }
     >
       <td className="px-[15px] py-3">

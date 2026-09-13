@@ -1,10 +1,10 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { Fragment } from 'react'
-import { equipment, equipmentGroups } from '~/data'
-import { ScreenHeader, Pad, BlockTitle } from '~/components/ScreenHeader'
+import { createFileRoute, Link } from "@tanstack/react-router"
+import { Fragment } from "react"
+import { equipment, equipmentGroups } from "~/data"
+import { ScreenHeader, Pad, BlockTitle } from "~/components/ScreenHeader"
 
-export const Route = createFileRoute('/equipment/')({
-  component: EquipmentGallery,
+export const Route = createFileRoute("/equipment/")({
+  component: EquipmentGallery
 })
 
 function EquipmentGallery() {
@@ -32,7 +32,9 @@ function EquipmentGallery() {
                       className="aspect-[4/3] w-full bg-panel-2 object-cover"
                     />
                     <div className="px-3 pt-[11px] pb-3">
-                      <div className="text-[13.5px] font-bold leading-[1.25] tracking-[-0.01em]">{e.name}</div>
+                      <div className="text-[13.5px] font-bold leading-[1.25] tracking-[-0.01em]">
+                        {e.name}
+                      </div>
                     </div>
                   </Link>
                 )

@@ -12,7 +12,3 @@ class Dock {
 }
 
 export { Dock }
-
-
-
-

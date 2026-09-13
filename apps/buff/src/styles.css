@@ -10,9 +10,9 @@
   --txt: #191c21;
   --muted: #545c66;
   --dim: #7d8590;
-  --accent: #4d7c0f;      /* lime-700 — #c6ff3d fails contrast on white */
-  --accent-fg: #ffffff;   /* text placed ON accent */
-  --accent-2: #0e7490;    /* cyan-700, maps #7de3ff */
+  --accent: #4d7c0f; /* lime-700 — #c6ff3d fails contrast on white */
+  --accent-fg: #ffffff; /* text placed ON accent */
+  --accent-2: #0e7490; /* cyan-700, maps #7de3ff */
   --warn: #b45309;
   --red: #dc2626;
   --sidebar-bg: #fbfbfc;
@@ -69,7 +69,8 @@
   --color-warn-line: var(--warn-line);
   --color-overlay: var(--overlay);
   --radius-card: 16px;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* ---- Base ---- */

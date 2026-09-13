@@ -5,7 +5,8 @@ import { $ } from "bun"
 
 class OhMyZsh {
   static readonly PATH = path.join(os.homedir(), ".oh-my-zsh")
-  static readonly INSTALL_URL = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
+  static readonly INSTALL_URL =
+    "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
 
   static isInstalled(): boolean {
     return fs.existsSync(this.PATH)
@@ -25,6 +26,3 @@ class OhMyZsh {
 }
 
 export { OhMyZsh }
-
-
-

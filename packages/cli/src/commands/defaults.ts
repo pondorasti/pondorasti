@@ -55,7 +55,7 @@ const applyCommand: CommandModule = {
     }
 
     console.log()
-  },
+  }
 }
 
 const listCommand: CommandModule = {
@@ -74,7 +74,7 @@ const listCommand: CommandModule = {
     console.log()
     console.log(`Total: ${defaults.length} default(s)`)
     console.log()
-  },
+  }
 }
 
 const statusCommand: CommandModule = {
@@ -101,7 +101,7 @@ const statusCommand: CommandModule = {
       console.log(`All ${matched} default(s) are set correctly`)
     }
     console.log()
-  },
+  }
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -121,7 +121,7 @@ const defaultsCommand: CommandModule = {
       .strict()
       .fail(failHandler)
   },
-  handler: () => {},
+  handler: () => {}
 }
 
 // -------------------------------------------------------------------------------------------------------------------

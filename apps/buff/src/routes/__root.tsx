@@ -1,28 +1,28 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from "react"
 import {
   createRootRoute,
   HeadContent,
   Link,
   Outlet,
   Scripts,
-  useLocation,
-} from '@tanstack/react-router'
-import { Sidebar } from '~/components/Sidebar'
-import { TabBar } from '~/components/TabBar'
-import appCss from '~/styles.css?url'
+  useLocation
+} from "@tanstack/react-router"
+import { Sidebar } from "~/components/Sidebar"
+import { TabBar } from "~/components/TabBar"
+import appCss from "~/styles.css?url"
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1.0, viewport-fit=cover' },
-      { name: 'color-scheme', content: 'light dark' },
-      { title: 'buff — training' },
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1.0, viewport-fit=cover" },
+      { name: "color-scheme", content: "light dark" },
+      { title: "buff — training" }
     ],
-    links: [{ rel: 'stylesheet', href: appCss }],
+    links: [{ rel: "stylesheet", href: appCss }]
   }),
   shellComponent: RootDocument,
-  notFoundComponent: NotFound,
+  notFoundComponent: NotFound
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {

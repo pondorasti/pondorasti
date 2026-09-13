@@ -46,28 +46,28 @@ class Defaults {
       key: "AppleTemperatureUnit",
       type: "string",
       value: "Celsius",
-      description: "Temperature unit - Celsius",
+      description: "Temperature unit - Celsius"
     },
     {
       domain: "NSGlobalDomain",
       key: "AppleMeasurementUnits",
       type: "string",
       value: "Centimeters",
-      description: "Measurement system - Metric",
+      description: "Measurement system - Metric"
     },
     {
       domain: "NSGlobalDomain",
       key: "AppleMetricUnits",
       type: "bool",
       value: true,
-      description: "Use metric units",
+      description: "Use metric units"
     },
     {
       domain: "NSGlobalDomain",
       key: "AppleFirstWeekday",
       type: "dict",
       value: { gregorian: 2 },
-      description: "First day of week - Monday",
+      description: "First day of week - Monday"
     },
 
     // Keyboard
@@ -76,21 +76,21 @@ class Defaults {
       key: "KeyRepeat",
       type: "int",
       value: 2,
-      description: "Key repeat rate - Fast",
+      description: "Key repeat rate - Fast"
     },
     {
       domain: "NSGlobalDomain",
       key: "InitialKeyRepeat",
       type: "int",
       value: 15,
-      description: "Delay until repeat - Short",
+      description: "Delay until repeat - Short"
     },
     {
       domain: "NSGlobalDomain",
       key: "ApplePressAndHoldEnabled",
       type: "bool",
       value: false,
-      description: "Disable press-and-hold for accent characters, enable key repeat",
+      description: "Disable press-and-hold for accent characters, enable key repeat"
     },
 
     // Desktop & Dock
@@ -99,36 +99,36 @@ class Defaults {
       key: "minimize-to-application",
       type: "bool",
       value: true,
-      description: "Minimize windows into application icon",
+      description: "Minimize windows into application icon"
     },
     {
       domain: "com.apple.dock",
       key: "autohide",
       type: "bool",
       value: true,
-      description: "Automatically hide and show the Dock",
+      description: "Automatically hide and show the Dock"
     },
     {
       domain: "com.apple.dock",
       key: "show-recents",
       type: "bool",
       value: false,
-      description: "Show suggested and recent apps in Dock",
+      description: "Show suggested and recent apps in Dock"
     },
     {
       domain: "com.apple.dock",
       key: "magnification",
       type: "bool",
       value: true,
-      description: "Enable Dock magnification",
+      description: "Enable Dock magnification"
     },
     {
       domain: "com.apple.dock",
       key: "largesize",
       type: "float",
       value: 70,
-      description: "Dock magnification size",
-    },
+      description: "Dock magnification size"
+    }
   ]
 
   static read(domain: string, key: string): string | null {

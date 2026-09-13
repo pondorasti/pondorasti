@@ -25,6 +25,8 @@ yargs(hideBin(process.argv))
   .alias("v", "version")
   .help()
   .alias("h", "help")
-  .epilogue("For more information, visit https://github.com/pondorasti/pondorasti/blob/main/packages/cli/README.md")
+  .epilogue(
+    "For more information, visit https://github.com/pondorasti/pondorasti/blob/main/packages/cli/README.md"
+  )
   .fail(failHandler)
   .parse()
