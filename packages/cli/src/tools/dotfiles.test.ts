@@ -26,7 +26,10 @@ describe("Dotfiles", () => {
 
     Dotfiles.basePath = dotfilesDir
     mockHomeDir = spyOn(os, "homedir").mockImplementation(() => homeDir)
-    mockExecFileSync = spyOn(childProcess, "execFileSync")
+    // Keep tests hermetic: never shell out to real editor CLIs unless a test opts in.
+    mockExecFileSync = spyOn(childProcess, "execFileSync").mockImplementation(() => {
+      throw new Error("execFileSync is not mocked for this test")
+    })
   })
 
   afterEach(() => {
