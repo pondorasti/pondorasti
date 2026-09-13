@@ -14,11 +14,11 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "supply",
-      "database_id": "60353be0-ecd0-49b8-9f05-14fed95e7d67",
+      "database_name": "alexandru-supply",
+      "database_id": "1edcb7f5-a2e8-4524-b5f2-bdbb55fb0671",
       "migrations_dir": "drizzle"
     }
   ],
-  "r2_buckets": [{ "binding": "IMAGES", "bucket_name": "supply-images" }],
+  "r2_buckets": [{ "binding": "IMAGES", "bucket_name": "alexandru-supply-images" }],
   "triggers": { "crons": ["*/5 * * * *"] }
 }
