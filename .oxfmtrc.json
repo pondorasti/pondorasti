@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "semi": false,
+  "trailingComma": "none",
+  "printWidth": 100,
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "zold/**",
+    "bun.lock",
+    "apps/www/index.html",
+    "apps/buff/docs/history/**",
+    "**/routeTree.gen.ts",
+    "**/worker-configuration.d.ts",
+    "apps/supply/drizzle/meta/**",
+    "packages/cli/dotfiles/nvim/lazy-lock.json"
+  ]
+}
