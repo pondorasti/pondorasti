@@ -82,7 +82,7 @@ export function CatalogPending() {
   return (
     <main id="main" className="page-width py-10" aria-label="Loading collection" aria-busy="true">
       <div className="mb-8 h-10 w-40 rounded bg-line" />
-      <div className="grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-3 2xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-3 xl:grid-cols-4">
         {Array.from({ length: 8 }, (_, i) => (
           <div key={i}>
             <div className="aspect-square rounded-lg bg-surface motion-safe:animate-pulse" />

@@ -34,13 +34,8 @@ function Catalog() {
   const hasFilters = Boolean(filters.q || filters.tag || filters.ownership)
   return (
     <main id="main" className="page-width pb-6">
-      <div className="flex flex-wrap items-end justify-between gap-5 pt-10 pb-8 sm:pt-12">
-        <div>
-          <h1 className="text-3xl font-medium">The collection</h1>
-          <p className="mt-3 text-sm leading-6 text-muted">
-            Things for everyday life, work, and everything in between.
-          </p>
-        </div>
+      <div className="flex flex-wrap items-center justify-between gap-4 pt-6 pb-5 sm:pt-8">
+        <h1 className="text-2xl font-medium">The collection</h1>
         <span className="text-xs text-muted tabular-nums">{products.length} objects</span>
       </div>
       <div className="flex flex-wrap items-center gap-3 border-y border-line py-4">
@@ -132,7 +127,7 @@ function Catalog() {
         </p>
       )}
       {filtered.length ? (
-        <div className="grid grid-cols-2 gap-x-4 gap-y-9 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-3 2xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-9 sm:gap-x-6 sm:gap-y-12 md:grid-cols-3 xl:grid-cols-4">
           {filtered.map((product, index) => (
             <ProductCard
               key={product.slug}

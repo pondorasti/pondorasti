@@ -87,7 +87,7 @@ function Root() {
           >
             Skip to content
           </a>
-          <header className="page-width flex h-24 items-center justify-between gap-6 border-b border-line">
+          <header className="page-width flex h-20 items-center justify-between gap-6 border-b border-line">
             <Link to="/" className="text-[28px] font-semibold">
               Supply<span className="text-accent">.</span>
             </Link>
