@@ -139,6 +139,7 @@ export interface NotionOptions {
   clock?: Clock
   spacingMs?: number
   retries?: number
+  checkpoint?: () => Promise<void>
 }
 
 export class NotionSource {
@@ -163,6 +164,7 @@ export class NotionSource {
         const started = this.clock.now()
         for (let attempt = 0; ; attempt++) {
           await this.clock.sleep(Math.max(0, this.nextRequest - this.clock.now()))
+          await options.checkpoint?.()
           this.nextRequest = this.clock.now() + (options.spacingMs ?? 550)
           const response = await fetcher(input, { ...init, signal: AbortSignal.timeout(30_000) })
           if (![429, 529, 500, 502, 503, 504].includes(response.status)) return response

@@ -68,7 +68,10 @@ export async function runSync(env: SupplyEnv, options: SyncOptions = {}) {
 
   try {
     await db.insert(syncRuns).values({ id, startedAt: started, status: "running" })
-    const source = new NotionSource(env.NOTION_TOKEN, env.NOTION_DATA_SOURCE_ID, options)
+    const source = new NotionSource(env.NOTION_TOKEN, env.NOTION_DATA_SOURCE_ID, {
+      ...options,
+      checkpoint: heartbeat
+    })
     const rows = await source.scan()
     scanned = rows.length
     await heartbeat()

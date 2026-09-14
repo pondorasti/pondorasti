@@ -29,6 +29,47 @@ function setup(rows = [notionPage()], bodies: Record<string, unknown[]> = {}) {
 }
 
 describe("atomic Notion mirror", () => {
+  test("renews the lease throughout a rate-limited metadata scan longer than its original TTL", async () => {
+    const rows = Array.from({ length: 5 }, (_, i) => notionPage(`p${i}`, { image: null }))
+    const sync = setup(rows)
+    const normal = sync.http.request.getMockImplementation()!
+    const attempted = new Set<number>()
+    const remainingLeases: number[] = []
+    sync.http.request.mockImplementation(async (input, init) => {
+      if (String(input).endsWith("/query")) {
+        const cursor = Number(JSON.parse(String(init?.body)).start_cursor ?? 0)
+        if (!attempted.has(cursor)) {
+          attempted.add(cursor)
+          return new Response("Rate limited", { status: 429, headers: { "Retry-After": "60" } })
+        }
+        const [state] = await db.select().from(syncState)
+        remainingLeases.push(state.leaseUntil - sync.clock.now())
+        return Response.json(list([rows[cursor]], cursor < 4 ? String(cursor + 1) : null))
+      }
+      return normal(input, init)
+    })
+    expect(await sync.run()).toMatchObject({ status: "succeeded", scanned: 5 })
+    expect(sync.clock.delays.filter((delay) => delay === 60_000)).toHaveLength(5)
+    expect(remainingLeases).toHaveLength(5)
+    expect(Math.min(...remainingLeases)).toBeGreaterThan(0)
+  })
+
+  test("stops an over-budget scan before publishing even while its lease is renewed", async () => {
+    const sync = setup()
+    const normal = sync.http.request.getMockImplementation()!
+    let page = 0
+    sync.http.request.mockImplementation(async (input, init) => {
+      if (String(input).endsWith("/query")) {
+        sync.clock.advance(100_000)
+        return Response.json(list([notionPage(`p${page++}`)], String(page)))
+      }
+      return normal(input, init)
+    })
+    await expect(sync.run()).rejects.toThrow("sync_time_budget")
+    expect(await db.select().from(products)).toEqual([])
+    expect((await db.select().from(syncState))[0].leaseOwner).toBeNull()
+  })
+
   test("publishes 175 unique image assets across a paginated scan within D1 binding limits", async () => {
     const rows = Array.from({ length: 175 }, (_, i) =>
       notionPage(`p${i}`, { status: i < 15 ? "Retired" : i < 20 ? "Wishlist" : "Owned" })
