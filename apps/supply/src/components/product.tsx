@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router"
-import { ArrowUpRight, ImageOff } from "lucide-react"
+import { ImageOff } from "lucide-react"
 import { useState } from "react"
 import { imagePath, type ProductSummary } from "../catalog"
 import type { CatalogFilters } from "../filters"
@@ -55,14 +55,8 @@ export function ProductCard({
         search={filters ?? {}}
         className="block rounded-lg"
       >
-        <div className="product-stage relative">
+        <div className="product-stage">
           <ProductImage hash={product.thumbnail} name={product.name} priority={priority} />
-          <span
-            aria-hidden="true"
-            className="absolute right-3 top-3 flex size-8 items-center justify-center rounded-full bg-[#f4f5f3] text-[#737b74] transition-colors group-hover:bg-[#e3e9e2] group-hover:text-[#202321]"
-          >
-            <ArrowUpRight size={17} strokeWidth={1.5} />
-          </span>
         </div>
         <h2 className="mt-4 text-sm font-medium leading-5 break-words group-hover:text-accent sm:text-[15px]">
           {product.name || "Untitled"}
