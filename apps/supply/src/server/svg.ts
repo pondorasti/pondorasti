@@ -46,7 +46,9 @@ export function unwrapRasterSvg(bytes: ArrayBuffer): ArrayBuffer {
     const image = nodes[0] as Element
     if (image.localName !== "image" || image.namespaceURI !== SVG || children(image).length)
       throw unsupported()
-    attributes(image, ["href", "xlink:href", "width", "height", "x", "y"])
+    attributes(image, ["href", "xlink:href", "width", "height", "x", "y", "preserveAspectRatio"])
+    const aspectRatio = image.getAttribute("preserveAspectRatio")
+    if (aspectRatio !== null && aspectRatio !== "xMidYMid meet") throw unsupported()
     const width = Number(root.getAttribute("width"))
     const height = Number(root.getAttribute("height"))
     if (

@@ -10,6 +10,9 @@ const unwrap = (xml: string) =>
 describe("bitmap-only SVG wrappers", () => {
   test("extracts the original pixels without rendering or re-encoding", () => {
     expect(unwrap(wrapper)).toEqual(PNG)
+    expect(
+      unwrap(wrapper.replace("<image ", '<image preserveAspectRatio="xMidYMid meet" '))
+    ).toEqual(PNG)
     expect(unwrap(`<?xml version="1.0"?>\n${wrapper}`)).toEqual(PNG)
     expect(
       unwrap(
@@ -26,6 +29,8 @@ describe("bitmap-only SVG wrappers", () => {
     wrapper.replace("<image ", '<image onload="alert(1)" '),
     wrapper.replace("<image ", '<image style="filter:blur(2px)" '),
     wrapper.replace("<image ", '<image transform="rotate(45)" '),
+    wrapper.replace("<image ", '<image preserveAspectRatio="none" '),
+    wrapper.replace("<image ", '<image preserveAspectRatio="xMidYMid slice" '),
     wrapper.replace("<image ", '<image x="20" '),
     wrapper.replace("0 0 700 700", "0 0 100 100"),
     wrapper.replace("<image ", '<image width="2" '),
