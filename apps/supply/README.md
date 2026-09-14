@@ -70,7 +70,8 @@ restored Notion page gets its original URL. URLs remain stable across title edit
 Notes render common Notion text blocks, nested lists, headings, links, toggles,
 checkbox states, captions, and images. Unsupported blocks are not embedded;
 supported child content remains readable. HTML and executable links are never
-rendered from Notion. Review personal page bodies before the first public launch.
+rendered from Notion. Page bodies are public, so review personal notes in Notion
+before adding or updating them.
 
 ## Sync Guarantees
 
@@ -120,7 +121,7 @@ Resources in account `630f294bcb2c1e9b751d9fe0655a453a` (851):
 - Worker name: `supply`
 - D1: `alexandru-supply`, ID `1edcb7f5-a2e8-4524-b5f2-bdbb55fb0671`
 - R2: `alexandru-supply-images`, private; images are served through the Worker
-- Intended public origin: `https://alexandru.supply`
+- Public origin: `https://alexandru.supply`
 
 **Deployment prerequisites:** confirm the account's Workers paid plan, configure
 the Notion connection, review public content, apply the remote migration, and set
@@ -140,12 +141,10 @@ bunx wrangler secret put SYNC_SECRET
 bun run deploy
 ```
 
-The custom domain is intentionally not attached in `wrangler.jsonc` yet. Once the
-content and initial sync are verified, add a Workers Custom Domain for
-`alexandru.supply` (`{ "pattern": "alexandru.supply", "custom_domain": true }`
-in `routes`) and deploy. Both `workers_dev` and `preview_urls` are disabled, so a
-deployment without a domain is not a public preview. Use local validation before that launch, or a
-separately authorized private preview. Cron does not require a public domain.
+The Workers Custom Domain for `alexandru.supply` is declared in `wrangler.jsonc`.
+Deploying configures its DNS record and TLS certificate through Cloudflare. Both
+`workers_dev` and `preview_urls` remain disabled; the custom domain is the public
+entry point. Cron does not require a public domain.
 
 If an upload succeeds but deploying triggers fails, check `wrangler deployments
 list` before uploading again. `bunx wrangler triggers deploy` can finish the routing
