@@ -34,11 +34,8 @@ function Catalog() {
   const hasFilters = Boolean(filters.q || filters.tag || filters.ownership)
   return (
     <main id="main" className="page-width pb-6">
-      <div className="flex flex-wrap items-center justify-between gap-4 pt-6 pb-5 sm:pt-8">
-        <h1 className="text-2xl font-medium">The collection</h1>
-        <span className="text-xs text-muted tabular-nums">{products.length} objects</span>
-      </div>
-      <div className="flex flex-wrap items-center gap-3 border-y border-line py-4">
+      <h1 className="sr-only">The collection</h1>
+      <div className="flex flex-wrap items-center gap-3 border-b border-line py-4">
         <ToggleGroup
           aria-label="Ownership"
           value={[filters.ownership ?? "all"]}
