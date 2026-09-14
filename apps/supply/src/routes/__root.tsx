@@ -9,7 +9,7 @@ import {
 import { type QueryClient, useQueryErrorResetBoundary } from "@tanstack/react-query"
 import { Tooltip } from "@base-ui/react/tooltip"
 import { Button } from "@base-ui/react/button"
-import { ArrowLeft, ArrowUpRight, RotateCcw } from "lucide-react"
+import { ArrowLeft, RotateCcw } from "lucide-react"
 import { useEffect } from "react"
 import styles from "../styles.css?url"
 
@@ -96,15 +96,6 @@ function Root() {
           <Outlet />
           <footer className="page-width mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-line py-7 text-xs text-muted">
             <span>Alexandru's collection</span>
-            <a
-              href="https://www.curated.supply/"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 hover:text-ink"
-            >
-              Inspired by Curated Supply
-              <ArrowUpRight size={13} />
-            </a>
           </footer>
         </Tooltip.Provider>
         <Scripts />
