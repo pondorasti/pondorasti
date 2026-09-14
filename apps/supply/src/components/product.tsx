@@ -45,6 +45,8 @@ export function ProductCard({
   filters?: CatalogFilters
   priority?: boolean
 }) {
+  const wishlist = product.ownership === "Wishlist"
+  const tags = product.tags.filter((tag) => !wishlist || tag !== "Wishlist")
   return (
     <article className="group min-w-0">
       <Link
@@ -62,17 +64,17 @@ export function ProductCard({
             <ArrowUpRight size={17} strokeWidth={1.5} />
           </span>
         </div>
-        <div className="mt-4 flex items-start justify-between gap-3">
-          <h2 className="min-w-0 text-sm font-medium leading-5 break-words group-hover:text-accent sm:text-[15px]">
-            {product.name || "Untitled"}
-          </h2>
-          {product.ownership === "Wishlist" && (
-            <span className="shrink-0 pt-0.5 text-[11px] text-wishlist">Wishlist</span>
+        <h2 className="mt-4 text-sm font-medium leading-5 break-words group-hover:text-accent sm:text-[15px]">
+          {product.name || "Untitled"}
+        </h2>
+        <div className="mt-1.5 flex flex-wrap gap-x-2 text-xs leading-5 text-muted">
+          {wishlist && <span className="text-wishlist">Wishlist</span>}
+          {tags.length ? (
+            <span>{tags.join(" / ")}</span>
+          ) : (
+            !wishlist && <span>{product.ownership || "Uncategorized"}</span>
           )}
         </div>
-        <p className="mt-1.5 text-xs leading-5 text-muted">
-          {product.tags.join(" / ") || product.ownership || "Uncategorized"}
-        </p>
       </Link>
     </article>
   )
