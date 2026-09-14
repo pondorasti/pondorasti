@@ -1,5 +1,5 @@
 import { env } from "cloudflare:workers"
-import { describe, expect, test, vi } from "vitest"
+import { beforeEach, describe, expect, test, vi } from "vitest"
 import { AssetStore, imageType, imageUrl } from "../src/server/assets"
 import { NotionSource } from "../src/server/notion"
 import type { HttpFetch } from "../src/server/runtime"
@@ -11,7 +11,31 @@ const file = {
   ownerType: "page" as const
 }
 
+beforeEach(async () => {
+  const objects = await env.IMAGES.list()
+  if (objects.objects.length) await env.IMAGES.delete(objects.objects.map((object) => object.key))
+})
+
 describe("content-addressed images", () => {
+  test("deduplicates an SVG-wrapped PNG with the same raw PNG", async () => {
+    const wrapper = `<svg xmlns="http://www.w3.org/2000/svg" width="700" height="700"><image href="data:image/png;base64,${btoa(String.fromCharCode(...PNG))}" width="700" height="700"/></svg>`
+    const request = vi
+      .fn<HttpFetch>()
+      .mockResolvedValueOnce(
+        new Response(wrapper, { headers: { "Content-Type": "image/svg+xml" } })
+      )
+      .mockResolvedValueOnce(new Response(PNG))
+    const store = new AssetStore(env.IMAGES, new NotionSource("test", SOURCE_ID), [], {
+      fetch: request
+    })
+    const hash = await store.copy(file)
+    expect(await store.copy(file)).toBe(hash)
+    expect(store.added).toMatchObject([{ hash, size: PNG.length, contentType: "image/png" }])
+    const object = await env.IMAGES.get(`images/${hash}`)
+    expect(new Uint8Array(await object!.arrayBuffer())).toEqual(PNG)
+    expect(object!.httpMetadata?.contentType).toBe("image/png")
+  })
+
   test("deduplicates identical bytes across changing signed URLs and products", async () => {
     const source = new NotionSource("test", SOURCE_ID)
     const request = vi.fn<HttpFetch>(async () => new Response(PNG))

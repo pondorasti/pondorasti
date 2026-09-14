@@ -101,7 +101,10 @@ External images fail closed unless their exact trusted host is configured throug
 `IMAGE_ALLOWED_HOSTS` (comma-separated). Redirect destinations are checked too.
 The current catalog also uses `isntree-global.com` and `cdsassets.apple.com`, which
 are explicitly allowed in the Worker configuration.
-SVG and HTML images are rejected. Notion does not provide content checksums, so
+Single-bitmap SVG wrappers are parsed with a strict XML allowlist and unwrapped
+to their original image bytes before hashing. Drawing elements, scripts, styles,
+transforms, cropping, entities, and external references are rejected; no SVG is
+served. General SVG and HTML images are rejected. Notion does not provide content checksums, so
 changed pages still require an image download to hash the bytes. External images
 changed independently of Notion need a forced refresh.
 

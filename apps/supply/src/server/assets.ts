@@ -1,6 +1,7 @@
 import type { NotionSource, RemoteImage } from "./notion"
 import { sha256, SyncError, systemClock, type Clock, type HttpFetch } from "./runtime"
 import type { assets } from "./schema"
+import { unwrapRasterSvg } from "./svg"
 
 export type Asset = typeof assets.$inferSelect
 const MAX_IMAGE_BYTES = 8 * 1024 * 1024
@@ -104,8 +105,14 @@ export class AssetStore {
         await response.body?.cancel()
         throw new SyncError("image_download_failed")
       }
-      const bytes = await readImage(response)
-      const contentType = imageType(new Uint8Array(bytes))
+      let bytes = await readImage(response)
+      let contentType: string
+      try {
+        contentType = imageType(new Uint8Array(bytes))
+      } catch {
+        bytes = unwrapRasterSvg(bytes)
+        contentType = imageType(new Uint8Array(bytes))
+      }
       const hash = await sha256(bytes)
       if (this.known.has(hash)) return hash
       const key = `images/${hash}`

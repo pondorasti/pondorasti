@@ -23,6 +23,7 @@
     "@tanstack/react-router": "1.170.36",
     "@tanstack/react-router-ssr-query": "1.167.2",
     "@tanstack/react-start": "1.168.53",
+    "@xmldom/xmldom": "0.9.12",
     "drizzle-orm": "0.45.2",
     "lucide-react": "1.45.0",
     "react": "19.3.0",
