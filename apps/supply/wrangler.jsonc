@@ -7,6 +7,7 @@
   "compatibility_flags": ["nodejs_compat"],
   "observability": { "enabled": true },
   "workers_dev": false,
+  "preview_urls": false,
   "secrets": { "required": ["NOTION_TOKEN", "SYNC_SECRET"] },
   "vars": {
     "NOTION_DATA_SOURCE_ID": "3b6b49ce-7f0b-80cd-ad07-000b96417ff1",

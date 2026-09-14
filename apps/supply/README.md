@@ -143,9 +143,13 @@ bun run deploy
 The custom domain is intentionally not attached in `wrangler.jsonc` yet. Once the
 content and initial sync are verified, add a Workers Custom Domain for
 `alexandru.supply` (`{ "pattern": "alexandru.supply", "custom_domain": true }`
-in `routes`) and deploy. `workers_dev` is disabled, so a deployment without a
-domain is not a public preview. Use local validation before that launch, or a
+in `routes`) and deploy. Both `workers_dev` and `preview_urls` are disabled, so a
+deployment without a domain is not a public preview. Use local validation before that launch, or a
 separately authorized private preview. Cron does not require a public domain.
+
+If an upload succeeds but deploying triggers fails, check `wrangler deployments
+list` before uploading again. `bunx wrangler triggers deploy` can finish the routing
+and cron configuration without creating another Worker version.
 
 ```sh
 SUPPLY_ORIGIN=https://alexandru.supply bun run sync --status
