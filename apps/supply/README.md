@@ -54,6 +54,10 @@ and user information. Grant it access to the Supply database, not the enclosing
 personal workspace. Store its token in `.dev.vars` locally and a Worker secret in
 production. An interactive Notion MCP connection is not a deployable API token.
 
+The dedicated [Supply connection](https://app.notion.com/developers/connections/3dbb49ce-7f0b-8168-98cb-0027343688be?spaceId=e0a0747e-78da-40a6-8ac4-283c071d1720)
+has read-only access to this database. Wrangler declares the required secret names
+explicitly, so generated types do not depend on whether a checkout has local secrets.
+
 - Database: `3b6b49ce-7f0b-80fb-8c8b-d57dda7079b3`
 - Data source: `3b6b49ce-7f0b-80cd-ad07-000b96417ff1`
 - Required schema: `Name` (title), `Link` (URL), `Ownership status` (select),
@@ -95,6 +99,8 @@ Notion-hosted PNG/JPEG/GIF/WebP/AVIF files are supported. Images are limited to
 8 MiB, streamed with a bounded buffer and validated by their file signatures.
 External images fail closed unless their exact trusted host is configured through
 `IMAGE_ALLOWED_HOSTS` (comma-separated). Redirect destinations are checked too.
+The current catalog also uses `isntree-global.com` and `cdsassets.apple.com`, which
+are explicitly allowed in the Worker configuration.
 SVG and HTML images are rejected. Notion does not provide content checksums, so
 changed pages still require an image download to hash the bytes. External images
 changed independently of Notion need a forced refresh.
