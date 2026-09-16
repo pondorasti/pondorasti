@@ -30,7 +30,8 @@ The compiled binary includes the Brewfiles and dotfiles, so it can bootstrap bef
 ## Installation (Development)
 
 ```bash
-# Install Bun if you haven't already
+# Install Bun if you haven't already (there is no Homebrew yet on a fresh machine;
+# once `pd bootstrap` has installed the Homebrew-managed Bun, that one takes precedence)
 curl -fsSL https://bun.sh/install | bash
 
 # Clone the repository
