@@ -30,8 +30,9 @@ The compiled binary includes the Brewfiles and dotfiles, so it can bootstrap bef
 ## Installation (Development)
 
 ```bash
-# Install Bun via Homebrew (the same formula the Brewfile manages)
-brew install oven-sh/bun/bun
+# Install Bun if you haven't already (there is no Homebrew yet on a fresh machine;
+# once `pd bootstrap` has installed the Homebrew-managed Bun, that one takes precedence)
+curl -fsSL https://bun.sh/install | bash
 
 # Clone the repository
 git clone https://github.com/pondorasti/pondorasti.git
