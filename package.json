@@ -23,5 +23,8 @@
     "lefthook": "2.1.12",
     "oxfmt": "0.67.0",
     "oxlint": "1.82.0"
+  },
+  "dependencies": {
+    "js-yaml": "4.3.2"
   }
 }
