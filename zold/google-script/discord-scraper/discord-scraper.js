@@ -2,17 +2,20 @@
 // A bot to scrape images from a discord channel and repost them on Slack using Slack Bots and webhooks 
 
 // Slack Bot Webhook
-const slackURL = '' // Add Slack webhook
-const slackToken = '' // Add bot user OAuth access token
+// Credentials are read from Script Properties (File > Project properties > Script properties)
+// instead of being hardcoded here, to avoid committing secrets to source control.
+const scriptProperties = PropertiesService.getScriptProperties()
+const slackURL = scriptProperties.getProperty('SLACK_WEBHOOK_URL')
+const slackToken = scriptProperties.getProperty('SLACK_BOT_TOKEN')
 
 // Discord API
 const discordBaseURL = 'https://discordapp.com/api'
 const apiVersion = 'v6';
-const discordToken = '' // Add Discord personal access token
+const discordToken = scriptProperties.getProperty('DISCORD_TOKEN')
  
 // Discord Server Credentials 
-const ftcServerID = '' // Add server id
-const designCadID = '' // Add channel id
+const ftcServerID = scriptProperties.getProperty('DISCORD_SERVER_ID')
+const designCadID = scriptProperties.getProperty('DISCORD_CHANNEL_ID')
 const filters = 'has=image&has=embed&has=video' // Search field filters
 
 
