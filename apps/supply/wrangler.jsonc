@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "supply",
+  "name": "alexandru-supply",
   "account_id": "630f294bcb2c1e9b751d9fe0655a453a",
   "main": "src/worker.ts",
   "compatibility_date": "2026-09-13",
