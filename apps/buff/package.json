@@ -1,30 +1,32 @@
 {
-  "name": "buff-web",
+  "name": "buff",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "typecheck": "tsc --noEmit",
-    "verify-build": "bun scripts/verify-build.ts",
-    "deploy": "(vite build || vite build || vite build) && bun scripts/verify-build.ts && cp -R .hunk dist/client/.hunk && hunk push dist/client"
-  },
-  "devDependencies": {
-    "@tailwindcss/vite": "4.3.2",
-    "@types/node": "^26.1.1",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "6.0.5",
-    "tailwindcss": "4.3.2",
-    "typescript": "^5.9",
-    "vite": "8.2.1"
+    "preview": "vite preview",
+    "deploy": "bun run build && wrangler deploy",
+    "typecheck": "wrangler types --check && tsc --noEmit",
+    "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "@hugeicons/core-free-icons": "^4.2.2",
-    "@hugeicons/react": "^1.1.9",
-    "@tanstack/react-router": "1.170.21",
-    "@tanstack/react-start": "1.168.38",
-    "react": "^19",
-    "react-dom": "^19"
+    "@tanstack/react-router": "1.170.36",
+    "@tanstack/react-start": "1.168.53",
+    "lucide-react": "1.45.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.54.8",
+    "@tailwindcss/vite": "4.3.3",
+    "@types/node": "^26.1.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3",
+    "vite": "8.3.0",
+    "wrangler": "4.131.1"
   }
 }

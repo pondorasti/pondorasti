@@ -3,8 +3,7 @@
    Everything the app renders (equipment, exercises, routine days, load
    targets) lives here. Routes are pure renderers over this catalog.
    Relational-by-id: day items & loads reference exercises/equipment by id.
-   NOTE: must stay side-effect-free — vite.config.ts imports it to generate
-   the prerender page list.
+   NOTE: must stay side-effect-free — the Hevy scripts import it.
    ========================================================================== */
 
 /* ---- Equipment (physical machines; drives gallery + detail pages) ---- */

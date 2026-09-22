@@ -1,15 +1,12 @@
-import { HugeiconsIcon, type HugeiconsIconProps } from "@hugeicons/react"
-import { Dumbbell01Icon, EquipmentGym01Icon, GaugeIcon } from "@hugeicons/core-free-icons"
+import { Dumbbell, Gauge, Warehouse, type LucideProps } from "lucide-react"
 
-type IconProps = Omit<HugeiconsIconProps, "icon">
-
-const make = (icon: HugeiconsIconProps["icon"]) => (props: IconProps) => (
-  <HugeiconsIcon icon={icon} strokeWidth={1.9} {...props} />
+const make = (Icon: typeof Dumbbell) => (props: LucideProps) => (
+  <Icon strokeWidth={1.9} {...props} />
 )
 
 /** Routine / training */
-export const IconBarbell = make(Dumbbell01Icon)
+export const IconBarbell = make(Dumbbell)
 /** Load targets */
-export const IconGauge = make(GaugeIcon)
+export const IconGauge = make(Gauge)
 /** Equipment / gear */
-export const IconBox = make(EquipmentGym01Icon)
+export const IconBox = make(Warehouse)
