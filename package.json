@@ -16,6 +16,7 @@
     }
   },
   "private": true,
+  "packageManager": "bun@1.4.2",
   "scripts": {
     "prepare": "vp config --no-agent",
     "check": "vp check && vp run -r --cache test && vp run -r --cache build"
@@ -28,12 +29,5 @@
   "overrides": {
     "vite": "catalog:",
     "vitest": "catalog:"
-  },
-  "devEngines": {
-    "packageManager": {
-      "name": "bun",
-      "version": "1.4.2",
-      "onFail": "download"
-    }
   }
 }
