@@ -1,4 +1,4 @@
-import { vi } from "vitest"
+import { vi } from "vite-plus/test"
 import type { Clock, HttpFetch } from "../src/server/runtime"
 
 export const SOURCE_ID = "3b6b49ce-7f0b-80cd-ad07-000b96417ff1"
@@ -89,12 +89,18 @@ export function list(results: unknown[], cursor: string | null = null) {
   return { object: "list", results, has_more: cursor !== null, next_cursor: cursor }
 }
 
+/** The URL a fetch call targets, whatever form its input takes. */
+export const requestUrl = (input: RequestInfo | URL) =>
+  new URL(typeof input === "string" ? input : input instanceof URL ? input : input.url)
+
+/** The parsed JSON body of a fetch call. */
+export const jsonBody = (init?: RequestInit): Record<string, unknown> =>
+  typeof init?.body === "string" ? JSON.parse(init.body) : {}
+
 export function notionHttp(rows = [notionPage()], bodies: Record<string, unknown[]> = {}) {
   const calls: string[] = []
   const request = vi.fn<HttpFetch>(async (input) => {
-    const url = new URL(
-      typeof input === "string" ? input : input instanceof URL ? input : input.url
-    )
+    const url = requestUrl(input)
     calls.push(url.pathname + url.search)
     if (url.pathname === `/v1/data_sources/${SOURCE_ID}`)
       return Response.json({ properties: notionPage().properties })

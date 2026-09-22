@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest"
+import { describe, expect, test } from "vite-plus/test"
 import { unwrapRasterSvg } from "../src/server/svg"
 import { PNG } from "./fixtures"
 

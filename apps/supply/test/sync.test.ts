@@ -1,12 +1,22 @@
 import { env } from "cloudflare:workers"
 import { drizzle } from "drizzle-orm/d1"
 import { eq } from "drizzle-orm"
-import { beforeEach, describe, expect, test, vi } from "vitest"
+import { beforeEach, describe, expect, test, vi } from "vite-plus/test"
 import { getCatalog, getProduct } from "../src/server/catalog"
 import { assets, products, syncRuns, syncState } from "../src/server/schema"
 import { runSync } from "../src/server/sync"
 import type { HttpFetch } from "../src/server/runtime"
-import { fakeClock, list, notionHttp, notionPage, paragraph, PNG, rich } from "./fixtures"
+import {
+  fakeClock,
+  jsonBody,
+  list,
+  notionHttp,
+  notionPage,
+  paragraph,
+  PNG,
+  requestUrl,
+  rich
+} from "./fixtures"
 
 const bindings = { ...env, NOTION_TOKEN: "test-token" }
 const db = drizzle(env.DB)
@@ -36,8 +46,8 @@ describe("atomic Notion mirror", () => {
     const attempted = new Set<number>()
     const remainingLeases: number[] = []
     sync.http.request.mockImplementation(async (input, init) => {
-      if (String(input).endsWith("/query")) {
-        const cursor = Number(JSON.parse(String(init?.body)).start_cursor ?? 0)
+      if (requestUrl(input).pathname.endsWith("/query")) {
+        const cursor = Number(jsonBody(init).start_cursor ?? 0)
         if (!attempted.has(cursor)) {
           attempted.add(cursor)
           return new Response("Rate limited", { status: 429, headers: { "Retry-After": "60" } })
@@ -59,7 +69,7 @@ describe("atomic Notion mirror", () => {
     const normal = sync.http.request.getMockImplementation()!
     let page = 0
     sync.http.request.mockImplementation(async (input, init) => {
-      if (String(input).endsWith("/query")) {
+      if (requestUrl(input).pathname.endsWith("/query")) {
         sync.clock.advance(100_000)
         return Response.json(list([notionPage(`p${page++}`)], String(page)))
       }
@@ -77,8 +87,8 @@ describe("atomic Notion mirror", () => {
     const sync = setup(rows)
     const normal = sync.http.request.getMockImplementation()!
     sync.http.request.mockImplementation(async (input, init) => {
-      if (String(input).endsWith("/query")) {
-        const body = JSON.parse(String(init?.body))
+      if (requestUrl(input).pathname.endsWith("/query")) {
+        const body = jsonBody(init)
         return Response.json(
           body.start_cursor ? list(rows.slice(100)) : list(rows.slice(0, 100), "second")
         )
@@ -86,7 +96,7 @@ describe("atomic Notion mirror", () => {
       return normal(input, init)
     })
     sync.imageFetch.mockImplementation(async (input) => {
-      const index = Number(new URL(String(input)).pathname.match(/p(\d+)\.png/)![1])
+      const index = Number(requestUrl(input).pathname.match(/p(\d+)\.png/)![1])
       return new Response(new Uint8Array([...PNG, index]))
     })
     expect(await sync.run()).toEqual({
@@ -248,7 +258,7 @@ describe("atomic Notion mirror", () => {
     rows[1] = notionPage("b", { revision: "new" })
     const normal = sync.http.request.getMockImplementation()!
     sync.http.request.mockImplementation(async (input, init) => {
-      if (String(input).includes("/blocks/b/")) throw new Error("body unavailable")
+      if (requestUrl(input).pathname.includes("/blocks/b/")) throw new Error("body unavailable")
       return normal(input, init)
     })
     await expect(sync.run()).rejects.toThrow("sync_failed")

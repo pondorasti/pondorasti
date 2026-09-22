@@ -3,12 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "vp dev",
+    "build": "vp build",
+    "preview": "vp preview",
     "deploy": "bun run build && wrangler deploy",
-    "typecheck": "wrangler types --check && tsc --noEmit",
-    "test": "vitest run",
+    "typecheck": "wrangler types --check && vp check --no-fmt --no-lint",
+    "test": "vp test run",
     "cf-typegen": "wrangler types",
     "db:generate": "drizzle-kit generate",
     "db:migrate:local": "wrangler d1 migrations apply alexandru-supply --local",
@@ -39,8 +39,9 @@
     "drizzle-kit": "0.31.10",
     "tailwindcss": "4.3.3",
     "typescript": "5.9.3",
-    "vite": "8.3.0",
-    "vitest": "4.1.11",
-    "wrangler": "4.131.1"
+    "vite": "catalog:",
+    "vitest": "catalog:",
+    "wrangler": "4.131.1",
+    "vite-plus": "catalog:"
   }
 }

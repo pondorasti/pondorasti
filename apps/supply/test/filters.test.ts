@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, it } from "vite-plus/test"
 import { filterCatalog, validateFilters } from "../src/filters"
 import type { ProductSummary } from "../src/catalog"
 

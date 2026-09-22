@@ -20,7 +20,6 @@ From the repository root:
 
 ```sh
 bun install
-bunx lefthook install
 cd apps/supply
 bun run db:migrate:local
 bun run dev
@@ -175,12 +174,17 @@ migrations. Regenerate Worker types with `bun run cf-typegen` after binding chan
 
 ## Checks
 
-`bun run check` at the repository root runs Oxfmt, Oxlint, workspace typechecks,
-tests and builds. Lefthook runs the same non-mutating command before commits.
-Formatting is explicit (`bun run format`); the hook never re-stages files. `/zold`
-is excluded. CLI release jobs still build and publish, with no redundant GH tests.
+The repository uses [Vite+](https://viteplus.dev) (`vp`) for its toolchain; the
+root `vite.config.ts` holds the shared format (Oxfmt) and lint (Oxlint, type-aware)
+settings. `bun run check` at the repository root runs `vp check` (formatting, lint
+and type checks) followed by every workspace's tests and builds through
+`vp run -r --cache`, which replays unchanged tests from cache. The
+`.vite-hooks/pre-commit` hook runs the same non-mutating command before commits;
+`bun install` installs it through `vp config`. Formatting is explicit
+(`vp check --fix` or `vp fmt`); the hook never re-stages files. `/zold` is
+excluded. CLI release jobs still build and publish, with no redundant GH tests.
 Hooks are local and can be bypassed, so they are a workflow guard, not a remotely
-enforced merge policy. Run `bunx lefthook install` in any fresh checkout.
+enforced merge policy.
 
 `bun run test` in this directory runs focused unit/integration tests. External
 Notion/image HTTP is simulated; SQL transactions and R2 persistence use actual

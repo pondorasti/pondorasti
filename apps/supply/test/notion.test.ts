@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vitest"
+import { describe, expect, test, vi } from "vite-plus/test"
 import { safeLink } from "../src/catalog"
 import { NotionSource } from "../src/server/notion"
 import { sha256, type HttpFetch } from "../src/server/runtime"

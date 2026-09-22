@@ -1,0 +1,5 @@
+# Runs the full repo check (format, lint, types, tests, builds) without
+# rewriting or re-staging files. Git exports GIT_* variables to hooks; unset
+# them so tests that shell out to git operate on their own repositories.
+unset $(git rev-parse --local-env-vars)
+vp run check

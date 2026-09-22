@@ -9,7 +9,7 @@ import { dockCommand } from "./commands/dock"
 import { dotfilesCommand } from "./commands/dotfiles"
 import { failHandler } from "./utils/cli-helpers"
 
-yargs(hideBin(process.argv))
+await yargs(hideBin(process.argv))
   .scriptName("pondorasti")
   .usage("$0 <command> [options]")
   .command(bootstrapCommand)

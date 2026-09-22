@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises"
 import { createRequire } from "node:module"
-import { describe, expect, test } from "vitest"
+import { describe, expect, test } from "vite-plus/test"
 import { zipSync } from "fflate"
 import OpenJPEG from "@cornerstonejs/codec-openjpeg/decodewasmjs"
 import { fixture } from "./fixture"

@@ -10,18 +10,28 @@
   ],
   "private": true,
   "scripts": {
-    "check": "bun run format:check && bun run lint && bun run typecheck && bun run test && bun run build",
-    "format": "oxfmt",
-    "format:check": "oxfmt --check",
-    "lint": "oxlint --deny-warnings",
-    "typecheck": "bun run --filter \"./apps/*\" --filter \"./packages/*\" typecheck",
-    "test": "bun run --filter \"./apps/*\" --filter \"./packages/*\" test",
-    "build": "bun run --filter \"./apps/*\" --filter \"./packages/*\" build"
+    "prepare": "vp config --no-agent",
+    "check": "vp check && vp run -r --cache test && vp run -r --cache build"
   },
   "devDependencies": {
     "@types/bun": "^1.3.14",
-    "lefthook": "2.1.12",
-    "oxfmt": "0.67.0",
-    "oxlint": "1.82.0"
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "catalog": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@0.3.3",
+    "vitest": "4.1.11",
+    "vite-plus": "0.3.3"
+  },
+  "overrides": {
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "bun",
+      "version": "1.4.2",
+      "onFail": "download"
+    }
   }
 }

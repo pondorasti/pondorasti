@@ -1,4 +1,4 @@
-import { defineConfig } from "vite"
+import { defineConfig, lazyPlugins } from "vite-plus"
 import { cloudflare } from "@cloudflare/vite-plugin"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite"
 import react from "@vitejs/plugin-react"
@@ -11,10 +11,10 @@ export default defineConfig({
     }
   },
   worker: { format: "es" },
-  plugins: [
+  plugins: lazyPlugins(() => [
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     tailwindcss(),
     tanstackStart(),
     react()
-  ]
+  ])
 })

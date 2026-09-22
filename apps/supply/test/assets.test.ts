@@ -1,9 +1,9 @@
 import { env } from "cloudflare:workers"
-import { beforeEach, describe, expect, test, vi } from "vitest"
+import { beforeEach, describe, expect, test, vi } from "vite-plus/test"
 import { AssetStore, imageType, imageUrl } from "../src/server/assets"
 import { NotionSource } from "../src/server/notion"
 import type { HttpFetch } from "../src/server/runtime"
-import { fakeClock, notionHttp, notionPage, PNG, SOURCE_ID } from "./fixtures"
+import { fakeClock, notionHttp, notionPage, PNG, requestUrl, SOURCE_ID } from "./fixtures"
 
 const file = {
   url: "https://prod-files-secure.s3.us-west-2.amazonaws.com/a.png?signature=old",
@@ -69,7 +69,7 @@ describe("content-addressed images", () => {
       .fn<HttpFetch>()
       .mockResolvedValueOnce(new Response("expired", { status: 403 }))
       .mockImplementationOnce(async (url) => {
-        expect(String(url)).toContain("fresh")
+        expect(requestUrl(url).href).toContain("fresh")
         return new Response(PNG)
       })
     await new AssetStore(env.IMAGES, source, [], { fetch: request }).copy(file)

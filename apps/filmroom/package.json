@@ -3,12 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "vp dev",
+    "build": "vp build",
+    "preview": "vp preview",
     "deploy": "bun run build && wrangler deploy",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "typecheck": "vp check --no-fmt --no-lint",
+    "test": "vp test run"
   },
   "dependencies": {
     "@base-ui/react": "1.8.0",
@@ -30,8 +30,8 @@
     "@vitejs/plugin-react": "6.1.1",
     "tailwindcss": "4.3.3",
     "typescript": "5.9.3",
-    "vite": "8.3.0",
-    "vitest": "4.1.11",
-    "wrangler": "4.131.1"
+    "vite": "catalog:",
+    "wrangler": "4.131.1",
+    "vite-plus": "catalog:"
   }
 }

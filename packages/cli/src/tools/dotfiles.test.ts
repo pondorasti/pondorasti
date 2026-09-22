@@ -86,7 +86,7 @@ describe("Dotfiles", () => {
       ].join("\n")
     )
 
-    mockExecFileSync.mockImplementation((command, args) => {
+    mockExecFileSync.mockImplementation((command: string, args?: readonly string[]) => {
       if (command === "/bin/zsh") {
         return ""
       }

@@ -1,6 +1,6 @@
 import { env } from "cloudflare:workers"
 import { drizzle } from "drizzle-orm/d1"
-import { beforeEach, expect, test, vi } from "vitest"
+import { beforeEach, expect, test, vi } from "vite-plus/test"
 import { handleApi, scheduledSync } from "../src/server/http"
 import { products, syncRuns, syncState } from "../src/server/schema"
 import { runSync } from "../src/server/sync"

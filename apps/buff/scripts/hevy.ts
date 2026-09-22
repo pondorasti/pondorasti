@@ -39,10 +39,9 @@ export interface HevyTemplate {
 
 /** Authenticated fetch; throws with the response body on non-2xx. */
 export async function hevy(path: string, init?: RequestInit): Promise<any> {
-  const res = await fetch(`${API}${path}`, {
-    ...init,
-    headers: { "api-key": KEY!, "Content-Type": "application/json", ...init?.headers }
-  })
+  const headers = new Headers({ "api-key": KEY!, "Content-Type": "application/json" })
+  new Headers(init?.headers).forEach((value, name) => headers.set(name, value))
+  const res = await fetch(`${API}${path}`, { ...init, headers })
   if (!res.ok) {
     const body = await res.text()
     throw new Error(`${init?.method ?? "GET"} ${path} → ${res.status}: ${body.slice(0, 300)}`)
