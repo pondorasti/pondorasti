@@ -11,6 +11,28 @@
         "oxlint": "1.82.0",
       },
     },
+    "apps/biomarkers": {
+      "name": "biomarkers",
+      "dependencies": {
+        "@base-ui/react": "1.8.0",
+        "@tanstack/react-router": "1.170.36",
+        "@tanstack/react-start": "1.168.53",
+        "lucide-react": "1.45.0",
+        "react": "19.3.0",
+        "react-dom": "19.3.0",
+      },
+      "devDependencies": {
+        "@cloudflare/vite-plugin": "1.54.8",
+        "@tailwindcss/vite": "4.3.3",
+        "@types/react": "19.3.0",
+        "@types/react-dom": "19.3.0",
+        "@vitejs/plugin-react": "6.1.1",
+        "tailwindcss": "4.3.3",
+        "typescript": "5.9.3",
+        "vite": "8.3.0",
+        "wrangler": "4.131.1",
+      },
+    },
     "apps/buff": {
       "name": "buff",
       "dependencies": {
@@ -556,6 +578,8 @@
     "babel-dead-code-elimination": ["babel-dead-code-elimination@1.0.12", "", { "dependencies": { "@babel/core": "^7.23.7", "@babel/parser": "^7.23.6", "@babel/traverse": "^7.23.7", "@babel/types": "^7.23.6" } }, "sha512-GERT7L2TiYcYDtYk1IpD+ASAYXjKbLTDPhBtYj7X1NuRMDTMtAx9kyBenub1Ev41lo91OHCKdmP+egTDmfQ7Ig=="],
 
     "baseline-browser-mapping": ["baseline-browser-mapping@2.11.12", "", { "bin": { "baseline-browser-mapping": "dist/cli.cjs" } }, "sha512-r7WnVImvVCeFpf2DOXfy41aPWzeNg3H/A2X4dKmy1QL0MSyyk/e7z8ihJ3N6Nn2PsdhkVlqnEfnUE4a05P2aTA=="],
+
+    "biomarkers": ["biomarkers@workspace:apps/biomarkers"],
 
     "blake3-wasm": ["blake3-wasm@2.1.5", "", {}, "sha512-F1+K8EbfOZE49dtoPtmxUQrpXaBIl3ICvasLh+nJta0xkz+9kF/7uet9fLnwKqhDrmj6g+6K3Tw9yQPUg2ka5g=="],
 

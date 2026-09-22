@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "alexandru-biomarkers",
+  "account_id": "630f294bcb2c1e9b751d9fe0655a453a",
+  "main": "@tanstack/react-start/server-entry",
+  "compatibility_date": "2026-09-13",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "biomarkers.alexandru.so", "custom_domain": true }]
+}
