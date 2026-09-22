@@ -41,11 +41,15 @@ bun run --cwd apps/filmroom preview
 
 ## Deploy
 
+Pushing to `main` deploys automatically. The `alexandru-filmroom` Worker is connected to this repository through Cloudflare Workers Builds, which runs `bun run typecheck && bun run test && bun run build` and then `npx wrangler deploy` from `apps/filmroom`, but only when a push touches `apps/filmroom/*` or `bun.lock`. Build logs are in the Cloudflare dashboard under the Worker's Deployments; commits get a status check on GitHub.
+
+To deploy by hand from your machine (with an authorized Wrangler login):
+
 ```sh
 bun run --cwd apps/filmroom deploy
 ```
 
-This builds the app and runs `wrangler deploy`. The Worker (`alexandru-filmroom`) and its custom domain are declared in `wrangler.jsonc`; deploying configures DNS and TLS. Use an authorized Wrangler login or an appropriately scoped token.
+The deploy script builds the app and runs `wrangler deploy`. The Worker (`alexandru-filmroom`) and its custom domain are declared in `wrangler.jsonc`; deploying configures DNS and TLS. Use an authorized Wrangler login or an appropriately scoped token.
 
 ## Controls
 

@@ -118,10 +118,10 @@ revisited before substantially growing the collection beyond the tested 175 rows
 
 Resources in account `630f294bcb2c1e9b751d9fe0655a453a` (851):
 
-- Worker name: `supply`
+- Worker name: `alexandru-supply`
 - D1: `alexandru-supply`, ID `1edcb7f5-a2e8-4524-b5f2-bdbb55fb0671`
 - R2: `alexandru-supply-images`, private; images are served through the Worker
-- Public origin: `https://alexandru.supply`
+- Public origin: `https://alexandru.supply` (also served at `https://supply.alexandru.so`)
 
 **Deployment prerequisites:** confirm the account's Workers paid plan, configure
 the Notion connection, review public content, apply the remote migration, and set
@@ -140,6 +140,13 @@ bunx wrangler secret put NOTION_TOKEN
 bunx wrangler secret put SYNC_SECRET
 bun run deploy
 ```
+
+After that first setup, pushing to `main` deploys automatically: the Worker is
+connected to this repository through Cloudflare Workers Builds, which runs
+`bun run typecheck && bun run test && bun run build` and then `npx wrangler deploy`
+from `apps/supply` when a push touches `apps/supply/*` or `bun.lock`. Builds do
+not apply D1 migrations. Run `bun run db:migrate:remote` before pushing a change
+that depends on a new migration.
 
 The Workers Custom Domain for `alexandru.supply` is declared in `wrangler.jsonc`.
 Deploying configures its DNS record and TLS certificate through Cloudflare. Both

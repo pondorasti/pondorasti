@@ -25,8 +25,12 @@ bun run --cwd apps/biomarkers dev
 
 ## Deploy
 
+Pushing to `main` deploys automatically. The `alexandru-biomarkers` Worker is connected to this repository through Cloudflare Workers Builds, which runs `bun run typecheck && bun run build` and then `npx wrangler deploy` from `apps/biomarkers`, but only when a push touches `apps/biomarkers/*` or `bun.lock`. Build logs are in the Cloudflare dashboard under the Worker's Deployments; commits get a status check on GitHub.
+
+To deploy by hand from your machine (with an authorized Wrangler login):
+
 ```sh
 bun run --cwd apps/biomarkers deploy
 ```
 
-This builds the app and runs `wrangler deploy`. The Worker (`alexandru-biomarkers`) and its custom domain are declared in `wrangler.jsonc`; deploying configures DNS and TLS.
+The deploy script builds the app and runs `wrangler deploy`. The Worker (`alexandru-biomarkers`) and its custom domain are declared in `wrangler.jsonc`; deploying configures DNS and TLS.
