@@ -32,9 +32,9 @@
     "build:sign": "codesign --deep --force --sign - --entitlements entitlements.plist dist/pd"
   },
   "dependencies": {
-    "yargs": "^18.0.0"
+    "yargs": "18.2.0"
   },
   "devDependencies": {
-    "@types/yargs": "^17.0.35"
+    "@types/yargs": "17.0.35"
   }
 }
