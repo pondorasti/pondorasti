@@ -10,20 +10,19 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://amex-card-playbook.hunk.851.sh'),
   title: 'AMEX Card Playbook',
   description: 'Your cards, benefits, offers, and transactions—organized.',
   openGraph: {
     title: 'AMEX Card Playbook',
     description: 'Your cards, benefits, offers, and transactions—organized.',
     type: 'website',
-    images: ['https://amex-card-playbook.hunk.851.sh/og.png'],
+    images: ['/og.png'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'AMEX Card Playbook',
     description: 'Your cards, benefits, offers, and transactions—organized.',
-    images: ['https://amex-card-playbook.hunk.851.sh/og.png'],
+    images: ['/og.png'],
   },
 };
 

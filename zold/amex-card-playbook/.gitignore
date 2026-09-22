@@ -13,7 +13,6 @@
 
 # next.js
 /.next/
-/.next-hunk/
 /.vinext/
 /out/
 

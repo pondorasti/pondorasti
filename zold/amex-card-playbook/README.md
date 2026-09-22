@@ -2,8 +2,6 @@
 
 A personal dashboard for reviewing 2026 year-to-date spending across an American Express Gold and Platinum card. It combines transaction history, Copilot Money categories, card-routing analysis, benefit usage, and AMEX Offer redemptions.
 
-Live site: [amex-card-playbook.hunk.851.sh](https://amex-card-playbook.hunk.851.sh)
-
 ## What is in the repository
 
 - `app/amex-analysis.json` — committed analysis snapshot with 556 transactions from January 1 through August 19, 2026.
@@ -13,7 +11,6 @@ Live site: [amex-card-playbook.hunk.851.sh](https://amex-card-playbook.hunk.851.
 - `app/categories/` — monthly category chart, category table, and category drill-down pages.
 - `app/benefits/` — benefit usage, remaining value, skipped items, and enrollment/access lists.
 - `app/offers/` — active offers and redeemed-offer history.
-- `.hunk/config.json` — non-secret Hunk app identifier used for deployment.
 
 ## Stack
 
@@ -22,7 +19,6 @@ Live site: [amex-card-playbook.hunk.851.sh](https://amex-card-playbook.hunk.851.
 - Vinext/Vite for local development
 - Recharts for the category trend chart
 - Hugeicons and Inter
-- Hunk static hosting
 
 ## Local development
 
@@ -33,15 +29,14 @@ npm run dev
 
 The application is fully local and does not require environment variables or a backend.
 
-## Validation and deployment
+## Validation
 
 ```bash
 npm run lint
-npm run build:hunk
-hunk push out --json
+npm run build
 ```
 
-`build:hunk` creates the static export in `out/` and copies the tracked `.hunk/config.json` into the export. Generated directories are ignored and should not be committed.
+The project is archived and not currently deployed. Generated directories are ignored and should not be committed.
 
 ## Important product assumptions
 

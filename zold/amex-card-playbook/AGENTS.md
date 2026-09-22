@@ -12,8 +12,7 @@ Read `README.md` first. Treat `app/amex-analysis.json` as the immutable source s
 - Keep category drill-downs and transaction recommendations grounded in the committed data. Do not infer categories from merchant names when Copilot categories are present.
 - Do not invent benefit or offer status. Derive statement-visible credits from transactions; use the confirmed assumptions in `README.md`; ask the owner when evidence is insufficient.
 - A negative merchant transaction can be a return rather than an offer credit. Add redeemed offers through explicit purchase/credit descriptor mappings in `app/lib/data.ts`.
-- Do not commit generated output (`out/`, `.next/`, `.next-hunk/`, `dist/`) or local secrets.
-- Do not add or restore `.openai/hosting.json`; this project deploys through Hunk and the canonical deployment metadata is `.hunk/config.json`.
+- Do not commit generated output (`out/`, `.next/`, `dist/`) or local secrets.
 
 ## Before handing work back
 
@@ -21,8 +20,8 @@ Run:
 
 ```bash
 npm run lint
-npm run build:hunk
+npm run build
 git diff --check
 ```
 
-For approved live changes, commit the exact source files, push the branch, deploy with `hunk push out --json`, and verify the deployed route.
+The project is archived and not currently deployed.
