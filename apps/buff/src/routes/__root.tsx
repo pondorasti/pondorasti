@@ -7,8 +7,8 @@ import {
   Scripts,
   useLocation
 } from "@tanstack/react-router"
-import { Sidebar } from "~/components/Sidebar"
-import { TabBar } from "~/components/TabBar"
+import { Sidebar } from "~/components/sidebar"
+import { TabBar } from "~/components/tab-bar"
 import appCss from "~/styles.css?url"
 
 export const Route = createRootRoute({

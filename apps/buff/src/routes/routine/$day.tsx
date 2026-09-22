@@ -1,8 +1,8 @@
 import { createFileRoute, notFound } from "@tanstack/react-router"
 import { getDayBySlug } from "~/data"
-import { ScreenHeader, Pad } from "~/components/ScreenHeader"
-import { ExerciseTable } from "~/components/ExerciseTable"
-import { WeekChips } from "~/components/WeekChips"
+import { ScreenHeader, Pad } from "~/components/screen-header"
+import { ExerciseTable } from "~/components/exercise-table"
+import { WeekChips } from "~/components/week-chips"
 
 export const Route = createFileRoute("/routine/$day")({
   loader: ({ params }) => {

@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router"
 import { equipmentUsage, getEquipment, itemName } from "~/data"
-import { ScreenHeader, Pad, BlockTitle } from "~/components/ScreenHeader"
+import { ScreenHeader, Pad, BlockTitle } from "~/components/screen-header"
 
 export const Route = createFileRoute("/equipment/$id")({
   loader: ({ params }) => {

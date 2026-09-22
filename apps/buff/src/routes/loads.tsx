@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { Fragment } from "react"
 import { loads, loadRowExercises } from "~/data"
-import { ScreenHeader, Pad } from "~/components/ScreenHeader"
+import { ScreenHeader, Pad } from "~/components/screen-header"
 
 export const Route = createFileRoute("/loads")({
   component: Loads

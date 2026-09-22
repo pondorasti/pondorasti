@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { Fragment } from "react"
 import { equipment, equipmentGroups } from "~/data"
-import { ScreenHeader, Pad, BlockTitle } from "~/components/ScreenHeader"
+import { ScreenHeader, Pad, BlockTitle } from "~/components/screen-header"
 
 export const Route = createFileRoute("/equipment/")({
   component: EquipmentGallery
