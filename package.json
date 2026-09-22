@@ -4,10 +4,17 @@
   "description": "Mission control for pondorasti",
   "author": "Alexandru Ţurcanu",
   "license": "MIT",
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "apps/*"
+    ],
+    "catalog": {
+      "vite": "npm:@voidzero-dev/vite-plus-core@0.3.3",
+      "vitest": "4.1.11",
+      "vite-plus": "0.3.3"
+    }
+  },
   "private": true,
   "scripts": {
     "prepare": "vp config --no-agent",
@@ -17,11 +24,6 @@
     "@types/bun": "^1.3.14",
     "vite": "catalog:",
     "vite-plus": "catalog:"
-  },
-  "catalog": {
-    "vite": "npm:@voidzero-dev/vite-plus-core@0.3.3",
-    "vitest": "4.1.11",
-    "vite-plus": "0.3.3"
   },
   "overrides": {
     "vite": "catalog:",
