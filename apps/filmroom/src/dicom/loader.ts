@@ -1,5 +1,47 @@
-import dicomParser from "dicom-parser"
+import * as dicomParser from "dicom-parser"
+import type { DataSet } from "dicom-parser"
 import { unzipSync } from "fflate"
+
+export interface FileRecord {
+  name: string
+  bytes: Uint8Array
+}
+export interface FrameInfo {
+  rows: number
+  columns: number
+  bits: number
+  signed: boolean
+}
+export type DecodeJpeg2000 = (
+  encoded: Uint8Array,
+  expected: FrameInfo
+) => ArrayLike<number> | Promise<ArrayLike<number>>
+
+export interface DicomImage {
+  id: string
+  studyUid: string
+  title: string
+  date: string
+  name: string
+  description: string
+  laterality: string
+  series: number
+  instance: number
+  rows: number
+  columns: number
+  bits: number
+  pixels: Uint16Array
+  center: number
+  width: number
+  slope: number
+  intercept: number
+  baseInvert: boolean
+  autoCenter: number
+  autoWidth: number
+  centerMin: number
+  centerMax: number
+  widthMax: number
+}
 
 export const LIMITS = {
   inputBytes: 256 * 1024 ** 2,
@@ -12,7 +54,7 @@ export const LIMITS = {
 const NATIVE = new Set(["1.2.840.10008.1.2", "1.2.840.10008.1.2.1", "1.2.840.10008.1.2.2"])
 const JPEG2000 = new Set(["1.2.840.10008.1.2.4.90", "1.2.840.10008.1.2.4.91"])
 
-export function safePath(path) {
+export function safePath(path: string) {
   const normalized = path.replaceAll("\\", "/")
   if (
     normalized.startsWith("/") ||
@@ -22,19 +64,19 @@ export function safePath(path) {
     throw new Error("The archive contains an unsafe file path.")
   return normalized
 }
-function candidate(path) {
+function candidate(path: string) {
   const leaf = path.split("/").pop()
   return (
-    leaf &&
+    !!leaf &&
     !leaf.startsWith(".") &&
     !path.includes("__MACOSX/") &&
     (!leaf.includes(".") || /\.(dcm|dicom)$/i.test(leaf))
   )
 }
-export function isDicom(bytes) {
+export function isDicom(bytes: Uint8Array) {
   return bytes.length >= 132 && String.fromCharCode(...bytes.subarray(128, 132)) === "DICM"
 }
-export function unpack(records) {
+export function unpack(records: FileRecord[]): FileRecord[] {
   if (records.reduce((sum, file) => sum + file.bytes.byteLength, 0) > LIMITS.inputBytes)
     throw new Error("Choose a study smaller than 256 MB.")
   const archives = records.filter((file) => /\.zip$/i.test(file.name))
@@ -62,18 +104,18 @@ export function unpack(records) {
   })
   return Object.entries(archive).map(([name, bytes]) => ({ name, bytes }))
 }
-function number(ds, tag, fallback) {
+function number(ds: DataSet, tag: string, fallback: number) {
   const text = ds.string(tag)?.split("\\")[0]
   const value = text == null || text.trim() === "" ? NaN : Number(text)
   return Number.isFinite(value) ? value : fallback
 }
-function string(ds, tag, fallback = "") {
+function string(ds: DataSet, tag: string, fallback = "") {
   return ds.string(tag)?.trim() || fallback
 }
-function unsupported(condition, message) {
+function unsupported(condition: unknown, message: string) {
   if (condition) throw new Error(message)
 }
-function percentile(histogram, count, percentile) {
+function percentile(histogram: Uint32Array, count: number, percentile: number) {
   const rank = Math.max(1, Math.ceil(count * percentile))
   let sum = 0
   for (let i = 0; i < histogram.length; i++) {
@@ -83,20 +125,23 @@ function percentile(histogram, count, percentile) {
   return histogram.length - 1
 }
 
-export async function parseImage(bytes, decodeJpeg2000) {
+export async function parseImage(
+  bytes: Uint8Array,
+  decodeJpeg2000: DecodeJpeg2000
+): Promise<DicomImage | null> {
   if (!isDicom(bytes)) return null
   const ds = dicomParser.parseDicom(bytes)
   const pixelElement = ds.elements.x7fe00010
   if (!pixelElement) return null // DICOMDIR and non-image objects are retained for export.
-  const rows = ds.uint16("x00280010"),
-    columns = ds.uint16("x00280011")
+  const rows = ds.uint16("x00280010") ?? 0,
+    columns = ds.uint16("x00280011") ?? 0
   const count = rows * columns
   unsupported(
     !rows || !columns || count > LIMITS.imagePixels,
     "The image dimensions are invalid or exceed 16 megapixels."
   )
-  const allocated = ds.uint16("x00280100"),
-    bits = ds.uint16("x00280101")
+  const allocated = ds.uint16("x00280100") ?? 0,
+    bits = ds.uint16("x00280101") ?? 0
   const signed = ds.uint16("x00280103") === 1
   const highBit = ds.uint16("x00280102")
   const photometric = string(ds, "x00280004")
@@ -126,7 +171,7 @@ export async function parseImage(bytes, decodeJpeg2000) {
   const slope = number(ds, "x00281053", 1),
     originalIntercept = number(ds, "x00281052", 0)
   unsupported(slope <= 0, "Only positive rescale slopes are supported.")
-  let values
+  let values: ArrayLike<number>
   if (NATIVE.has(syntax)) {
     const size = allocated / 8
     unsupported(
@@ -138,10 +183,11 @@ export async function parseImage(bytes, decodeJpeg2000) {
       bytes.byteOffset + pixelElement.dataOffset,
       count * size
     )
-    values = new Uint16Array(count)
+    const native = new Uint16Array(count)
     for (let i = 0; i < count; i++)
-      values[i] =
+      native[i] =
         size === 1 ? buffer.getUint8(i) : buffer.getUint16(i * 2, syntax !== "1.2.840.10008.1.2.2")
+    values = native
   } else if (JPEG2000.has(syntax)) {
     const encoded = pixelElement.basicOffsetTable?.length
       ? dicomParser.readEncapsulatedImageFrame(ds, pixelElement, 0)
@@ -149,7 +195,7 @@ export async function parseImage(bytes, decodeJpeg2000) {
           ds,
           pixelElement,
           0,
-          pixelElement.fragments.length
+          pixelElement.fragments?.length
         )
     const result = await decodeJpeg2000(encoded, { rows, columns, bits, signed })
     unsupported(
@@ -165,13 +211,12 @@ export async function parseImage(bytes, decodeJpeg2000) {
     midpoint = 2 ** (bits - 1),
     offset = signed ? midpoint : 0
   const intercept = originalIntercept - offset * slope
-  const paddingElement = ds.elements.x00280120
-  const padding = paddingElement ? (signed ? ds.int16("x00280120") : ds.uint16("x00280120")) : null
-  const paddingEnd = ds.elements.x00280121
-    ? signed
-      ? ds.int16("x00280121")
-      : ds.uint16("x00280121")
-    : padding
+  const readPadding = (tag: string) =>
+    ds.elements[tag] ? ((signed ? ds.int16(tag) : ds.uint16(tag)) ?? null) : null
+  const padding = readPadding("x00280120")
+  const paddingEnd = readPadding("x00280121") ?? padding
+  const paddingLow = padding == null ? null : Math.min(padding, paddingEnd ?? padding)
+  const paddingHigh = padding == null ? null : Math.max(padding, paddingEnd ?? padding)
   let minimum = Infinity,
     maximum = -Infinity,
     histogramCount = 0
@@ -182,11 +227,7 @@ export async function parseImage(bytes, decodeJpeg2000) {
     pixels[i] = normalized
     minimum = Math.min(minimum, normalized)
     maximum = Math.max(maximum, normalized)
-    if (
-      padding == null ||
-      native < Math.min(padding, paddingEnd) ||
-      native > Math.max(padding, paddingEnd)
-    ) {
+    if (paddingLow == null || paddingHigh == null || native < paddingLow || native > paddingHigh) {
       histogram[normalized]++
       histogramCount++
     }
@@ -229,12 +270,16 @@ export async function parseImage(bytes, decodeJpeg2000) {
   }
 }
 
-export async function loadStudy(records, decodeJpeg2000, progress = () => {}) {
+export async function loadStudy(
+  records: FileRecord[],
+  decodeJpeg2000: DecodeJpeg2000,
+  progress: (message: string) => void = () => {}
+) {
   const files = unpack(records)
-  const images = [],
-    originals = [],
-    warnings = [],
-    seen = new Set()
+  const images: DicomImage[] = [],
+    originals: FileRecord[] = [],
+    warnings: string[] = [],
+    seen = new Set<string>()
   let totalPixels = 0
   for (let i = 0; i < files.length; i++) {
     const file = files[i]
@@ -250,7 +295,7 @@ export async function loadStudy(records, decodeJpeg2000, progress = () => {}) {
       images.push(image)
       totalPixels += image.rows * image.columns
     } catch (error) {
-      warnings.push(`${file.name}: ${error.message || "Unable to decode this file."}`)
+      warnings.push(`${file.name}: ${(error as Error).message || "Unable to decode this file."}`)
     }
     if (images.length > LIMITS.images || totalPixels > LIMITS.totalPixels)
       throw new Error("The study exceeds 96 images or 48 megapixels. Open a smaller selection.")

@@ -1,7 +1,10 @@
+import type { OpenJPEG } from "@cornerstonejs/codec-openjpeg/decodewasmjs"
+import type { FrameInfo } from "./loader"
+
 // DICOM JPEG 2000 pixel data is a raw codestream, beginning with SOC and SIZ.
 // Check its dimensions before handing it to the decoder (readHeader does not
 // populate FrameInfo in the current OpenJPEG wrapper).
-export function validateHeader(encoded, expected) {
+export function validateHeader(encoded: Uint8Array, expected: FrameInfo) {
   if (encoded.length < 45) throw new Error("Incomplete JPEG 2000 header.")
   const data = new DataView(encoded.buffer, encoded.byteOffset, encoded.byteLength)
   const matches =
@@ -16,7 +19,8 @@ export function validateHeader(encoded, expected) {
     data.getUint8(44) === 1
   if (!matches) throw new Error("JPEG 2000 header does not match the DICOM pixel format.")
 }
-export function decodeFrame(library, encoded, expected) {
+
+export function decodeFrame(library: OpenJPEG, encoded: Uint8Array, expected: FrameInfo) {
   validateHeader(encoded, expected)
   const decoder = new library.J2KDecoder()
   try {

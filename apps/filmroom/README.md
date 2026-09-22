@@ -1,27 +1,35 @@
 # Filmroom
 
-A personal viewer for the four original projections from the September 8, 2026 right shoulder study. The images and DICOM ZIP are committed with the app, like the bundled data in `biomarkers` and `buff`. Opening the page loads the study automatically.
+A personal viewer for the four original projections from the September 8, 2026 right shoulder study. The images and DICOM ZIP are committed with the app. Opening the page loads the study automatically.
 
 The interface follows macOS light and dark appearance. Full-resolution DICOM pixels are decoded in a browser worker, preserving their 12-bit values for windowing, comparison, and PNG export.
+
+## Stack
+
+TanStack Start and Router, React, Base UI and Tailwind CSS, served by a Cloudflare Worker at [filmroom.alexandru.so](https://filmroom.alexandru.so). The page shell is server-rendered; decoding and drawing happen in the browser:
+
+- `src/dicom/` parses DICOM (`loader.ts`), decodes lossless JPEG 2000 (`jpeg2000.ts`, OpenJPEG WebAssembly), applies LINEAR windowing (`renderer.ts`) and loads the bundled study in a worker (`study.worker.ts`).
+- `src/viewer/view.ts` owns each projection's canvas: windowing, pan, zoom, rotation, flip and export. `use-filmroom.ts` holds the rest of the viewer state.
+- `src/components/` is the interface, built from Base UI primitives.
 
 ## Bundled study
 
 - `public/study/DICOM/` contains the four unchanged original DICOM images.
 - `public/study/right-shoulder-xray-dicom.zip` is the unchanged four-image archive, including DICOMDIR.
-- `src/study.json` defines projection names, ordering, asset paths, dimensions, and reference hashes.
+- `src/dicom/study.json` defines projection names, ordering, asset paths, dimensions, and reference hashes.
 
-These are the actual medical images, with their original DICOM metadata. They are included in the public repository and copied into each deployed build. This is a fixed study app; there is no file-import step or upload service. It is a personal image browser, not a validated diagnostic workstation.
+These are the actual medical images, with their original DICOM metadata. They are included in the public repository and served as static assets with each deployment. This is a fixed study app; there is no file-import step or upload service. It is a personal image browser, not a validated diagnostic workstation.
 
 ## Run locally
 
-From the repository root, using Bun 1.4 or newer:
+From the repository root:
 
 ```sh
-bun install --frozen-lockfile
+bun install
 bun run --cwd apps/filmroom dev
 ```
 
-Open the loopback URL printed by Vite. The study loads automatically.
+Open the URL printed by Vite. The study loads automatically.
 
 ```sh
 bun run --cwd apps/filmroom test
@@ -29,19 +37,15 @@ bun run --cwd apps/filmroom build
 bun run --cwd apps/filmroom preview
 ```
 
-The production build in `apps/filmroom/dist` contains the application, decoder, WebAssembly binary, and complete `study` asset directory. Serve it over HTTP; no external CDN or local file selection is needed. Relative URLs support hosting under a subpath.
+`preview` serves the production build in the local Workers runtime.
 
-## Deploy to Hunk
-
-[Open Filmroom in Hunk](https://app.hunk.851.sh/domain-851-sh/filmroom). The deployment is visible to the `851.sh` workspace.
-
-Install the [Hunk CLI](https://www.npmjs.com/package/@851-labs/hunk) and run `hunk login` with an account in that workspace. Then, from the repository root:
+## Deploy
 
 ```sh
 bun run --cwd apps/filmroom deploy
 ```
 
-The checked-in `.hunk/config.json` contains the stable Hunk ID, with no credentials. The deploy command rebuilds the app, copies that link into the build directory, and pushes only `dist` to the existing hunk. Hunk excludes `.hunk` from uploaded assets. Keep the source configuration in place: Vite replaces the build directory on each build.
+This builds the app and runs `wrangler deploy`. The Worker (`alexandru-filmroom`) and its custom domain are declared in `wrangler.jsonc`; deploying configures DNS and TLS. Use an authorized Wrangler login or an appropriately scoped token.
 
 ## Controls
 
@@ -67,4 +71,4 @@ The bundled-study tests verify every source DICOM against its reference SHA-256 
 
 The renderer and parser also have synthetic tests for windowing boundaries, signed pixels, rescale, grayscale polarity, unsupported formats, and lossless JPEG 2000 decoding. `test/fixtures/gradient.j2k` is a synthetic 16 × 16 grayscale ramp.
 
-The app uses [dicom-parser](https://github.com/cornerstonejs/dicomParser) and [Cornerstone's OpenJPEG codec](https://github.com/cornerstonejs/codecs), bundled with Vite. Tests use Bun's built-in runner and fflate for archive verification.
+The app uses [dicom-parser](https://github.com/cornerstonejs/dicomParser) and [Cornerstone's OpenJPEG codec](https://github.com/cornerstonejs/codecs), bundled with Vite. Tests run with Vitest and use fflate for archive verification.

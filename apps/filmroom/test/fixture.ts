@@ -1,15 +1,17 @@
+import { Buffer } from "node:buffer"
+
 // Synthetic Part 10 records. No patient data or clinical images are used.
-const u16 = (value) => {
+const u16 = (value: number) => {
   const b = Buffer.alloc(2)
   b.writeUInt16LE(value)
   return b
 }
-const u32 = (value) => {
+const u32 = (value: number) => {
   const b = Buffer.alloc(4)
   b.writeUInt32LE(value)
   return b
 }
-function element(group, tag, vr, value) {
+function element(group: number, tag: number, vr: string, value: Buffer | string | number) {
   let bytes = Buffer.isBuffer(value) ? value : Buffer.from(String(value))
   if (bytes.length % 2)
     bytes = Buffer.concat([
@@ -43,10 +45,29 @@ export function fixture({
   encoded = null,
   voiFunction = "LINEAR",
   presentation = ""
-} = {}) {
+}: Partial<{
+  pixels: number[]
+  rows: number
+  columns: number
+  bits: number
+  allocated: number
+  signed: boolean
+  photometric: string
+  width: number
+  center: number
+  slope: number
+  intercept: number
+  frames: number
+  uid: string
+  studyUid: string
+  syntax: string
+  encoded: Buffer | null
+  voiFunction: string
+  presentation: string
+}> = {}) {
   const header = Buffer.alloc(132)
   header.write("DICM", 128)
-  let pixelData
+  let pixelData: Buffer
   if (encoded) {
     const data = encoded.length % 2 ? Buffer.concat([encoded, Buffer.from([0])]) : encoded
     pixelData = Buffer.concat([

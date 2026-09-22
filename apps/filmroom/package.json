@@ -3,18 +3,35 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 127.0.0.1",
+    "dev": "vite dev",
     "build": "vite build",
-    "deploy": "bun run build && mkdir -p dist/.hunk && cp .hunk/config.json dist/.hunk/config.json && hunk push dist",
-    "preview": "vite preview --host 127.0.0.1",
-    "test": "bun test"
+    "preview": "vite preview",
+    "deploy": "bun run build && wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
+    "@base-ui/react": "1.8.0",
     "@cornerstonejs/codec-openjpeg": "1.3.6",
+    "@tanstack/react-router": "1.170.36",
+    "@tanstack/react-start": "1.168.53",
     "dicom-parser": "1.8.21",
-    "fflate": "0.8.3"
+    "fflate": "0.8.3",
+    "lucide-react": "1.45.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
-    "vite": "8.2.1"
+    "@cloudflare/vite-plugin": "1.54.8",
+    "@tailwindcss/vite": "4.3.3",
+    "@types/node": "^26.1.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3",
+    "vite": "8.3.0",
+    "vitest": "4.1.11",
+    "wrangler": "4.131.1"
   }
 }

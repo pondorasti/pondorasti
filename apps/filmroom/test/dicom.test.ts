@@ -1,24 +1,28 @@
-import { describe, expect, test } from "bun:test"
+import { readFile } from "node:fs/promises"
+import { createRequire } from "node:module"
+import { describe, expect, test } from "vitest"
 import { zipSync } from "fflate"
 import OpenJPEG from "@cornerstonejs/codec-openjpeg/decodewasmjs"
-import { fixture } from "./fixture.js"
-import { parseImage, loadStudy, unpack, safePath } from "../src/loader.js"
-import { decodeFrame, validateHeader } from "../src/jpeg2000.js"
-import { gray, lookup, grayscale } from "../src/renderer.js"
+import { fixture } from "./fixture"
+import { parseImage, loadStudy, unpack, safePath } from "~/dicom/loader"
+import { decodeFrame, validateHeader } from "~/dicom/jpeg2000"
+import { gray, lookup, grayscale } from "~/dicom/renderer"
+const require = createRequire(import.meta.url)
+const parsed = async (...args: Parameters<typeof parseImage>) => (await parseImage(...args))!
 const noCodec = () => {
   throw new Error("Unexpected codec request")
 }
 
 describe("DICOM import and display", () => {
   test("preserves full 12-bit data and source window", async () => {
-    const image = await parseImage(fixture(), noCodec)
+    const image = await parsed(fixture(), noCodec)
     expect([...image.pixels]).toEqual([0, 100, 2048, 4095])
     expect([...grayscale(image.pixels, lookup(image.center, image.width, false))]).toEqual([
       0, 6, 128, 255
     ])
   })
   test("applies signed pixels and rescale before windowing", async () => {
-    const image = await parseImage(
+    const image = await parsed(
       fixture({ signed: true, pixels: [-2048, -1, 0, 2047], slope: 2, intercept: 10 }),
       noCodec
     )
@@ -27,7 +31,7 @@ describe("DICOM import and display", () => {
     ])
   })
   test("supports 8-bit and MONOCHROME1 polarity", async () => {
-    const image = await parseImage(
+    const image = await parsed(
       fixture({
         allocated: 8,
         bits: 8,
@@ -78,7 +82,7 @@ describe("DICOM import and display", () => {
       )
     ).rejects.toThrow("multiple studies")
   })
-  test.each([
+  test.each<[Parameters<typeof fixture>[0], string]>([
     [{ photometric: "RGB" }, "Color"],
     [{ frames: 2 }, "Multi-frame"],
     [{ voiFunction: "SIGMOID" }, "LINEAR"],
@@ -130,17 +134,11 @@ describe("DICOM import and display", () => {
   })
   test("decodes lossless JPEG 2000 without losing 16-bit precision", async () => {
     const library = await OpenJPEG({
-      wasmBinary: new Uint8Array(
-        await Bun.file(
-          new URL(import.meta.resolve("@cornerstonejs/codec-openjpeg/decodewasm"))
-        ).arrayBuffer()
-      ),
+      wasmBinary: await readFile(require.resolve("@cornerstonejs/codec-openjpeg/decodewasm")),
       print: () => {}
     })
-    const encoded = Buffer.from(
-      await Bun.file(new URL("./fixtures/gradient.j2k", import.meta.url)).arrayBuffer()
-    )
-    const image = await parseImage(
+    const encoded = await readFile(new URL("./fixtures/gradient.j2k", import.meta.url))
+    const image = await parsed(
       fixture({ rows: 16, columns: 16, bits: 16, encoded, syntax: "1.2.840.10008.1.2.4.90" }),
       (bytes, expected) => decodeFrame(library, bytes, expected)
     )

@@ -1,3 +1,6 @@
+.wrangler/
+.output/
+.tanstack/
 # Scratch files stay outside source control; the bundled study is tracked.
 local/
 *.dcm
@@ -5,5 +8,3 @@ local/
 *.zip
 DICOMDIR
 !public/study/right-shoulder-xray-dicom.zip
-.DS_Store
-dist/

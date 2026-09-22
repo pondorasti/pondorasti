@@ -1,10 +1,20 @@
 import manifest from "./study.json"
-import { parseImage } from "./loader.js"
+import { parseImage, type DecodeJpeg2000, type DicomImage } from "./loader"
 
 export const bundledStudy = manifest
 
-export async function loadBundledStudy(readAsset, decodeJpeg2000, progress = () => {}) {
-  const images = []
+export interface Study {
+  title: string
+  date: string
+  images: DicomImage[]
+}
+
+export async function loadBundledStudy(
+  readAsset: (path: string) => Promise<Uint8Array>,
+  decodeJpeg2000: DecodeJpeg2000,
+  progress: (message: string) => void = () => {}
+): Promise<Study> {
+  const images: DicomImage[] = []
   for (const source of manifest.images) {
     progress(`Opening ${source.name}…`)
     const bytes = await readAsset(source.file)
