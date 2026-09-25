@@ -4,6 +4,7 @@ import {
   type AuthRequest,
   type ClientInfo
 } from "@cloudflare/workers-oauth-provider"
+import { checkPassword, escape, field, html, STYLE, text } from "./login"
 import { SCOPE } from "./mcp"
 
 const USER_ID = "alexandru"
@@ -32,13 +33,8 @@ export async function authorize(request: Request, env: Env): Promise<Response> {
       return new Response(null, { status: 302, headers: denied.headers })
     }
 
-    const ip = request.headers.get("CF-Connecting-IP") ?? "unknown"
-    if (!(await env.LOGIN_LIMITER.limit({ key: ip })).success) {
-      return text("Too many attempts. Wait a minute, then go back and retry.", 429)
-    }
-    if (!(await passwordMatches(field(form, "password"), env.LOGIN_PASSWORD))) {
-      return text("Wrong password. Go back and retry.", 401)
-    }
+    const rejected = await checkPassword(request, form, env)
+    if (rejected) return rejected
 
     const approved = await oauth.approveConsent(request, handle, { scope: [SCOPE] })
     const { redirectTo } = await oauth.completeAuthorization({
@@ -65,22 +61,6 @@ export async function authorize(request: Request, env: Env): Promise<Response> {
   }
 }
 
-function field(form: FormData, name: string) {
-  const value = form.get(name)
-  return typeof value === "string" ? value : ""
-}
-
-async function passwordMatches(given: string, expected: string) {
-  if (!expected) return false
-  const encoder = new TextEncoder()
-  const [a, b] = await Promise.all(
-    [given, expected].map((value) => crypto.subtle.digest("SHA-256", encoder.encode(value)))
-  )
-  return crypto.subtle.timingSafeEqual(a, b)
-}
-
-const escape = (value: string) => value.replace(/[&<>"']/g, (char) => `&#${char.charCodeAt(0)};`)
-
 function page(client: ClientInfo, request: AuthRequest, handle: string) {
   const name = escape(client.clientName ?? client.clientId)
   const redirectHost = escape(new URL(request.redirectUri).hostname)
@@ -95,17 +75,7 @@ function page(client: ClientInfo, request: AuthRequest, handle: string) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Connect ${name}</title>
-<style>
-  :root { color-scheme: light dark; font-family: system-ui, sans-serif; }
-  body { max-width: 26rem; margin: 12vh auto; padding: 0 1.25rem; line-height: 1.5; }
-  h1 { font-size: 1.25rem; }
-  .warn { padding: .75rem; border-radius: .5rem; background: #f59e0b22; }
-  input, button { font: inherit; padding: .6rem .8rem; border-radius: .5rem; border: 1px solid #8886; }
-  input { width: 100%; box-sizing: border-box; margin: .5rem 0 1rem; }
-  .row { display: flex; gap: .5rem; }
-  button { flex: 1; cursor: pointer; }
-  button[value=approve] { background: CanvasText; color: Canvas; }
-</style>
+${STYLE}
 <h1>Connect ${name} to mcp.alexandru.so?</h1>
 <p>${publisher} Access tokens will be sent to <b>${redirectHost}</b>.</p>
 ${local ? '<p class="warn">This sends access to an app on your computer. Continue only if you just started connecting from it.</p>' : ""}
@@ -118,17 +88,4 @@ ${local ? '<p class="warn">This sends access to an app on your computer. Continu
   </div>
 </form>
 </html>`
-}
-
-function html(body: string, headers: Headers) {
-  headers.set("Content-Type", "text/html; charset=utf-8")
-  headers.set(
-    "Content-Security-Policy",
-    "default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'none'; base-uri 'none'"
-  )
-  return new Response(body, { headers })
-}
-
-function text(body: string, status: number) {
-  return new Response(body, { status, headers: { "Content-Type": "text/plain; charset=utf-8" } })
 }

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@cloudflare/workers-oauth-provider": "catalog:",
+    "@modelcontextprotocol/client": "catalog:",
     "@modelcontextprotocol/server": "catalog:",
     "agents": "catalog:",
     "zod": "catalog:"

@@ -14,9 +14,14 @@ authorization server and the MCP server; the upstream credentials never leave it
 - `src/mcp.ts`: stateless MCP server (`agents/mcp/server` with MCP SDK v2). Each
   connector registers prefixed tools.
 - `src/connectors/hevy.ts`: read-only Hevy tools, using `HEVY_API_KEY`.
+- `src/connectors/upstream.ts`: remote MCP servers the gateway proxies as `<id>_<tool>`
+  (currently YC). The gateway is their OAuth client: sign in once at `/connect/<id>`
+  (behind the same password) and the registration and tokens stay in `OAUTH_KV`. Tool
+  lists are cached there for an hour; calls always go live.
 
-To add a service, write `src/connectors/<name>.ts` exporting a `register<Name>(server, env)`
-and add it to `connectors` in `src/mcp.ts`.
+To add an API-key service, write `src/connectors/<name>.ts` exporting a
+`register<Name>(server, env)` and add it to `connectors` in `src/mcp.ts`. To add a remote
+MCP server, add its URL to `UPSTREAMS` in `src/connectors/upstream.ts`.
 
 ## Local development
 
@@ -36,4 +41,4 @@ bunx wrangler secret put HEVY_API_KEY
 bun run deploy                            # first deploy also creates OAUTH_KV
 ```
 
-Then in Claude: Settings → Connectors → Add custom connector → `https://mcp.alexandru.so/mcp`.
+Then open `https://mcp.alexandru.so/connect/yc` to link YC, and in Claude: Settings → Connectors → Add custom connector → `https://mcp.alexandru.so/mcp`.
