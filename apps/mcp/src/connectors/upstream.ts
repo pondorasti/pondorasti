@@ -21,7 +21,8 @@ import { type ToolResult, toolError } from "./result"
  * <id>_<tool>. Their OAuth client registration and tokens live in OAUTH_KV.
  */
 export const UPSTREAMS = {
-  yc: { name: "YC", url: "https://api.ycombinator.com/v1/mcp" }
+  yc: { name: "YC", url: "https://api.ycombinator.com/v1/mcp" },
+  notion: { name: "Notion", url: "https://mcp.notion.com/mcp" }
 } as const
 
 export type UpstreamId = keyof typeof UPSTREAMS

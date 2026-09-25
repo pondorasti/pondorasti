@@ -15,7 +15,7 @@ authorization server and the MCP server; the upstream credentials never leave it
   connector registers prefixed tools.
 - `src/connectors/hevy.ts`: read-only Hevy tools, using `HEVY_API_KEY`.
 - `src/connectors/upstream.ts`: remote MCP servers the gateway proxies as `<id>_<tool>`
-  (currently YC). The gateway is their OAuth client: sign in once at `/connect/<id>`
+  (YC and Notion). The gateway is their OAuth client: sign in once at `/connect/<id>`
   (behind the same password) and the registration and tokens stay in `OAUTH_KV`. Tool
   lists are cached there for an hour; calls always go live.
 
@@ -41,4 +41,4 @@ bunx wrangler secret put HEVY_API_KEY
 bun run deploy                            # first deploy also creates OAUTH_KV
 ```
 
-Then open `https://mcp.alexandru.so/connect/yc` to link YC, and in Claude: Settings → Connectors → Add custom connector → `https://mcp.alexandru.so/mcp`.
+Then open `https://mcp.alexandru.so/connect/yc` and `/connect/notion` to link each upstream, and in Claude: Settings → Connectors → Add custom connector → `https://mcp.alexandru.so/mcp`.
