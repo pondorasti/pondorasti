@@ -30,7 +30,6 @@
       "@types/react-dom": "19.3.0",
       "@vitejs/plugin-react": "6.1.1",
       "@xmldom/xmldom": "0.9.12",
-      "agents": "0.24.0",
       "dicom-parser": "1.8.21",
       "drizzle-kit": "0.31.11",
       "drizzle-orm": "0.45.3",

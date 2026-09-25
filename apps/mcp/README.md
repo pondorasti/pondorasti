@@ -11,7 +11,7 @@ authorization server and the MCP server; the upstream credentials never leave it
   `/mcp`. Grants live in the `OAUTH_KV` namespace.
 - `src/authorize.ts`: the consent page. It shows which app is asking and where the
   tokens go, then checks `LOGIN_PASSWORD` (rate-limited to 5 attempts/min per IP).
-- `src/mcp.ts`: stateless MCP server (`agents/mcp/server` with MCP SDK v2). Each
+- `src/mcp.ts`: stateless MCP server (`createMcpHandler` from MCP SDK v2). Each
   connector registers prefixed tools.
 - `src/connectors/hevy.ts`: read-only Hevy tools, using `HEVY_API_KEY`.
 - `src/connectors/upstream.ts`: remote MCP servers the gateway proxies as `<id>_<tool>`
