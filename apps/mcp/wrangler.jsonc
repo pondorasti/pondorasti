@@ -10,7 +10,9 @@
   "workers_dev": false,
   "preview_urls": false,
   "routes": [{ "pattern": "mcp.alexandru.so", "custom_domain": true }],
-  "secrets": { "required": ["LOGIN_PASSWORD", "HEVY_API_KEY"] },
+  "secrets": {
+    "required": ["LOGIN_PASSWORD", "HEVY_API_KEY", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET"]
+  },
   "vars": { "PUBLIC_ORIGIN": "https://mcp.alexandru.so" },
   // No id: wrangler provisions the namespace on first deploy
   "kv_namespaces": [{ "binding": "OAUTH_KV" }],

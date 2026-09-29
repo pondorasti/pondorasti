@@ -1,6 +1,6 @@
 import type { McpServer } from "@modelcontextprotocol/server"
 import { z } from "zod"
-import { type ToolResult, json, toolError } from "./result"
+import { call } from "./result"
 
 const API = "https://api.hevyapp.com/v1"
 const readOnly = { readOnlyHint: true, openWorldHint: true } as const
@@ -24,16 +24,6 @@ export function registerHevy(server: McpServer, env: Env) {
     if (!res.ok) throw new Error(`Hevy ${res.status}: ${(await res.text()).slice(0, 300)}`)
     return res.json<T>()
   }
-
-  const call =
-    <A>(fn: (args: A) => Promise<unknown>) =>
-    async (args: A): Promise<ToolResult> => {
-      try {
-        return json(await fn(args))
-      } catch (error) {
-        return toolError(error)
-      }
-    }
 
   server.registerTool(
     "hevy_list_workouts",

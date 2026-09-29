@@ -5,20 +5,32 @@ import {
   localhostAllowedOrigins,
   originValidationResponse
 } from "@modelcontextprotocol/server"
+import { registerCalendar } from "./connectors/calendar"
+import { registerGmail } from "./connectors/gmail"
+import { isGoogleConnected } from "./connectors/google"
 import { registerHevy } from "./connectors/hevy"
 import { UPSTREAMS, type UpstreamId, registerUpstream } from "./connectors/upstream"
 
 export const SCOPE = "mcp"
 
+type Register = (server: McpServer, env: Env) => void | Promise<void>
+
+/** Gmail and Calendar share one Google sign-in (/connect/google); without it, no tools. */
+const registerGoogle: Register = async (server, env) => {
+  if (!(await isGoogleConnected(env))) return
+  registerGmail(server, env)
+  registerCalendar(server, env)
+}
+
 /**
  * Services the gateway calls directly, with hand-written tools under their own prefix.
  * Remote MCP servers it proxies (YC, Notion) are listed in UPSTREAMS instead.
  */
-const connectors = [registerHevy]
+const connectors: Register[] = [registerHevy, registerGoogle]
 
 const handler = createMcpHandler(async () => {
   const server = new McpServer({ name: "alexandru-mcp", version: "0.1.0" })
-  for (const register of connectors) register(server, env)
+  await Promise.all(connectors.map(async (register) => register(server, env)))
   // Upstreams that were never connected at /connect/<id> contribute no tools
   const upstreams = Object.keys(UPSTREAMS) as UpstreamId[]
   await Promise.all(upstreams.map((id) => registerUpstream(server, env, id)))

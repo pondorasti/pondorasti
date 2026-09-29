@@ -1,6 +1,7 @@
 import { OAuthProvider } from "@cloudflare/workers-oauth-provider"
 import { authorize } from "./authorize"
 import { connect } from "./connect"
+import { privacy } from "./privacy"
 import { SCOPE, mcpApi } from "./mcp"
 
 let provider: OAuthProvider<Env> | undefined
@@ -16,6 +17,7 @@ function createProvider(origin: string) {
         if (pathname === "/authorize") return authorize(request, env)
         const connected = await connect(request, env)
         if (connected) return connected
+        if (pathname === "/privacy") return privacy()
         if (pathname === "/") return new Response(`MCP gateway. Connect to ${origin}/mcp\n`)
         return new Response("Not found", { status: 404 })
       }
