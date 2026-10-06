@@ -1,4 +1,3 @@
-import { getCatalog, getProduct } from "../read/catalog"
 import type { SupplyEnv, SyncOptions } from "../sync"
 import { serveImage } from "./images"
 import { json, methodNotAllowed } from "./responses"
@@ -19,20 +18,6 @@ const routes: { match: (path: string) => boolean; methods: string[]; handle: Han
     handle: async (_request, env) => {
       await env.DB.prepare("SELECT 1").first()
       return json({ status: "ok" })
-    }
-  },
-  {
-    match: (path) => path === "/api/catalog",
-    methods: ["GET"],
-    handle: async (_request, env) => json(await getCatalog(env.DB))
-  },
-  {
-    match: (path) => path.startsWith("/api/products/"),
-    methods: ["GET"],
-    handle: async (request, env) => {
-      const slug = new URL(request.url).pathname.slice("/api/products/".length)
-      const product = await getProduct(env.DB, slug)
-      return product ? json(product) : json({ error: "not_found" }, 404)
     }
   },
   {

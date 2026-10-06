@@ -3,6 +3,7 @@ import { drizzle } from "drizzle-orm/d1"
 import { beforeEach, expect, test, vi } from "vite-plus/test"
 import { handleRequest } from "../src/http"
 import { products, syncRuns, syncState } from "../src/db/schema"
+import { getCatalog, getProduct } from "../src/read/catalog"
 import { runSync, scheduledSync } from "../src/sync"
 import type { HttpFetch } from "../src/sync/runtime"
 import { fakeClock, notionHttp, notionPage, PNG } from "./fixtures"
@@ -69,11 +70,8 @@ test("catalog, details and sitemap all exclude retired items and make no Notion 
   })
   vi.stubGlobal("fetch", network)
   try {
-    const catalog = await handleRequest(request("/api/catalog"), bindings)
-    expect(await catalog?.json()).toHaveLength(1)
-    expect((await handleRequest(request(`/api/products/${retired.slug}`), bindings))?.status).toBe(
-      404
-    )
+    expect(await getCatalog(env.DB)).toHaveLength(1)
+    expect(await getProduct(env.DB, retired.slug)).toBeNull()
     const sitemap = await handleRequest(request("/sitemap.xml"), bindings)
     expect(await sitemap?.text()).not.toContain(retired.slug)
     expect(network).not.toHaveBeenCalled()
@@ -112,8 +110,9 @@ test("cron runs the actual sync service", async () => {
 })
 
 test("wrong methods are rejected and page routes fall through to Start", async () => {
-  expect((await handleRequest(request("/api/catalog", { method: "POST" }), bindings))?.status).toBe(
+  expect((await handleRequest(request("/sitemap.xml", { method: "POST" }), bindings))?.status).toBe(
     405
   )
+  expect((await handleRequest(request("/api/catalog"), bindings))?.status).toBe(404)
   expect(await handleRequest(request("/items/example"), bindings)).toBeNull()
 })
