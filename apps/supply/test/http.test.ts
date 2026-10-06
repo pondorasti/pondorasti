@@ -1,10 +1,10 @@
 import { env } from "cloudflare:workers"
 import { drizzle } from "drizzle-orm/d1"
 import { beforeEach, expect, test, vi } from "vite-plus/test"
-import { handleApi, scheduledSync } from "../src/server/http"
-import { products, syncRuns, syncState } from "../src/server/schema"
-import { runSync } from "../src/server/sync"
-import type { HttpFetch } from "../src/server/runtime"
+import { handleRequest } from "../src/http"
+import { products, syncRuns, syncState } from "../src/db/schema"
+import { runSync, scheduledSync } from "../src/sync"
+import type { HttpFetch } from "../src/sync/runtime"
 import { fakeClock, notionHttp, notionPage, PNG } from "./fixtures"
 
 const bindings = { ...env, NOTION_TOKEN: "test", SYNC_SECRET: "test-secret" }
@@ -25,23 +25,23 @@ beforeEach(async () => {
 
 test("manual sync and operational status require a bearer secret", async () => {
   for (const method of ["GET", "POST"]) {
-    expect((await handleApi(request("/api/sync", { method }), bindings))?.status).toBe(401)
+    expect((await handleRequest(request("/api/sync", { method }), bindings))?.status).toBe(401)
     expect(
       (
-        await handleApi(
+        await handleRequest(
           request("/api/sync", { method, headers: { Authorization: "Bearer wrong" } }),
           bindings
         )
       )?.status
     ).toBe(401)
   }
-  const result = await handleApi(
+  const result = await handleRequest(
     request("/api/sync", { method: "POST", headers: { Authorization: "Bearer test-secret" } }),
     bindings,
     options()
   )
   expect(await result?.json()).toMatchObject({ status: "succeeded", scanned: 2 })
-  const status = await handleApi(
+  const status = await handleRequest(
     request("/api/sync", { headers: { Authorization: "Bearer test-secret" } }),
     bindings
   )
@@ -52,7 +52,7 @@ test("manual sync and operational status require a bearer secret", async () => {
 })
 
 test("missing configuration fails closed without exposing secrets", async () => {
-  const response = await handleApi(
+  const response = await handleRequest(
     request("/api/sync", { method: "POST", headers: { Authorization: "Bearer test-secret" } }),
     { ...bindings, NOTION_TOKEN: undefined }
   )
@@ -69,10 +69,12 @@ test("catalog, details and sitemap all exclude retired items and make no Notion 
   })
   vi.stubGlobal("fetch", network)
   try {
-    const catalog = await handleApi(request("/api/catalog"), bindings)
+    const catalog = await handleRequest(request("/api/catalog"), bindings)
     expect(await catalog?.json()).toHaveLength(1)
-    expect((await handleApi(request(`/api/products/${retired.slug}`), bindings))?.status).toBe(404)
-    const sitemap = await handleApi(request("/sitemap.xml"), bindings)
+    expect((await handleRequest(request(`/api/products/${retired.slug}`), bindings))?.status).toBe(
+      404
+    )
+    const sitemap = await handleRequest(request("/sitemap.xml"), bindings)
     expect(await sitemap?.text()).not.toContain(retired.slug)
     expect(network).not.toHaveBeenCalled()
   } finally {
@@ -84,18 +86,18 @@ test("images have stable caching, MIME, HEAD and conditional GET", async () => {
   await runSync(bindings, options())
   const [product] = await drizzle(env.DB).select().from(products)
   const path = `/images/${product.thumbnail}`
-  const response = await handleApi(request(path), bindings)
+  const response = await handleRequest(request(path), bindings)
   expect(response?.headers.get("Content-Type")).toBe("image/png")
   expect(response?.headers.get("Cache-Control")).toContain("immutable")
   expect(new Uint8Array(await response!.arrayBuffer())).toEqual(PNG)
-  const head = await handleApi(request(path, { method: "HEAD" }), bindings)
+  const head = await handleRequest(request(path, { method: "HEAD" }), bindings)
   expect(await head?.text()).toBe("")
-  const cached = await handleApi(
+  const cached = await handleRequest(
     request(path, { headers: { "If-None-Match": response!.headers.get("ETag")! } }),
     bindings
   )
   expect(cached?.status).toBe(304)
-  expect((await handleApi(request("/images/not-a-hash"), bindings))?.status).toBe(404)
+  expect((await handleRequest(request("/images/not-a-hash"), bindings))?.status).toBe(404)
 })
 
 test("cron runs the actual sync service", async () => {
@@ -110,6 +112,8 @@ test("cron runs the actual sync service", async () => {
 })
 
 test("wrong methods are rejected and page routes fall through to Start", async () => {
-  expect((await handleApi(request("/api/catalog", { method: "POST" }), bindings))?.status).toBe(405)
-  expect(await handleApi(request("/items/example"), bindings)).toBeNull()
+  expect((await handleRequest(request("/api/catalog", { method: "POST" }), bindings))?.status).toBe(
+    405
+  )
+  expect(await handleRequest(request("/items/example"), bindings)).toBeNull()
 })

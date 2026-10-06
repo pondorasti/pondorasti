@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vite-plus/test"
-import { filterCatalog, validateFilters } from "../src/filters"
-import type { ProductSummary } from "../src/catalog"
+import { filterCatalog, validateFilters } from "../src/lib/filters"
+import type { ProductSummary } from "../src/lib/product"
 
 const product = (name: string, ownership = "Owned", tags = ["Office"]): ProductSummary => ({
   name,

@@ -2,10 +2,10 @@ import { env } from "cloudflare:workers"
 import { drizzle } from "drizzle-orm/d1"
 import { eq } from "drizzle-orm"
 import { beforeEach, describe, expect, test, vi } from "vite-plus/test"
-import { getCatalog, getProduct } from "../src/server/catalog"
-import { assets, products, syncRuns, syncState } from "../src/server/schema"
-import { runSync } from "../src/server/sync"
-import type { HttpFetch } from "../src/server/runtime"
+import { getCatalog, getProduct } from "../src/read/catalog"
+import { assets, products, syncRuns, syncState } from "../src/db/schema"
+import { runSync } from "../src/sync"
+import type { HttpFetch } from "../src/sync/runtime"
 import {
   fakeClock,
   jsonBody,

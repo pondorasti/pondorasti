@@ -1,7 +1,7 @@
 import { describe, expect, test, vi } from "vite-plus/test"
-import { safeLink } from "../src/catalog"
-import { NotionSource } from "../src/server/notion"
-import { sha256, type HttpFetch } from "../src/server/runtime"
+import { safeLink } from "../src/lib/links"
+import { NotionSource } from "../src/sync/notion/client"
+import { sha256, type HttpFetch } from "../src/sync/runtime"
 import { fakeClock, list, notionHttp, notionPage, paragraph, rich, SOURCE_ID } from "./fixtures"
 
 describe("Notion adapter", () => {

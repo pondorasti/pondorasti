@@ -1,8 +1,9 @@
 import { env } from "cloudflare:workers"
 import { beforeEach, describe, expect, test, vi } from "vite-plus/test"
-import { AssetStore, imageType, imageUrl } from "../src/server/assets"
-import { NotionSource } from "../src/server/notion"
-import type { HttpFetch } from "../src/server/runtime"
+import { AssetStore } from "../src/sync/assets/store"
+import { imageType, imageUrl } from "../src/sync/assets/validate"
+import { NotionSource } from "../src/sync/notion/client"
+import type { HttpFetch } from "../src/sync/runtime"
 import { fakeClock, notionHttp, notionPage, PNG, requestUrl, SOURCE_ID } from "./fixtures"
 
 const file = {

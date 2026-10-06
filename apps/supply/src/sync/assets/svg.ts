@@ -1,5 +1,5 @@
 import { DOMParser, type Element, type Node } from "@xmldom/xmldom"
-import { SyncError } from "./runtime"
+import { SyncError } from "../runtime"
 
 const SVG = "http://www.w3.org/2000/svg"
 const XLINK = "http://www.w3.org/1999/xlink"

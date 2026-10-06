@@ -1,7 +1,7 @@
 import { env } from "cloudflare:workers"
 import { drizzle } from "drizzle-orm/d1"
 import { expect, test } from "vite-plus/test"
-import { assets } from "../src/server/schema"
+import { assets } from "../src/db/schema"
 
 test("migrations and Drizzle work against the real D1 binding", async () => {
   const db = drizzle(env.DB)

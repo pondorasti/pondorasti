@@ -1,7 +1,7 @@
 import { and, asc, eq, isNull, ne } from "drizzle-orm"
 import { drizzle } from "drizzle-orm/d1"
-import type { ProductDetail, ProductSummary } from "../catalog"
-import { products } from "./schema"
+import type { ProductDetail, ProductSummary } from "../lib/product"
+import { products } from "../db/schema"
 
 const visible = and(isNull(products.removedAt), ne(products.ownership, "Retired"))
 const summary = {

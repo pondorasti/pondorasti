@@ -1,6 +1,7 @@
 import { CheckSquare, Square } from "lucide-react"
 import type { ReactNode } from "react"
-import { imagePath, safeLink, type ContentBlock, type TextRun } from "../catalog"
+import { imagePath, safeLink } from "../lib/links"
+import type { ContentBlock, TextRun } from "../lib/product"
 
 function RichText({ runs }: { runs: TextRun[] }) {
   return runs.map((run, index) => {

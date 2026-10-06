@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vite-plus/test"
-import { unwrapRasterSvg } from "../src/server/svg"
+import { unwrapRasterSvg } from "../src/sync/assets/svg"
 import { PNG } from "./fixtures"
 
 const data = `data:image/png;base64,${btoa(String.fromCharCode(...PNG))}`

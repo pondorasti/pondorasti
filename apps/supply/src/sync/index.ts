@@ -1,11 +1,12 @@
 import { and, eq, isNull, lt, lte, sql } from "drizzle-orm"
 import type { BatchItem } from "drizzle-orm/batch"
 import { drizzle } from "drizzle-orm/d1"
-import type { ContentBlock } from "../catalog"
-import { AssetStore } from "./assets"
-import { NotionSource, type NotionOptions, type SourceBlock } from "./notion"
+import { assets, products, syncRuns, syncState } from "../db/schema"
+import type { ContentBlock } from "../lib/product"
+import { AssetStore } from "./assets/store"
+import { NotionSource, type NotionOptions } from "./notion/client"
+import type { SourceBlock } from "./notion/map"
 import { sha256, SyncError, systemClock, type HttpFetch } from "./runtime"
-import { assets, products, syncRuns, syncState } from "./schema"
 
 export interface SupplyEnv {
   DB: D1Database
@@ -205,4 +206,9 @@ export async function runSync(env: SupplyEnv, options: SyncOptions = {}) {
   } finally {
     await db.update(syncState).set({ leaseOwner: null, leaseUntil: 0 }).where(owned)
   }
+}
+
+export async function scheduledSync(env: SupplyEnv, options: SyncOptions = {}) {
+  const result = await runSync(env, options)
+  console.info(JSON.stringify({ event: "supply_sync", ...result }))
 }

@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router"
 import { ImageOff } from "lucide-react"
 import { useState } from "react"
-import { imagePath, type ProductSummary } from "../catalog"
-import type { CatalogFilters } from "../filters"
+import type { CatalogFilters } from "../lib/filters"
+import { imagePath } from "../lib/links"
+import type { ProductSummary } from "../lib/product"
 
 export function ProductImage({
   hash,

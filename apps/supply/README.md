@@ -168,7 +168,7 @@ tokens or signed URLs. Completed run history is retained for fourteen days after
 a successful sync. Interrupted runs can remain marked `running`; the lease still
 expires so later jobs recover. `/api/health` checks D1 connectivity, not freshness.
 
-For schema changes: edit `src/server/schema.ts`, run `bun run db:generate`, commit
+For schema changes: edit `src/db/schema.ts`, run `bun run db:generate`, commit
 the generated migration and Drizzle metadata, then apply local and remote
 migrations. Regenerate Worker types with `bun run cf-typegen` after binding changes.
 

@@ -1,5 +1,5 @@
 import { vi } from "vite-plus/test"
-import type { Clock, HttpFetch } from "../src/server/runtime"
+import type { Clock, HttpFetch } from "../src/sync/runtime"
 
 export const SOURCE_ID = "3b6b49ce-7f0b-80cd-ad07-000b96417ff1"
 export const PNG = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10, 0, 1, 2, 3])

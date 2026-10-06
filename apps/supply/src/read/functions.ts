@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start"
 import { setResponseHeader } from "@tanstack/react-start/server"
 import { env } from "cloudflare:workers"
-import { getCatalog, getProduct } from "./server/catalog"
+import { getCatalog, getProduct } from "./catalog"
 
 export const readCatalog = createServerFn({ method: "GET" }).handler(async () => {
   setResponseHeader("Cache-Control", "no-store")

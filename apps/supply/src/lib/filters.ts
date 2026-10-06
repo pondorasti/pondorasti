@@ -1,4 +1,4 @@
-import type { ProductSummary } from "./catalog"
+import type { ProductSummary } from "./product"
 
 export interface CatalogFilters {
   q?: string
