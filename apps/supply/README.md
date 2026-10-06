@@ -14,6 +14,22 @@ request-scoped server cache and refreshes active data every five minutes. Public
 HTML/data responses are not CDN-cached; immutable, content-addressed images are
 browser-cacheable for a year.
 
+## Layout
+
+- `src/lib/`: code shared by server and browser (product types, link helpers, filters);
+  never imports bindings.
+- `src/db/schema.ts`: the only contract shared by the read and sync sides.
+- `src/read/`: the visitor read path: D1 queries, server functions, query options and
+  the robots/sitemap responses.
+- `src/sync/`: the Notion mirror. `index.ts` sequences a run; `lease.ts` holds the
+  lease and fence; `plan.ts` decides what changed (pure, unit-tested); `publish.ts`
+  writes the atomic D1 batch; `notion/` and `assets/` talk to Notion and R2.
+- `src/http/`: raw Worker endpoints answered before Start (`/images/*`, `/api/sync`,
+  `/api/health`).
+- `src/routes/`: pages, plus the `robots.txt` and `sitemap.xml` server routes.
+
+`read/` never imports `sync/`.
+
 ## Local Development
 
 From the repository root:
