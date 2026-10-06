@@ -16,7 +16,7 @@ export class AssetStore {
     private readonly bucket: R2Bucket,
     private readonly source: NotionSource,
     existing: Asset[],
-    private readonly options: { fetch?: HttpFetch; clock?: Clock; allowedHosts?: string[] } = {}
+    private readonly options: { fetch?: HttpFetch; clock?: Clock } = {}
   ) {
     this.known = new Map(existing.map((asset) => [asset.hash, asset]))
   }
@@ -25,7 +25,7 @@ export class AssetStore {
     let current = image
     let refreshed = false
     for (let redirects = 0; redirects < 4; redirects++) {
-      const url = imageUrl(current.url, this.options.allowedHosts)
+      const url = imageUrl(current.url)
       const response = await (this.options.fetch ?? fetch)(url, {
         redirect: "manual",
         signal: AbortSignal.timeout(30_000)

@@ -39,10 +39,7 @@ export async function runSync(env: Env, options: SyncOptions = {}) {
     await heartbeat()
     const images = new AssetStore(env.IMAGES, source, await db.select().from(assets), {
       fetch: options.imageFetch,
-      clock,
-      allowedHosts: env.IMAGE_ALLOWED_HOSTS?.split(",")
-        .map((host) => host.trim())
-        .filter(Boolean)
+      clock
     })
 
     async function copyBody(blocks: SourceBlock[]): Promise<ContentBlock[]> {

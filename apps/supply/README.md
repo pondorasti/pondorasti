@@ -113,16 +113,14 @@ collector must account for live references, in-flight runs and cached URLs.
 
 Notion-hosted PNG/JPEG/GIF/WebP/AVIF files are supported. Images are limited to
 8 MiB, streamed with a bounded buffer and validated by their file signatures.
-External images fail closed unless their exact trusted host is configured through
-`IMAGE_ALLOWED_HOSTS` (comma-separated). Redirect destinations are checked too.
-The current catalog also uses `isntree-global.com` and `cdsassets.apple.com`, which
-are explicitly allowed in the Worker configuration.
+Upload images to Notion rather than embedding them by link: images hosted anywhere
+else fail closed, and fail the sync until they are re-uploaded. Redirect destinations
+are checked too.
 Single-bitmap SVG wrappers are parsed with a strict XML allowlist and unwrapped
 to their original image bytes before hashing. Drawing elements, scripts, styles,
 transforms, cropping, entities, and external references are rejected; no SVG is
 served. General SVG and HTML images are rejected. Notion does not provide content checksums, so
-changed pages still require an image download to hash the bytes. External images
-changed independently of Notion need a forced refresh.
+changed pages still require an image download to hash the bytes.
 
 Guardrails: 750 active rows, 5,000 blocks per product, 30 nested levels, 24 MiB of
 changed snapshot data, and a twelve-minute run budget. Hitting a limit preserves

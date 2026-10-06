@@ -91,23 +91,6 @@ describe("content-addressed images", () => {
     expect(request).toHaveBeenCalledTimes(1)
   })
 
-  test("allows configured manufacturer hosts but still rejects untrusted redirects", async () => {
-    const source = new NotionSource("test", SOURCE_ID)
-    const external = { ...file, url: "https://isntree-global.com/cdn/shop/product.png" }
-    const request = vi.fn<HttpFetch>(async () => new Response(PNG))
-    const options = { fetch: request, allowedHosts: ["isntree-global.com"] }
-    const store = new AssetStore(env.IMAGES, source, [], options)
-    expect(await store.copy(external)).toMatch(/^[a-f0-9]{64}$/)
-    request.mockResolvedValueOnce(
-      new Response(null, {
-        status: 302,
-        headers: { Location: "https://isntree-global.com.evil.example/product.png" }
-      })
-    )
-    await expect(store.copy(external)).rejects.toThrow("image_host_not_allowed")
-    expect(request).toHaveBeenCalledTimes(2)
-  })
-
   test("rejects oversized streams, not just declared Content-Length", async () => {
     const request = vi.fn<HttpFetch>(async () => new Response(new Uint8Array(8 * 1024 * 1024 + 1)))
     await expect(
@@ -122,6 +105,7 @@ test("image downloads are HTTPS-only and restricted to trusted hosts", () => {
   for (const url of [
     "http://secure.notion-static.com/a",
     "https://evil.example/a",
+    "https://isntree-global.com/cdn/shop/product.png",
     "https://secure.notion-static.com.evil.example/a",
     "https://u:p@secure.notion-static.com/a",
     "https://secure.notion-static.com:8443/a"

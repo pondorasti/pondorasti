@@ -9,14 +9,15 @@ const NOTION_HOSTS = [
   "secure.notion-static.com"
 ]
 
-export function imageUrl(value: string, extraHosts: string[] = []): URL {
+/** Only Notion-hosted files are mirrored; images linked from other sites are rejected. */
+export function imageUrl(value: string): URL {
   const url = new URL(value)
   if (
     url.protocol !== "https:" ||
     url.username ||
     url.password ||
     url.port ||
-    ![...NOTION_HOSTS, ...extraHosts].includes(url.hostname)
+    !NOTION_HOSTS.includes(url.hostname)
   ) {
     throw new SyncError("image_host_not_allowed")
   }
