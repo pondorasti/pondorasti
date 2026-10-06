@@ -1,5 +1,13 @@
 import { queryOptions } from "@tanstack/react-query"
-import { readCatalog, readProduct } from "./functions"
+import { readCatalog, readProduct, readSite } from "./functions"
+
+// Deploy-time configuration: fetched once during SSR and hydrated, never refetched.
+export const siteQuery = queryOptions({
+  queryKey: ["site"],
+  queryFn: () => readSite(),
+  staleTime: Infinity,
+  gcTime: Infinity
+})
 
 export const catalogQuery = queryOptions({
   queryKey: ["catalog"],

@@ -7,6 +7,7 @@ import { ToggleGroup } from "@base-ui/react/toggle-group"
 import { ArrowDownAZ, Search, SlidersHorizontal, X } from "lucide-react"
 import { catalogQuery } from "../read/queries"
 import { filterCatalog, validateFilters, type CatalogFilters } from "../lib/filters"
+import { isOwnership, OWNERSHIPS } from "../lib/product"
 import { CatalogPending, ProductCard } from "../components/product"
 import { IconButton, SelectControl } from "../components/controls"
 
@@ -14,7 +15,7 @@ export const Route = createFileRoute("/")({
   validateSearch: validateFilters,
   loader: ({ context }) => context.queryClient.fetchQuery(catalogQuery),
   headers: () => ({ "Cache-Control": "no-store" }),
-  head: () => ({ links: [{ rel: "canonical", href: "https://alexandru.supply/" }] }),
+  head: ({ match }) => ({ links: [{ rel: "canonical", href: `${match.context.origin}/` }] }),
   pendingComponent: CatalogPending,
   component: Catalog
 })
@@ -41,15 +42,13 @@ function Catalog() {
           value={[filters.ownership ?? "all"]}
           onValueChange={(values) => {
             const value = values[0]
-            if (value)
-              update({ ownership: value === "all" ? undefined : (value as "Owned" | "Wishlist") })
+            if (value) update({ ownership: isOwnership(value) ? value : undefined })
           }}
           className="flex h-10 shrink-0 items-center rounded-md bg-line/50 p-1"
         >
           {[
             { value: "all", label: "All" },
-            { value: "Owned", label: "Owned" },
-            { value: "Wishlist", label: "Wishlist" }
+            ...OWNERSHIPS.map((ownership) => ({ value: ownership, label: ownership }))
           ].map(({ value, label }) => (
             <Toggle
               key={value}

@@ -5,19 +5,20 @@ import { ArrowLeft, ArrowUpRight, Check, Heart, X, ZoomIn } from "lucide-react"
 import { productQuery } from "../read/queries"
 import { validateFilters } from "../lib/filters"
 import { imagePath } from "../lib/links"
+import { isSlug } from "../lib/product"
 import { ProductImage } from "../components/product"
 import { NotionBody } from "../components/notion-body"
 
 export const Route = createFileRoute("/items/$slug")({
   validateSearch: validateFilters,
   loader: async ({ context, params }) => {
-    if (!/^[a-z0-9-]{1,150}$/.test(params.slug)) throw notFound()
+    if (!isSlug(params.slug)) throw notFound()
     const product = await context.queryClient.fetchQuery(productQuery(params.slug))
     if (!product) throw notFound()
     return product
   },
   headers: () => ({ "Cache-Control": "no-store" }),
-  head: ({ loaderData: product }) =>
+  head: ({ loaderData: product, match: { context } }) =>
     product
       ? {
           meta: [
@@ -28,12 +29,12 @@ export const Route = createFileRoute("/items/$slug")({
               ? [
                   {
                     property: "og:image",
-                    content: `https://alexandru.supply${imagePath(product.thumbnail)}`
+                    content: `${context.origin}${imagePath(product.thumbnail)}`
                   }
                 ]
               : [])
           ],
-          links: [{ rel: "canonical", href: `https://alexandru.supply/items/${product.slug}` }]
+          links: [{ rel: "canonical", href: `${context.origin}/items/${product.slug}` }]
         }
       : {},
   component: Product

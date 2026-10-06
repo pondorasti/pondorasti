@@ -2,7 +2,7 @@ import { timingSafeEqual } from "node:crypto"
 import { desc } from "drizzle-orm"
 import { drizzle } from "drizzle-orm/d1"
 import { syncRuns, syncState } from "../db/schema"
-import { runSync, type SupplyEnv, type SyncOptions } from "../sync"
+import { runSync, type SyncOptions } from "../sync"
 import { SyncError } from "../sync/runtime"
 import { json } from "./responses"
 
@@ -13,7 +13,7 @@ function authorized(request: Request, secret: string | undefined): boolean {
   return expected.length === received.length && timingSafeEqual(expected, received)
 }
 
-export async function handleSync(request: Request, env: SupplyEnv, options: SyncOptions) {
+export async function handleSync(request: Request, env: Env, options: SyncOptions) {
   if (!authorized(request, env.SYNC_SECRET)) return json({ error: "unauthorized" }, 401)
   if (request.method === "GET") {
     const db = drizzle(env.DB)

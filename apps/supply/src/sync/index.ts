@@ -10,22 +10,12 @@ import { planUpdates } from "./plan"
 import { publish } from "./publish"
 import { SyncError, systemClock, type HttpFetch } from "./runtime"
 
-export interface SupplyEnv {
-  DB: D1Database
-  IMAGES: R2Bucket
-  NOTION_DATA_SOURCE_ID: string
-  PUBLIC_ORIGIN: string
-  NOTION_TOKEN?: string
-  SYNC_SECRET?: string
-  IMAGE_ALLOWED_HOSTS?: string
-}
-
 export interface SyncOptions extends NotionOptions {
   imageFetch?: HttpFetch
   force?: boolean
 }
 
-export async function runSync(env: SupplyEnv, options: SyncOptions = {}) {
+export async function runSync(env: Env, options: SyncOptions = {}) {
   if (!env.NOTION_TOKEN) throw new SyncError("notion_token_missing")
   const clock = options.clock ?? systemClock
   const db = drizzle(env.DB)
@@ -98,7 +88,7 @@ export async function runSync(env: SupplyEnv, options: SyncOptions = {}) {
   }
 }
 
-export async function scheduledSync(env: SupplyEnv, options: SyncOptions = {}) {
+export async function scheduledSync(env: Env, options: SyncOptions = {}) {
   const result = await runSync(env, options)
   console.info(JSON.stringify({ event: "supply_sync", ...result }))
 }

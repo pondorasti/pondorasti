@@ -11,9 +11,13 @@ import { Tooltip } from "@base-ui/react/tooltip"
 import { Button } from "@base-ui/react/button"
 import { ArrowLeft, RotateCcw } from "lucide-react"
 import { useEffect } from "react"
+import { siteQuery } from "../read/queries"
 import styles from "../styles.css?url"
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  beforeLoad: async ({ context }) => ({
+    origin: (await context.queryClient.ensureQueryData(siteQuery)).origin
+  }),
   head: () => ({
     meta: [
       { charSet: "utf-8" },

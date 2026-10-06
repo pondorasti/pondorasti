@@ -1,6 +1,4 @@
-import type { SupplyEnv } from "../sync"
-
-export async function serveImage(request: Request, env: SupplyEnv) {
+export async function serveImage(request: Request, env: Env) {
   const hash = new URL(request.url).pathname.slice("/images/".length)
   if (!/^[a-f0-9]{64}$/.test(hash)) return new Response(null, { status: 404 })
   const object =

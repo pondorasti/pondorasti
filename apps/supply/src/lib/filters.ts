@@ -1,9 +1,9 @@
-import type { ProductSummary } from "./product"
+import { isOwnership, type Ownership, type ProductSummary } from "./product"
 
 export interface CatalogFilters {
   q?: string
   tag?: string
-  ownership?: "Owned" | "Wishlist"
+  ownership?: Ownership
   sort?: "desc"
 }
 
@@ -11,10 +11,7 @@ export function validateFilters(search: Record<string, unknown>): CatalogFilters
   return {
     q: typeof search.q === "string" ? search.q.slice(0, 200) || undefined : undefined,
     tag: typeof search.tag === "string" ? search.tag.slice(0, 100) || undefined : undefined,
-    ownership:
-      search.ownership === "Owned" || search.ownership === "Wishlist"
-        ? search.ownership
-        : undefined,
+    ownership: isOwnership(search.ownership) ? search.ownership : undefined,
     sort: search.sort === "desc" ? "desc" : undefined
   }
 }

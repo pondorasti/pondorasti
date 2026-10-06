@@ -1,7 +1,6 @@
 import { getCatalog } from "../read/catalog"
-import type { SupplyEnv } from "../sync"
 
-export async function robots(_request: Request, env: SupplyEnv) {
+export async function robots(_request: Request, env: Env) {
   return new Response(
     `User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${env.PUBLIC_ORIGIN}/sitemap.xml\n`,
     { headers: { "Content-Type": "text/plain; charset=utf-8" } }
@@ -16,7 +15,7 @@ const escape = (value: string) =>
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&apos;")
 
-export async function sitemap(_request: Request, env: SupplyEnv) {
+export async function sitemap(_request: Request, env: Env) {
   const catalog = await getCatalog(env.DB)
   const urls = [
     env.PUBLIC_ORIGIN,

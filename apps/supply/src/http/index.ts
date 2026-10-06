@@ -1,10 +1,10 @@
-import type { SupplyEnv, SyncOptions } from "../sync"
+import type { SyncOptions } from "../sync"
 import { serveImage } from "./images"
 import { json, methodNotAllowed } from "./responses"
 import { robots, sitemap } from "./seo"
 import { handleSync } from "./sync"
 
-type Handler = (request: Request, env: SupplyEnv, options: SyncOptions) => Promise<Response>
+type Handler = (request: Request, env: Env, options: SyncOptions) => Promise<Response>
 
 // Raw Worker endpoints answered before TanStack Start; first match wins.
 const routes: { match: (path: string) => boolean; methods: string[]; handle: Handler }[] = [
@@ -29,7 +29,7 @@ const routes: { match: (path: string) => boolean; methods: string[]; handle: Han
 
 export async function handleRequest(
   request: Request,
-  env: SupplyEnv,
+  env: Env,
   options: SyncOptions = {}
 ): Promise<Response | null> {
   const path = new URL(request.url).pathname

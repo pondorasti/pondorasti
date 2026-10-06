@@ -55,7 +55,7 @@ test("manual sync and operational status require a bearer secret", async () => {
 test("missing configuration fails closed without exposing secrets", async () => {
   const response = await handleRequest(
     request("/api/sync", { method: "POST", headers: { Authorization: "Bearer test-secret" } }),
-    { ...bindings, NOTION_TOKEN: undefined }
+    { ...bindings, NOTION_TOKEN: "" }
   )
   expect(response?.status).toBe(503)
   expect(await response?.json()).toEqual({ error: "notion_token_missing" })
