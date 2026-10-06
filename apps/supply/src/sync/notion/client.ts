@@ -34,6 +34,9 @@ export class NotionSource {
       notionVersion: "2026-03-11",
       timeoutMs: 120_000,
       retry: false,
+      // The SDK treats any WorkerGlobalScope as a browser, Cloudflare Workers included.
+      // This module only runs in the sync Worker; the token never reaches a browser bundle.
+      dangerouslyAllowBrowser: true,
       logger: () => {},
       fetch: async (input, init) => {
         const started = this.clock.now()
