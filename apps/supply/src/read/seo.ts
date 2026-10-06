@@ -1,9 +1,11 @@
-import { getCatalog } from "../read/catalog"
+import { getCatalog } from "./catalog"
 
-export async function robots(_request: Request, env: Env) {
+export function robots(origin: string) {
   return new Response(
-    `User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${env.PUBLIC_ORIGIN}/sitemap.xml\n`,
-    { headers: { "Content-Type": "text/plain; charset=utf-8" } }
+    `User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${origin}/sitemap.xml\n`,
+    {
+      headers: { "Content-Type": "text/plain; charset=utf-8" }
+    }
   )
 }
 
@@ -15,12 +17,9 @@ const escape = (value: string) =>
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&apos;")
 
-export async function sitemap(_request: Request, env: Env) {
-  const catalog = await getCatalog(env.DB)
-  const urls = [
-    env.PUBLIC_ORIGIN,
-    ...catalog.map((product) => `${env.PUBLIC_ORIGIN}/items/${product.slug}`)
-  ]
+export async function sitemap(database: D1Database, origin: string) {
+  const catalog = await getCatalog(database)
+  const urls = [origin, ...catalog.map((product) => `${origin}/items/${product.slug}`)]
   return new Response(
     `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map((href) => `<url><loc>${escape(href)}</loc></url>`).join("")}</urlset>`,
     {

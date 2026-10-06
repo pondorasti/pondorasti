@@ -4,6 +4,7 @@ import { beforeEach, expect, test, vi } from "vite-plus/test"
 import { handleRequest } from "../src/http"
 import { products, syncRuns, syncState } from "../src/db/schema"
 import { getCatalog, getProduct } from "../src/read/catalog"
+import { robots, sitemap } from "../src/read/seo"
 import { runSync, scheduledSync } from "../src/sync"
 import type { HttpFetch } from "../src/sync/runtime"
 import { fakeClock, notionHttp, notionPage, PNG } from "./fixtures"
@@ -72,8 +73,9 @@ test("catalog, details and sitemap all exclude retired items and make no Notion 
   try {
     expect(await getCatalog(env.DB)).toHaveLength(1)
     expect(await getProduct(env.DB, retired.slug)).toBeNull()
-    const sitemap = await handleRequest(request("/sitemap.xml"), bindings)
-    expect(await sitemap?.text()).not.toContain(retired.slug)
+    const urls = await (await sitemap(env.DB, env.PUBLIC_ORIGIN)).text()
+    expect(urls).toContain(`${env.PUBLIC_ORIGIN}/items/`)
+    expect(urls).not.toContain(retired.slug)
     expect(network).not.toHaveBeenCalled()
   } finally {
     vi.unstubAllGlobals()
@@ -110,9 +112,16 @@ test("cron runs the actual sync service", async () => {
 })
 
 test("wrong methods are rejected and page routes fall through to Start", async () => {
-  expect((await handleRequest(request("/sitemap.xml", { method: "POST" }), bindings))?.status).toBe(
+  expect((await handleRequest(request("/api/health", { method: "POST" }), bindings))?.status).toBe(
     405
   )
   expect((await handleRequest(request("/api/catalog"), bindings))?.status).toBe(404)
   expect(await handleRequest(request("/items/example"), bindings)).toBeNull()
+  expect(await handleRequest(request("/sitemap.xml"), bindings)).toBeNull()
+})
+
+test("robots points crawlers at the sitemap and away from the API", async () => {
+  const body = await robots("https://example.test").text()
+  expect(body).toContain("Disallow: /api/")
+  expect(body).toContain("Sitemap: https://example.test/sitemap.xml")
 })
