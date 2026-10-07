@@ -5,7 +5,13 @@
   "enabledPlugins": {},
   "effortLevel": "high",
   "fastMode": true,
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
+  "theme": "auto",
   "editorMode": "vim",
-  "theme": "auto"
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  }
 }
