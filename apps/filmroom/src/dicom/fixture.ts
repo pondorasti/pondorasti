@@ -1,6 +1,7 @@
 import { Buffer } from "node:buffer"
+import { parseImage } from "./loader"
 
-// Synthetic Part 10 records. No patient data or clinical images are used.
+// Test helpers: synthetic Part 10 records. No patient data or clinical images are used.
 const u16 = (value: number) => {
   const b = Buffer.alloc(2)
   b.writeUInt16LE(value)
@@ -120,4 +121,10 @@ export function fixture({
       pixelData
     ])
   )
+}
+
+export const parsed = async (...args: Parameters<typeof parseImage>) => (await parseImage(...args))!
+
+export const noCodec = () => {
+  throw new Error("Unexpected codec request")
 }

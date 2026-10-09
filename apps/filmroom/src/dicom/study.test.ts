@@ -4,13 +4,13 @@ import { expect, test } from "vite-plus/test"
 import { createHash } from "node:crypto"
 import { unzipSync } from "fflate"
 import OpenJPEG from "@cornerstonejs/codec-openjpeg/decodewasmjs"
-import { bundledStudy, loadBundledStudy } from "~/dicom/study"
-import { decodeFrame } from "~/dicom/jpeg2000"
+import { bundledStudy, loadBundledStudy } from "./study"
+import { decodeFrame } from "./jpeg2000"
 
 const require = createRequire(import.meta.url)
 const hash = (bytes: Uint8Array) => createHash("sha256").update(bytes).digest("hex")
 const readAsset = async (path: string) =>
-  new Uint8Array(await readFile(new URL(`../public/${path}`, import.meta.url)))
+  new Uint8Array(await readFile(new URL(`../../public/${path}`, import.meta.url)))
 
 test("bundled originals and archive remain byte-identical", async () => {
   const archive = await readAsset(bundledStudy.archive.file)

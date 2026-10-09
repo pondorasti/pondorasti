@@ -73,6 +73,6 @@ Each image keeps its own window, zoom, and orientation. In comparison mode, sele
 
 The bundled-study tests verify every source DICOM against its reference SHA-256 hash, compare the extracted originals with the ZIP entries, and check the archive hash. All four decoded pixel buffers must match the independent pydicom reference hashes in the manifest.
 
-The renderer and parser also have synthetic tests for windowing boundaries, signed pixels, rescale, grayscale polarity, unsupported formats, and lossless JPEG 2000 decoding. `test/fixtures/gradient.j2k` is a synthetic 16 × 16 grayscale ramp.
+The renderer and parser also have synthetic tests for windowing boundaries, signed pixels, rescale, grayscale polarity, unsupported formats, and lossless JPEG 2000 decoding. `src/dicom/gradient.j2k` is a synthetic 16 × 16 grayscale ramp.
 
 The app uses [dicom-parser](https://github.com/cornerstonejs/dicomParser) and [Cornerstone's OpenJPEG codec](https://github.com/cornerstonejs/codecs), bundled with Vite. Tests run with Vitest and use fflate for archive verification.

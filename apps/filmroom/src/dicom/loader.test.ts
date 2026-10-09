@@ -1,19 +1,10 @@
-import { readFile } from "node:fs/promises"
-import { createRequire } from "node:module"
 import { describe, expect, test } from "vite-plus/test"
 import { zipSync } from "fflate"
-import OpenJPEG from "@cornerstonejs/codec-openjpeg/decodewasmjs"
-import { fixture } from "./fixture"
-import { parseImage, loadStudy, unpack, safePath } from "~/dicom/loader"
-import { decodeFrame, validateHeader } from "~/dicom/jpeg2000"
-import { gray, lookup, grayscale } from "~/dicom/renderer"
-const require = createRequire(import.meta.url)
-const parsed = async (...args: Parameters<typeof parseImage>) => (await parseImage(...args))!
-const noCodec = () => {
-  throw new Error("Unexpected codec request")
-}
+import { fixture, noCodec, parsed } from "./fixture"
+import { loadStudy, parseImage, safePath, unpack } from "./loader"
+import { grayscale, lookup } from "./renderer"
 
-describe("DICOM import and display", () => {
+describe("DICOM import", () => {
   test("preserves full 12-bit data and source window", async () => {
     const image = await parsed(fixture(), noCodec)
     expect([...image.pixels]).toEqual([0, 100, 2048, 4095])
@@ -124,27 +115,5 @@ describe("DICOM import and display", () => {
         { name: "two/image.dcm", bytes: fixture() }
       ])
     ).toHaveLength(2)
-  })
-  test("handles exact LINEAR boundaries and width-one threshold", () => {
-    expect(gray(0, 2048, 4096)).toBe(0)
-    expect(gray(4095, 2048, 4096)).toBe(255)
-    expect(gray(2048, 2048, 4096)).toBe(128)
-    expect(gray(9, 10, 1)).toBe(0)
-    expect(gray(10, 10, 1)).toBe(255)
-  })
-  test("decodes lossless JPEG 2000 without losing 16-bit precision", async () => {
-    const library = await OpenJPEG({
-      wasmBinary: await readFile(require.resolve("@cornerstonejs/codec-openjpeg/decodewasm")),
-      print: () => {}
-    })
-    const encoded = await readFile(new URL("./fixtures/gradient.j2k", import.meta.url))
-    const image = await parsed(
-      fixture({ rows: 16, columns: 16, bits: 16, encoded, syntax: "1.2.840.10008.1.2.4.90" }),
-      (bytes, expected) => decodeFrame(library, bytes, expected)
-    )
-    expect([...image.pixels]).toEqual(Array.from({ length: 256 }, (_, i) => i * 257))
-    expect(() =>
-      validateHeader(encoded, { rows: 32, columns: 16, bits: 16, signed: false })
-    ).toThrow("header")
   })
 })
