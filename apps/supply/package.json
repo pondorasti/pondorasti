@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vp dev",
+    "dev:remote": "SUPPLY_REMOTE=1 vp dev",
     "build": "vp build",
     "preview": "vp preview",
     "deploy": "bun run build && wrangler deploy",

@@ -41,7 +41,12 @@ bun run db:migrate:local
 bun run dev
 ```
 
-For real data, create an ignored `.dev.vars` from `.dev.vars.example` containing
+To render production's catalog instead, run `bun run dev:remote`. It binds dev to
+the production D1 database and R2 bucket through the logged-in Wrangler account, with
+no sync or Notion token required. Writes go to production too, so don't run
+`bun run sync` against it unless you mean to sync production.
+
+For real data locally, create an ignored `.dev.vars` from `.dev.vars.example` containing
 `NOTION_TOKEN` and a random `SYNC_SECRET` with at least 32 bytes of entropy. Restart
 the dev server after changing credentials. Never put either secret in a tracked
 file, URL, command argument, screenshot, or log.
