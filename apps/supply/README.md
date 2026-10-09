@@ -40,7 +40,7 @@ link: "https://support.apple.com/en-ie/121202"
 
 - `name` (required) is the display name; quote it if it contains a colon.
 - `status` (required) is `owned`, `wishlist` or `retired`, one catalog view each.
-- `tags` are category ids from `TAGS` in `src/lib/product.ts`. Adding a category
+- `tags` are category ids from the `Tag` enum in `src/lib/product.ts`. Adding a category
   means adding it there and giving it an icon in `src/components/controls.tsx`.
 - `link` is an optional `http(s)` URL for the "Visit product" button.
 - Notes are markdown. `##` headings sit under the page's "Notes" heading. Links open

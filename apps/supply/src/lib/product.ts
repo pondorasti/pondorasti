@@ -1,25 +1,31 @@
+import { z } from "zod/mini"
+
 /** Item status, as written in each item's front matter. */
-export const STATUSES = { owned: "Owned", wishlist: "Wishlist", retired: "Retired" } as const
-export type Status = keyof typeof STATUSES
+export const Status = z.enum(["owned", "wishlist", "retired"])
+export type Status = z.infer<typeof Status>
 
 /** Category tags. A new tag needs an entry here and an icon in `components/controls.tsx`. */
-export const TAGS = {
-  apparel: "Apparel",
-  bathroom: "Bathroom",
-  bedroom: "Bedroom",
-  books: "Books",
-  carry: "Carry",
-  office: "Office",
-  oral: "Oral",
-  shoes: "Shoes",
-  skin: "Skin",
-  sunglasses: "Sunglasses",
-  technology: "Technology",
-  watches: "Watches"
-} as const
-export type Tag = keyof typeof TAGS
+export const Tag = z.enum([
+  "apparel",
+  "bathroom",
+  "bedroom",
+  "books",
+  "carry",
+  "office",
+  "oral",
+  "shoes",
+  "skin",
+  "sunglasses",
+  "technology",
+  "watches"
+])
+export type Tag = z.infer<typeof Tag>
 
-export const isTag = (value: unknown): value is Tag => typeof value === "string" && value in TAGS
+/** Display name for a status or tag id, e.g. "technology" → "Technology". */
+export const label = (id: Status | Tag) => id[0].toUpperCase() + id.slice(1).replaceAll("-", " ")
+
+/** An item's folder name and URL segment. */
+export const Slug = z.string().check(z.maxLength(150), z.regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/))
 
 export interface ProductSummary {
   slug: string
@@ -44,12 +50,7 @@ export const VIEWS = [
 ] as const satisfies { id: string; label: string; status: Status }[]
 export type View = (typeof VIEWS)[number]["id"]
 
-export const isView = (value: unknown): value is View => VIEWS.some((view) => view.id === value)
-
 export const viewStatus = (view: View = "supply"): Status =>
   VIEWS.find(({ id }) => id === view)!.status
 
 export const statusView = (status: Status): View => VIEWS.find((view) => view.status === status)!.id
-
-export const isSlug = (value: unknown): value is string =>
-  typeof value === "string" && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value) && value.length <= 150

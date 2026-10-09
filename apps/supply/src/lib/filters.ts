@@ -1,18 +1,22 @@
-import { isTag, isView, type ProductSummary, type Tag, type View, viewStatus } from "./product"
+import { z } from "zod/mini"
+import { type ProductSummary, Tag, type View, viewStatus } from "./product"
 
-export interface CatalogFilters {
-  q?: string
-  tag?: Tag
-  view?: Exclude<View, "supply">
-}
-
-export function validateFilters(search: Record<string, unknown>): CatalogFilters {
-  return {
-    q: typeof search.q === "string" ? search.q.slice(0, 200) || undefined : undefined,
-    tag: isTag(search.tag) ? search.tag : undefined,
-    view: isView(search.view) && search.view !== "supply" ? search.view : undefined
-  }
-}
+/** Catalog URL search params. Malformed values are dropped rather than failing the page. */
+export const CatalogFilters = z.object({
+  q: z.catch(
+    z.optional(
+      z.pipe(
+        z.string(),
+        z.transform((q) => q.slice(0, 200) || undefined)
+      )
+    ),
+    undefined
+  ),
+  tag: z.catch(z.optional(Tag), undefined),
+  // Supply is the default view, so it never appears in the URL.
+  view: z.catch(z.optional(z.enum(["wishlist", "retired"])), undefined)
+})
+export type CatalogFilters = z.output<typeof CatalogFilters>
 
 export function productsInView(products: ProductSummary[], view?: View) {
   const status = viewStatus(view)

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test"
-import { filterCatalog, validateFilters } from "./filters"
+import { CatalogFilters, filterCatalog } from "./filters"
 import type { ProductSummary, Status, Tag } from "./product"
 
 const product = (
@@ -16,15 +16,15 @@ const product = (
 
 describe("catalog URL filters", () => {
   it("rejects malformed URL values and bounds text input", () => {
-    expect(validateFilters({ q: {}, tag: "Office", view: "Retired" })).toEqual({
+    expect(CatalogFilters.parse({ q: {}, tag: "Office", view: "Retired" })).toEqual({
       q: undefined,
       tag: undefined,
       view: undefined
     })
-    expect(validateFilters({ view: "supply" }).view).toBeUndefined()
-    expect(validateFilters({ view: "retired" }).view).toBe("retired")
-    expect(validateFilters({ tag: "office" }).tag).toBe("office")
-    expect(validateFilters({ q: "a".repeat(201) }).q).toHaveLength(200)
+    expect(CatalogFilters.parse({ view: "supply" }).view).toBeUndefined()
+    expect(CatalogFilters.parse({ view: "retired" }).view).toBe("retired")
+    expect(CatalogFilters.parse({ tag: "office" }).tag).toBe("office")
+    expect(CatalogFilters.parse({ q: "a".repeat(201) }).q).toHaveLength(200)
   })
   it("combines view, tag and case-insensitive search terms without mutating the source", () => {
     const products = [

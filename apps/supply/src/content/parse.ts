@@ -1,15 +1,13 @@
 import { Marked } from "marked"
 import { parse as parseYaml } from "yaml"
 import { z } from "zod"
-import { isSlug, type ProductDetail, type Status, STATUSES, type Tag, TAGS } from "../lib/product"
-
-const keys = <T extends string>(record: Record<T, string>) => Object.keys(record) as [T, ...T[]]
+import { type ProductDetail, Slug, Status, Tag } from "../lib/product"
 
 const FrontMatter = z.strictObject({
   name: z.string().trim().min(1),
-  status: z.enum(keys<Status>(STATUSES)),
+  status: Status,
   tags: z
-    .array(z.enum(keys<Tag>(TAGS)))
+    .array(Tag)
     .default([])
     .transform((tags) => [...new Set(tags)]),
   link: z.url({ protocol: /^https?$/ }).optional()
@@ -28,7 +26,8 @@ const escape = (value: string) =>
 
 /** Parses one `content/<slug>/index.md`; throws a readable error for anything the site can't show. */
 export function parseItem(slug: string, source: string, image: ImageResolver): ProductDetail {
-  if (!isSlug(slug)) throw new Error("folder name must be lowercase words joined by hyphens")
+  if (!Slug.safeParse(slug).success)
+    throw new Error("folder name must be lowercase words joined by hyphens")
   const match = FENCE.exec(source)
   if (!match) throw new Error("index.md must start with --- front matter ---")
   const result = FrontMatter.safeParse(parseYaml(match[1]))

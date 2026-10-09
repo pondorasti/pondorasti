@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router"
 import { ImageOff } from "lucide-react"
 import { type ReactNode, useState } from "react"
 import type { CatalogFilters } from "../lib/filters"
-import { type ProductSummary, STATUSES, TAGS } from "../lib/product"
+import { label, type ProductSummary } from "../lib/product"
 
 export function ProductImage({
   src,
@@ -58,9 +58,7 @@ export function ProductCard({
         </div>
         <div className="flex min-w-0 flex-1 flex-col justify-end px-2 pt-4 pb-2 text-sm leading-5">
           <p className="truncate text-muted">
-            {product.tags.length
-              ? product.tags.map((tag) => TAGS[tag]).join(" · ")
-              : STATUSES[product.status]}
+            {(product.tags.length ? product.tags : [product.status]).map(label).join(" · ")}
           </p>
           <h2 className="line-clamp-2 break-words">{product.name}</h2>
         </div>

@@ -16,7 +16,7 @@ import {
   Watch
 } from "lucide-react"
 import type { ReactNode } from "react"
-import { type Tag, TAGS } from "../lib/product"
+import { label, type Tag } from "../lib/product"
 
 const TAG_ICONS: Record<Tag, LucideIcon> = {
   apparel: Shirt,
@@ -38,7 +38,7 @@ export function TagLabel({ tag }: { tag: Tag }) {
   return (
     <>
       <Icon size={16} strokeWidth={1.75} className="shrink-0" aria-hidden="true" />
-      {TAGS[tag]}
+      {label(tag)}
     </>
   )
 }

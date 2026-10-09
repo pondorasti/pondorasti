@@ -3,14 +3,14 @@ import { useSuspenseQuery } from "@tanstack/react-query"
 import { Dialog } from "@base-ui/react/dialog"
 import { Archive, ArrowLeft, ArrowUpRight, Check, Heart, X, ZoomIn } from "lucide-react"
 import { productQuery } from "../read/queries"
-import { validateFilters } from "../lib/filters"
-import { isSlug, STATUSES, statusView, TAGS } from "../lib/product"
+import { CatalogFilters } from "../lib/filters"
+import { label, Slug, statusView } from "../lib/product"
 import { ProductImage } from "../components/product"
 
 export const Route = createFileRoute("/items/$slug")({
-  validateSearch: validateFilters,
+  validateSearch: CatalogFilters,
   loader: async ({ context, params }) => {
-    if (!isSlug(params.slug)) throw notFound()
+    if (!Slug.safeParse(params.slug).success) throw notFound()
     const product = await context.queryClient.fetchQuery(productQuery(params.slug))
     if (!product) throw notFound()
     return product
@@ -62,13 +62,13 @@ function Product() {
               ) : (
                 <Archive size={13} />
               )}
-              {STATUSES[product.status]}
+              {label(product.status)}
             </span>
             {product.tags.map((tag) => (
               <span key={tag} className="contents">
                 <span aria-hidden="true">·</span>
                 <Link to="/" search={{ tag, view }} className="hover:text-ink">
-                  {TAGS[tag]}
+                  {label(tag)}
                 </Link>
               </span>
             ))}

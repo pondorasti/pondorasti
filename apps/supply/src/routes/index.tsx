@@ -7,13 +7,13 @@ import { Toggle } from "@base-ui/react/toggle"
 import { ToggleGroup } from "@base-ui/react/toggle-group"
 import { LayoutGrid, Search, X } from "lucide-react"
 import { catalogQuery } from "../read/queries"
-import { filterCatalog, productsInView, validateFilters, type CatalogFilters } from "../lib/filters"
+import { CatalogFilters, filterCatalog, productsInView } from "../lib/filters"
 import { CatalogGrid, CatalogPending, ProductCard } from "../components/product"
 import { IconButton, TagLabel } from "../components/controls"
-import { isTag, type Tag, TAGS } from "../lib/product"
+import { Tag } from "../lib/product"
 
 export const Route = createFileRoute("/")({
-  validateSearch: validateFilters,
+  validateSearch: CatalogFilters,
   loader: ({ context }) => context.queryClient.fetchQuery(catalogQuery),
   headers: () => ({ "Cache-Control": "no-store" }),
   head: ({ match }) => ({ links: [{ rel: "canonical", href: `${match.context.origin}/` }] }),
@@ -34,7 +34,7 @@ function Catalog() {
   const filtered = filterCatalog(products, filters)
   const used = new Set(inView.flatMap((product) => product.tags))
   // The active tag keeps its pill even when this view has nothing tagged with it.
-  const tags = (Object.keys(TAGS) as Tag[]).filter((tag) => used.has(tag) || tag === filters.tag)
+  const tags = Tag.options.filter((tag) => used.has(tag) || tag === filters.tag)
   const hasFilters = Boolean(filters.q || filters.tag)
   const clear = () => {
     void navigate({ search: { view: filters.view }, resetScroll: false })
@@ -72,7 +72,7 @@ function Catalog() {
         value={[filters.tag ?? "all"]}
         onValueChange={(values) => {
           const value = values[0]
-          if (value) update({ tag: isTag(value) ? value : undefined })
+          if (value) update({ tag: Tag.safeParse(value).data })
         }}
         className="no-scrollbar -mx-4 -mt-[5px] mb-[11px] flex gap-2 overflow-x-auto px-4 py-[5px] lg:-mx-6 lg:px-6"
       >
