@@ -15,7 +15,7 @@ import { Button } from "@base-ui/react/button"
 import { ArrowLeft, RotateCcw } from "lucide-react"
 import { useEffect } from "react"
 import { siteQuery } from "../read/queries"
-import { ownershipView, type View, VIEWS } from "../lib/product"
+import { statusView, type View, VIEWS } from "../lib/product"
 import styles from "../styles.css?url"
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
@@ -85,7 +85,7 @@ function LoadError() {
 function ViewNav() {
   const product = useMatch({ from: "/items/$slug", shouldThrow: false })?.loaderData
   const search = useSearch({ strict: false })
-  const active = (product && ownershipView(product.ownership)) ?? search.view ?? "supply"
+  const active = (product && statusView(product.status)) ?? search.view ?? "supply"
   return (
     <nav aria-label="Collection" className="flex items-center gap-1">
       {VIEWS.map(({ id, label }) => (

@@ -2,28 +2,27 @@ import { Link } from "@tanstack/react-router"
 import { ImageOff } from "lucide-react"
 import { type ReactNode, useState } from "react"
 import type { CatalogFilters } from "../lib/filters"
-import { imagePath } from "../lib/links"
-import type { ProductSummary } from "../lib/product"
+import { type ProductSummary, STATUSES, TAGS } from "../lib/product"
 
 export function ProductImage({
-  hash,
+  src,
   name,
   priority = false
 }: {
-  hash: string | null
+  src: string
   name: string
   priority?: boolean
 }) {
   const [failed, setFailed] = useState<string | null>(null)
-  return hash && failed !== hash ? (
+  return failed !== src ? (
     <img
-      src={imagePath(hash)}
+      src={src}
       alt={name}
       width={720}
       height={720}
       loading={priority ? "eager" : "lazy"}
       decoding="async"
-      onError={() => setFailed(hash)}
+      onError={() => setFailed(src)}
     />
   ) : (
     <span
@@ -46,7 +45,6 @@ export function ProductCard({
   filters?: CatalogFilters
   priority?: boolean
 }) {
-  const tags = product.tags.filter((tag) => tag !== "Wishlist")
   return (
     <article className="group min-w-0">
       <Link
@@ -56,13 +54,15 @@ export function ProductCard({
         className="flex h-full flex-col rounded-2xl bg-surface p-2"
       >
         <div className="product-stage aspect-[7/6] [&_img]:transition-transform [&_img]:duration-300 group-hover:[&_img]:scale-[1.03]">
-          <ProductImage hash={product.thumbnail} name={product.name} priority={priority} />
+          <ProductImage src={product.image} name={product.name} priority={priority} />
         </div>
         <div className="flex min-w-0 flex-1 flex-col justify-end px-2 pt-4 pb-2 text-sm leading-5">
           <p className="truncate text-muted">
-            {tags.length ? tags.join(" · ") : product.ownership || "Uncategorized"}
+            {product.tags.length
+              ? product.tags.map((tag) => TAGS[tag]).join(" · ")
+              : STATUSES[product.status]}
           </p>
-          <h2 className="line-clamp-2 break-words">{product.name || "Untitled"}</h2>
+          <h2 className="line-clamp-2 break-words">{product.name}</h2>
         </div>
       </Link>
     </article>

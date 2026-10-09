@@ -87,41 +87,47 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-  .notion-body {
+  .notes {
     @apply max-w-[560px] space-y-4 text-base leading-6 text-muted;
     overflow-wrap: anywhere;
   }
-  .notion-body a {
+  .notes a {
     @apply text-ink underline decoration-line underline-offset-4 hover:decoration-ink;
   }
-  .notion-body h2 {
+  .notes h2 {
     @apply mt-8 text-xl font-medium tracking-[-0.01em] text-ink;
   }
-  .notion-body h3 {
+  .notes h3 {
     @apply mt-7 text-lg font-medium text-ink;
   }
-  .notion-body h4 {
+  .notes h4 {
     @apply mt-6 font-medium text-ink;
   }
-  .notion-body ul {
+  .notes ul {
     @apply list-disc space-y-2 pl-5;
   }
-  .notion-body ol {
+  .notes ol {
     @apply list-decimal space-y-2 pl-5;
   }
-  .notion-body blockquote {
+  .notes blockquote {
     @apply border-l-2 border-line pl-4;
   }
-  .notion-body code {
+  .notes code {
     @apply rounded bg-surface px-1 py-0.5 font-mono text-sm text-ink;
   }
-  .notion-body pre {
+  .notes pre {
     @apply overflow-x-auto rounded-xl bg-surface p-4;
   }
-  .notion-body summary {
+  .notes summary {
     @apply cursor-pointer text-ink;
   }
-  .notion-body strong {
+  .notes hr {
+    @apply border-line;
+  }
+  .notes img {
+    @apply max-h-[720px] w-full rounded-xl object-contain;
+  }
+  .notes strong {
     @apply font-medium text-ink;
   }
 }

@@ -8,37 +8,39 @@ import {
   Droplet,
   Footprints,
   Glasses,
-  Heart,
   type LucideIcon,
   Monitor,
   Shirt,
   Smartphone,
   Smile,
-  Tag,
   Watch
 } from "lucide-react"
 import type { ReactNode } from "react"
+import { type Tag, TAGS } from "../lib/product"
 
-/** Tags are free-form in Notion; unknown ones fall back to a generic tag icon. */
-const CATEGORY_ICONS: Record<string, LucideIcon> = {
-  Apparel: Shirt,
-  Bathroom: Bath,
-  Bedroom: BedDouble,
-  Books: BookOpen,
-  Carry: Backpack,
-  Office: Monitor,
-  Oral: Smile,
-  Shoes: Footprints,
-  Skin: Droplet,
-  Sunglasses: Glasses,
-  Technology: Smartphone,
-  Watches: Watch,
-  Wishlist: Heart
+const TAG_ICONS: Record<Tag, LucideIcon> = {
+  apparel: Shirt,
+  bathroom: Bath,
+  bedroom: BedDouble,
+  books: BookOpen,
+  carry: Backpack,
+  office: Monitor,
+  oral: Smile,
+  shoes: Footprints,
+  skin: Droplet,
+  sunglasses: Glasses,
+  technology: Smartphone,
+  watches: Watch
 }
 
-export function CategoryIcon({ tag }: { tag: string }) {
-  const Icon = CATEGORY_ICONS[tag] ?? Tag
-  return <Icon size={16} strokeWidth={1.75} className="shrink-0" aria-hidden="true" />
+export function TagLabel({ tag }: { tag: Tag }) {
+  const Icon = TAG_ICONS[tag]
+  return (
+    <>
+      <Icon size={16} strokeWidth={1.75} className="shrink-0" aria-hidden="true" />
+      {TAGS[tag]}
+    </>
+  )
 }
 
 export function IconButton({

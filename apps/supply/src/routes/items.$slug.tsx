@@ -4,10 +4,8 @@ import { Dialog } from "@base-ui/react/dialog"
 import { Archive, ArrowLeft, ArrowUpRight, Check, Heart, X, ZoomIn } from "lucide-react"
 import { productQuery } from "../read/queries"
 import { validateFilters } from "../lib/filters"
-import { imagePath } from "../lib/links"
-import { isSlug, ownershipView } from "../lib/product"
+import { isSlug, STATUSES, statusView, TAGS } from "../lib/product"
 import { ProductImage } from "../components/product"
-import { NotionBody } from "../components/notion-body"
 
 export const Route = createFileRoute("/items/$slug")({
   validateSearch: validateFilters,
@@ -25,14 +23,7 @@ export const Route = createFileRoute("/items/$slug")({
             { title: `${product.name} | Supply` },
             { name: "description", content: `${product.name} in Alexandru's personal collection.` },
             { property: "og:title", content: `${product.name} | Supply` },
-            ...(product.thumbnail
-              ? [
-                  {
-                    property: "og:image",
-                    content: `${context.origin}${imagePath(product.thumbnail)}`
-                  }
-                ]
-              : [])
+            { property: "og:image", content: `${context.origin}${product.image}` }
           ],
           links: [{ rel: "canonical", href: `${context.origin}/items/${product.slug}` }]
         }
@@ -45,9 +36,8 @@ function Product() {
   const filters = Route.useSearch()
   const { data: product } = useSuspenseQuery(productQuery(slug))
   if (!product) throw notFound()
-  const tags = product.tags.filter((tag) => tag !== product.ownership)
   // Links back into the catalog stay in this product's view, even when it was opened directly.
-  const productView = ownershipView(product.ownership)
+  const productView = statusView(product.status)
   const view = productView === "supply" ? undefined : productView
   return (
     <main id="main" className="page-width pb-16">
@@ -63,27 +53,27 @@ function Product() {
         <div className="min-w-0">
           <p className="flex flex-wrap items-center gap-x-1.5 text-sm text-muted">
             <span
-              className={`inline-flex items-center gap-1 ${product.ownership === "Wishlist" ? "text-wishlist" : ""}`}
+              className={`inline-flex items-center gap-1 ${product.status === "wishlist" ? "text-wishlist" : ""}`}
             >
-              {product.ownership === "Wishlist" ? (
+              {product.status === "wishlist" ? (
                 <Heart size={13} />
-              ) : product.ownership === "Owned" ? (
+              ) : product.status === "owned" ? (
                 <Check size={14} />
-              ) : product.ownership === "Retired" ? (
+              ) : (
                 <Archive size={13} />
-              ) : null}
-              {product.ownership}
+              )}
+              {STATUSES[product.status]}
             </span>
-            {tags.map((tag) => (
+            {product.tags.map((tag) => (
               <span key={tag} className="contents">
                 <span aria-hidden="true">·</span>
                 <Link to="/" search={{ tag, view }} className="hover:text-ink">
-                  {tag}
+                  {TAGS[tag]}
                 </Link>
               </span>
             ))}
           </p>
-          <h1 className="display mt-1 break-words">{product.name || "Untitled"}</h1>
+          <h1 className="display mt-1 break-words">{product.name}</h1>
         </div>
         {product.link && (
           <a
@@ -98,42 +88,36 @@ function Product() {
         )}
       </div>
       <div className="mt-6">
-        {product.thumbnail ? (
-          <Dialog.Root>
-            <Dialog.Trigger
-              className="product-stage group relative aspect-square max-h-[720px] w-full rounded-3xl sm:aspect-[8/7]"
-              aria-label={`Enlarge ${product.name} image`}
+        <Dialog.Root>
+          <Dialog.Trigger
+            className="product-stage group relative aspect-square max-h-[720px] w-full rounded-3xl sm:aspect-[8/7]"
+            aria-label={`Enlarge ${product.name} image`}
+          >
+            <ProductImage src={product.image} name={product.name} priority />
+            <span
+              className="absolute top-4 right-4 flex size-9 items-center justify-center rounded-full bg-page text-muted transition-colors group-hover:text-ink"
+              aria-hidden="true"
             >
-              <ProductImage hash={product.thumbnail} name={product.name} priority />
-              <span
-                className="absolute top-4 right-4 flex size-9 items-center justify-center rounded-full bg-page text-muted transition-colors group-hover:text-ink"
-                aria-hidden="true"
-              >
-                <ZoomIn size={16} />
-              </span>
-            </Dialog.Trigger>
-            <Dialog.Portal>
-              <Dialog.Backdrop className="fixed inset-0 z-40 bg-black/60" />
-              <Dialog.Popup className="fixed inset-3 z-50 flex flex-col rounded-3xl bg-page p-4 sm:inset-8">
-                <div className="flex items-center justify-between gap-4 pl-2">
-                  <Dialog.Title className="min-w-0 truncate text-sm">{product.name}</Dialog.Title>
-                  <Dialog.Close className="icon-control" aria-label="Close image">
-                    <X size={18} />
-                  </Dialog.Close>
-                </div>
-                <div className="product-stage mt-4 min-h-0 flex-1 rounded-2xl">
-                  <ProductImage hash={product.thumbnail} name={product.name} priority />
-                </div>
-              </Dialog.Popup>
-            </Dialog.Portal>
-          </Dialog.Root>
-        ) : (
-          <div className="product-stage aspect-square max-h-[720px] w-full rounded-3xl sm:aspect-[8/7]">
-            <ProductImage hash={null} name={product.name} />
-          </div>
-        )}
+              <ZoomIn size={16} />
+            </span>
+          </Dialog.Trigger>
+          <Dialog.Portal>
+            <Dialog.Backdrop className="fixed inset-0 z-40 bg-black/60" />
+            <Dialog.Popup className="fixed inset-3 z-50 flex flex-col rounded-3xl bg-page p-4 sm:inset-8">
+              <div className="flex items-center justify-between gap-4 pl-2">
+                <Dialog.Title className="min-w-0 truncate text-sm">{product.name}</Dialog.Title>
+                <Dialog.Close className="icon-control" aria-label="Close image">
+                  <X size={18} />
+                </Dialog.Close>
+              </div>
+              <div className="product-stage mt-4 min-h-0 flex-1 rounded-2xl">
+                <ProductImage src={product.image} name={product.name} priority />
+              </div>
+            </Dialog.Popup>
+          </Dialog.Portal>
+        </Dialog.Root>
       </div>
-      {product.body.length > 0 && (
+      {product.notes && (
         <section aria-labelledby="notes" className="mt-14">
           <h2
             id="notes"
@@ -141,9 +125,8 @@ function Product() {
           >
             Notes
           </h2>
-          <div className="notion-body mt-4">
-            <NotionBody blocks={product.body} />
-          </div>
+          {/* Rendered at build time from markdown in the repo, with raw HTML escaped. */}
+          <div className="notes mt-4" dangerouslySetInnerHTML={{ __html: product.notes }} />
         </section>
       )}
     </main>

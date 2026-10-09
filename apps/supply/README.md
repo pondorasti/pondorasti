@@ -1,34 +1,79 @@
 # Supply
 
-Alexandru's public, read-only collection. Notion is the only editing surface.
+Alexandru's public, read-only collection. Items live in this repository as markdown files.
 
 ## Stack
 
 TanStack Start, Router and Query; React; Base UI; Tailwind CSS with system light/dark
-mode; a Cloudflare Worker; Drizzle on D1; private R2 image storage; Vitest running
-against actual local D1 and R2 bindings.
+mode; a Cloudflare Worker. No database: the catalog is read from `content/` at build
+time and bundled into the Worker, and its images are shipped as static assets.
 
-There is no prerendered catalog and no build-time dependency on Notion. HTML is
-server-rendered from D1. Visitor requests never call Notion. Query hydrates the
-request-scoped server cache and refreshes active data every five minutes. Public
-HTML/data responses are not CDN-cached; immutable, content-addressed images are
-browser-cacheable for a year.
+HTML is server-rendered on each request from the bundled catalog. Content changes reach
+the site by deploying. Images are served at content-addressed `/images/<hash>.webp` URLs
+and cached by browsers for a year (`public/_headers`).
+
+## Content
+
+Each item is a folder under `content/`, named by its URL slug:
+
+```
+content/apple-watch-series-10/
+  index.md       front matter + notes
+  image.webp     the item's image (required)
+  notes-1.webp   images used in the notes (optional)
+```
+
+```md
+---
+name: "Apple Watch Series 10"
+status: owned
+tags: [technology]
+link: "https://support.apple.com/en-ie/121202"
+---
+
+- Gets the job done.
+
+## Specs
+
+![Device details](notes-1.webp)
+```
+
+- `name` (required) is the display name; quote it if it contains a colon.
+- `status` (required) is `owned`, `wishlist` or `retired`, one catalog view each.
+- `tags` are category ids from `TAGS` in `src/lib/product.ts`. Adding a category
+  means adding it there and giving it an icon in `src/components/controls.tsx`.
+- `link` is an optional `http(s)` URL for the "Visit product" button.
+- Notes are markdown. `##` headings sit under the page's "Notes" heading. Links open
+  in a new tab; non-`http(s)` links and raw HTML are not rendered as such. Notes are
+  public, as is this repository's history, so keep private details out of them.
+
+The folder name is the item's URL, `/items/<folder>`: lowercase words joined by hyphens.
+Renaming a folder changes the URL.
+
+### Adding an item
+
+1. Create `content/<slug>/index.md` with the front matter above.
+2. Drop the image into the folder as `image.jpg`, `.png`, `.heic` or any common format.
+3. Run `bun run images` from this directory. It converts every image in `content/` to
+   WebP, at most 2000px on the long side, and deletes the original. It uses Bun's
+   built-in `Bun.Image`: JPEG, PNG and WebP work anywhere, while HEIC, AVIF, TIFF and
+   GIF rely on the OS codecs of macOS or Windows.
+4. Run `bun run test` (or start the dev server) to validate, then commit and push.
+
+The content is validated by `src/content/` whenever the site builds, the dev server
+loads it, or the tests run. An unknown tag or status, a misspelled key, an invalid link,
+a missing `image.webp` or a missing notes image fails with a message naming the folder,
+so a broken item never deploys.
 
 ## Layout
 
-- `src/lib/`: code shared by server and browser (product types, link helpers, filters);
-  never imports bindings.
-- `src/db/schema.ts`: the only contract shared by the read and sync sides.
-- `src/read/`: the visitor read path: D1 queries, server functions, query options and
-  the robots/sitemap responses.
-- `src/sync/`: the Notion mirror. `index.ts` sequences a run; `lease.ts` holds the
-  lease and fence; `plan.ts` decides what changed (pure, unit-tested); `publish.ts`
-  writes the atomic D1 batch; `notion/` and `assets/` talk to Notion and R2.
-- `src/http/`: raw Worker endpoints answered before Start (`/images/*`, `/api/sync`,
-  `/api/health`).
+- `content/`: the catalog, one folder per item.
+- `src/content/`: the Vite plugin that validates `content/`, renders notes to HTML and
+  exposes the items as `virtual:supply-content` (server only) and the images as files.
+- `src/lib/`: code shared by server and browser (product types, statuses, tags, filters).
+- `src/read/`: the server functions, query options and robots/sitemap responses.
 - `src/routes/`: pages, plus the `robots.txt` and `sitemap.xml` server routes.
-
-`read/` never imports `sync/`.
+- `scripts/images.ts`: the image converter behind `bun run images`.
 
 ## Local Development
 
@@ -37,162 +82,28 @@ From the repository root:
 ```sh
 bun install
 cd apps/supply
-bun run db:migrate:local
 bun run dev
 ```
 
-To render production's catalog instead, run `bun run dev:remote`. It binds dev to
-the production D1 database and R2 bucket through the logged-in Wrangler account, with
-no sync or Notion token required. Writes go to production too, so don't run
-`bun run sync` against it unless you mean to sync production.
-
-For real data locally, create an ignored `.dev.vars` from `.dev.vars.example` containing
-`NOTION_TOKEN` and a random `SYNC_SECRET` with at least 32 bytes of entropy. Restart
-the dev server after changing credentials. Never put either secret in a tracked
-file, URL, command argument, screenshot, or log.
-
-With the dev server running, in another terminal:
-
-```sh
-cd apps/supply
-bun run sync
-bun run sync --status
-bun run sync --force
-```
-
-The sync command defaults to `http://localhost:5173`. Set `SUPPLY_ORIGIN` for a
-different local port or the production HTTPS origin. Keep the command connected
-until it completes. A manual sync is awaited, not put into HTTP `waitUntil`, which
-does not give long-running work enough time. `--force` refreshes all bodies and
-images even if Notion's revision timestamp is unchanged.
-
-## Notion Connection
-
-Create a dedicated internal connection in the 851 workspace, named Supply, with
-only **Read content** capability. Disable insert/update content, comment access,
-and user information. Grant it access to the Supply database, not the enclosing
-personal workspace. Store its token in `.dev.vars` locally and a Worker secret in
-production. An interactive Notion MCP connection is not a deployable API token.
-
-The dedicated [Supply connection](https://app.notion.com/developers/connections/3dbb49ce-7f0b-8168-98cb-0027343688be?spaceId=e0a0747e-78da-40a6-8ac4-283c071d1720)
-has read-only access to this database. Wrangler declares the required secret names
-explicitly, so generated types do not depend on whether a checkout has local secrets.
-
-- Database: `3b6b49ce-7f0b-80fb-8c8b-d57dda7079b3`
-- Data source: `3b6b49ce-7f0b-80cd-ad07-000b96417ff1`
-- Required schema: `Name` (title), `Link` (URL), `Ownership status` (select),
-  `Tags` (multi-select), `Thumbnail` (files).
-
-All rows are mirrored and public, except deleted ones: the catalog has one view per
-status (Supply for Owned, Wishlist, Retired), selected by the `view` URL parameter,
-and detail pages and the sitemap include every status. Rows with any other status
-are reachable by URL but appear in no view. Deleted rows are excluded and retain
-tombstones so a restored Notion page gets its original URL. URLs remain stable
-across title edits.
-
-Notes render common Notion text blocks, nested lists, headings, links, toggles,
-checkbox states, captions, and images. Unsupported blocks are not embedded;
-supported child content remains readable. HTML and executable links are never
-rendered from Notion. Page bodies are public, so review personal notes in Notion
-before adding or updating them.
-
-## Sync Guarantees
-
-Every five minutes, the Worker validates the schema and scans every page of
-metadata. Unchanged page revisions skip body/image requests. Changed items have
-their paginated nested bodies fetched and all images persisted before publication.
-
-Notion requests are spaced at least 550 ms apart. Transient HTTP errors have
-bounded retries, honor `Retry-After`, and stop instead of retrying sooner than
-Notion allows. A three-minute renewable lease prevents overlapping jobs; a
-monotonic fencing value rejects stale publishers inside the final D1 transaction.
-
-The D1 batch publishes the complete update atomically. A partial scan, failed
-body/image download, failed R2 write, or failed D1 statement leaves the last good
-catalog intact. Deletions happen only after the complete scan succeeds. A sync is
-not a transactional snapshot of Notion itself: an edit made during the scan can
-appear on the following run.
-
-R2 keys are SHA-256 hashes of downloaded image bytes. Rotated signed URLs do not
-cause new uploads; identical images share objects. Failed runs can leave harmless
-orphan objects, reused on retry. Old objects are deliberately retained for cached
-pages. Do not add an R2 expiry policy or delete objects manually. A future garbage
-collector must account for live references, in-flight runs and cached URLs.
-
-Notion-hosted PNG/JPEG/GIF/WebP/AVIF files are supported. Images are limited to
-8 MiB, streamed with a bounded buffer and validated by their file signatures.
-Upload images to Notion rather than embedding them by link: images hosted anywhere
-else fail closed, and fail the sync until they are re-uploaded. Redirect destinations
-are checked too.
-Single-bitmap SVG wrappers are parsed with a strict XML allowlist and unwrapped
-to their original image bytes before hashing. Drawing elements, scripts, styles,
-transforms, cropping, entities, and external references are rejected; no SVG is
-served. General SVG and HTML images are rejected. Notion does not provide content checksums, so
-changed pages still require an image download to hash the bytes.
-
-Guardrails: 750 active rows, 5,000 blocks per product, 30 nested levels, 24 MiB of
-changed snapshot data, and a twelve-minute run budget. Hitting a limit preserves
-the previous catalog and records a failure. This single-worker approach should be
-revisited before substantially growing the collection beyond the tested 175 rows.
+The dev server reloads when anything under `content/` changes.
 
 ## Cloudflare Deployment
 
 Resources in account `630f294bcb2c1e9b751d9fe0655a453a` (851):
 
 - Worker name: `alexandru-supply`
-- D1: `alexandru-supply`, ID `1edcb7f5-a2e8-4524-b5f2-bdbb55fb0671`
-- R2: `alexandru-supply-images`, private; images are served through the Worker
 - Public origin: `https://alexandru.supply` (also served at `https://supply.alexandru.so`)
 
-**Deployment prerequisites:** confirm the account's Workers paid plan, configure
-the Notion connection, review public content, apply the remote migration, and set
-both secrets. A full initial sync exceeds the Free plan's 50 subrequest/query
-limits. Resource creation does not itself confirm the Workers billing plan. Do
-not silently enable a paid plan.
+Pushing to `main` deploys automatically: the Worker is connected to this repository
+through Cloudflare Workers Builds, which runs
+`bun run typecheck && bun run test && bun run build` and then `npx wrangler deploy` from
+`apps/supply` when a push touches `apps/supply/*` or `bun.lock`. `bun run deploy`
+deploys manually through an authorized Wrangler login.
 
-Use existing Cloudflare MCP access where supported. Wrangler is needed to package
-the built Worker and static assets; use an authorized local login or appropriately
-scoped token. Do not commit credentials.
-
-```sh
-cd apps/supply
-bun run db:migrate:remote
-bunx wrangler secret put NOTION_TOKEN
-bunx wrangler secret put SYNC_SECRET
-bun run deploy
-```
-
-After that first setup, pushing to `main` deploys automatically: the Worker is
-connected to this repository through Cloudflare Workers Builds, which runs
-`bun run typecheck && bun run test && bun run build` and then `npx wrangler deploy`
-from `apps/supply` when a push touches `apps/supply/*` or `bun.lock`. Builds do
-not apply D1 migrations. Run `bun run db:migrate:remote` before pushing a change
-that depends on a new migration.
-
-The Workers Custom Domain for `alexandru.supply` is declared in `wrangler.jsonc`.
-Deploying configures its DNS record and TLS certificate through Cloudflare. Both
-`workers_dev` and `preview_urls` remain disabled; the custom domain is the public
-entry point. Cron does not require a public domain.
-
-If an upload succeeds but deploying triggers fails, check `wrangler deployments
-list` before uploading again. `bunx wrangler triggers deploy` can finish the routing
-and cron configuration without creating another Worker version.
-
-```sh
-SUPPLY_ORIGIN=https://alexandru.supply bun run sync --status
-SUPPLY_ORIGIN=https://alexandru.supply bun run sync
-```
-
-The status command returns the last successful sync time and recent runs. A
-skipped run means another worker owns the lease. Investigate repeated failures or
-a `lastSuccess` older than 15 minutes. Error records contain stable codes, not
-tokens or signed URLs. Completed run history is retained for fourteen days after
-a successful sync. Interrupted runs can remain marked `running`; the lease still
-expires so later jobs recover. `/api/health` checks D1 connectivity, not freshness.
-
-For schema changes: edit `src/db/schema.ts`, run `bun run db:generate`, commit
-the generated migration and Drizzle metadata, then apply local and remote
-migrations. Regenerate Worker types with `bun run cf-typegen` after binding changes.
+The Workers Custom Domains are declared in `wrangler.jsonc`. Deploying configures their
+DNS records and TLS certificates through Cloudflare. Both `workers_dev` and
+`preview_urls` remain disabled; the custom domains are the public entry points.
+Regenerate Worker types with `bun run cf-typegen` after changing `wrangler.jsonc`.
 
 ## Checks
 
@@ -204,18 +115,12 @@ and type checks) followed by every workspace's tests and builds through
 `.vite-hooks/pre-commit` hook runs the same non-mutating command before commits;
 `bun install` installs it through `vp config`. Formatting is explicit
 (`vp check --fix` or `vp fmt`); the hook never re-stages files. `/zold` is
-excluded. CLI release jobs still build and publish, with no redundant GH tests.
-Hooks are local and can be bypassed, so they are a workflow guard, not a remotely
-enforced merge policy.
+excluded. Hooks are local and can be bypassed, so they are a workflow guard, not a
+remotely enforced merge policy.
 
-`bun run test` in this directory runs focused unit/integration tests. External
-Notion/image HTTP is simulated; SQL transactions and R2 persistence use actual
-Cloudflare local bindings. Coverage includes full-size pagination, throttling,
-retry budgets, nested content, asset deduplication, failed uploads, rollback,
-lease races, deletions/restoration, retirement, stable slugs, public read isolation,
-and sync authentication. No UI test suite is maintained.
+`bun run test` in this directory runs the unit tests: content parsing and validation,
+notes rendering, URL filters, and a load of every item in `content/`. No UI test suite
+is maintained.
 
 References: [Cloudflare Start deployment](https://developers.cloudflare.com/workers/framework-guides/web-apps/tanstack-start/),
-[Worker limits](https://developers.cloudflare.com/workers/platform/limits/),
-[D1 limits](https://developers.cloudflare.com/d1/platform/limits/),
-[Notion connections](https://developers.notion.com/guides/get-started/internal-connections).
+[Workers static assets headers](https://developers.cloudflare.com/workers/static-assets/headers/).

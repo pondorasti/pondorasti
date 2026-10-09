@@ -9,7 +9,8 @@ import { LayoutGrid, Search, X } from "lucide-react"
 import { catalogQuery } from "../read/queries"
 import { filterCatalog, productsInView, validateFilters, type CatalogFilters } from "../lib/filters"
 import { CatalogGrid, CatalogPending, ProductCard } from "../components/product"
-import { CategoryIcon, IconButton } from "../components/controls"
+import { IconButton, TagLabel } from "../components/controls"
+import { isTag, type Tag, TAGS } from "../lib/product"
 
 export const Route = createFileRoute("/")({
   validateSearch: validateFilters,
@@ -21,7 +22,7 @@ export const Route = createFileRoute("/")({
 })
 
 function Catalog() {
-  const { data: products, isRefetchError } = useSuspenseQuery(catalogQuery)
+  const { data: products } = useSuspenseQuery(catalogQuery)
   const filters = Route.useSearch()
   const navigate = Route.useNavigate()
   const update = (values: CatalogFilters, replace = false) => {
@@ -31,11 +32,9 @@ function Catalog() {
   useSearchShortcut(searchRef)
   const inView = productsInView(products, filters.view)
   const filtered = filterCatalog(products, filters)
-  // Wishlist is also a view, so it only appears as a pill when linked to directly.
-  const tags = [...new Set(inView.flatMap((product) => product.tags))]
-    .filter((tag) => tag !== "Wishlist")
-    .sort((a, b) => a.localeCompare(b, "en"))
-  if (filters.tag && !tags.includes(filters.tag)) tags.push(filters.tag)
+  const used = new Set(inView.flatMap((product) => product.tags))
+  // The active tag keeps its pill even when this view has nothing tagged with it.
+  const tags = (Object.keys(TAGS) as Tag[]).filter((tag) => used.has(tag) || tag === filters.tag)
   const hasFilters = Boolean(filters.q || filters.tag)
   const clear = () => {
     void navigate({ search: { view: filters.view }, resetScroll: false })
@@ -73,7 +72,7 @@ function Catalog() {
         value={[filters.tag ?? "all"]}
         onValueChange={(values) => {
           const value = values[0]
-          if (value) update({ tag: value === "all" ? undefined : value })
+          if (value) update({ tag: isTag(value) ? value : undefined })
         }}
         className="no-scrollbar -mx-4 -mt-[5px] mb-[11px] flex gap-2 overflow-x-auto px-4 py-[5px] lg:-mx-6 lg:px-6"
       >
@@ -83,16 +82,10 @@ function Catalog() {
         </Toggle>
         {tags.map((tag) => (
           <Toggle key={tag} value={tag} className="pill">
-            <CategoryIcon tag={tag} />
-            {tag}
+            <TagLabel tag={tag} />
           </Toggle>
         ))}
       </ToggleGroup>
-      {isRefetchError && (
-        <p role="status" className="mb-4 text-sm text-muted">
-          Couldn't refresh the collection. Showing the last available version.
-        </p>
-      )}
       {filtered.length ? (
         <CatalogGrid>
           {filtered.map((product, index) => (

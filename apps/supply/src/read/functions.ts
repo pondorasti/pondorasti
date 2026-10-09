@@ -10,7 +10,7 @@ export const readSite = createServerFn({ method: "GET" }).handler(async () => ({
 
 export const readCatalog = createServerFn({ method: "GET" }).handler(async () => {
   setResponseHeader("Cache-Control", "no-store")
-  return getCatalog(env.DB)
+  return getCatalog()
 })
 
 export const readProduct = createServerFn({ method: "GET" })
@@ -20,5 +20,5 @@ export const readProduct = createServerFn({ method: "GET" })
   })
   .handler(async ({ data }) => {
     setResponseHeader("Cache-Control", "no-store")
-    return getProduct(env.DB, data)
+    return getProduct(data)
   })

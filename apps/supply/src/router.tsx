@@ -5,7 +5,8 @@ import { routeTree } from "./routeTree.gen"
 
 export function getRouter() {
   const queryClient = new QueryClient({
-    defaultOptions: { queries: { staleTime: 60_000, retry: 1, refetchInterval: 300_000 } }
+    // The catalog only changes with a deploy.
+    defaultOptions: { queries: { staleTime: Infinity, retry: 1 } }
   })
   const router = createRouter({
     routeTree,

@@ -4,45 +4,41 @@
   "type": "module",
   "scripts": {
     "dev": "vp dev",
-    "dev:remote": "SUPPLY_REMOTE=1 vp dev",
     "build": "vp build",
     "preview": "vp preview",
     "deploy": "bun run build && wrangler deploy",
     "typecheck": "wrangler types --check && vp check --no-fmt --no-lint",
     "test": "vp test run",
     "cf-typegen": "wrangler types",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate:local": "wrangler d1 migrations apply alexandru-supply --local",
-    "db:migrate:remote": "wrangler d1 migrations apply alexandru-supply --remote",
-    "sync": "bun --env-file=.dev.vars scripts/sync.ts"
+    "images": "bun scripts/images.ts"
   },
   "dependencies": {
     "@base-ui/react": "catalog:",
     "@fontsource-variable/geist": "catalog:",
-    "@notionhq/client": "catalog:",
     "@tanstack/react-query": "catalog:",
     "@tanstack/react-router": "catalog:",
     "@tanstack/react-router-ssr-query": "catalog:",
     "@tanstack/react-start": "catalog:",
-    "@xmldom/xmldom": "catalog:",
-    "drizzle-orm": "catalog:",
     "lucide-react": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "catalog:",
-    "@cloudflare/vitest-plugin": "catalog:",
     "@tailwindcss/vite": "catalog:",
+    "@types/bun": "catalog:",
+    "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
-    "drizzle-kit": "catalog:",
+    "marked": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
+    "vite-plus": "catalog:",
     "vitest": "catalog:",
     "wrangler": "catalog:",
-    "vite-plus": "catalog:"
+    "yaml": "catalog:",
+    "zod": "catalog:"
   }
 }
