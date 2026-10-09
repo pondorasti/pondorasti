@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { useSuspenseQuery } from "@tanstack/react-query"
+import { type RefObject, useEffect, useRef } from "react"
 import { Input } from "@base-ui/react/input"
 import { Button } from "@base-ui/react/button"
 import { Toggle } from "@base-ui/react/toggle"
@@ -26,6 +27,8 @@ function Catalog() {
   const update = (values: CatalogFilters, replace = false) => {
     void navigate({ search: { ...filters, ...values }, replace, resetScroll: false })
   }
+  const searchRef = useRef<HTMLInputElement>(null)
+  useSearchShortcut(searchRef)
   const inView = productsInView(products, filters.view)
   const filtered = filterCatalog(products, filters)
   // Wishlist is also a view, so it only appears as a pill when linked to directly.
@@ -49,6 +52,7 @@ function Catalog() {
         <label className="mt-7 flex h-11 w-full max-w-[428px] items-center gap-2 rounded-full bg-surface pr-1 pl-4 ring-1 ring-transparent focus-within:ring-line">
           <Search size={16} className="shrink-0 text-muted" />
           <Input
+            ref={searchRef}
             type="search"
             aria-label="Search collection"
             placeholder="Search objects"
@@ -115,4 +119,28 @@ function Catalog() {
       )}
     </main>
   )
+}
+
+/** ⌘K / Ctrl+K anywhere, or "/" outside a text field, focuses the search box. */
+function useSearchShortcut(ref: RefObject<HTMLInputElement | null>) {
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const command = (event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k"
+      const slash =
+        event.key === "/" &&
+        !event.metaKey &&
+        !event.ctrlKey &&
+        !event.altKey &&
+        !(
+          event.target instanceof HTMLElement &&
+          event.target.closest("input, textarea, select, [contenteditable]")
+        )
+      if (!command && !slash) return
+      event.preventDefault()
+      ref.current?.focus()
+      ref.current?.select()
+    }
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [ref])
 }
