@@ -106,7 +106,7 @@ describe("atomic Notion mirror", () => {
       uploaded: 175
     })
     expect(await db.select().from(assets)).toHaveLength(175)
-    expect(await getCatalog(env.DB)).toHaveLength(160)
+    expect(await getCatalog(env.DB)).toHaveLength(175)
     expect((await db.select().from(syncState))[0]).toMatchObject({
       leaseOwner: null,
       lastSuccess: expect.any(Number)
@@ -116,15 +116,15 @@ describe("atomic Notion mirror", () => {
     expect(sync.imageFetch).not.toHaveBeenCalled()
   })
 
-  test("retiring and restoring an item changes public visibility without changing its URL", async () => {
+  test("retiring and restoring an item changes its status without changing its URL", async () => {
     const rows = [notionPage()]
     const sync = setup(rows)
     await sync.run()
     const [before] = await getCatalog(env.DB)
     rows[0] = notionPage("p1", { status: "Retired", revision: "retired" })
     await sync.run()
-    expect(await getCatalog(env.DB)).toEqual([])
-    expect(await getProduct(env.DB, before.slug)).toBeNull()
+    expect(await getCatalog(env.DB)).toEqual([{ ...before, ownership: "Retired" }])
+    expect(await getProduct(env.DB, before.slug)).toMatchObject({ ownership: "Retired" })
     rows[0] = notionPage("p1", { status: "Wishlist", revision: "restored" })
     await sync.run()
     expect(await getProduct(env.DB, before.slug)).toMatchObject({ ownership: "Wishlist" })
@@ -179,7 +179,7 @@ describe("atomic Notion mirror", () => {
     }
   })
 
-  test("mirrors every status but only exposes non-retired products", async () => {
+  test("mirrors and exposes every status", async () => {
     const sync = setup([
       notionPage("a"),
       notionPage("b", { status: "Retired" }),
@@ -189,10 +189,11 @@ describe("atomic Notion mirror", () => {
     expect(await db.select().from(products)).toHaveLength(3)
     expect((await getCatalog(env.DB)).map((product) => product.ownership)).toEqual([
       "Owned",
+      "Retired",
       "Wishlist"
     ])
     const [retired] = await db.select().from(products).where(eq(products.id, "b"))
-    expect(await getProduct(env.DB, retired.slug)).toBeNull()
+    expect(await getProduct(env.DB, retired.slug)).toMatchObject({ ownership: "Retired" })
     expect((await getCatalog(env.DB))[0]).not.toHaveProperty("sourceProperties")
   })
 

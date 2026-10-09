@@ -29,13 +29,21 @@ export interface ProductDetail extends ProductSummary {
   body: ContentBlock[]
 }
 
-/** Notion statuses visitors can filter by. Others are mirrored as-is; Retired is never public. */
-export const OWNERSHIPS = ["Owned", "Wishlist"] as const
-export type Ownership = (typeof OWNERSHIPS)[number]
-export const RETIRED = "Retired"
+/** Catalog views, one per Notion ownership status. Supply is the default and carries no URL value. */
+export const VIEWS = [
+  { id: "supply", label: "Supply", ownership: "Owned" },
+  { id: "wishlist", label: "Wishlist", ownership: "Wishlist" },
+  { id: "retired", label: "Retired", ownership: "Retired" }
+] as const
+export type View = (typeof VIEWS)[number]["id"]
 
-export const isOwnership = (value: unknown): value is Ownership =>
-  OWNERSHIPS.some((ownership) => ownership === value)
+export const isView = (value: unknown): value is View => VIEWS.some((view) => view.id === value)
+
+export const viewOwnership = (view: View = "supply") =>
+  VIEWS.find(({ id }) => id === view)!.ownership
+
+export const ownershipView = (ownership: string): View | undefined =>
+  VIEWS.find((view) => view.ownership === ownership)?.id
 
 export const isSlug = (value: unknown): value is string =>
   typeof value === "string" && /^[a-z0-9-]{1,150}$/.test(value)

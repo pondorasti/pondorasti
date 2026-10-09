@@ -62,7 +62,7 @@ test("missing configuration fails closed without exposing secrets", async () => 
   expect(await response?.json()).toEqual({ error: "notion_token_missing" })
 })
 
-test("catalog, details and sitemap all exclude retired items and make no Notion calls", async () => {
+test("catalog, details and sitemap include retired items and make no Notion calls", async () => {
   await runSync(bindings, options())
   const dbRows = await drizzle(env.DB).select().from(products)
   const retired = dbRows.find((product) => product.ownership === "Retired")!
@@ -71,11 +71,10 @@ test("catalog, details and sitemap all exclude retired items and make no Notion 
   })
   vi.stubGlobal("fetch", network)
   try {
-    expect(await getCatalog(env.DB)).toHaveLength(1)
-    expect(await getProduct(env.DB, retired.slug)).toBeNull()
+    expect(await getCatalog(env.DB)).toHaveLength(2)
+    expect(await getProduct(env.DB, retired.slug)).toMatchObject({ ownership: "Retired" })
     const urls = await (await sitemap(env.DB, env.PUBLIC_ORIGIN)).text()
-    expect(urls).toContain(`${env.PUBLIC_ORIGIN}/items/`)
-    expect(urls).not.toContain(retired.slug)
+    expect(urls).toContain(`${env.PUBLIC_ORIGIN}/items/${retired.slug}`)
     expect(network).not.toHaveBeenCalled()
   } finally {
     vi.unstubAllGlobals()

@@ -4,12 +4,11 @@ import { Input } from "@base-ui/react/input"
 import { Button } from "@base-ui/react/button"
 import { Toggle } from "@base-ui/react/toggle"
 import { ToggleGroup } from "@base-ui/react/toggle-group"
-import { ArrowDownAZ, Search, SlidersHorizontal, X } from "lucide-react"
+import { LayoutGrid, Search, X } from "lucide-react"
 import { catalogQuery } from "../read/queries"
-import { filterCatalog, validateFilters, type CatalogFilters } from "../lib/filters"
-import { isOwnership, OWNERSHIPS } from "../lib/product"
-import { CatalogPending, ProductCard } from "../components/product"
-import { IconButton, SelectControl } from "../components/controls"
+import { filterCatalog, productsInView, validateFilters, type CatalogFilters } from "../lib/filters"
+import { CatalogGrid, CatalogPending, ProductCard } from "../components/product"
+import { CategoryIcon, IconButton, SelectControl } from "../components/controls"
 
 export const Route = createFileRoute("/")({
   validateSearch: validateFilters,
@@ -27,39 +26,27 @@ function Catalog() {
   const update = (values: CatalogFilters, replace = false) => {
     void navigate({ search: { ...filters, ...values }, replace, resetScroll: false })
   }
+  const inView = productsInView(products, filters.view)
   const filtered = filterCatalog(products, filters)
-  const tags = [...new Set(products.flatMap((product) => product.tags))].sort((a, b) =>
-    a.localeCompare(b, "en")
-  )
+  // Wishlist is also a view, so it only appears as a pill when linked to directly.
+  const tags = [...new Set(inView.flatMap((product) => product.tags))]
+    .filter((tag) => tag !== "Wishlist")
+    .sort((a, b) => a.localeCompare(b, "en"))
   if (filters.tag && !tags.includes(filters.tag)) tags.push(filters.tag)
-  const hasFilters = Boolean(filters.q || filters.tag || filters.ownership)
+  const hasFilters = Boolean(filters.q || filters.tag)
+  const clear = () => {
+    void navigate({ search: { view: filters.view }, resetScroll: false })
+  }
   return (
-    <main id="main" className="page-width pb-6">
-      <h1 className="sr-only">The collection</h1>
-      <div className="flex flex-wrap items-center gap-3 border-b border-line py-4">
-        <ToggleGroup
-          aria-label="Ownership"
-          value={[filters.ownership ?? "all"]}
-          onValueChange={(values) => {
-            const value = values[0]
-            if (value) update({ ownership: isOwnership(value) ? value : undefined })
-          }}
-          className="flex h-10 shrink-0 items-center rounded-md bg-line/50 p-1"
-        >
-          {[
-            { value: "all", label: "All" },
-            ...OWNERSHIPS.map((ownership) => ({ value: ownership, label: ownership }))
-          ].map(({ value, label }) => (
-            <Toggle
-              key={value}
-              value={value}
-              className="h-8 rounded px-4 text-xs font-medium text-muted data-pressed:bg-surface data-pressed:text-ink data-pressed:shadow-xs"
-            >
-              {label}
-            </Toggle>
-          ))}
-        </ToggleGroup>
-        <label className="flex h-10 min-w-[150px] flex-1 items-center gap-2 rounded-md border border-line bg-surface pl-3 focus-within:border-accent sm:max-w-[320px]">
+    <main id="main" className="page-width pb-16">
+      <section className="mx-auto flex max-w-[560px] flex-col items-center pt-14 pb-12 text-center sm:pt-20 sm:pb-16">
+        <h1 className="display text-balance">
+          Things for everyday life, work, and everything in between.
+        </h1>
+        <p className="mt-3 text-base leading-6 text-pretty text-muted">
+          A personal collection of what's owned, used every day, and still on the wishlist.
+        </p>
+        <label className="mt-7 flex h-11 w-full max-w-[428px] items-center gap-2 rounded-full bg-surface pr-1 pl-4 ring-1 ring-transparent focus-within:ring-line">
           <Search size={16} className="shrink-0 text-muted" />
           <Input
             type="search"
@@ -67,63 +54,56 @@ function Catalog() {
             placeholder="Search objects"
             value={filters.q ?? ""}
             onValueChange={(q) => update({ q: q || undefined }, true)}
-            className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted [&::-webkit-search-cancel-button]:appearance-none"
+            className="h-full min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted [&::-webkit-search-cancel-button]:appearance-none"
           />
-          {filters.q ? (
+          {filters.q && (
             <IconButton label="Clear search" onClick={() => update({ q: undefined }, true)}>
               <X size={15} />
             </IconButton>
-          ) : (
-            <span className="w-3" />
           )}
         </label>
-        <div className="flex w-full flex-wrap gap-3 sm:ml-auto sm:w-auto">
-          <SelectControl
-            label="Category"
-            value={filters.tag ?? ""}
-            items={[
-              { label: "All categories", value: "" },
-              ...tags.map((tag) => ({ label: tag, value: tag }))
-            ]}
-            onChange={(tag) => update({ tag: tag || undefined })}
-            icon={<SlidersHorizontal size={15} className="shrink-0" />}
-          />
+      </section>
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+        <ToggleGroup
+          aria-label="Category"
+          value={[filters.tag ?? "all"]}
+          onValueChange={(values) => {
+            const value = values[0]
+            if (value) update({ tag: value === "all" ? undefined : value })
+          }}
+          className="no-scrollbar -mx-4 flex min-w-0 flex-[1_1_100%] gap-2 overflow-x-auto px-4 lg:mx-0 lg:flex-1 lg:px-0"
+        >
+          <Toggle value="all" className="pill">
+            <LayoutGrid size={16} strokeWidth={1.75} className="shrink-0" aria-hidden="true" />
+            All
+          </Toggle>
+          {tags.map((tag) => (
+            <Toggle key={tag} value={tag} className="pill">
+              <CategoryIcon tag={tag} />
+              {tag}
+            </Toggle>
+          ))}
+        </ToggleGroup>
+        <div className="ml-auto">
           <SelectControl
             label="Sort collection"
+            prefix="Sort by:"
             value={filters.sort ?? "asc"}
             items={[
               { label: "A to Z", value: "asc" },
               { label: "Z to A", value: "desc" }
             ]}
             onChange={(sort) => update({ sort: sort === "desc" ? "desc" : undefined })}
-            icon={<ArrowDownAZ size={16} className="shrink-0" />}
           />
         </div>
       </div>
-      <div className="flex min-h-14 items-center justify-between gap-3 py-3 text-xs text-muted">
-        <p role="status" aria-live="polite">
-          {filtered.length} {filtered.length === 1 ? "object" : "objects"}
-          {filters.tag ? ` in ${filters.tag}` : ""}
-        </p>
-        {hasFilters && (
-          <Button
-            className="inline-flex items-center gap-1.5 hover:text-ink"
-            onClick={() => {
-              void navigate({ search: {}, resetScroll: false })
-            }}
-          >
-            <X size={13} />
-            Clear filters
-          </Button>
-        )}
-      </div>
       {isRefetchError && (
-        <p role="status" className="mb-5 text-sm text-muted">
+        <p role="status" className="mb-4 text-sm text-muted">
           Couldn't refresh the collection. Showing the last available version.
         </p>
       )}
       {filtered.length ? (
-        <div className="grid grid-cols-2 gap-x-4 gap-y-9 sm:gap-x-6 sm:gap-y-12 md:grid-cols-3 xl:grid-cols-4">
+        <CatalogGrid>
           {filtered.map((product, index) => (
             <ProductCard
               key={product.slug}
@@ -132,19 +112,14 @@ function Catalog() {
               priority={index < 4}
             />
           ))}
-        </div>
+        </CatalogGrid>
       ) : (
-        <div className="py-24 text-center">
+        <div className="flex flex-col items-center rounded-2xl bg-surface py-24 text-center">
           <h2 className="text-xl font-medium">
             {hasFilters ? "No matching objects." : "Nothing here just yet."}
           </h2>
           {hasFilters && (
-            <Button
-              className="control mt-5"
-              onClick={() => {
-                void navigate({ search: {}, resetScroll: false })
-              }}
-            >
+            <Button className="pill mt-5" onClick={clear}>
               <X size={14} />
               Clear filters
             </Button>

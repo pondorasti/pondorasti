@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@base-ui/react": "catalog:",
-    "@fontsource-variable/inter": "catalog:",
+    "@fontsource-variable/geist": "catalog:",
     "@notionhq/client": "catalog:",
     "@tanstack/react-query": "catalog:",
     "@tanstack/react-router": "catalog:",

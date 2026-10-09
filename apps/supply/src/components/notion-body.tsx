@@ -84,9 +84,9 @@ function Block({ block }: { block: ContentBlock }) {
       return (
         <div className="flex items-start gap-2">
           {block.checked ? (
-            <CheckSquare size={16} className="mt-1.5 shrink-0" />
+            <CheckSquare size={16} className="mt-1 shrink-0" />
           ) : (
-            <Square size={16} className="mt-1.5 shrink-0" />
+            <Square size={16} className="mt-1 shrink-0" />
           )}
           <div>
             {text}
@@ -102,7 +102,7 @@ function Block({ block }: { block: ContentBlock }) {
               src={imagePath(block.image)}
               alt={block.text.map((run) => run.text).join("")}
               loading="lazy"
-              className="max-h-[720px] w-full rounded-md object-contain"
+              className="max-h-[720px] w-full rounded-xl object-contain"
             />
           )}
           {block.text.length > 0 && (

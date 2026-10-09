@@ -83,9 +83,12 @@ explicitly, so generated types do not depend on whether a checkout has local sec
 - Required schema: `Name` (title), `Link` (URL), `Ownership status` (select),
   `Tags` (multi-select), `Thumbnail` (files).
 
-All rows, including Retired, are mirrored. The public catalog, detail lookup and
-sitemap exclude Retired and deleted rows. Deleted rows retain tombstones so a
-restored Notion page gets its original URL. URLs remain stable across title edits.
+All rows are mirrored and public, except deleted ones: the catalog has one view per
+status (Supply for Owned, Wishlist, Retired), selected by the `view` URL parameter,
+and detail pages and the sitemap include every status. Rows with any other status
+are reachable by URL but appear in no view. Deleted rows are excluded and retain
+tombstones so a restored Notion page gets its original URL. URLs remain stable
+across title edits.
 
 Notes render common Notion text blocks, nested lists, headings, links, toggles,
 checkbox states, captions, and images. Unsupported blocks are not embedded;
