@@ -59,7 +59,7 @@
     @apply mx-auto w-full max-w-[1600px] px-4 lg:px-6;
   }
   .display {
-    @apply text-[32px] leading-[1.1] font-normal tracking-[-0.02em] sm:text-4xl;
+    @apply text-[32px] leading-[1.1] font-medium tracking-[-0.02em] sm:text-4xl;
   }
   .pill {
     @apply inline-flex h-9 shrink-0 items-center justify-center gap-1.5 rounded-full px-3 text-sm whitespace-nowrap text-muted ring-1 ring-line ring-inset transition-colors hover:text-ink;

@@ -71,7 +71,7 @@ export function ProductCard({
 
 export function CatalogGrid({ children }: { children: ReactNode }) {
   return (
-    <div className="grid grid-cols-2 gap-2 sm:gap-4 lg:grid-cols-3 2xl:grid-cols-4">{children}</div>
+    <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:grid-cols-4 2xl:grid-cols-5">{children}</div>
   )
 }
 
@@ -84,7 +84,7 @@ export function CatalogPending() {
         ))}
       </div>
       <CatalogGrid>
-        {Array.from({ length: 8 }, (_, i) => (
+        {Array.from({ length: 10 }, (_, i) => (
           <div key={i} className="rounded-2xl bg-surface p-2">
             <div className="aspect-[7/6] rounded-xl bg-page motion-safe:animate-pulse" />
             <div className="mx-2 mt-4 mb-2 h-4 w-3/4 rounded-full bg-line" />

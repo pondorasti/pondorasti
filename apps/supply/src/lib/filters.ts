@@ -4,15 +4,13 @@ export interface CatalogFilters {
   q?: string
   tag?: string
   view?: Exclude<View, "supply">
-  sort?: "desc"
 }
 
 export function validateFilters(search: Record<string, unknown>): CatalogFilters {
   return {
     q: typeof search.q === "string" ? search.q.slice(0, 200) || undefined : undefined,
     tag: typeof search.tag === "string" ? search.tag.slice(0, 100) || undefined : undefined,
-    view: isView(search.view) && search.view !== "supply" ? search.view : undefined,
-    sort: search.sort === "desc" ? "desc" : undefined
+    view: isView(search.view) && search.view !== "supply" ? search.view : undefined
   }
 }
 
@@ -31,9 +29,5 @@ export function filterCatalog(products: ProductSummary[], filters: CatalogFilter
         terms.every((term) => text.includes(term))
       )
     })
-    .sort(
-      (a, b) =>
-        (filters.sort === "desc" ? -1 : 1) *
-        a.name.localeCompare(b.name, "en", { numeric: true, sensitivity: "base" })
-    )
+    .sort((a, b) => a.name.localeCompare(b.name, "en", { numeric: true, sensitivity: "base" }))
 }

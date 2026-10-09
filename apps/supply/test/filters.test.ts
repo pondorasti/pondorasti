@@ -12,10 +12,9 @@ const product = (name: string, ownership = "Owned", tags = ["Office"]): ProductS
 
 describe("catalog URL filters", () => {
   it("rejects malformed URL values and bounds text input", () => {
-    expect(validateFilters({ q: {}, tag: ["Office"], sort: "random", view: "Retired" })).toEqual({
+    expect(validateFilters({ q: {}, tag: ["Office"], view: "Retired" })).toEqual({
       q: undefined,
       tag: undefined,
-      sort: undefined,
       view: undefined
     })
     expect(validateFilters({ view: "supply" }).view).toBeUndefined()
@@ -35,7 +34,7 @@ describe("catalog URL filters", () => {
       "Keyboard 10"
     ])
     expect(products[0].name).toBe("Keyboard 10")
-    expect(filterCatalog(products, { view: "wishlist", sort: "desc" })).toEqual([products[2]])
+    expect(filterCatalog(products, { view: "wishlist" })).toEqual([products[2]])
     expect(filterCatalog(products, { view: "retired" })).toEqual([products[4]])
     expect(filterCatalog(products, { tag: "Missing" })).toEqual([])
   })

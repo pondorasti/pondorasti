@@ -8,7 +8,7 @@ import { LayoutGrid, Search, X } from "lucide-react"
 import { catalogQuery } from "../read/queries"
 import { filterCatalog, productsInView, validateFilters, type CatalogFilters } from "../lib/filters"
 import { CatalogGrid, CatalogPending, ProductCard } from "../components/product"
-import { CategoryIcon, IconButton, SelectControl } from "../components/controls"
+import { CategoryIcon, IconButton } from "../components/controls"
 
 export const Route = createFileRoute("/")({
   validateSearch: validateFilters,
@@ -63,40 +63,26 @@ function Catalog() {
           )}
         </label>
       </section>
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
-        <ToggleGroup
-          aria-label="Category"
-          value={[filters.tag ?? "all"]}
-          onValueChange={(values) => {
-            const value = values[0]
-            if (value) update({ tag: value === "all" ? undefined : value })
-          }}
-          className="no-scrollbar -mx-4 flex min-w-0 flex-[1_1_100%] gap-2 overflow-x-auto px-4 lg:mx-0 lg:flex-1 lg:px-0"
-        >
-          <Toggle value="all" className="pill">
-            <LayoutGrid size={16} strokeWidth={1.75} className="shrink-0" aria-hidden="true" />
-            All
+      <ToggleGroup
+        aria-label="Category"
+        value={[filters.tag ?? "all"]}
+        onValueChange={(values) => {
+          const value = values[0]
+          if (value) update({ tag: value === "all" ? undefined : value })
+        }}
+        className="no-scrollbar -mx-4 mb-4 flex gap-2 overflow-x-auto px-4 lg:-mx-6 lg:px-6"
+      >
+        <Toggle value="all" className="pill">
+          <LayoutGrid size={16} strokeWidth={1.75} className="shrink-0" aria-hidden="true" />
+          All
+        </Toggle>
+        {tags.map((tag) => (
+          <Toggle key={tag} value={tag} className="pill">
+            <CategoryIcon tag={tag} />
+            {tag}
           </Toggle>
-          {tags.map((tag) => (
-            <Toggle key={tag} value={tag} className="pill">
-              <CategoryIcon tag={tag} />
-              {tag}
-            </Toggle>
-          ))}
-        </ToggleGroup>
-        <div className="ml-auto">
-          <SelectControl
-            label="Sort collection"
-            prefix="Sort by:"
-            value={filters.sort ?? "asc"}
-            items={[
-              { label: "A to Z", value: "asc" },
-              { label: "Z to A", value: "desc" }
-            ]}
-            onChange={(sort) => update({ sort: sort === "desc" ? "desc" : undefined })}
-          />
-        </div>
-      </div>
+        ))}
+      </ToggleGroup>
       {isRefetchError && (
         <p role="status" className="mb-4 text-sm text-muted">
           Couldn't refresh the collection. Showing the last available version.
@@ -109,7 +95,7 @@ function Catalog() {
               key={product.slug}
               product={product}
               filters={filters}
-              priority={index < 4}
+              priority={index < 5}
             />
           ))}
         </CatalogGrid>
