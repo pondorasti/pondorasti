@@ -118,9 +118,9 @@ and type checks) followed by every workspace's tests and builds through
 excluded. Hooks are local and can be bypassed, so they are a workflow guard, not a
 remotely enforced merge policy.
 
-`bun run test` in this directory runs the unit tests: content parsing and validation,
-notes rendering, URL filters, and a load of every item in `content/`. No UI test suite
-is maintained.
+`bun run test` in this directory runs the unit tests, colocated with the code as
+`*.test.ts`: content parsing and validation, notes rendering, URL filters, and a load
+of every item in `content/`. No UI test suite is maintained.
 
 References: [Cloudflare Start deployment](https://developers.cloudflare.com/workers/framework-guides/web-apps/tanstack-start/),
 [Workers static assets headers](https://developers.cloudflare.com/workers/static-assets/headers/).

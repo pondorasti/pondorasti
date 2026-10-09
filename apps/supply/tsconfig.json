@@ -12,5 +12,5 @@
     "resolveJsonModule": true,
     "types": ["vite/client", "node", "bun"]
   },
-  "include": ["src", "test", "scripts", "*.ts", "worker-configuration.d.ts"]
+  "include": ["src", "scripts", "*.ts", "worker-configuration.d.ts"]
 }
