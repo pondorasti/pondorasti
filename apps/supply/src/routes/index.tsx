@@ -63,6 +63,7 @@ function Catalog() {
           )}
         </label>
       </section>
+      {/* The scroller clips overflow, so 5px of padding (offset netted out) fits the focus outline. */}
       <ToggleGroup
         aria-label="Category"
         value={[filters.tag ?? "all"]}
@@ -70,7 +71,7 @@ function Catalog() {
           const value = values[0]
           if (value) update({ tag: value === "all" ? undefined : value })
         }}
-        className="no-scrollbar -mx-4 mb-4 flex gap-2 overflow-x-auto px-4 lg:-mx-6 lg:px-6"
+        className="no-scrollbar -mx-4 -mt-[5px] mb-[11px] flex gap-2 overflow-x-auto px-4 py-[5px] lg:-mx-6 lg:px-6"
       >
         <Toggle value="all" className="pill">
           <LayoutGrid size={16} strokeWidth={1.75} className="shrink-0" aria-hidden="true" />

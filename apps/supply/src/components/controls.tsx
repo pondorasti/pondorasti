@@ -14,7 +14,8 @@ import {
   Shirt,
   Smartphone,
   Smile,
-  Tag
+  Tag,
+  Watch
 } from "lucide-react"
 import type { ReactNode } from "react"
 
@@ -31,6 +32,7 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
   Skin: Droplet,
   Sunglasses: Glasses,
   Technology: Smartphone,
+  Watches: Watch,
   Wishlist: Heart
 }
 
