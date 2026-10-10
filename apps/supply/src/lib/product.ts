@@ -14,8 +14,8 @@ export const Tag = z.enum([
   "sunglasses",
   "watches",
   "carry",
-  "bathroom",
   "bedroom",
+  "bathroom",
   "skin",
   "oral"
 ])
