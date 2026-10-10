@@ -7,6 +7,7 @@ link: "https://shop.lululemon.com/p/men-ss-tops/Metal-Vent-Tech-Short-Sleeve-Shi
 ---
 
 - Size: XS
-- Material: Seamless, sweat-wicking technical knit
+- Material: Seamless knit, 53% nylon, 40% recycled polyester, 4% elastane, 3% X-Static® nylon
 - Fit: Slim
+- Features: Silverescent™ anti-odour technology
 - Purchased: December 19, 2025

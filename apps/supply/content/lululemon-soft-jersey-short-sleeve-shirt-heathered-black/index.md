@@ -8,6 +8,6 @@ link: "https://shop.lululemon.com/p/men-ss-tops/Soft-Jersey-Short-Sleeve-Shirt-M
 
 - Size: XS
 - Color: Heathered Black / Heathered Graphite Grey
-- Material: Soft, lightweight stretch jersey with a brushed interior
+- Material: Soft, lightweight stretch jersey with a brushed interior, 88% recycled polyester, 12% elastane
 - Fit: Classic
 - Purchased: December 20, 2025

@@ -6,7 +6,9 @@ link: "https://www.simonandschuster.com/books/How-to-Win-Friends-and-Influence-P
 ---
 
 - Author: Dale Carnegie
+- Publisher: Simon & Schuster
 - Published: 2022
 - Edition: Updated
 - Format: Hardcover
+- Pages: 320
 - ISBN: 9781982171452

@@ -6,6 +6,7 @@ tags: [bedroom]
 link: "https://www.amazon.com/dp/B07HNNKJ8V"
 ---
 
+- Model: LS10FFMFSP
 - Type: Memory foam and innerspring hybrid
 - Dimensions: 75 × 54 × 10 in
 - Weight: Approximately 64.5 lb

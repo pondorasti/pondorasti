@@ -9,4 +9,5 @@ link: "https://press.stripe.com/poor-charlies-almanack"
 - Publisher: Stripe Press
 - Published: 2023
 - Edition: Fourth, abridged
+- Format: Hardcover
 - ISBN: 9781953953230

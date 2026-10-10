@@ -7,4 +7,5 @@ link: "https://www.brooklinen.com/products/luxe-pillowcases?variant=433506040873
 ---
 
 - Size: Standard
+- Material: 100% long-staple cotton sateen
 - Purchased: January 18, 2024

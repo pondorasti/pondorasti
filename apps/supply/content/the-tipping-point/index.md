@@ -7,5 +7,7 @@ link: "https://www.hachettebookgroup.com/titles/malcolm-gladwell/the-tipping-poi
 
 - Author: Malcolm Gladwell
 - Publisher: Little, Brown
+- Published: 2002
 - Format: Trade paperback
+- Pages: 304
 - ISBN: 9780316346627

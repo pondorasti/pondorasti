@@ -8,7 +8,7 @@ link: "https://shop.lululemon.com/p/men-shorts/Soft-Jersey-Short-5-MD/_/prod1157
 
 - Size: S
 - Color: Heathered Classic Navy / Heathered True Navy
-- Material: Soft, lightweight stretch jersey with a brushed interior
+- Material: Soft, lightweight stretch jersey with a brushed interior, 88% recycled polyester, 12% elastane
 - Fit: Classic, 5″ length
 - Purchased: December 21, 2025
 - Quantity: 2

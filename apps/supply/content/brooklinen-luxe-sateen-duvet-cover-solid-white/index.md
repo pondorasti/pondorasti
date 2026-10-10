@@ -7,4 +7,5 @@ link: "https://www.brooklinen.com/products/luxe-duvet-cover?variant=433504645284
 ---
 
 - Size: Full/Queen
+- Material: 100% long-staple cotton sateen
 - Purchased: January 18, 2024

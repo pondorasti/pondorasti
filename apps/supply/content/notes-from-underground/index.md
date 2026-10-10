@@ -7,5 +7,7 @@ link: "https://www.penguinrandomhouse.com/books/678714/notes-from-underground-by
 
 - Author: Fyodor Dostoevsky; translated by Richard Pevear and Larissa Volokhonsky
 - Publisher: Vintage Classics
+- Published: 1994
 - Format: Paperback
+- Pages: 176
 - ISBN: 9780679734529

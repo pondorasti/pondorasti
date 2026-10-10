@@ -9,4 +9,6 @@ link: "https://press.stripe.com/the-art-of-doing-science-and-engineering"
 - Publisher: Stripe Press
 - Published: 2020
 - Edition: Fourth
+- Format: Hardcover
+- Pages: 432
 - ISBN: 9781732265172

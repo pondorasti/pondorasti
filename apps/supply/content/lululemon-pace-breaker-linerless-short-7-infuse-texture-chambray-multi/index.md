@@ -8,5 +8,5 @@ link: "https://shop.lululemon.com/p/men-shorts/Pace-Breaker-Short-Linerless-7-Up
 
 - Size: S
 - Material: Swift™ body, 86% recycled polyester, 14% elastane
-- Fit: Performance fit, 7″ length, linerless
+- Fit: Classic, 7″ length, linerless
 - Purchased: September 3, 2023

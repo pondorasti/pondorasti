@@ -7,6 +7,7 @@ link: "https://www.thenorthface.com/fr-fr/p/homme-211701/veste-coupe-vent-cyclon
 ---
 
 - Size: US XS / Asia S
-- Material: Wind-resistant WindWall fabric with a water-repellent DWR finish
+- Material: WindWall™ 100% recycled polyester (69 g/m²) with a non-PFC DWR finish
+- Fit: Regular
 - Waterproofing: Water-repellent, not fully waterproof
 - Features: Attached three-piece hood, full-length front zipper, zipped hand pockets, elastic-bound hood and cuffs, chest and back-shoulder logos

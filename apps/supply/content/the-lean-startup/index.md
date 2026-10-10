@@ -6,6 +6,8 @@ link: "https://www.penguinrandomhouse.com/books/210088/the-lean-startup-by-eric-
 ---
 
 - Author: Eric Ries
+- Publisher: Crown Business
 - Published: 2011
 - Format: Hardcover
+- Pages: 336
 - ISBN: 9780307887894

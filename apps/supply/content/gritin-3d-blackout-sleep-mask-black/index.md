@@ -6,6 +6,7 @@ tags: [bedroom]
 link: "https://www.amazon.com/dp/B0CRYX3FCZ"
 ---
 
+- Model: G3033
 - Material: Memory foam
 - Design: Molded eye cups and contoured nose bridge, no pressure on the eyes, full blackout
 - Strap: Adjustable elastic, approximately 52–60 cm

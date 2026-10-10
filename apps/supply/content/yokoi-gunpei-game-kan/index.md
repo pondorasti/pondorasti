@@ -9,4 +9,5 @@ link: "https://www.chikumashobo.co.jp/product/9784480432933/"
 - Publisher: ちくま文庫
 - Published: 2015
 - Format: Paperback
+- Pages: 256
 - ISBN: 9784480432933

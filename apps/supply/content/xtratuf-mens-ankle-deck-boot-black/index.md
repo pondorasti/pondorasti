@@ -7,6 +7,7 @@ link: "https://xtratuf.com/products/22736?variant=47867815723163"
 ---
 
 - Size: Men’s US 7 and 8, Medium (D) width
+- Material: Rubber
 - Fit: US 7 too tight in the toe area, feet felt cramped after a couple of hours; US 8 too large overall, unable to walk properly in them
 - Shaft height: 6 in
 - Shaft circumference: 12.6 in, measured from a size 9

@@ -6,6 +6,8 @@ link: "https://www.penguinrandomhouse.com/books/672554/the-anthropocene-reviewed
 ---
 
 - Author: John Green
+- Publisher: Random House Large Print
+- Published: 2021
 - Edition: First
 - Format: Large print
 - ISBN: 9780593412428

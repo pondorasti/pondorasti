@@ -6,6 +6,8 @@ link: "https://www.hachettebookgroup.com/titles/janelle-shane/you-look-like-a-th
 ---
 
 - Author: Janelle Shane
+- Publisher: Voracious
 - Published: 2021
 - Format: Trade paperback
+- Pages: 272
 - ISBN: 9780316525220

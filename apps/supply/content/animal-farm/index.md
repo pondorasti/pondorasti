@@ -7,5 +7,7 @@ link: "https://www.penguin.co.uk/books/57033/animal-farm-by-orwell-george/978014
 
 - Author: George Orwell
 - Publisher: Penguin Modern Classics
+- Published: 2000
 - Format: Paperback
+- Pages: 144
 - ISBN: 9780141182704

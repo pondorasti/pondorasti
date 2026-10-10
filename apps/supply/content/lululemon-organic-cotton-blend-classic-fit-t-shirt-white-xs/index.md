@@ -8,7 +8,7 @@ link: "https://shop.lululemon.com/p/men-ss-tops/Organic-Cotton-Classic-Fit-T-Shi
 
 - Size: XS
 - Color: White
-- Material: Soft organic-cotton jersey
+- Material: Organic-cotton jersey, 93% organic cotton, 7% Lycra® elastane
 - Fit: Classic
 - Purchased: April 3, 2026
 - Retired: Too small; given away

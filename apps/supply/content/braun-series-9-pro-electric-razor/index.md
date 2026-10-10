@@ -5,6 +5,11 @@ tags: [bathroom]
 link: "https://www.amazon.com/dp/B0CFCQBWF9"
 ---
 
+- Shaving head: 5 shaving elements, including ProLift trimmer
+- Battery: Up to 60 minutes; about 1 hour to charge
+- Water resistance: 100% waterproof, wet and dry
+- Cleaning: SmartCare Center
+
 Not worth the MSRP price, just wait for a BFCM sale if you really want the fancy one.
 
 Cleaning station (aka SmartCare Center) is a must.

@@ -6,8 +6,15 @@ tags: [office]
 link: "https://www.amazon.com/dp/B0CT444BH6"
 ---
 
-- Switches: Quiet
+- Model: KB360-PRO-KLQ
+- Dimensions: 7.5 × 8.0 × 3.0–4.0 in per module
+- Weight: 3.2 lb
+- Switches: Quiet (Kailh Box Pink, linear)
 - Keycaps: Blank (iykyk)
+- Keys: 76
+- Connectivity: Bluetooth (up to 4 devices), wired USB-C
+- Battery: Dual 1500 mAh rechargeable Li-ion
+- Firmware: ZMK
 
 Best in class split ergo keyboard for nerds.
 

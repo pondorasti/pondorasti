@@ -7,5 +7,6 @@ link: "https://www.cerave.com/skincare/cleansers/foaming-facial-cleanser"
 ---
 
 - Size: 16 fl oz (473 mL)
+- Type: Gel-based foaming facial cleanser
 - Skin type: Normal to oily
 - Key ingredients: Three essential ceramides, hyaluronic acid, and niacinamide

@@ -5,6 +5,13 @@ tags: [oral, bathroom]
 link: "https://www.amazon.com/dp/B088CL4RL2"
 ---
 
+- Color: Black Onyx
+- Modes: 6 (Daily Clean, Whitening, Gum Care, Sensitive, Intense, Super Sensitive)
+- Display: Interactive color display
+- Pressure sensor: Smart pressure sensor with light feedback
+- Connectivity: Bluetooth (Oral-B app)
+- Charging: Magnetic charger, full charge in about 3 hours
+
 For some reason, when I received my first software engineering paycheck, I thought it would be a good idea to get the most expensive toothbrush money can buy.
 
 Never been more wrong in my life.

@@ -9,4 +9,5 @@ link: "https://www.simonandschuster.com/books/Apple/David-Pogue/9781982134594"
 - Publisher: Simon & Schuster
 - Published: 2026
 - Format: Hardcover
+- Pages: 608
 - ISBN: 9781982134594
