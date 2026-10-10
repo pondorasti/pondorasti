@@ -3,7 +3,7 @@ name: "Joseph Joseph Tota 90L Laundry Separation Basket"
 variant: "Gray"
 status: wishlist
 tags: [bedroom]
-link: "https://www.amazon.com/dp/B0BS1BXM4N"
+link: "https://us.josephjoseph.com/products/tota-90l-laundry-separation-basket-gray"
 ---
 
 - Model: 50003

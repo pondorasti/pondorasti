@@ -3,7 +3,7 @@ name: "Banana Republic Merino Crew-Neck Sweater"
 variant: "Atmospheric Blue"
 status: owned
 tags: [apparel]
-link: "https://bananarepublic.gap.com/browse/product.do?pid=796005062"
+link: "https://web.archive.org/web/20260614005957/https://bananarepublic.gap.com/browse/product.do?pid=796005062"
 ---
 
 - Size: S

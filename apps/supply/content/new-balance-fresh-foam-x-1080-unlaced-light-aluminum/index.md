@@ -3,7 +3,7 @@ name: "New Balance Fresh Foam X 1080 Unlaced"
 variant: "Light Aluminum"
 status: owned
 tags: [shoes]
-link: "https://www.newbalance.com/pd/fresh-foam-x-1080-unlaced/M1080SLG-D-075.html"
+link: "https://web.archive.org/web/20231130114503/https://www.newbalance.com/pd/fresh-foam-x-1080-unlaced/M1080SV1-39829.html?dwvar_M1080SV1-39829_style=M1080SLG"
 ---
 
 - Size: Men’s US 7.5, D width

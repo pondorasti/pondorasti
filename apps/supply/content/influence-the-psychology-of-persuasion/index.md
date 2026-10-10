@@ -2,7 +2,7 @@
 name: "Influence: The Psychology of Persuasion"
 status: owned
 tags: [books]
-link: "https://www.influenceatwork.com/books-and-publications/"
+link: "https://www.amazon.com/dp/006124189X"
 ---
 
 - Author: Robert B. Cialdini, PhD

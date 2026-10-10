@@ -2,7 +2,7 @@
 name: "Listerine Total Care Mouthwash"
 status: owned
 tags: [oral, bathroom]
-link: "https://www.amazon.com/dp/B0B5Y7KCS8"
+link: "https://www.listerine.com/products/mouthwash/total-care-anticavity"
 ---
 
 - Size: 33.8 fl oz (1 L)

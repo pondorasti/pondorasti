@@ -2,7 +2,7 @@
 name: "Apple Magic Trackpad 2"
 status: owned
 tags: [office]
-link: "https://www.apple.com/shop/product/mxk93am/a/magic-trackpad-usb%E2%80%91c-white-multi-touch-surface"
+link: "https://web.archive.org/web/20210516210528/https://www.apple.com/shop/product/MRMF2LL/A/magic-trackpad-2-space-gray"
 ---
 
 - Model: A1535
