@@ -1,7 +1,7 @@
 ---
 name: "Elon Musk"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.simonandschuster.com/books/Elon-Musk/Walter-Isaacson/9781982181284"
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: "Influence: The Psychology of Persuasion"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.amazon.com/dp/006124189X"
 ---
 

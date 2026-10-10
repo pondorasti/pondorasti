@@ -2,7 +2,7 @@
 name: "Waterpik Aquarius Water Flosser"
 variant: "WP-660, White"
 status: owned
-tags: [oral]
+tag: oral
 link: "https://www.amazon.com/dp/B00HFQQ0VU"
 ---
 

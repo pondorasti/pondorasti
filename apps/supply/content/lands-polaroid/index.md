@@ -1,7 +1,7 @@
 ---
 name: "Land’s Polaroid"
 status: owned
-tags: [books]
+tag: books
 link: "https://openlibrary.org/books/OL2374637M/Land%27s_Polaroid"
 ---
 

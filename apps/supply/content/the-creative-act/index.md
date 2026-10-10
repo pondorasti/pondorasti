@@ -1,7 +1,7 @@
 ---
 name: "The Creative Act"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.penguinrandomhouse.com/books/717356/the-creative-act-by-rick-rubin/9780593652886/"
 ---
 

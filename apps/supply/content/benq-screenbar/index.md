@@ -1,7 +1,7 @@
 ---
 name: "BenQ ScreenBar Halo"
 status: owned
-tags: [office]
+tag: office
 link: "https://www.amazon.com/dp/B08WT889V3"
 ---
 

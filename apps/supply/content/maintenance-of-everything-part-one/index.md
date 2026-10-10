@@ -1,7 +1,7 @@
 ---
 name: "Maintenance: Of Everything, Part One"
 status: owned
-tags: [books]
+tag: books
 link: "https://press.stripe.com/maintenance-part-one"
 ---
 

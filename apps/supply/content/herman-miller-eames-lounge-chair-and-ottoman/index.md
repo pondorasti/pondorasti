@@ -1,7 +1,7 @@
 ---
 name: "Herman Miller Eames Lounge Chair and Ottoman"
 status: wishlist
-tags: [office]
+tag: office
 link: "https://www.hermanmiller.com/en_lac/products/seating/lounge-seating/eames-lounge-chair-and-ottoman/"
 ---
 

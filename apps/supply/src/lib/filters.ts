@@ -27,10 +27,9 @@ export function filterCatalog(products: ProductSummary[], filters: CatalogFilter
   const terms = (filters.q ?? "").trim().toLocaleLowerCase("en").split(/\s+/).filter(Boolean)
   return productsInView(products, filters.view)
     .filter((product) => {
-      const text = `${product.name} ${product.tags.join(" ")}`.toLocaleLowerCase("en")
+      const text = `${product.name} ${product.tag}`.toLocaleLowerCase("en")
       return (
-        (!filters.tag || product.tags.includes(filters.tag)) &&
-        terms.every((term) => text.includes(term))
+        (!filters.tag || product.tag === filters.tag) && terms.every((term) => text.includes(term))
       )
     })
     .sort((a, b) => a.name.localeCompare(b.name, "en", { numeric: true, sensitivity: "base" }))

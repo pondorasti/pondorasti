@@ -2,7 +2,7 @@
 name: "Roborock Saros 10R Robot Vacuum & Mop"
 variant: "Black"
 status: owned
-tags: [technology]
+tag: technology
 link: "https://www.amazon.com/dp/B0DHCJ571Z"
 ---
 

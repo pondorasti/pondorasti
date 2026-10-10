@@ -2,7 +2,7 @@
 name: "Patagonia Down Sweater Hoody"
 variant: "Coal Orange"
 status: owned
-tags: [apparel]
+tag: apparel
 link: "https://www.patagonia.com/product/mens-down-sweater-insulated-hoody/198077526414.html"
 ---
 

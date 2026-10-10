@@ -1,7 +1,7 @@
 ---
 name: "Founding Sales"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.holloway.com/b/founding-sales"
 ---
 

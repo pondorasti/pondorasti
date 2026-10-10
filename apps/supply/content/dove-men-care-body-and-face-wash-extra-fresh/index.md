@@ -2,7 +2,7 @@
 name: "Dove Men+Care Body & Face Wash"
 variant: "Extra Fresh"
 status: retired
-tags: [bathroom]
+tag: bathroom
 link: "https://www.amazon.com/dp/B08TLC9W4T"
 ---
 

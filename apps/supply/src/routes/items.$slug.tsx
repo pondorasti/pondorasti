@@ -63,14 +63,10 @@ function Product() {
               )}
               {label(product.status)}
             </span>
-            {product.tags.map((tag) => (
-              <span key={tag} className="contents">
-                <span aria-hidden="true">·</span>
-                <Link to="/" search={{ tag, view }} className="hover:text-ink">
-                  {label(tag)}
-                </Link>
-              </span>
-            ))}
+            <span aria-hidden="true">·</span>
+            <Link to="/" search={{ tag: product.tag, view }} className="hover:text-ink">
+              {label(product.tag)}
+            </Link>
           </p>
           <h1 className="display mt-1 break-words">{product.name}</h1>
           {product.variant && <p className="mt-2 text-base text-muted">{product.variant}</p>}

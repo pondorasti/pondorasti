@@ -1,7 +1,7 @@
 ---
 name: "Cracking the Coding Interview"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.crackingthecodinginterview.com/"
 ---
 

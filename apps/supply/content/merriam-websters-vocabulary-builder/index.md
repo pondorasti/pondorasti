@@ -1,7 +1,7 @@
 ---
 name: "Merriam-Webster’s Vocabulary Builder"
 status: owned
-tags: [books]
+tag: books
 link: "https://shop.merriam-webster.com/products/the-merriam-webster-vocabulary-builder"
 ---
 

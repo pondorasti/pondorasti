@@ -1,7 +1,7 @@
 ---
 name: "Notes from Underground"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.penguinrandomhouse.com/books/678714/notes-from-underground-by-fyodor-dostoevsky-translated-by-richard-pevear-and-larissa-volokhonsky-introduction-by-richard-pevear/9780679734529/"
 ---
 

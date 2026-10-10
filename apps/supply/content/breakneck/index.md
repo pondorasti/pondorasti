@@ -1,7 +1,7 @@
 ---
 name: "Breakneck"
 status: owned
-tags: [books]
+tag: books
 link: "https://wwnorton.com/books/9781324106036"
 ---
 

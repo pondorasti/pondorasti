@@ -1,7 +1,7 @@
 ---
 name: "Aranet4"
 status: owned
-tags: [technology]
+tag: technology
 link: "https://www.amazon.com/dp/B07YY7BH2W"
 ---
 

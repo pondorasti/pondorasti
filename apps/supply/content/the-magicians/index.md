@@ -1,7 +1,7 @@
 ---
 name: "The Magicians"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.penguinrandomhouse.com/books/303321/the-magicians-by-lev-grossman/"
 ---
 

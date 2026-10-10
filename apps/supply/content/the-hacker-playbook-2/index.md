@@ -1,7 +1,7 @@
 ---
 name: "The Hacker Playbook 2"
 status: owned
-tags: [books]
+tag: books
 link: "https://openlibrary.org/books/OL27196545M/The_hacker_playbook_2"
 ---
 

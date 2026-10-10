@@ -1,7 +1,7 @@
 ---
 name: "This Is for Everyone"
 status: owned
-tags: [books]
+tag: books
 link: "https://us.macmillan.com/books/9780374612467/thisisforeveryone/"
 ---
 

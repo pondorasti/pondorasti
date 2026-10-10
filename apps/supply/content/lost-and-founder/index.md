@@ -1,7 +1,7 @@
 ---
 name: "Lost and Founder"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.penguinrandomhouse.com/books/547217/lost-and-founder-by-rand-fishkin/"
 ---
 

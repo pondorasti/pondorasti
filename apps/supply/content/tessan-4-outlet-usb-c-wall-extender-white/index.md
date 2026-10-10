@@ -2,7 +2,7 @@
 name: "TESSAN 4-Outlet USB-C Wall Extender"
 variant: "White"
 status: owned
-tags: [bathroom]
+tag: bathroom
 link: "https://www.amazon.com/dp/B09WYHBGLW"
 ---
 

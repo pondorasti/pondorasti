@@ -1,7 +1,7 @@
 ---
 name: "The Big Score"
 status: owned
-tags: [books]
+tag: books
 link: "https://press.stripe.com/the-big-score"
 ---
 

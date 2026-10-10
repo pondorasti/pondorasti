@@ -1,7 +1,7 @@
 ---
 name: "Salt & Straw Ice Cream Cookbook"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.penguinrandomhouse.com/books/554469/salt-and-straw-ice-cream-cookbook-by-tyler-malek-and-jj-goode/"
 ---
 

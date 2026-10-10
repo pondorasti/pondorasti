@@ -1,7 +1,7 @@
 ---
 name: "Sunday Light 400W Standard"
 status: wishlist
-tags: [technology]
+tag: technology
 link: "https://www.sundaylight.cc/products/sunday-light"
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: "The Everything Store"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.penguin.com.au/books/the-everything-store-jeff-bezos-and-the-age-of-amazon-9780552167833"
 ---
 

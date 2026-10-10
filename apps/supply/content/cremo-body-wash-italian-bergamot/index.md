@@ -2,7 +2,7 @@
 name: "Cremo Body Wash"
 variant: "Italian Bergamot"
 status: retired
-tags: [bathroom]
+tag: bathroom
 link: "https://www.amazon.com/dp/B0CMW64H59"
 ---
 

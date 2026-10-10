@@ -1,7 +1,7 @@
 ---
 name: "College (Un)bound"
 status: owned
-tags: [books]
+tag: books
 link: "https://jeffselingo.com/books/college-unbound"
 ---
 

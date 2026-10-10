@@ -1,7 +1,7 @@
 ---
 name: "Herman Miller Aeron Chair"
 status: owned
-tags: [office]
+tag: office
 link: "https://store.hermanmiller.com/office-chairs-aeron/aeron-chair/100077411.html?lang=en_US"
 ---
 

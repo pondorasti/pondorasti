@@ -2,7 +2,7 @@
 name: "JETech Silicone Case for iPhone 14 Pro"
 variant: "White"
 status: owned
-tags: [technology]
+tag: technology
 link: "https://www.amazon.com/dp/B0BKGWRTGB"
 ---
 

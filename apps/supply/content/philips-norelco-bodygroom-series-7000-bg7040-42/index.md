@@ -2,7 +2,7 @@
 name: "Philips Norelco Bodygroom Series 7000"
 variant: "BG7040/42"
 status: owned
-tags: [technology, bathroom]
+tag: bathroom
 link: "https://www.amazon.com/dp/B07H3CKT12"
 ---
 

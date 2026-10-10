@@ -2,7 +2,7 @@
 name: "ZINUS Lorelai 14-inch Platform Bed Frame"
 variant: "Full"
 status: owned
-tags: [bedroom]
+tag: bedroom
 link: "https://www.amazon.com/dp/B071JGCBH8"
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: "The Dream Machine"
 status: owned
-tags: [books]
+tag: books
 link: "https://press.stripe.com/the-dream-machine"
 ---
 

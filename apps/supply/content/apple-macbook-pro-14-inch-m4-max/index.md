@@ -2,7 +2,7 @@
 name: "Apple MacBook Pro 14-inch"
 variant: "M4 Max"
 status: owned
-tags: [office, technology]
+tag: technology
 link: "https://support.apple.com/en-us/121553"
 ---
 

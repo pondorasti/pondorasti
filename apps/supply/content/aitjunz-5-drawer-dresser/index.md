@@ -1,7 +1,7 @@
 ---
 name: "Aitjunz 5-Drawer Dresser"
 status: owned
-tags: [office]
+tag: office
 link: "https://www.amazon.com/dp/B0G1RV39HW"
 ---
 

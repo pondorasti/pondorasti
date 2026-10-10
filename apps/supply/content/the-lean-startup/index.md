@@ -1,7 +1,7 @@
 ---
 name: "The Lean Startup"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.penguinrandomhouse.com/books/210088/the-lean-startup-by-eric-ries/9780307887894/"
 ---
 

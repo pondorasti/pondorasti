@@ -2,7 +2,7 @@
 name: "Banana Republic Standard-Fit Linen Shirt"
 variant: "Olive"
 status: owned
-tags: [apparel]
+tag: apparel
 link: "https://bananarepublic.gap.com/browse/product.do?pid=893183032"
 ---
 

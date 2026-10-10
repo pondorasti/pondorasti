@@ -2,7 +2,7 @@
 name: "Bonobos Desk To Dinner Shirt"
 variant: "Solid White"
 status: retired
-tags: [apparel]
+tag: apparel
 link: "https://bonobos.com/products/the-desk-to-dinner-shirt"
 ---
 

@@ -2,7 +2,7 @@
 name: "Peak Design Packing Cube Small"
 variant: "Charcoal"
 status: owned
-tags: [carry]
+tag: carry
 link: "https://www.peakdesign.com/eu/products/packing-cube"
 ---
 

@@ -2,7 +2,7 @@
 name: "method Men’s Body Wash"
 variant: "Sea + Surf"
 status: retired
-tags: [bathroom]
+tag: bathroom
 link: "https://www.amazon.com/dp/B0BT1WN3ZD"
 ---
 

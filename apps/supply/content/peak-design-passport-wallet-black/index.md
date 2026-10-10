@@ -2,7 +2,7 @@
 name: "Peak Design Passport Wallet"
 variant: "Black"
 status: owned
-tags: [carry]
+tag: carry
 link: "https://www.peakdesign.com/eu/products/passport-wallet"
 ---
 

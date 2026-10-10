@@ -1,7 +1,7 @@
 ---
 name: "DJI Mic Mini"
 status: owned
-tags: [technology]
+tag: technology
 link: "https://www.amazon.com/dp/B0DDL8WGH5"
 ---
 

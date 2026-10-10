@@ -2,7 +2,7 @@
 name: "Muchfun Fine Mesh Laundry Bags"
 variant: "Large 16 × 20 in, 4-Pack"
 status: owned
-tags: [bathroom]
+tag: bathroom
 link: "https://www.amazon.com/dp/B0DRXCR5NN"
 ---
 

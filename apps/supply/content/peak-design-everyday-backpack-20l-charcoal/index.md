@@ -2,7 +2,7 @@
 name: "Peak Design Everyday Backpack 20L"
 variant: "Charcoal"
 status: owned
-tags: [carry]
+tag: carry
 link: "https://www.peakdesign.com/eu/products/everyday-backpack"
 ---
 

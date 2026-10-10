@@ -2,7 +2,7 @@
 name: "Brooklinen Luxe Sateen Pillowcase Set"
 variant: "Solid White"
 status: owned
-tags: [bedroom]
+tag: bedroom
 link: "https://www.brooklinen.com/products/luxe-pillowcases?variant=43350604087386"
 ---
 

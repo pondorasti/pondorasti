@@ -26,7 +26,7 @@ content/apple-watch-series-10/
 ---
 name: "Apple Watch Series 10"
 status: owned
-tags: [technology]
+tag: technology
 link: "https://support.apple.com/en-ie/121202"
 ---
 
@@ -55,8 +55,9 @@ ALL notifications are turned off.
 - `variant` is an optional color, size or edition, shown under the name on the item page.
   Keep it out of `name` so cards stay short.
 - `status` (required) is `owned`, `wishlist` or `retired`, one catalog view each.
-- `tags` are category ids from the `Tag` enum in `src/lib/product.ts`. Adding a category
-  means adding it there and giving it an icon in `src/components/controls.tsx`.
+- `tag` (required) is the item's one category, an id from the `Tag` enum in
+  `src/lib/product.ts`. Adding a category means adding it there and giving it an icon
+  in `src/components/controls.tsx`.
 - `link` is an optional `http(s)` URL for the "Visit product" button.
 - Notes are markdown, in the format below. Links open in a new tab; non-`http(s)` links
   and raw HTML are not rendered as such. Notes are public, as is this repository's

@@ -1,7 +1,7 @@
 ---
 name: "Where Wizards Stay Up Late"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.simonandschuster.com/books/Where-Wizards-Stay-Up-Late/Katie-Hafner/9780684832678"
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: "Anker USB-C 100W Charger"
 status: owned
-tags: [technology]
+tag: technology
 link: "https://www.amazon.com/dp/B0CZ6LXL8R"
 ---
 

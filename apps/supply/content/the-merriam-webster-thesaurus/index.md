@@ -1,7 +1,7 @@
 ---
 name: "The Merriam-Webster Thesaurus"
 status: owned
-tags: [books]
+tag: books
 link: "https://shop.merriam-webster.com/products/merriam-websters-everyday-language-reference-set"
 ---
 

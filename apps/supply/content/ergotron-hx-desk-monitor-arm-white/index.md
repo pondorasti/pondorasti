@@ -2,7 +2,7 @@
 name: "Ergotron HX Desk Monitor Arm"
 variant: "White"
 status: owned
-tags: [office]
+tag: office
 link: "https://www.amazon.com/dp/B01N5FTCJE"
 ---
 

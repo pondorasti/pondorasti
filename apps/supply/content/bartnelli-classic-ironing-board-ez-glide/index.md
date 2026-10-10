@@ -2,7 +2,7 @@
 name: "Bartnelli Classic Ironing Board"
 variant: "EZ-Glide, Made in Europe"
 status: owned
-tags: [bedroom]
+tag: bedroom
 link: "https://www.amazon.com/dp/B09HZ7QD12"
 ---
 

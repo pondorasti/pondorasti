@@ -1,7 +1,7 @@
 ---
 name: "The Anthropocene Reviewed"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.penguinrandomhouse.com/books/672554/the-anthropocene-reviewed-by-john-green/9780593412428/"
 ---
 

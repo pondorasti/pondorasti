@@ -1,7 +1,7 @@
 ---
 name: "Bigotti Doppio Ritorto Shirt"
 status: owned
-tags: [apparel]
+tag: apparel
 link: "https://www.bigotti.ro/camasi-barbati/camasa-shaped-alba-uni-1415785"
 ---
 

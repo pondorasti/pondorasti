@@ -1,7 +1,7 @@
 ---
 name: "Enshittification"
 status: owned
-tags: [books]
+tag: books
 link: "https://us.macmillan.com/books/9780374619329/enshittification/"
 ---
 

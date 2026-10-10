@@ -1,7 +1,7 @@
 ---
 name: "The Concise Art of Seduction"
 status: owned
-tags: [books]
+tag: books
 link: "https://profilebooks.com/work/the-concise-art-of-seduction/"
 ---
 

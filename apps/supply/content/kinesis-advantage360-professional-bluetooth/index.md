@@ -2,7 +2,7 @@
 name: "Kinesis Advantage360 Professional"
 variant: "Bluetooth"
 status: owned
-tags: [office]
+tag: office
 link: "https://www.amazon.com/dp/B0CT444BH6"
 ---
 

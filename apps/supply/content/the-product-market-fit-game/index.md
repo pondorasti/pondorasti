@@ -1,7 +1,7 @@
 ---
 name: "The Product-Market Fit Game"
 status: owned
-tags: [books]
+tag: books
 link: "https://posthog.com/founders/product-market-fit-game"
 ---
 

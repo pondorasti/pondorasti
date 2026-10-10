@@ -1,7 +1,7 @@
 ---
 name: "Speed Reading: Learn to Read a 200+ Page Book in 1 Hour"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.amazon.com/dp/109026447X"
 ---
 

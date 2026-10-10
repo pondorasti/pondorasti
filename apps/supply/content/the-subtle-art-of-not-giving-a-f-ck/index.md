@@ -1,7 +1,7 @@
 ---
 name: "The Subtle Art of Not Giving a F*ck"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.harvard.com/book/9780062457714"
 ---
 

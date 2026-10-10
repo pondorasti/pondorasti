@@ -2,7 +2,7 @@
 name: "Peak Design Roller Pro Carry-On"
 variant: "Black"
 status: owned
-tags: [carry]
+tag: carry
 link: "https://www.peakdesign.com/eu/products/roller-pro"
 ---
 

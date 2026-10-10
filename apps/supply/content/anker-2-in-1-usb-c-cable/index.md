@@ -1,7 +1,7 @@
 ---
 name: "Anker 2-in-1 USB-C Cable"
 status: owned
-tags: [technology]
+tag: technology
 link: "https://www.amazon.com/dp/B0CRZ6JJ6D"
 ---
 

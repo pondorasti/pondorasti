@@ -1,7 +1,7 @@
 ---
 name: "Bigotti Light Blue Cotton Shirt"
 status: owned
-tags: [apparel]
+tag: apparel
 link: "https://www.bigotti.ro/camasi-barbati/camasa-superslim-bleu-uni-vbcmewghb06q65210"
 ---
 

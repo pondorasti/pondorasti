@@ -1,7 +1,7 @@
 ---
 name: "Snow Crash"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.penguin.co.uk/books/20868/snow-crash-by-neal-stephenson/9780241953181"
 ---
 

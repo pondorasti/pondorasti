@@ -1,7 +1,7 @@
 ---
 name: "Incorruptible"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.simonandschuster.com/books/Incorruptible/Eric-Ries/9798893311860"
 ---
 

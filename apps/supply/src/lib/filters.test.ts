@@ -2,14 +2,10 @@ import { describe, expect, it } from "vite-plus/test"
 import { CatalogFilters, filterCatalog } from "./filters"
 import type { ProductSummary, Status, Tag } from "./product"
 
-const product = (
-  name: string,
-  status: Status = "owned",
-  tags: Tag[] = ["office"]
-): ProductSummary => ({
+const product = (name: string, status: Status = "owned", tag: Tag = "office"): ProductSummary => ({
   name,
   status,
-  tags,
+  tag,
   slug: name,
   image: "/images/x.webp"
 })
@@ -31,7 +27,7 @@ describe("catalog URL filters", () => {
       product("Keyboard 10"),
       product("Keyboard 2"),
       product("Keyboard 3", "wishlist"),
-      product("Keyboard 4", "owned", ["carry"]),
+      product("Keyboard 4", "owned", "carry"),
       product("Keyboard 5", "retired")
     ]
     expect(filterCatalog(products, { q: "KEY office", tag: "office" }).map((p) => p.name)).toEqual([

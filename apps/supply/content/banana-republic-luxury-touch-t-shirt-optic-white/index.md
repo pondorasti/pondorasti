@@ -2,7 +2,7 @@
 name: "Banana Republic Luxury-Touch T-Shirt"
 variant: "Optic White"
 status: owned
-tags: [apparel]
+tag: apparel
 link: "https://bananarepublic.gap.com/browse/product.do?pid=811426031"
 ---
 

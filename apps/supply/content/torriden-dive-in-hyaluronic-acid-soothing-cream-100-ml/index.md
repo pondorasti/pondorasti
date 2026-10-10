@@ -2,7 +2,7 @@
 name: "Torriden DIVE IN Hyaluronic Acid Soothing Cream"
 variant: "100 mL"
 status: owned
-tags: [skin]
+tag: skin
 link: "https://www.amazon.com/dp/B0CMH3QM8V"
 ---
 

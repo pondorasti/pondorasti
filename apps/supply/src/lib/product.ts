@@ -4,7 +4,7 @@ import { z } from "zod/mini"
 export const Status = z.enum(["owned", "wishlist", "retired"])
 export type Status = z.infer<typeof Status>
 
-/** Category tags, in display order. A new tag needs an entry here and an icon in `components/controls.tsx`. */
+/** Categories, in display order; each item has exactly one. A new one needs an entry here and an icon in `components/controls.tsx`. */
 export const Tag = z.enum([
   "books",
   "technology",
@@ -31,7 +31,7 @@ export interface ProductSummary {
   slug: string
   name: string
   status: Status
-  tags: Tag[]
+  tag: Tag
   /** URL of the item's image, content-addressed so it can be cached forever. */
   image: string
 }

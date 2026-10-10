@@ -2,7 +2,7 @@
 name: "Peak Design Wash Pouch"
 variant: "Coyote X-Pac"
 status: owned
-tags: [carry]
+tag: carry
 link: "https://www.peakdesign.com/eu/products/wash-pouch"
 ---
 

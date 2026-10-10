@@ -1,7 +1,7 @@
 ---
 name: "DIY Satellite Platforms"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.oreilly.com/library/view/diy-satellite-platforms/9781449312756/"
 ---
 

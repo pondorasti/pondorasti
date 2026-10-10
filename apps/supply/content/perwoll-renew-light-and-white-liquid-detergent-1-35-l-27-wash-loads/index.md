@@ -2,7 +2,7 @@
 name: "Perwoll Renew Light & White Liquid Detergent"
 variant: "1.35 L, 27 Wash Loads"
 status: owned
-tags: [bathroom]
+tag: bathroom
 link: "https://www.amazon.com/dp/B0FTGKWZWR"
 ---
 

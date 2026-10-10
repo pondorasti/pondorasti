@@ -1,7 +1,7 @@
 ---
 name: "Thinking, Fast and Slow"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.penguin.co.uk/books/56314/thinking-fast-and-slow-by-kahneman-daniel/9780141033570"
 ---
 

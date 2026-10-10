@@ -2,7 +2,7 @@
 name: "How Will You Measure Your Life?"
 variant: "Harvard Business Review Classics"
 status: owned
-tags: [books]
+tag: books
 link: "https://store.hbr.org/product/how-will-you-measure-your-life-harvard-business-review-classics/10096"
 ---
 

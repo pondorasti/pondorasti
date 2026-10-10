@@ -1,7 +1,7 @@
 ---
 name: "The Master Algorithm"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.hachettebookgroup.com/titles/pedro-domingos/the-master-algorithm/9780465094271/"
 ---
 

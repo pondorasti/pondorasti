@@ -2,7 +2,7 @@
 name: "Cremo Body Wash"
 variant: "Golden Amber"
 status: owned
-tags: [bathroom]
+tag: bathroom
 link: "https://www.amazon.com/dp/B0DGVP42F8"
 ---
 

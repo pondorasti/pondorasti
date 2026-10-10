@@ -1,7 +1,7 @@
 ---
 name: "The Anxious Generation"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.penguinrandomhouse.com/books/729231/the-anxious-generation-by-jonathan-haidt/"
 ---
 

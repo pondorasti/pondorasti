@@ -2,7 +2,7 @@
 name: "Bonobos Premium 4-Way Stretch Jeans"
 variant: "Dark Ink"
 status: retired
-tags: [apparel]
+tag: apparel
 link: "https://bonobos.com/products/premium-4-way-stretch-jeans"
 ---
 

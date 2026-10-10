@@ -2,7 +2,7 @@
 name: "Patagonia Micro Puff Hoody"
 variant: "Black"
 status: owned
-tags: [apparel]
+tag: apparel
 link: "https://www.patagonia.com/product/mens-micro-puff-insulated-hoody/195699280908.html"
 ---
 

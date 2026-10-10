@@ -1,7 +1,7 @@
 ---
 name: "Bigotti Blue Linen Shirt"
 status: owned
-tags: [apparel]
+tag: apparel
 link: "https://www.bigotti.ro/camasi-barbati/camasa-din-in-superslim-albastra-uni-1368310"
 ---
 

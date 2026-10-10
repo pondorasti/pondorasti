@@ -9,11 +9,11 @@ const images =
 const item = (front: string, notes = "") => `---\n${front}\n---\n${notes}`
 
 describe("content items", () => {
-  it("parses front matter, deduplicates tags and renders notes", () => {
+  it("parses front matter and renders notes", () => {
     const parsed = parseItem(
       "desk-lamp",
       item(
-        'name: "Desk Lamp: Mk 2"\nvariant: Brass\nstatus: owned\ntags: [office, office]\nlink: https://example.com/lamp',
+        'name: "Desk Lamp: Mk 2"\nvariant: Brass\nstatus: owned\ntag: office\nlink: https://example.com/lamp',
         "- **Bulb:** LED"
       ),
       images("image.webp")
@@ -22,7 +22,7 @@ describe("content items", () => {
       slug: "desk-lamp",
       name: "Desk Lamp: Mk 2",
       status: "owned",
-      tags: ["office"],
+      tag: "office",
       variant: "Brass",
       link: "https://example.com/lamp",
       image: "/images/image.webp",
@@ -30,17 +30,23 @@ describe("content items", () => {
     })
   })
 
-  it("rejects unknown tags, statuses and keys, missing images and bad folder names", () => {
+  it("rejects unknown or multiple tags, statuses and keys, missing images and bad folder names", () => {
     const parse =
       (slug: string, front: string, files = ["image.webp"]) =>
       () =>
         parseItem(slug, item(front), images(...files))
-    expect(parse("lamp", "name: Lamp\nstatus: owned\ntags: [lamps]")).toThrow(/tags/)
-    expect(parse("lamp", "name: Lamp\nstatus: lent")).toThrow(/status/)
-    expect(parse("lamp", "name: Lamp\nstatus: owned\ntag: [office]")).toThrow(/tag/)
-    expect(parse("lamp", "name: Lamp\nstatus: owned\nlink: javascript:alert(1)")).toThrow(/link/)
-    expect(parse("lamp", "name: Lamp\nstatus: owned", [])).toThrow("missing image.webp")
-    expect(parse("Desk_Lamp", "name: Lamp\nstatus: owned")).toThrow(/folder name/)
+    expect(parse("lamp", "name: Lamp\nstatus: owned\ntag: lamps")).toThrow(/tag/)
+    expect(parse("lamp", "name: Lamp\nstatus: owned\ntag: [office, carry]")).toThrow(/tag/)
+    expect(parse("lamp", "name: Lamp\nstatus: owned")).toThrow(/tag/)
+    expect(parse("lamp", "name: Lamp\nstatus: lent\ntag: office")).toThrow(/status/)
+    expect(parse("lamp", "name: Lamp\nstatus: owned\ntags: [office]")).toThrow(/tags/)
+    expect(
+      parse("lamp", "name: Lamp\nstatus: owned\ntag: office\nlink: javascript:alert(1)")
+    ).toThrow(/link/)
+    expect(parse("lamp", "name: Lamp\nstatus: owned\ntag: office", [])).toThrow(
+      "missing image.webp"
+    )
+    expect(parse("Desk_Lamp", "name: Lamp\nstatus: owned\ntag: office")).toThrow(/folder name/)
     expect(() => parseItem("lamp", "name: Lamp", images("image.webp"))).toThrow(/front matter/)
   })
 

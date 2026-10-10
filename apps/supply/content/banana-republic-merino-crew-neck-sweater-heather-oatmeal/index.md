@@ -2,7 +2,7 @@
 name: "Banana Republic Merino Crew-Neck Sweater"
 variant: "Heather Oatmeal"
 status: owned
-tags: [apparel]
+tag: apparel
 link: "https://bananarepublic.gap.com/browse/product.do?pid=796005082"
 ---
 

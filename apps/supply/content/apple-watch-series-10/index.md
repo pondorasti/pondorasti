@@ -1,7 +1,7 @@
 ---
 name: "Apple Watch Series 10"
 status: owned
-tags: [technology]
+tag: technology
 link: "https://support.apple.com/en-ie/121202"
 ---
 

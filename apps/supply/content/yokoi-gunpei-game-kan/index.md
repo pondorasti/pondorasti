@@ -1,7 +1,7 @@
 ---
 name: "横井軍平ゲーム館"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.chikumashobo.co.jp/product/9784480432933/"
 ---
 

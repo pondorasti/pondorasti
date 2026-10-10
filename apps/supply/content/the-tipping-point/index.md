@@ -1,7 +1,7 @@
 ---
 name: "The Tipping Point"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.hachettebookgroup.com/titles/malcolm-gladwell/the-tipping-point/9780316346627/"
 ---
 

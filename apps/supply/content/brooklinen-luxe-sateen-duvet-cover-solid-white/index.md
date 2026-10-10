@@ -2,7 +2,7 @@
 name: "Brooklinen Luxe Sateen Duvet Cover"
 variant: "Solid White"
 status: owned
-tags: [bedroom]
+tag: bedroom
 link: "https://www.brooklinen.com/products/luxe-duvet-cover?variant=43350464528474"
 ---
 

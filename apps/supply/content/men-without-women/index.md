@@ -1,7 +1,7 @@
 ---
 name: "Men Without Women"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.amazon.com/dp/B0GJ43B25V"
 ---
 

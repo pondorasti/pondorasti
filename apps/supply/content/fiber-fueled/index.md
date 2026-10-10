@@ -1,7 +1,7 @@
 ---
 name: "Fiber Fueled"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.penguinrandomhouse.com/books/610829/fiber-fueled-by-will-bulsiewicz-md-msci/"
 ---
 

@@ -2,7 +2,7 @@
 name: "lululemon Active Jacket"
 variant: "Delicate Mint"
 status: owned
-tags: [apparel]
+tag: apparel
 link: "https://modesens.com/product/lululemon-active-jacket-delicate-mint-37641661/"
 ---
 

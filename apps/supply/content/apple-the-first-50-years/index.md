@@ -1,7 +1,7 @@
 ---
 name: "Apple: The First 50 Years"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.simonandschuster.com/books/Apple/David-Pogue/9781982134594"
 ---
 

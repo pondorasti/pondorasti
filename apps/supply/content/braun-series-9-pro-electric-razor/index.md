@@ -1,7 +1,7 @@
 ---
 name: "Braun Series 9 Pro Electric Razor"
 status: owned
-tags: [bathroom]
+tag: bathroom
 link: "https://us.braun.com/en-us/male-grooming/electric-shavers/series-9-pro-9465cc"
 ---
 

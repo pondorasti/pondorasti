@@ -1,7 +1,7 @@
 ---
 name: "The iOS App Icon Book"
 status: owned
-tags: [books]
+tag: books
 link: "https://appiconbook.com/ios-app-icon-book"
 ---
 

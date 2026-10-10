@@ -1,7 +1,7 @@
 ---
 name: "Govee RGBICW Smart Corner Floor Lamp"
 status: owned
-tags: [office]
+tag: office
 link: "https://us.govee.com/products/govee-rgbicw-smart-corner-floor-lamp"
 ---
 

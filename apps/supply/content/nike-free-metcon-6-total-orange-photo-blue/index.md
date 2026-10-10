@@ -2,7 +2,7 @@
 name: "Nike Free Metcon 6"
 variant: "Total Orange / Photo Blue"
 status: owned
-tags: [shoes]
+tag: shoes
 link: "https://www.nike.ae/en/free-metcon-6-mens-workout-shoes/NKFJ7127-802.html"
 ---
 

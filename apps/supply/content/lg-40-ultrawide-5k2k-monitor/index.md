@@ -1,7 +1,7 @@
 ---
 name: "LG 40″ UltraWide 5K2K Monitor"
 status: owned
-tags: [office]
+tag: office
 link: "https://www.amazon.com/dp/B09P1VLCQ4"
 ---
 

@@ -2,7 +2,7 @@
 name: "IRONCK Industrial 5-Tier Ladder Bookshelf"
 variant: "Vintage Brown"
 status: owned
-tags: [office]
+tag: office
 link: "https://www.amazon.com/dp/B09BZ26SHR"
 ---
 

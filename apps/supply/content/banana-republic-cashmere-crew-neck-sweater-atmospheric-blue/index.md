@@ -2,7 +2,7 @@
 name: "Banana Republic Cashmere Crew-Neck Sweater"
 variant: "Atmospheric Blue"
 status: owned
-tags: [apparel]
+tag: apparel
 link: "https://bananarepublic.gap.com/browse/product.do?pid=817422002"
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: "High Growth Handbook"
 status: owned
-tags: [books]
+tag: books
 link: "https://press.stripe.com/high-growth-handbook"
 ---
 

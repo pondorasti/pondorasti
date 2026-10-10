@@ -1,7 +1,7 @@
 ---
 name: "The Art of Doing Science and Engineering"
 status: owned
-tags: [books]
+tag: books
 link: "https://press.stripe.com/the-art-of-doing-science-and-engineering"
 ---
 

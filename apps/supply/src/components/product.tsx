@@ -57,9 +57,7 @@ export function ProductCard({
           <ProductImage src={product.image} name={product.name} priority={priority} />
         </div>
         <div className="flex min-w-0 flex-1 flex-col justify-end px-2 pt-4 pb-2 text-sm leading-5">
-          <p className="truncate text-muted">
-            {(product.tags.length ? product.tags : [product.status]).map(label).join(" · ")}
-          </p>
+          <p className="truncate text-muted">{label(product.tag)}</p>
           <h2 className="truncate">{product.name}</h2>
         </div>
       </Link>

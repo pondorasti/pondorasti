@@ -2,7 +2,7 @@
 name: "XTRATUF Men’s Ankle Deck Boot"
 variant: "Black"
 status: retired
-tags: [shoes]
+tag: shoes
 link: "https://xtratuf.com/products/22736?variant=47867815723163"
 ---
 

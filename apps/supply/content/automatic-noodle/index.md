@@ -1,7 +1,7 @@
 ---
 name: "Automatic Noodle"
 status: owned
-tags: [books]
+tag: books
 link: "https://us.macmillan.com/books/9781250357465/automaticnoodle/"
 ---
 

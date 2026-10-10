@@ -32,7 +32,7 @@ function Catalog() {
   useSearchShortcut(searchRef)
   const inView = productsInView(products, filters.view)
   const filtered = filterCatalog(products, filters)
-  const used = new Set(inView.flatMap((product) => product.tags))
+  const used = new Set(inView.map((product) => product.tag))
   // The active tag keeps its pill even when this view has nothing tagged with it.
   const tags = Tag.options.filter((tag) => used.has(tag) || tag === filters.tag)
   const hasFilters = Boolean(filters.q || filters.tag)

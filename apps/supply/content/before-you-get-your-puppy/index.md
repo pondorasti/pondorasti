@@ -1,7 +1,7 @@
 ---
 name: "Before You Get Your Puppy"
 status: owned
-tags: [books]
+tag: books
 link: "https://www.jamesandkenneth.com/books/before-you-get-your-puppy"
 ---
 
