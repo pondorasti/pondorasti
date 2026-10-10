@@ -60,7 +60,7 @@ export function ProductCard({
           <p className="truncate text-muted">
             {(product.tags.length ? product.tags : [product.status]).map(label).join(" · ")}
           </p>
-          <h2 className="line-clamp-2 break-words">{product.name}</h2>
+          <h2 className="truncate">{product.name}</h2>
         </div>
       </Link>
     </article>
