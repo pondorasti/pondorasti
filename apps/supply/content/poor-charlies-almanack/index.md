@@ -6,5 +6,7 @@ link: "https://press.stripe.com/poor-charlies-almanack"
 ---
 
 - Author: Charles T. Munger; edited by Peter D. Kaufman
-- Edition: Stripe Press 2023 fourth abridged edition
+- Publisher: Stripe Press
+- Published: 2023
+- Edition: Fourth, abridged
 - ISBN: 9781953953230

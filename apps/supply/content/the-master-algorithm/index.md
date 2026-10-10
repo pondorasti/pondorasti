@@ -6,5 +6,6 @@ link: "https://www.hachettebookgroup.com/titles/pedro-domingos/the-master-algori
 ---
 
 - Author: Pedro Domingos
-- Edition: Basic Books trade paperback
+- Publisher: Basic Books
+- Format: Trade paperback
 - ISBN: 9780465094271

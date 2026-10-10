@@ -6,5 +6,6 @@ link: "https://press.stripe.com/the-big-score"
 ---
 
 - Author: Michael S. Malone
-- Edition: Stripe Press reissue
+- Publisher: Stripe Press
+- Edition: Reissue
 - ISBN: 9781953953162

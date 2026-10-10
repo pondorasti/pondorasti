@@ -6,5 +6,6 @@ link: "https://www.simonandschuster.com/books/Where-Wizards-Stay-Up-Late/Katie-H
 ---
 
 - Author: Katie Hafner and Matthew Lyon
-- Edition: Simon & Schuster trade paperback
+- Publisher: Simon & Schuster
+- Format: Trade paperback
 - ISBN: 9780684832678

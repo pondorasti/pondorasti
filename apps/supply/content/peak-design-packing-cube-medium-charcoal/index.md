@@ -6,9 +6,5 @@ tags: [carry]
 link: "https://www.peakdesign.com/eu/products/packing-cube"
 ---
 
-- **Brand:** Peak Design
-- **Variant:** Medium, Charcoal
-- **SKU:** `BPC-M-CH-2`
-- **Quantity:** 1
-- **Purchased:** 2024-10-19
-- **Inventory source:** Peak Design account
+- Model: BPC-M-CH-2
+- Purchased: October 19, 2024

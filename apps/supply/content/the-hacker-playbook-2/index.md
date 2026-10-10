@@ -6,5 +6,5 @@ link: "https://openlibrary.org/books/OL27196545M/The_hacker_playbook_2"
 ---
 
 - Author: Peter Kim
-- Edition: Paperback
+- Format: Paperback
 - ISBN: 9781512214567

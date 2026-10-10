@@ -6,5 +6,6 @@ link: "https://shop.merriam-webster.com/products/merriam-websters-everyday-langu
 ---
 
 - Author: Mary W. Cornog
-- Edition: 2nd / Expanded & Revised Edition, 2010
+- Published: 2010
+- Edition: 2nd, expanded and revised
 - ISBN: 9780877798552

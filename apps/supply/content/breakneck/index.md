@@ -6,5 +6,7 @@ link: "https://wwnorton.com/books/9781324106036"
 ---
 
 - Author: Dan Wang
-- Edition: W. W. Norton hardcover, 2025
+- Publisher: W. W. Norton
+- Published: 2025
+- Format: Hardcover
 - ISBN: 9781324106036

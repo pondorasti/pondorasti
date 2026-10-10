@@ -6,5 +6,6 @@ link: "https://www.influenceatwork.com/books-and-publications/"
 ---
 
 - Author: Robert B. Cialdini, PhD
-- Edition: Revised edition paperback
+- Edition: Revised
+- Format: Paperback
 - ISBN: 9780061241895

@@ -6,11 +6,7 @@ tags: [apparel]
 link: "https://bananarepublic.gap.com/browse/product.do?pid=811426041"
 ---
 
-- Brand: Banana Republic
-- Style: Luxury-Touch T-Shirt
-- Fit: Standard Fit
-- Color: Heather Oatmeal
-- Material: 100% cotton
 - Size: S
-- Product #: 811426
+- Material: 100% cotton
+- Fit: Standard
 - Purchased: July 12, 2026

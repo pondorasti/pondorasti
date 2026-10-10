@@ -6,5 +6,7 @@ link: "https://shop.merriam-webster.com/products/merriam-websters-everyday-langu
 ---
 
 - Author: Merriam-Webster
-- Edition: 2016 New Edition, mass-market paperback
+- Published: 2016
+- Edition: New
+- Format: Mass-market paperback
 - ISBN: 9780877792956

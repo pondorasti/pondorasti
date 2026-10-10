@@ -6,5 +6,8 @@ link: "https://www.amazon.com/dp/B0GJ43B25V"
 ---
 
 - Author: Ernest Hemingway; illustrated by Angelo Zammit
-- Edition: Independently published illustrated collector's edition paperback, 2026
+- Publisher: Independently published
+- Published: 2026
+- Edition: Illustrated collector's edition
+- Format: Paperback
 - ISBN: 9798245031620

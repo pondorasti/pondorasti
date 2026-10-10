@@ -6,5 +6,7 @@ link: "https://shop.merriam-webster.com/products/merriam-websters-everyday-langu
 ---
 
 - Author: Merriam-Webster
-- Edition: 2006 Newest Edition, mass-market paperback
+- Published: 2006
+- Edition: Newest
+- Format: Mass-market paperback
 - ISBN: 9780877798507

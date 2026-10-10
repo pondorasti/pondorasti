@@ -6,5 +6,6 @@ link: "https://www.hachettebookgroup.com/titles/janelle-shane/you-look-like-a-th
 ---
 
 - Author: Janelle Shane
-- Edition: Trade paperback, 2021
+- Published: 2021
+- Format: Trade paperback
 - ISBN: 9780316525220

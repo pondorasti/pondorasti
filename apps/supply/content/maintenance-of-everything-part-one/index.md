@@ -6,5 +6,6 @@ link: "https://press.stripe.com/maintenance-part-one"
 ---
 
 - Author: Stewart Brand
-- Edition: Stripe Press hardcover
+- Publisher: Stripe Press
+- Format: Hardcover
 - ISBN: 9781953953490

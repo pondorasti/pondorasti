@@ -6,5 +6,6 @@ link: "https://www.hachettebookgroup.com/titles/malcolm-gladwell/the-tipping-poi
 ---
 
 - Author: Malcolm Gladwell
-- Edition: Little, Brown trade paperback
+- Publisher: Little, Brown
+- Format: Trade paperback
 - ISBN: 9780316346627

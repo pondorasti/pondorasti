@@ -6,5 +6,6 @@ link: "https://www.penguin.co.uk/books/56314/thinking-fast-and-slow-by-kahneman-
 ---
 
 - Author: Daniel Kahneman
-- Edition: Penguin paperback
+- Publisher: Penguin
+- Format: Paperback
 - ISBN: 9780141033570

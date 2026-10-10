@@ -6,5 +6,6 @@ link: "https://www.penguinrandomhouse.com/books/326569/1984-by-george-orwell-wit
 ---
 
 - Author: George Orwell
-- Edition: Signet Classics mass-market paperback
+- Publisher: Signet Classics
+- Format: Mass-market paperback
 - ISBN: 9780451524935

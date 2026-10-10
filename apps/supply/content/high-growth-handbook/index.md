@@ -6,5 +6,7 @@ link: "https://press.stripe.com/high-growth-handbook"
 ---
 
 - Author: Elad Gil
-- Edition: Stripe Press 2018 hardcover
+- Publisher: Stripe Press
+- Published: 2018
+- Format: Hardcover
 - ISBN: 9781732265103

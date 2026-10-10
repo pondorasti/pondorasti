@@ -6,5 +6,6 @@ link: "https://www.jamesandkenneth.com/books/before-you-get-your-puppy"
 ---
 
 - Author: Dr. Ian Dunbar
-- Edition: James & Kenneth paperback
+- Publisher: James & Kenneth
+- Format: Paperback
 - ISBN: 9781888047004

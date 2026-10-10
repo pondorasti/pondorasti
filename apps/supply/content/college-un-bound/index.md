@@ -6,5 +6,6 @@ link: "https://jeffselingo.com/books/college-unbound"
 ---
 
 - Author: Jeffrey J. Selingo
-- Edition: New Harvest hardcover
+- Publisher: New Harvest
+- Format: Hardcover
 - ISBN: 9780544027077

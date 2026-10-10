@@ -6,5 +6,6 @@ link: "https://www.penguinrandomhouse.com/books/729231/the-anxious-generation-by
 ---
 
 - Author: Jonathan Haidt
-- Edition: 2024 hardcover
+- Published: 2024
+- Format: Hardcover
 - ISBN: 9780593655030

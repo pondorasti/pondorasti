@@ -6,4 +6,6 @@ link: "https://appiconbook.com/ios-app-icon-book"
 ---
 
 - Author: Michael Flarup
-- Edition: Original hardcover issue, 2022
+- Published: 2022
+- Edition: Original issue
+- Format: Hardcover

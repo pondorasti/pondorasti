@@ -7,7 +7,8 @@ link: "https://www.penguinrandomhouse.com/books/303321/the-magicians-by-lev-gros
 
 - Author: Lev Grossman
 - Series: The Magicians Trilogy, Book 1
-- Edition: Penguin Books trade paperback, boxed-set design (2015)
-- Individual ISBN: 9780452296299
-- Boxed-set ISBN: 9780147517388
-- Publisher metadata: 432 pages; original Penguin paperback issued May 25, 2010
+- Publisher: Penguin Books
+- Published: 2015
+- Format: Trade paperback, boxed-set design
+- Pages: 432
+- ISBN: 9780452296299

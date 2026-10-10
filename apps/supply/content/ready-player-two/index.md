@@ -6,5 +6,6 @@ link: "https://www.penguinrandomhouse.com/books/557223/ready-player-two-by-ernes
 ---
 
 - Author: Ernest Cline
-- Edition: Ballantine paperback
+- Publisher: Ballantine
+- Format: Paperback
 - ISBN: 9781524761349

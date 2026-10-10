@@ -26,17 +26,30 @@ content/apple-watch-series-10/
 ```md
 ---
 name: "Apple Watch Series 10"
-variant: "46mm, Jet Black"
 status: owned
 tags: [technology]
 link: "https://support.apple.com/en-ie/121202"
 ---
 
-- Gets the job done.
+- Model: MX0M3LW/A
+- Case: 42mm Slate Titanium
+- Band: Space Gray Milanese Loop (magnetic closure)
+- Connectivity: GPS + Cellular
+- Introduced: 2024
 
-## Specs
+Gets the job done.
 
-![Device details](notes-1.webp)
+Never used any of the software/apps that it comes with other than the workout app.
+
+Always use the same watch band, not worth the hassle to change them out.
+
+Love the fast charging cable.
+
+ALL notifications are turned off.
+
+### Device details
+
+![Apple Watch device details](notes-1.webp)
 ```
 
 - `name` (required) is the display name; quote it if it contains a colon.
@@ -46,9 +59,42 @@ link: "https://support.apple.com/en-ie/121202"
 - `tags` are category ids from the `Tag` enum in `src/lib/product.ts`. Adding a category
   means adding it there and giving it an icon in `src/components/controls.tsx`.
 - `link` is an optional `http(s)` URL for the "Visit product" button.
-- Notes are markdown. `##` headings sit under the page's "Notes" heading. Links open
-  in a new tab; non-`http(s)` links and raw HTML are not rendered as such. Notes are
-  public, as is this repository's history, so keep private details out of them.
+- Notes are markdown, in the format below. Links open in a new tab; non-`http(s)` links
+  and raw HTML are not rendered as such. Notes are public, as is this repository's
+  history, so keep private details out of them.
+
+### Notes format
+
+Notes have up to three parts, in this order, separated by blank lines:
+
+1. **Specs**: a flat list of `- Label: value`, one fact per line. Labels are plain (no
+   bold), in sentence case, and use the names below so the same fact reads the same on
+   every item. Leave out what `name` or `variant` already says and any line with
+   nothing useful to say.
+2. **Remarks**: your own words about the item, as paragraphs.
+3. **Images**: each `notes-N.webp` under a `### Caption` heading.
+
+Labels, in order, by kind of item:
+
+- Books: Author, Publisher, Published, Edition, Format, Pages, ISBN
+- Apparel and shoes: Size, Color, Material, Fit, Purchased
+- Skin, oral and bathroom products: Size, Type, Skin type or Hair type, SPF, Scent,
+  Key ingredients, Purchased
+- Everything else: Model, Color, then whatever specs matter for that item (Dimensions,
+  Weight, Capacity, Material, Display, Connectivity, Battery, ...), then Purchased
+
+Conventions:
+
+- `Color`, not Colour or Finish; `Material`, not Fabric; `Model` is the model or part
+  number when it identifies the item (`34WN80C-B`), or its full model name.
+- `Purchased` is the first purchase date, `March 3, 2024`, or `March 2024` when the day
+  isn't known. A later line can say `Quantity: 2` when more than one is owned.
+- Wishlist items can have `Price` for the listed price.
+- Retired items can say why with `Retired: Too small; donated`, or what took their
+  place with `Replaced by: <item name>`, as the last spec.
+- Not in notes: prices paid, receipts, order or receipt numbers, retailer SKUs, ASINs,
+  UPCs and EANs, warranty and protection plans, where the image came from, and links
+  that repeat `link`.
 
 The folder name is the item's URL, `/items/<folder>`: lowercase words joined by hyphens.
 Renaming a folder changes the URL.

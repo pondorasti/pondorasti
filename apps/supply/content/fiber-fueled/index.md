@@ -6,5 +6,6 @@ link: "https://www.penguinrandomhouse.com/books/610829/fiber-fueled-by-will-buls
 ---
 
 - Author: Will Bulsiewicz, MD, MSCI
-- Edition: 2020 hardcover
+- Published: 2020
+- Format: Hardcover
 - ISBN: 9780593084564

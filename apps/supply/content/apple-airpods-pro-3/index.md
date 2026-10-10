@@ -5,4 +5,4 @@ tags: [technology]
 link: "https://www.apple.com/airpods-pro/"
 ---
 
-- Best piece of technology I ever owned.
+Best piece of technology I ever owned.

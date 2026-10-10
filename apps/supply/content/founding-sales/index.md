@@ -6,4 +6,5 @@ link: "https://www.holloway.com/b/founding-sales"
 ---
 
 - Author: Pete Kazanjy
-- Edition: Holloway physical edition
+- Publisher: Holloway
+- Format: Print

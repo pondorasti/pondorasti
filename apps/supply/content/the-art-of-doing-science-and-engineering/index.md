@@ -6,5 +6,7 @@ link: "https://press.stripe.com/the-art-of-doing-science-and-engineering"
 ---
 
 - Author: Richard W. Hamming
-- Edition: Stripe Press 2020 fourth edition
+- Publisher: Stripe Press
+- Published: 2020
+- Edition: Fourth
 - ISBN: 9781732265172

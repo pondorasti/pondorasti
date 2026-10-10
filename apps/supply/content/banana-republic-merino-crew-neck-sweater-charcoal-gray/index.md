@@ -7,8 +7,6 @@ link: "https://bananarepublic.gap.com/browse/product.do?pid=796005102"
 ---
 
 - Size: S
-- Color: Charcoal Gray
 - Material: 100% extra-fine merino wool
-- Fit: Standard Fit
-- Product #: 796005
+- Fit: Standard
 - Purchased: August 2, 2026

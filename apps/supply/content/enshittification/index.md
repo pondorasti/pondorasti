@@ -6,5 +6,6 @@ link: "https://us.macmillan.com/books/9780374619329/enshittification/"
 ---
 
 - Author: Cory Doctorow
-- Edition: MCD/Farrar, Straus and Giroux hardcover
+- Publisher: MCD/Farrar, Straus and Giroux
+- Format: Hardcover
 - ISBN: 9780374619329

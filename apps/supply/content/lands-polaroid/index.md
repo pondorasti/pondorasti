@@ -6,5 +6,7 @@ link: "https://openlibrary.org/books/OL2374637M/Land%27s_Polaroid"
 ---
 
 - Author: Peter C. Wensberg
-- Edition: Illustrated first-edition hardcover, 1987
+- Published: 1987
+- Edition: First, illustrated
+- Format: Hardcover
 - ISBN: 9780395421147

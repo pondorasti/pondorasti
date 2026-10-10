@@ -6,5 +6,7 @@ link: "https://www.chikumashobo.co.jp/product/9784480432933/"
 ---
 
 - Author: 横井軍平 (Gunpei Yokoi) and 牧野武文 (Takefumi Makino)
-- Edition: ちくま文庫 paperback, 2015
+- Publisher: ちくま文庫
+- Published: 2015
+- Format: Paperback
 - ISBN: 9784480432933

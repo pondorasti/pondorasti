@@ -6,9 +6,5 @@ tags: [shoes]
 link: "https://www.nike.ae/en/free-metcon-6-mens-workout-shoes/NKFJ7127-802.html"
 ---
 
-- **Brand:** Nike
-- **Style:** Free Metcon 6
-- **Type:** Men's training shoe
-- **Color:** Total Orange / Photo Blue / Black / White
-- **Size:** Men's US 7.5
-- **SKU:** FJ7127-802
+- Size: Men’s US 7.5
+- Color: Total Orange / Photo Blue / Black / White

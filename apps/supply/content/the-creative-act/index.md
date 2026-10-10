@@ -6,5 +6,6 @@ link: "https://www.penguinrandomhouse.com/books/717356/the-creative-act-by-rick-
 ---
 
 - Author: Rick Rubin
-- Edition: 2023 hardcover
+- Published: 2023
+- Format: Hardcover
 - ISBN: 9780593652886

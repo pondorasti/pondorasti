@@ -6,5 +6,6 @@ link: "https://www.penguin.com.au/books/the-everything-store-jeff-bezos-and-the-
 ---
 
 - Author: Brad Stone
-- Edition: Corgi paperback
+- Publisher: Corgi
+- Format: Paperback
 - ISBN: 9780552167833

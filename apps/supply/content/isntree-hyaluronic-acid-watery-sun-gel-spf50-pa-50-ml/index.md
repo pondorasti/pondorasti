@@ -6,8 +6,6 @@ tags: [bathroom, skin]
 link: "https://isntree-global.com/products/isntree-hyaluronic-acid-watery-sun-gel-50ml"
 ---
 
-- Brand: ISNTREE
-- Product: Hyaluronic Acid Watery Sun Gel
-- Protection: SPF50+ PA++++
-- Size: 50 mL
-- Purchased: One 2-pack (2 tubes) from Jolse in September 2024 for $31.28
+- SPF: SPF50+ PA++++
+- Purchased: September 2024
+- Quantity: 2

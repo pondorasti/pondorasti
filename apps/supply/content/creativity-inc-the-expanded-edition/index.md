@@ -7,5 +7,6 @@ link: "https://www.penguinrandomhouse.com/books/216369/creativity-inc-the-expand
 ---
 
 - Author: Ed Catmull with Amy Wallace
-- Edition: Expanded edition, 2023 hardcover
+- Published: 2023
+- Format: Hardcover
 - ISBN: 9780593594643

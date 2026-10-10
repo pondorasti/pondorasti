@@ -6,5 +6,6 @@ link: "https://press.stripe.com/the-dream-machine"
 ---
 
 - Author: M. Mitchell Waldrop
-- Edition: Stripe Press 2018 edition
+- Publisher: Stripe Press
+- Published: 2018
 - ISBN: 9781732265110

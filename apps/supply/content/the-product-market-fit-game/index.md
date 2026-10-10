@@ -6,4 +6,5 @@ link: "https://posthog.com/founders/product-market-fit-game"
 ---
 
 - Author: James Hawkins
-- Edition: PostHog printed guide
+- Publisher: PostHog
+- Format: Printed guide

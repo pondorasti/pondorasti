@@ -6,5 +6,6 @@ link: "https://www.penguinrandomhouse.com/books/547217/lost-and-founder-by-rand-
 ---
 
 - Author: Rand Fishkin
-- Edition: 2018 hardcover
+- Published: 2018
+- Format: Hardcover
 - ISBN: 9780735213326

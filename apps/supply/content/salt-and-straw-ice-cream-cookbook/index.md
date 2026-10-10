@@ -6,5 +6,7 @@ link: "https://www.penguinrandomhouse.com/books/554469/salt-and-straw-ice-cream-
 ---
 
 - Author: Tyler Malek and JJ Goode
-- Edition: First-edition hardcover, 2019
+- Published: 2019
+- Edition: First
+- Format: Hardcover
 - ISBN: 9781524760151

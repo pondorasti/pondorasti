@@ -6,10 +6,7 @@ tags: [technology]
 link: "https://www.amazon.com/dp/B0074CDG6C"
 ---
 
-- **Brand:** Zojirushi
-- **Model:** NS-TSC10
-- **Type:** Micom rice cooker and warmer
-- **Capacity:** 1.0 L / 5.5 cups uncooked
-- **Color:** Stainless / dark brown
-- **ASIN:** `B0074CDG6C`
-- **Purchased:** July 3, 2022
+- Model: NS-TSC10
+- Color: Stainless / dark brown
+- Capacity: 1.0 L / 5.5 cups uncooked
+- Purchased: July 3, 2022

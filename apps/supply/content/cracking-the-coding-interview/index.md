@@ -6,5 +6,5 @@ link: "https://www.crackingthecodinginterview.com/"
 ---
 
 - Author: Gayle Laakmann McDowell
-- Edition: 6th edition
+- Edition: 6th
 - ISBN: 9780984782857

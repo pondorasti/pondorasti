@@ -6,6 +6,6 @@ link: "https://www.oreilly.com/library/view/diy-satellite-platforms/978144931275
 ---
 
 - Author: Sandy Antunes
-- Edition: First edition, February 2012
-- Print ISBN: 9781449310608
-- Digital ISBN: 9781449312756
+- Published: February 2012
+- Edition: First
+- ISBN: 9781449310608 (print), 9781449312756 (digital)

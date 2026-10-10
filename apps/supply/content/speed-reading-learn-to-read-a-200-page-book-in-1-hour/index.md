@@ -6,5 +6,5 @@ link: "https://kamknight.com/collections/e-books/products/speed-reading-learn-to
 ---
 
 - Author: Kam Knight
-- Edition: Physical edition
+- Format: Print
 - ISBN: 9781090264473

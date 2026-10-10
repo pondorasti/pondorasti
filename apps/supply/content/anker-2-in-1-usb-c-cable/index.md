@@ -5,7 +5,8 @@ tags: [technology]
 link: "https://www.amazon.com/dp/B0CRZ6JJ6D"
 ---
 
-- Great little cable to charge your phone and computer at the same time.
-- 2-in-1 USB-C
-- 4ft
-- 140W
+- Connectors: 2-in-1 USB-C
+- Length: 4 ft
+- Power: 140W
+
+Great little cable to charge your phone and computer at the same time.

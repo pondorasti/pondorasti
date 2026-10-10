@@ -6,9 +6,5 @@ tags: [carry]
 link: "https://www.peakdesign.com/eu/products/roller-pro"
 ---
 
-- **Brand:** Peak Design
-- **Variant:** Carry-On, Black
-- **SKU:** `W-RP-AA-BK-1`
-- **Quantity:** 1
-- **Purchased:** 2025-08-28
-- **Inventory source:** Peak Design account
+- Model: W-RP-AA-BK-1
+- Purchased: August 28, 2025

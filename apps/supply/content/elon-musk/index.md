@@ -6,5 +6,6 @@ link: "https://www.simonandschuster.com/books/Elon-Musk/Walter-Isaacson/97819821
 ---
 
 - Author: Walter Isaacson
-- Edition: 2023 hardcover
+- Published: 2023
+- Format: Hardcover
 - ISBN: 9781982181284

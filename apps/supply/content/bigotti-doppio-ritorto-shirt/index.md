@@ -5,15 +5,10 @@ tags: [apparel]
 link: "https://www.bigotti.ro/camasi-barbati/camasa-shaped-alba-uni-1415785"
 ---
 
-- **Brand:** Bigotti
-- **Fit:** Superslim
-- **Style:** Classic Doppio Ritorto
-- **Material:** 100% cotton
-- **Size:** S
-- **SKU:** `VACMARRIK56Q49240S`
-- **EAN:** `1000092155786`
-- Exact product page and image are no longer available in Bigotti’s current catalog; no look-alike thumbnail was used.
+- Size: S
+- Material: 100% cotton
+- Fit: Superslim
 
 ### Original tag
 
-![Original Bigotti tag — Doppio Ritorto Shirt](notes-1.webp)
+![Original Bigotti tag for the Doppio Ritorto shirt](notes-1.webp)

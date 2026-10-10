@@ -6,5 +6,6 @@ link: "https://www.penguinrandomhouse.com/books/302900/the-ascent-of-money-by-ni
 ---
 
 - Author: Niall Ferguson
-- Edition: Penguin paperback
+- Publisher: Penguin
+- Format: Paperback
 - ISBN: 9780143116172
