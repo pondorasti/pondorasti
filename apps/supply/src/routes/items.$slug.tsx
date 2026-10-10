@@ -48,8 +48,12 @@ function Product() {
       >
         <ArrowLeft size={16} />
       </Link>
-      <div className="mt-8 flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
-        <div className="min-w-0">
+      {/* Stacked on phones; from lg the image sits on the left and stays in view while the details scroll. */}
+      <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,440px)] lg:items-start lg:gap-12 xl:grid-cols-[minmax(0,1fr)_480px]">
+        <div className="product-stage aspect-square w-full rounded-3xl lg:sticky lg:top-6 lg:max-h-[calc(100svh-9rem)]">
+          <ProductImage src={product.image} name={product.name} priority />
+        </div>
+        <div className="min-w-0 lg:pt-2">
           <p className="flex flex-wrap items-center gap-x-1.5 text-sm text-muted">
             <span
               className={`inline-flex items-center gap-1 ${product.status === "wishlist" ? "text-wishlist" : ""}`}
@@ -70,34 +74,28 @@ function Product() {
           </p>
           <h1 className="display mt-1 break-words">{product.name}</h1>
           {product.variant && <p className="mt-2 text-base text-muted">{product.variant}</p>}
+          {product.link && (
+            <a
+              href={product.link}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 inline-flex h-10 items-center gap-1.5 rounded-full bg-ink px-4 text-sm font-medium text-page transition-opacity hover:opacity-80"
+            >
+              Visit product
+              <ArrowUpRight size={16} />
+            </a>
+          )}
+          {product.notes && (
+            <section aria-labelledby="notes" className="mt-10 border-t border-line pt-8">
+              <h2 id="notes" className="text-lg font-medium tracking-[-0.01em]">
+                Notes
+              </h2>
+              {/* Rendered at build time from markdown in the repo, with raw HTML escaped. */}
+              <div className="notes mt-4" dangerouslySetInnerHTML={{ __html: product.notes }} />
+            </section>
+          )}
         </div>
-        {product.link && (
-          <a
-            href={product.link}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-ink px-3.5 text-sm font-medium text-page transition-opacity hover:opacity-80"
-          >
-            Visit product
-            <ArrowUpRight size={16} />
-          </a>
-        )}
       </div>
-      <div className="product-stage mt-6 aspect-square max-h-[720px] w-full rounded-3xl sm:aspect-[8/7]">
-        <ProductImage src={product.image} name={product.name} priority />
-      </div>
-      {product.notes && (
-        <section aria-labelledby="notes" className="mt-14">
-          <h2
-            id="notes"
-            className="text-[28px] leading-[1.1] font-medium tracking-[-0.02em] sm:text-[32px]"
-          >
-            Notes
-          </h2>
-          {/* Rendered at build time from markdown in the repo, with raw HTML escaped. */}
-          <div className="notes mt-4" dangerouslySetInnerHTML={{ __html: product.notes }} />
-        </section>
-      )}
     </main>
   )
 }
