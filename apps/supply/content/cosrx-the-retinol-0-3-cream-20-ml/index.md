@@ -1,5 +1,6 @@
 ---
 name: "COSRX The Retinol 0.3 Cream"
+variant: "20 mL"
 status: owned
 tags: [bathroom, skin]
 link: "https://www.amazon.com/dp/B0CM8M8HP8"

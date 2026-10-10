@@ -5,6 +5,7 @@ import { type ProductDetail, Slug, Status, Tag } from "../lib/product"
 
 const FrontMatter = z.strictObject({
   name: z.string().trim().min(1),
+  variant: z.string().trim().min(1).optional(),
   status: Status,
   tags: z
     .array(Tag)
@@ -34,12 +35,13 @@ export function parseItem(slug: string, source: string, image: ImageResolver): P
   if (!result.success) throw new Error(z.prettifyError(result.error))
   const cover = image("image.webp")
   if (!cover) throw new Error("missing image.webp")
-  const { name, status, tags, link } = result.data
+  const { name, variant, status, tags, link } = result.data
   return {
     slug,
     name,
     status,
     tags,
+    variant: variant ?? null,
     link: link ?? null,
     image: cover,
     notes: renderNotes(match[2], image)

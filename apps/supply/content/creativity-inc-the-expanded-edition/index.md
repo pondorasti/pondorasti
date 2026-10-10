@@ -1,5 +1,6 @@
 ---
 name: "Creativity, Inc."
+variant: "The Expanded Edition"
 status: owned
 tags: [books]
 link: "https://www.penguinrandomhouse.com/books/216369/creativity-inc-the-expanded-edition-by-ed-catmull-with-amy-wallace/9780679644507/"

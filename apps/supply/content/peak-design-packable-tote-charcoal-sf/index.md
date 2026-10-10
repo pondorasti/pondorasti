@@ -1,5 +1,6 @@
 ---
 name: "Peak Design Packable Tote"
+variant: "Charcoal (SF)"
 status: owned
 tags: [carry]
 link: "https://www.peakdesign.com/eu/products/packable-tote"

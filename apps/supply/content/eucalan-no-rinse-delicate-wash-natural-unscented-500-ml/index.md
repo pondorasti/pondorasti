@@ -1,5 +1,6 @@
 ---
 name: "Eucalan No Rinse Delicate Wash"
+variant: "Natural Unscented, 500 mL"
 status: owned
 tags: [bathroom]
 link: "https://www.amazon.com/dp/B001W93UWS"

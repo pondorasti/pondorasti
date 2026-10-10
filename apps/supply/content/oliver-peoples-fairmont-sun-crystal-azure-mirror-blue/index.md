@@ -1,5 +1,6 @@
 ---
 name: "Oliver Peoples Fairmont Sun"
+variant: "Crystal / Azure Mirror Blue"
 status: owned
 tags: [sunglasses]
 link: "https://www.oliverpeoples.com/en-us/products/0ov5219s-110156"

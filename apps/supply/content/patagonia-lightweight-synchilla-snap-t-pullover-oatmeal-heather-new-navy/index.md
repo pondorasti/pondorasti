@@ -1,5 +1,6 @@
 ---
 name: "Patagonia Lightweight Synchilla Snap-T Pullover"
+variant: "Oatmeal Heather / New Navy"
 status: owned
 tags: [apparel]
 link: "https://www.patagonia.com/product/mens-lightweight-synchilla-snap-t-fleece-pullover/199346618441.html"

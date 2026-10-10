@@ -1,5 +1,6 @@
 ---
 name: "Gritin 3D Blackout Sleep Mask"
+variant: "Black"
 status: owned
 tags: [bedroom]
 link: "https://www.amazon.com/dp/B0CRYX3FCZ"

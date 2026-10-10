@@ -1,5 +1,6 @@
 ---
 name: "Pyunkang Yul Low pH Pore Deep Cleansing Foam"
+variant: "100 mL"
 status: owned
 tags: [bathroom, skin]
 link: "https://pyunkangyulglobal.com/products/pyunkangyul-low-ph-pore-deep-cleansing-foam-100ml"

@@ -1,5 +1,6 @@
 ---
 name: "Zojirushi NS-TSC10 Micom Rice Cooker & Warmer"
+variant: "5.5-Cup"
 status: owned
 tags: [technology]
 link: "https://www.amazon.com/dp/B0074CDG6C"

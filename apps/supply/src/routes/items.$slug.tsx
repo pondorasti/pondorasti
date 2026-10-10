@@ -74,6 +74,7 @@ function Product() {
             ))}
           </p>
           <h1 className="display mt-1 break-words">{product.name}</h1>
+          {product.variant && <p className="mt-2 text-base text-muted">{product.variant}</p>}
         </div>
         {product.link && (
           <a

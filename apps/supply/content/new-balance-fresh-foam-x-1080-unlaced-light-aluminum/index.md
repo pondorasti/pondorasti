@@ -1,5 +1,6 @@
 ---
 name: "New Balance Fresh Foam X 1080 Unlaced"
+variant: "Light Aluminum"
 status: owned
 tags: [shoes]
 link: "https://www.newbalance.com/pd/fresh-foam-x-1080-unlaced/M1080SLG-D-075.html"

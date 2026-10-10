@@ -1,5 +1,6 @@
 ---
 name: "Banana Republic Merino Crew-Neck Sweater"
+variant: "Storm Slate Green"
 status: owned
 tags: [apparel]
 link: "https://bananarepublic.gap.com/browse/product.do?pid=796005152"

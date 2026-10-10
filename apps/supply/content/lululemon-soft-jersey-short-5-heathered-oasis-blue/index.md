@@ -1,5 +1,6 @@
 ---
 name: "lululemon Soft Jersey Short 5″"
+variant: "Heathered Oasis Blue"
 status: owned
 tags: [apparel]
 link: "https://shop.lululemon.com/p/men-shorts/Soft-Jersey-Short-5-MD/_/prod11570470?color=66551&sz=S"

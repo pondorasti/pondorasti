@@ -1,5 +1,6 @@
 ---
 name: "LAB22 Magnetic Phone Stand with Dual Wireless Charging"
+variant: "Black"
 status: owned
 tags: [office]
 link: "https://www.kickstarter.com/projects/lab22/lab22-by-sara-dietschy-adjustable-ipad-and-phone-stands/description"

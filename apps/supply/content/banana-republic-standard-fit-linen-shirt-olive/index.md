@@ -1,5 +1,6 @@
 ---
 name: "Banana Republic Standard-Fit Linen Shirt"
+variant: "Olive"
 status: owned
 tags: [apparel]
 link: "https://bananarepublic.gap.co.jp/br/standard-fit-linen-shirt/893185006.html"

@@ -1,5 +1,6 @@
 ---
 name: "CeraVe AM Facial Moisturizing Lotion SPF 30"
+variant: "3 fl oz"
 status: retired
 tags: [skin, bathroom]
 link: "https://www.amazon.com/dp/B00F97FHAW"

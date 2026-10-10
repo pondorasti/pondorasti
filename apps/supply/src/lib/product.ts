@@ -37,6 +37,8 @@ export interface ProductSummary {
 }
 
 export interface ProductDetail extends ProductSummary {
+  /** Color, size or edition, shown under the name on the item page. */
+  variant: string | null
   link: string | null
   /** Notes rendered to HTML at build time from the item's markdown. */
   notes: string

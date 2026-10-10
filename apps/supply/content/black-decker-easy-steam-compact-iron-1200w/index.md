@@ -1,5 +1,6 @@
 ---
 name: "BLACK+DECKER Easy Steam Compact Iron"
+variant: "1200W"
 status: owned
 tags: [bedroom]
 link: "https://www.amazon.com/dp/B01NB05WI5"

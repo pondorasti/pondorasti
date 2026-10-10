@@ -1,5 +1,6 @@
 ---
 name: "LG 34″ UltraWide WQHD Monitor"
+variant: "34WN80C-B"
 status: owned
 tags: [office]
 link: "https://www.lg.com/us/monitors/lg-34wn80c-b-ultrawide-monitor"

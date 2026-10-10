@@ -1,5 +1,6 @@
 ---
 name: "Levoit Classic 300S Smart Humidifier"
+variant: "Gray"
 status: owned
 tags: [office]
 link: "https://www.amazon.com/dp/B08HS45N13"

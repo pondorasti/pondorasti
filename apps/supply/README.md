@@ -26,6 +26,7 @@ content/apple-watch-series-10/
 ```md
 ---
 name: "Apple Watch Series 10"
+variant: "46mm, Jet Black"
 status: owned
 tags: [technology]
 link: "https://support.apple.com/en-ie/121202"
@@ -39,6 +40,8 @@ link: "https://support.apple.com/en-ie/121202"
 ```
 
 - `name` (required) is the display name; quote it if it contains a colon.
+- `variant` is an optional color, size or edition, shown under the name on the item page.
+  Keep it out of `name` so cards stay short.
 - `status` (required) is `owned`, `wishlist` or `retired`, one catalog view each.
 - `tags` are category ids from the `Tag` enum in `src/lib/product.ts`. Adding a category
   means adding it there and giving it an icon in `src/components/controls.tsx`.

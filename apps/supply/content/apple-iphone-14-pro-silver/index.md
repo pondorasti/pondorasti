@@ -1,5 +1,6 @@
 ---
 name: "Apple iPhone 14 Pro"
+variant: "Silver"
 status: owned
 tags: [technology]
 link: "https://support.apple.com/en-us/111849"

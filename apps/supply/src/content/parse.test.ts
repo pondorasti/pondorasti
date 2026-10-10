@@ -13,7 +13,7 @@ describe("content items", () => {
     const parsed = parseItem(
       "desk-lamp",
       item(
-        'name: "Desk Lamp: Mk 2"\nstatus: owned\ntags: [office, office]\nlink: https://example.com/lamp',
+        'name: "Desk Lamp: Mk 2"\nvariant: Brass\nstatus: owned\ntags: [office, office]\nlink: https://example.com/lamp',
         "- **Bulb:** LED"
       ),
       images("image.webp")
@@ -23,6 +23,7 @@ describe("content items", () => {
       name: "Desk Lamp: Mk 2",
       status: "owned",
       tags: ["office"],
+      variant: "Brass",
       link: "https://example.com/lamp",
       image: "/images/image.webp",
       notes: "<ul>\n<li><strong>Bulb:</strong> LED</li>\n</ul>"

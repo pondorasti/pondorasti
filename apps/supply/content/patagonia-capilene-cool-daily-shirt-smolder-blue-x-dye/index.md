@@ -1,5 +1,6 @@
 ---
 name: "Patagonia Capilene Cool Daily Shirt"
+variant: "Smolder Blue X-Dye"
 status: owned
 tags: [apparel]
 link: "https://www.patagonia.com/product/mens-capilene-cool-daily-shirt/199346139366.html"
