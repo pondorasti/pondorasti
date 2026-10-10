@@ -15,7 +15,3 @@ link: "https://support.apple.com/en-us/121553"
 - Refresh rate: ProMotion up to 120 Hz
 - Connectivity: Three Thunderbolt 5 ports, HDMI, SDXC, MagSafe 3
 - Introduced: November 2024
-
-### System information
-
-![MacBook Pro system information](notes-1.webp)

@@ -14,7 +14,3 @@ link: "https://suitsupply.com/en-us/men/shirts/white-cutaway-collar-shirt/H7003.
 - Made in: China
 - Purchased: August 24, 2024
 - Retired: Too small
-
-### Label reference
-
-![Suitsupply shirt neck label showing size and fit](notes-1.webp)

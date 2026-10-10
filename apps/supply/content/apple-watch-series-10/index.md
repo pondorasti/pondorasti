@@ -24,7 +24,3 @@ Always use the same watch band, not worth the hassle to change them out.
 Love the fast charging cable.
 
 ALL notifications are turned off.
-
-### Device details
-
-![Apple Watch device details](notes-1.webp)

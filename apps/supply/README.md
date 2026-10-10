@@ -20,7 +20,6 @@ Each item is a folder under `content/`, named by its URL slug:
 content/apple-watch-series-10/
   index.md       front matter + notes
   image.webp     the item's image (required)
-  notes-1.webp   images used in the notes (optional)
 ```
 
 ```md
@@ -50,10 +49,6 @@ Always use the same watch band, not worth the hassle to change them out.
 Love the fast charging cable.
 
 ALL notifications are turned off.
-
-### Device details
-
-![Apple Watch device details](notes-1.webp)
 ```
 
 - `name` (required) is the display name; quote it if it contains a colon.
@@ -69,14 +64,13 @@ ALL notifications are turned off.
 
 ### Notes format
 
-Notes have up to three parts, in this order, separated by blank lines:
+Notes have up to two parts, in this order, separated by a blank line:
 
 1. **Specs**: a flat list of `- Label: value`, one fact per line. Labels are plain (no
    bold), in sentence case, and use the names below so the same fact reads the same on
    every item. Leave out what `name` or `variant` already says and any line with
    nothing useful to say.
 2. **Remarks**: your own words about the item, as paragraphs.
-3. **Images**: each `notes-N.webp` under a `### Caption` heading.
 
 Labels, in order, by kind of item:
 
@@ -97,8 +91,9 @@ Conventions:
 - Retired items can say why with `Retired: Too small; donated`, or what took their
   place with `Replaced by: <item name>`, as the last spec.
 - Not in notes: prices paid, receipts, order or receipt numbers, retailer SKUs, ASINs,
-  UPCs and EANs, warranty and protection plans, where the image came from, and links
-  that repeat `link`.
+  UPCs and EANs, warranty and protection plans, where the image came from, links that
+  repeat `link`, and screenshots or photos of labels and settings screens (they can
+  show serial numbers and other identifiers; write the facts down instead).
 
 The folder name is the item's URL, `/items/<folder>`: lowercase words joined by hyphens.
 Renaming a folder changes the URL.
