@@ -9,7 +9,7 @@ const FrontMatter = z.strictObject({
   tags: z
     .array(Tag)
     .default([])
-    .transform((tags) => [...new Set(tags)]),
+    .transform((tags) => Tag.options.filter((tag) => tags.includes(tag))),
   link: z.url({ protocol: /^https?$/ }).optional()
 })
 

@@ -4,20 +4,20 @@ import { z } from "zod/mini"
 export const Status = z.enum(["owned", "wishlist", "retired"])
 export type Status = z.infer<typeof Status>
 
-/** Category tags. A new tag needs an entry here and an icon in `components/controls.tsx`. */
+/** Category tags, in display order. A new tag needs an entry here and an icon in `components/controls.tsx`. */
 export const Tag = z.enum([
+  "books",
+  "technology",
+  "office",
   "apparel",
+  "shoes",
+  "sunglasses",
+  "watches",
+  "carry",
   "bathroom",
   "bedroom",
-  "books",
-  "carry",
-  "office",
-  "oral",
-  "shoes",
   "skin",
-  "sunglasses",
-  "technology",
-  "watches"
+  "oral"
 ])
 export type Tag = z.infer<typeof Tag>
 
