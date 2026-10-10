@@ -1,5 +1,5 @@
 ---
-name: "Roborock Saros 10R Robot Vacuum & Mop — Black"
+name: "Roborock Saros 10R Robot Vacuum & Mop"
 status: owned
 tags: [technology]
 link: "https://www.amazon.com/dp/B0DHCJ571Z"

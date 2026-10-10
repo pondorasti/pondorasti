@@ -1,5 +1,5 @@
 ---
-name: "JETech Silicone Case for iPhone 14 Pro — White"
+name: "JETech Silicone Case for iPhone 14 Pro"
 status: owned
 tags: [technology]
 link: "https://www.amazon.com/dp/B0BKGWRTGB"

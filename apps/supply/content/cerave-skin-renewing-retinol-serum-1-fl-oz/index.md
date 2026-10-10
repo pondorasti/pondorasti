@@ -1,5 +1,5 @@
 ---
-name: "CeraVe Skin Renewing Retinol Serum — 1 fl oz"
+name: "CeraVe Skin Renewing Retinol Serum"
 status: retired
 tags: [skin, bathroom]
 link: "https://www.amazon.com/dp/B07XJ7XWLW"

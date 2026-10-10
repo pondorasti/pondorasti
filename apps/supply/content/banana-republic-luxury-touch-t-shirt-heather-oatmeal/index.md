@@ -1,5 +1,5 @@
 ---
-name: "Banana Republic Luxury-Touch T-Shirt — Heather Oatmeal"
+name: "Banana Republic Luxury-Touch T-Shirt"
 status: owned
 tags: [apparel]
 link: "https://bananarepublic.gap.com/browse/product.do?pid=811426041"

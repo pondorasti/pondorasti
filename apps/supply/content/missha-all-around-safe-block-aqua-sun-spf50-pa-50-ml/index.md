@@ -1,5 +1,5 @@
 ---
-name: "MISSHA All-around Safe Block Aqua Sun SPF50+ PA++++ — 50 mL"
+name: "MISSHA All-around Safe Block Aqua Sun SPF50+ PA++++"
 status: retired
 tags: [bathroom, skin]
 link: "https://www.missha.cz/p/missha-all-around-safe-block-aqua-sun"

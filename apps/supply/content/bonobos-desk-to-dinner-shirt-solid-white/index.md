@@ -1,5 +1,5 @@
 ---
-name: "Bonobos Desk To Dinner Shirt — Solid White"
+name: "Bonobos Desk To Dinner Shirt"
 status: retired
 tags: [apparel]
 link: "https://bonobos.com/products/the-desk-to-dinner-shirt"

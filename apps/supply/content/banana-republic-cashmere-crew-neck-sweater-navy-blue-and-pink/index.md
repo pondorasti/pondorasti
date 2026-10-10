@@ -1,5 +1,5 @@
 ---
-name: "Banana Republic Cashmere Crew-Neck Sweater — Navy Blue & Pink"
+name: "Banana Republic Cashmere Crew-Neck Sweater"
 status: owned
 tags: [apparel]
 link: "https://bananarepublic.gap.com/browse/product.do?pid=817422132"

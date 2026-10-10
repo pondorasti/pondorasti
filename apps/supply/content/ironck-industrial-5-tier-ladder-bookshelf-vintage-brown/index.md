@@ -1,5 +1,5 @@
 ---
-name: "IRONCK Industrial 5-Tier Ladder Bookshelf — Vintage Brown"
+name: "IRONCK Industrial 5-Tier Ladder Bookshelf"
 status: owned
 tags: [office]
 link: "https://www.amazon.com/dp/B09BZ26SHR"

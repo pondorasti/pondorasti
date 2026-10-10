@@ -1,5 +1,5 @@
 ---
-name: "Linenspa 10-inch Hybrid Mattress — Full"
+name: "Linenspa 10-inch Hybrid Mattress"
 status: owned
 tags: [bedroom]
 link: "https://www.amazon.com/dp/B07HNNKJ8V"

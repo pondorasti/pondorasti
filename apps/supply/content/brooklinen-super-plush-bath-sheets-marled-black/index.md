@@ -1,5 +1,5 @@
 ---
-name: "Brooklinen Super-Plush Bath Sheets — Marled Black"
+name: "Brooklinen Super-Plush Bath Sheets"
 status: owned
 tags: [bathroom]
 link: "https://www.brooklinen.com/products/super-plush-bath-sheets"

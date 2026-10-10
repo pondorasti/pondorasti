@@ -1,5 +1,5 @@
 ---
-name: "lululemon Surge Warm Full Zip — Heathered True Navy"
+name: "lululemon Surge Warm Full Zip"
 status: owned
 tags: [apparel]
 link: "https://www.lululemon.co.uk/en-gb/p/surge-warm-full-zip/prod8890078.html"

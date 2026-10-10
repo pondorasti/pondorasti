@@ -1,5 +1,5 @@
 ---
-name: "GATSBY Facial Wash Strong Moisture Foam — 130 g"
+name: "GATSBY Facial Wash Strong Moisture Foam"
 status: retired
 tags: [skin, bathroom]
 link: "https://www.gatsbyglobal.com/usa/product/facial_wash/"

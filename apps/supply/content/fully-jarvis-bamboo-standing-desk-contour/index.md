@@ -1,5 +1,5 @@
 ---
-name: "Fully Jarvis Bamboo Standing Desk — Contour"
+name: "Fully Jarvis Bamboo Standing Desk"
 status: owned
 tags: [office]
 link: "https://store.hermanmiller.com/standing-desks/jarvis-bamboo-standing-desk-contour/100445947.html?lang=en_US"

@@ -1,5 +1,5 @@
 ---
-name: "method Men’s Body Wash — Sea + Surf"
+name: "method Men’s Body Wash"
 status: retired
 tags: [bathroom]
 link: "https://www.amazon.com/dp/B0BT1WN3ZD"

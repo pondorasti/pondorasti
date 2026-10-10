@@ -1,5 +1,5 @@
 ---
-name: "Cremo Body Wash — Golden Amber"
+name: "Cremo Body Wash"
 status: owned
 tags: [bathroom]
 link: "https://www.amazon.com/dp/B0DGVP42F8"

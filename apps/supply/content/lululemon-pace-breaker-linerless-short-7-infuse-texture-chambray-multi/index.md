@@ -1,5 +1,5 @@
 ---
-name: "lululemon Pace Breaker Linerless Short 7″ — Infuse Texture Chambray Multi"
+name: "lululemon Pace Breaker Linerless Short 7″"
 status: owned
 tags: [apparel]
 link: "https://shop.lululemon.com/p/men-shorts/Pace-Breaker-Short-Linerless-7-Update/_/prod11400112?color=60537&sz=S"

@@ -1,5 +1,5 @@
 ---
-name: "Dyson Purifier Hot+Cool Gen1 HP10 — White"
+name: "Dyson Purifier Hot+Cool Gen1 HP10"
 status: owned
 tags: [office]
 link: "https://www.amazon.com/dp/B0CDQW6Q7W"

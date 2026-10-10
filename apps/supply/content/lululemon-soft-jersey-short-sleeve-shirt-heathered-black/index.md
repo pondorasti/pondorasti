@@ -1,5 +1,5 @@
 ---
-name: "lululemon Soft Jersey Short-Sleeve Shirt — Heathered Black"
+name: "lululemon Soft Jersey Short-Sleeve Shirt"
 status: owned
 tags: [apparel]
 link: "https://shop.lululemon.com/p/men-ss-tops/Soft-Jersey-Short-Sleeve-Shirt-MD/_/prod11570464?color=64587&sz=XS"

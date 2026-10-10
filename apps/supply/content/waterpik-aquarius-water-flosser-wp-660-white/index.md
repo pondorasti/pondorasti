@@ -1,5 +1,5 @@
 ---
-name: "Waterpik Aquarius Water Flosser — WP-660, White"
+name: "Waterpik Aquarius Water Flosser"
 status: owned
 tags: [oral, bathroom]
 link: "https://www.amazon.com/dp/B00HFQQ0VU"

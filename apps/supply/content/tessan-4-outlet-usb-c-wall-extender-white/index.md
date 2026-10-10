@@ -1,5 +1,5 @@
 ---
-name: "TESSAN 4-Outlet USB-C Wall Extender — White"
+name: "TESSAN 4-Outlet USB-C Wall Extender"
 status: owned
 tags: [bathroom]
 link: "https://www.amazon.com/dp/B09WYHBGLW"

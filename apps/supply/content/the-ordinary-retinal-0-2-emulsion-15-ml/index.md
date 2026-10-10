@@ -1,5 +1,5 @@
 ---
-name: "The Ordinary Retinal 0.2% Emulsion — 15 mL"
+name: "The Ordinary Retinal 0.2% Emulsion"
 status: retired
 tags: [skin, bathroom]
 link: "https://www.amazon.com/dp/B0CZ5VG3L1"

@@ -1,5 +1,5 @@
 ---
-name: "Ressence TYPE 3 MN — Marc Newson"
+name: "Ressence TYPE 3 MN"
 status: wishlist
 tags: [watches]
 link: "https://ressencewatches.com/products/type-3-marc-newson"

@@ -1,5 +1,5 @@
 ---
-name: "Kinesis Advantage360 Professional — Bluetooth"
+name: "Kinesis Advantage360 Professional"
 status: owned
 tags: [office]
 link: "https://www.amazon.com/dp/B0CT444BH6"

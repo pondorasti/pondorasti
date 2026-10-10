@@ -1,5 +1,5 @@
 ---
-name: "Peak Design Packing Cube Medium — Charcoal"
+name: "Peak Design Packing Cube Medium"
 status: owned
 tags: [carry]
 link: "https://www.peakdesign.com/eu/products/packing-cube"

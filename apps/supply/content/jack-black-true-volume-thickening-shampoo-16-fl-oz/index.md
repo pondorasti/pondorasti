@@ -1,5 +1,5 @@
 ---
-name: "Jack Black True Volume Thickening Shampoo — 16 fl oz"
+name: "Jack Black True Volume Thickening Shampoo"
 status: owned
 tags: [bathroom]
 link: "https://www.amazon.com/dp/B00UKL9TR4"

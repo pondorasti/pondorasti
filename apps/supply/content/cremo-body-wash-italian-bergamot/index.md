@@ -1,5 +1,5 @@
 ---
-name: "Cremo Body Wash — Italian Bergamot"
+name: "Cremo Body Wash"
 status: retired
 tags: [bathroom]
 link: "https://www.amazon.com/dp/B0CMW64H59"

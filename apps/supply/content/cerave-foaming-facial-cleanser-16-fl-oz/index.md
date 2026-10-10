@@ -1,5 +1,5 @@
 ---
-name: "CeraVe Foaming Facial Cleanser — 16 fl oz"
+name: "CeraVe Foaming Facial Cleanser"
 status: retired
 tags: [bathroom, skin]
 link: "https://www.cerave.com/skincare/cleansers/foaming-facial-cleanser"

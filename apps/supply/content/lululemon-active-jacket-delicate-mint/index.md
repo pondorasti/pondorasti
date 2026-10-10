@@ -1,5 +1,5 @@
 ---
-name: "lululemon Active Jacket — Delicate Mint"
+name: "lululemon Active Jacket"
 status: owned
 tags: [apparel]
 link: "https://modesens.com/product/lululemon-active-jacket-delicate-mint-37641661/"

@@ -1,5 +1,5 @@
 ---
-name: "ISNTREE Hyaluronic Acid Watery Sun Gel SPF50+ PA++++ — 50 mL"
+name: "ISNTREE Hyaluronic Acid Watery Sun Gel SPF50+ PA++++"
 status: owned
 tags: [bathroom, skin]
 link: "https://isntree-global.com/products/isntree-hyaluronic-acid-watery-sun-gel-50ml"

@@ -1,5 +1,5 @@
 ---
-name: "Colgate Optic White Pro Series Toothpaste — 3 oz, 3-Pack"
+name: "Colgate Optic White Pro Series Toothpaste"
 status: owned
 tags: [oral, bathroom]
 link: "https://www.amazon.com/dp/B0G2T1S85K"

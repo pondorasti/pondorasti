@@ -1,5 +1,5 @@
 ---
-name: "Patagonia Torrentshell 3L Rain Pants — Black, Regular"
+name: "Patagonia Torrentshell 3L Rain Pants"
 status: owned
 tags: [apparel]
 link: "https://www.patagonia.com/product/mens-torrentshell-3-layer-rain-pants-regular/85266.html?dwvar_85266_color=BLK"

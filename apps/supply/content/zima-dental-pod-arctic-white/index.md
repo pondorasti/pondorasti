@@ -1,5 +1,5 @@
 ---
-name: "Zima Dental Pod — Arctic White"
+name: "Zima Dental Pod"
 status: owned
 tags: [oral, bathroom]
 link: "https://www.zimadental.com/products/dentalpodbf?variant=42794548625568"

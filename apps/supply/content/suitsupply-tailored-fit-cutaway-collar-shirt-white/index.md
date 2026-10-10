@@ -1,5 +1,5 @@
 ---
-name: "Suitsupply Tailored Fit Cutaway Collar Shirt — White"
+name: "Suitsupply Tailored Fit Cutaway Collar Shirt"
 status: retired
 tags: [apparel]
 link: "https://suitsupply.com/en-us/men/shirts/white-cutaway-collar-shirt/H7003.html"

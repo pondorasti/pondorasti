@@ -1,5 +1,5 @@
 ---
-name: "Bonobos Leather Dress Belt — Light Brown"
+name: "Bonobos Leather Dress Belt"
 status: owned
 tags: [apparel]
 link: "https://bonobos.com/products/leather-dress-belt-light-brown-with-silver-0"

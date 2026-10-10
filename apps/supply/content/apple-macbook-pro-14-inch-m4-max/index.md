@@ -1,5 +1,5 @@
 ---
-name: "Apple MacBook Pro 14-inch — M4 Max"
+name: "Apple MacBook Pro 14-inch"
 status: owned
 tags: [office, technology]
 link: "https://support.apple.com/en-us/121553"

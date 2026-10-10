@@ -1,5 +1,5 @@
 ---
-name: "lululemon Soft Jersey Short-Sleeve Shirt — Heathered Navy"
+name: "lululemon Soft Jersey Short-Sleeve Shirt"
 status: owned
 tags: [apparel]
 link: "https://www.lululemon.com.hk/en-th/p/soft-jersey-short-sleeve-shirt/148229301.html"

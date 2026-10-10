@@ -1,5 +1,5 @@
 ---
-name: "Patagonia Better Sweater Fleece Jacket — Black"
+name: "Patagonia Better Sweater Fleece Jacket"
 status: owned
 tags: [apparel]
 link: "https://www.patagonia.com/product/mens-better-sweater-fleece-jacket/192964027008.html"

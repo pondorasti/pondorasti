@@ -1,5 +1,5 @@
 ---
-name: "Bonobos Original Stretch Washed Chino — Jet Blues"
+name: "Bonobos Original Stretch Washed Chino"
 status: owned
 tags: [apparel]
 link: "https://bonobos.com/products/stretch-washed-chino-1-jet-blues-solid-0"

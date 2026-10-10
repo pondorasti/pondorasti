@@ -1,5 +1,5 @@
 ---
-name: "Peak Design Roller Pro ID Tag — Hypalon"
+name: "Peak Design Roller Pro ID Tag"
 status: owned
 tags: [carry]
 link: "https://www.peakdesign.com/eu/products/roller-pro-id-tag"

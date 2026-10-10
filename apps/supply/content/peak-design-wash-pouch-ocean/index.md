@@ -1,5 +1,5 @@
 ---
-name: "Peak Design Wash Pouch — Ocean"
+name: "Peak Design Wash Pouch"
 status: owned
 tags: [carry]
 link: "https://www.peakdesign.com/eu/products/wash-pouch"

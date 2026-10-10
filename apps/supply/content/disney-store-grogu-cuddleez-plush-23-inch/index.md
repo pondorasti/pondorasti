@@ -1,5 +1,5 @@
 ---
-name: "Disney Store Grogu Cuddleez Plush — 23-inch"
+name: "Disney Store Grogu Cuddleez Plush"
 status: owned
 tags: [bedroom]
 link: "https://www.amazon.com/dp/B0B84PJVK6"

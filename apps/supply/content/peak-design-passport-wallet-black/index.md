@@ -1,5 +1,5 @@
 ---
-name: "Peak Design Passport Wallet — Black"
+name: "Peak Design Passport Wallet"
 status: owned
 tags: [carry]
 link: "https://www.peakdesign.com/eu/products/passport-wallet"

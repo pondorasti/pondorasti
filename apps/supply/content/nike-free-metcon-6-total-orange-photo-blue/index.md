@@ -1,5 +1,5 @@
 ---
-name: "Nike Free Metcon 6 — Total Orange / Photo Blue"
+name: "Nike Free Metcon 6"
 status: owned
 tags: [shoes]
 link: "https://www.nike.ae/en/free-metcon-6-mens-workout-shoes/NKFJ7127-802.html"

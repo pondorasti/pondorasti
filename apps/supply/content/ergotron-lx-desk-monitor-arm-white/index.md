@@ -1,5 +1,5 @@
 ---
-name: "Ergotron LX Desk Monitor Arm — White"
+name: "Ergotron LX Desk Monitor Arm"
 status: owned
 tags: [office]
 link: "https://www.amazon.com/dp/B01FW15TV6"

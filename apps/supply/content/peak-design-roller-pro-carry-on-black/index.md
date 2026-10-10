@@ -1,5 +1,5 @@
 ---
-name: "Peak Design Roller Pro Carry-On — Black"
+name: "Peak Design Roller Pro Carry-On"
 status: owned
 tags: [carry]
 link: "https://www.peakdesign.com/eu/products/roller-pro"

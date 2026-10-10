@@ -1,5 +1,5 @@
 ---
-name: "Peak Design Everyday Totepack 20L — Bone"
+name: "Peak Design Everyday Totepack 20L"
 status: owned
 tags: [carry]
 link: "https://www.peakdesign.com/eu/products/everyday-totepack"

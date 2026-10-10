@@ -1,5 +1,5 @@
 ---
-name: "lululemon City Sweat Full-Zip Hoodie — Heathered Ultra Light Grey / Sea Salt"
+name: "lululemon City Sweat Full-Zip Hoodie"
 status: owned
 tags: [apparel]
 link: "https://www.lululemon.co.uk/en-gb/p/city-sweat-full-zip-hoodie/LM3CCGS.html"

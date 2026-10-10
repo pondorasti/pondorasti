@@ -1,5 +1,5 @@
 ---
-name: "Philips Norelco Bodygroom Series 7000 — BG7040/42"
+name: "Philips Norelco Bodygroom Series 7000"
 status: owned
 tags: [technology, bathroom]
 link: "https://www.amazon.com/dp/B07H3CKT12"

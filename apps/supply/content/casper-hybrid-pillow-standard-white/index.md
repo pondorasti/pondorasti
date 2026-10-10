@@ -1,5 +1,5 @@
 ---
-name: "Casper Hybrid Pillow — Standard, White"
+name: "Casper Hybrid Pillow"
 status: owned
 tags: [bedroom]
 link: "https://www.amazon.com/dp/B09KZ4B54F"

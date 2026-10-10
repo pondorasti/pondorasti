@@ -1,5 +1,5 @@
 ---
-name: "Brooklinen Super-Plush Hand Towels — Marled Black"
+name: "Brooklinen Super-Plush Hand Towels"
 status: owned
 tags: [bathroom]
 link: "https://www.brooklinen.com/products/super-plush-hand-towels"

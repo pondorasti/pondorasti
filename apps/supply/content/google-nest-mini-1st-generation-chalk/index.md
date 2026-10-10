@@ -1,5 +1,5 @@
 ---
-name: "Google Nest Mini (1st Generation) — Chalk"
+name: "Google Nest Mini (1st Generation)"
 status: owned
 tags: [office]
 link: "https://www.amazon.com/dp/B0CWMLB3ST"

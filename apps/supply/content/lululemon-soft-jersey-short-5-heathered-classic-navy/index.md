@@ -1,5 +1,5 @@
 ---
-name: "lululemon Soft Jersey Short 5″ — Heathered Classic Navy"
+name: "lululemon Soft Jersey Short 5″"
 status: owned
 tags: [apparel]
 link: "https://shop.lululemon.com/p/men-shorts/Soft-Jersey-Short-5-MD/_/prod11570470?color=64714&sz=S"

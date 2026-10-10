@@ -1,5 +1,5 @@
 ---
-name: "Peak Design Everyday Backpack 20L — Charcoal"
+name: "Peak Design Everyday Backpack 20L"
 status: owned
 tags: [carry]
 link: "https://www.peakdesign.com/eu/products/everyday-backpack"

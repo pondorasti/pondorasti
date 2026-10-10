@@ -1,5 +1,5 @@
 ---
-name: "lululemon Surge Warm Hoodie — Tri Colour Rulu Green Jasper Oceanic"
+name: "lululemon Surge Warm Hoodie"
 status: owned
 tags: [apparel]
 link: "https://www.lululemon.co.uk/en-gb/p/surge-warm-hoodie/LM3DXSS.html"

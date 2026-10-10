@@ -1,5 +1,5 @@
 ---
-name: "How Will You Measure Your Life? — Harvard Business Review Classics"
+name: "How Will You Measure Your Life?"
 status: owned
 tags: [books]
 link: "https://store.hbr.org/product/how-will-you-measure-your-life-harvard-business-review-classics/10096"

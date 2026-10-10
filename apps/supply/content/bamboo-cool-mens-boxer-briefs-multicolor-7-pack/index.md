@@ -1,5 +1,5 @@
 ---
-name: "BAMBOO COOL Men’s Boxer Briefs — Multicolor, 7-Pack"
+name: "BAMBOO COOL Men’s Boxer Briefs"
 status: owned
 tags: [apparel]
 link: "https://www.amazon.com/dp/B0BZVPWGNG"

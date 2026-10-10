@@ -1,5 +1,5 @@
 ---
-name: "Perwoll Renew Black Liquid Detergent — 27 Wash Loads"
+name: "Perwoll Renew Black Liquid Detergent"
 status: owned
 tags: [bathroom]
 link: "https://www.amazon.com/dp/B0CTN37M8T"

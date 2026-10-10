@@ -1,5 +1,5 @@
 ---
-name: "XTRATUF Men’s Ankle Deck Boot — Black"
+name: "XTRATUF Men’s Ankle Deck Boot"
 status: retired
 tags: [shoes]
 link: "https://xtratuf.com/products/22736?variant=47867815723163"

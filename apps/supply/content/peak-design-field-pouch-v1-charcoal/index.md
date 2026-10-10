@@ -1,5 +1,5 @@
 ---
-name: "Peak Design Field Pouch v1 — Charcoal"
+name: "Peak Design Field Pouch v1"
 status: owned
 tags: [carry]
 link: "https://www.peakdesign.com/eu/products/field-pouch"

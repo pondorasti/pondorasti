@@ -1,5 +1,5 @@
 ---
-name: "Patagonia Micro Puff Hoody — Black"
+name: "Patagonia Micro Puff Hoody"
 status: owned
 tags: [apparel]
 link: "https://www.patagonia.com/product/mens-micro-puff-insulated-hoody/195699280908.html"

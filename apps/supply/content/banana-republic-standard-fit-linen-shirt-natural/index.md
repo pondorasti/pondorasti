@@ -1,5 +1,5 @@
 ---
-name: "Banana Republic Standard-Fit Linen Shirt — Natural"
+name: "Banana Republic Standard-Fit Linen Shirt"
 status: owned
 tags: [apparel]
 link: "https://bananarepublic.gap.co.jp/br/standard-fit-linen-shirt/893185006.html"

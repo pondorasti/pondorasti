@@ -1,5 +1,5 @@
 ---
-name: "Hanz de Fuko Quicksand — 2 oz"
+name: "Hanz de Fuko Quicksand"
 status: owned
 tags: [bathroom]
 link: "https://www.amazon.com/dp/B01I7WCPG4"

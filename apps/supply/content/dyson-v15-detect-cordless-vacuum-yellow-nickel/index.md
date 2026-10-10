@@ -1,5 +1,5 @@
 ---
-name: "Dyson V15 Detect Cordless Vacuum — Yellow/Nickel"
+name: "Dyson V15 Detect Cordless Vacuum"
 status: wishlist
 tags: [technology]
 link: "https://www.amazon.com/dp/B0979R48CX"

@@ -1,5 +1,5 @@
 ---
-name: "Grangers Performance Wash — 300 mL"
+name: "Grangers Performance Wash"
 status: owned
 tags: [bathroom]
 link: "https://www.amazon.com/dp/B08MPSF15X"

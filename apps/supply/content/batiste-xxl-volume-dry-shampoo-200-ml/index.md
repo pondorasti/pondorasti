@@ -1,5 +1,5 @@
 ---
-name: "Batiste XXL Volume Dry Shampoo — 200 mL"
+name: "Batiste XXL Volume Dry Shampoo"
 status: owned
 tags: [bathroom]
 link: "https://www.amazon.com/dp/B00DAGG9XI"

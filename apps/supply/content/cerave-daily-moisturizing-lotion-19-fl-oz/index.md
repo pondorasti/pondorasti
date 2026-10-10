@@ -1,5 +1,5 @@
 ---
-name: "CeraVe Daily Moisturizing Lotion — 19 fl oz"
+name: "CeraVe Daily Moisturizing Lotion"
 status: owned
 tags: [bathroom]
 link: "https://www.amazon.com/dp/B07RK4HST7"

@@ -1,5 +1,5 @@
 ---
-name: "lululemon ABC Warpstreme Jogger — Black"
+name: "lululemon ABC Warpstreme Jogger"
 status: owned
 tags: [apparel]
 link: "https://shop.lululemon.com/p/abc-jogger/yse0idzlrl?color=0001"
