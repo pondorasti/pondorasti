@@ -1,7 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router"
 import { useSuspenseQuery } from "@tanstack/react-query"
-import { Dialog } from "@base-ui/react/dialog"
-import { Archive, ArrowLeft, ArrowUpRight, Check, Heart, X, ZoomIn } from "lucide-react"
+import { Archive, ArrowLeft, ArrowUpRight, Check, Heart } from "lucide-react"
 import { productQuery } from "../read/queries"
 import { CatalogFilters } from "../lib/filters"
 import { label, Slug, statusView } from "../lib/product"
@@ -88,35 +87,8 @@ function Product() {
           </a>
         )}
       </div>
-      <div className="mt-6">
-        <Dialog.Root>
-          <Dialog.Trigger
-            className="product-stage group relative aspect-square max-h-[720px] w-full rounded-3xl sm:aspect-[8/7]"
-            aria-label={`Enlarge ${product.name} image`}
-          >
-            <ProductImage src={product.image} name={product.name} priority />
-            <span
-              className="absolute top-4 right-4 flex size-9 items-center justify-center rounded-full bg-page text-muted transition-colors group-hover:text-ink"
-              aria-hidden="true"
-            >
-              <ZoomIn size={16} />
-            </span>
-          </Dialog.Trigger>
-          <Dialog.Portal>
-            <Dialog.Backdrop className="fixed inset-0 z-40 bg-black/60" />
-            <Dialog.Popup className="fixed inset-3 z-50 flex flex-col rounded-3xl bg-page p-4 sm:inset-8">
-              <div className="flex items-center justify-between gap-4 pl-2">
-                <Dialog.Title className="min-w-0 truncate text-sm">{product.name}</Dialog.Title>
-                <Dialog.Close className="icon-control" aria-label="Close image">
-                  <X size={18} />
-                </Dialog.Close>
-              </div>
-              <div className="product-stage mt-4 min-h-0 flex-1 rounded-2xl">
-                <ProductImage src={product.image} name={product.name} priority />
-              </div>
-            </Dialog.Popup>
-          </Dialog.Portal>
-        </Dialog.Root>
+      <div className="product-stage mt-6 aspect-square max-h-[720px] w-full rounded-3xl sm:aspect-[8/7]">
+        <ProductImage src={product.image} name={product.name} priority />
       </div>
       {product.notes && (
         <section aria-labelledby="notes" className="mt-14">
