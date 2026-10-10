@@ -2,7 +2,7 @@
 name: "CeraVe Hydrating Facial Cleanser"
 variant: "16 fl oz"
 status: retired
-tags: [skin, bathroom]
+tags: [skin]
 link: "https://www.amazon.com/dp/B01MSSDEPK"
 ---
 

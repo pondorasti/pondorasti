@@ -1,7 +1,7 @@
 ---
 name: "Oral-B iO Series 8 Electric Toothbrush"
 status: owned
-tags: [oral, bathroom]
+tags: [oral]
 link: "https://www.amazon.com/dp/B088CL4RL2"
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: "Listerine Total Care Mouthwash"
 status: owned
-tags: [oral, bathroom]
+tags: [oral]
 link: "https://www.listerine.com/products/mouthwash/total-care-anticavity"
 ---
 
