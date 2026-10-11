@@ -102,12 +102,17 @@ Renaming a folder changes the URL.
 ### Adding an item
 
 1. Create `content/<slug>/index.md` with the front matter above.
-2. Drop the image into the folder as `image.jpg`, `.png`, `.heic` or any common format.
-3. Run `bun run images` from this directory. It converts every image in `content/` to
-   WebP, at most 2000px on the long side, and deletes the original. It uses Bun's
-   built-in `Bun.Image`: JPEG, PNG and WebP work anywhere, while HEIC, AVIF, TIFF and
-   GIF rely on the OS codecs of macOS or Windows.
-4. Run `bun run test` (or start the dev server) to validate, then commit and push.
+2. Drop the image into the folder as `image.jpg`, `.png`, `.heic` or any common format: a
+   product shot of the item on its own, or for a book, the flat front cover.
+3. Run `bun run images` from this directory. On macOS it lifts the item off its background
+   with Vision (`scripts/cutout.swift`, the model behind "Copy Subject" in Photos) and crops
+   it to the item plus a thin transparent border, so every image sits on the card the same
+   way. Book covers are kept whole. It then converts the image to WebP, at most 2000px on the
+   long side, and deletes the original. Images that are already clean are left alone, so
+   it's safe to rerun. Conversion uses Bun's built-in `Bun.Image`: JPEG, PNG and WebP work
+   anywhere, while HEIC, AVIF, TIFF and GIF rely on the OS codecs of macOS or Windows.
+4. Check the cutout, then run `bun run test` (or start the dev server) to validate, and
+   commit and push.
 
 The content is validated by `src/content/` whenever the site builds, the dev server
 loads it, or the tests run. An unknown tag or status, a misspelled key, an invalid link,
@@ -122,7 +127,8 @@ so a broken item never deploys.
 - `src/lib/`: code shared by server and browser (product types, statuses, tags, filters).
 - `src/read/`: the server functions, query options and robots/sitemap responses.
 - `src/routes/`: pages, plus the `robots.txt` and `sitemap.xml` server routes.
-- `scripts/images.ts`: the image converter behind `bun run images`.
+- `scripts/images.ts` and `scripts/cutout.swift`: the background removal and converter
+  behind `bun run images`.
 
 ## Local Development
 
