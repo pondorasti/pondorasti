@@ -74,10 +74,38 @@ func lift(_ image: CGImage) throws -> CGImage? {
   let request = VNGenerateForegroundInstanceMaskRequest()
   try handler.perform([request])
   guard let observation = request.results?.first else { return nil }
-  let buffer = try observation.generateMaskedImage(
-    ofInstances: observation.allInstances, from: handler, croppedToInstancesExtent: false)
-  return CIContext().createCGImage(
-    CIImage(cvPixelBuffer: buffer), from: CGRect(x: 0, y: 0, width: framedWidth, height: framedHeight))
+  let mask = try observation.generateScaledMaskForImage(forInstances: observation.allInstances, from: handler)
+  return matte(framed, mask: mask, background: median.map { Float($0) })
+}
+
+/// Vision's mask fades over several pixels, and those pixels still carry the background, which
+/// shows as a pale halo on a dark card. The edge is tightened to a couple of pixels and the
+/// background color is taken back out of what remains.
+func matte(_ image: CGImage, mask: CVPixelBuffer, background: [Float]) -> CGImage {
+  var (data, width, height) = pixels(image)
+  CVPixelBufferLockBaseAddress(mask, .readOnly)
+  defer { CVPixelBufferUnlockBaseAddress(mask, .readOnly) }
+  let base = CVPixelBufferGetBaseAddress(mask)!
+  let rowBytes = CVPixelBufferGetBytesPerRow(mask)
+  for y in 0..<height {
+    let row = (base + y * rowBytes).assumingMemoryBound(to: Float.self)
+    for x in 0..<width {
+      let i = (y * width + x) * 4
+      let coverage = min(max(row[x], 0), 1)
+      let alpha = min(max((coverage - 0.5) / 0.3, 0), 1)
+      for c in 0..<3 {
+        let observed = Float(data[i + c]) / 255
+        let color = coverage > 0 ? (observed - (1 - coverage) * background[c]) / coverage : 0
+        data[i + c] = UInt8((min(max(color, 0), 1) * alpha * 255).rounded())
+      }
+      data[i + 3] = UInt8((alpha * 255).rounded())
+    }
+  }
+  let context = CGContext(
+    data: &data, width: width, height: height, bitsPerComponent: 8, bytesPerRow: width * 4,
+    space: CGColorSpace(name: CGColorSpace.sRGB)!,
+    bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+  return context.makeImage()!
 }
 
 /// Fallback for subjects Vision can't find (e.g. cropped by the frame): clears the near-white
