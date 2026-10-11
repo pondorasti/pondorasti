@@ -6,6 +6,7 @@ import {
   BedDouble,
   BookOpen,
   Droplet,
+  Dumbbell,
   Footprints,
   Glasses,
   type LucideIcon,
@@ -29,6 +30,7 @@ const TAG_ICONS: Record<Tag, LucideIcon> = {
   shoes: Footprints,
   skin: Droplet,
   sunglasses: Glasses,
+  supplements: Dumbbell,
   technology: Smartphone,
   watches: Watch
 }
