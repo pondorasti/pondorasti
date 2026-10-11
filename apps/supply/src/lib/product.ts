@@ -17,7 +17,8 @@ export const Tag = z.enum([
   "bedroom",
   "bathroom",
   "skin",
-  "oral"
+  "oral",
+  "supplements"
 ])
 export type Tag = z.infer<typeof Tag>
 
