@@ -1,0 +1,179 @@
+date,time,meal,item,kcal,protein_g,carbs_g,fat_g,fiber_g
+2026-09-20,08:12,breakfast,Oatmeal with whey & blueberries,520,38,70,9,9
+2026-09-20,08:12,breakfast,Black coffee,5,0.3,0,0,0
+2026-09-20,12:25,lunch,Chicken burrito bowl,780,48,85,24,14
+2026-09-20,12:25,lunch,Sparkling water,0,0,0,0,0
+2026-09-20,18:12,post-workout,Chocolate milk,320,16,50,8,
+2026-09-20,19:30,dinner,Salmon fillet,410,40,0,26,0
+2026-09-20,19:30,dinner,Jasmine rice,310,6,68,0.6,1
+2026-09-20,19:30,dinner,Roasted broccoli,110,5,14,5,5.1
+2026-09-21,08:22,breakfast,Oatmeal with whey & blueberries,520,38,70,9,9
+2026-09-21,08:22,breakfast,Black coffee,5,0.3,0,0,0
+2026-09-21,12:49,lunch,Sweetgreen Harvest Bowl,705,35,60,38,9
+2026-09-21,19:53,dinner,Salmon fillet,410,40,0,26,0
+2026-09-21,19:53,dinner,Jasmine rice,310,6,68,0.6,1
+2026-09-21,19:53,dinner,Roasted broccoli,110,5,14,5,5.1
+2026-09-22,08:28,breakfast,Scrambled eggs (3) on sourdough,480,26,34,26,2
+2026-09-22,08:28,breakfast,Orange juice,110,1.7,26,0.5,
+2026-09-22,08:28,breakfast,Black coffee,5,0.3,0,0,0
+2026-09-22,12:38,lunch,Sweetgreen Harvest Bowl,705,35,60,38,9
+2026-09-22,15:16,snack,"RXBAR ""Chocolate Sea Salt""",210,12,24,9,5
+2026-09-22,19:50,dinner,Steak & potatoes,880,58,52,46,6
+2026-09-22,21:35,snack,Apple,95,0.5,25,0.3,4.4
+2026-09-23,08:35,breakfast,Greek yogurt & granola,420,28,52,11,4
+2026-09-23,08:35,breakfast,Banana,105,1.3,27,0.4,3.1
+2026-09-23,08:35,breakfast,Black coffee,5,0.3,0,0,0
+2026-09-23,12:27,lunch,Sweetgreen Harvest Bowl,705,35,60,38,9
+2026-09-23,15:47,snack,"Dark chocolate, 2 squares",120,1.5,9,9,
+2026-09-23,18:20,post-workout,Whey shake with milk,280,34,18,7,0
+2026-09-23,19:56,dinner,"Margherita pizza, half",900,36,104,36,
+2026-09-23,21:51,snack,"RXBAR ""Chocolate Sea Salt""",210,12,24,9,5
+2026-09-24,08:08,breakfast,Scrambled eggs (3) on sourdough,480,26,34,26,2
+2026-09-24,08:08,breakfast,Orange juice,110,1.7,26,0.5,
+2026-09-24,08:08,breakfast,Black coffee,5,0.3,0,0,0
+2026-09-24,12:44,lunch,Chicken burrito bowl,780,48,85,24,14
+2026-09-24,12:44,lunch,Sparkling water,0,0,0,0,0
+2026-09-24,15:32,snack,"Dark chocolate, 2 squares",120,1.5,9,9,
+2026-09-24,18:07,post-workout,Whey shake & banana,225,26,29,2,3
+2026-09-24,19:48,dinner,Salmon fillet,410,40,0,26,0
+2026-09-24,19:48,dinner,Jasmine rice,310,6,68,0.6,1
+2026-09-24,19:48,dinner,Roasted broccoli,110,5,14,5,5.1
+2026-09-25,08:29,breakfast,Scrambled eggs (3) on sourdough,480,26,34,26,2
+2026-09-25,08:29,breakfast,Orange juice,110,1.7,26,0.5,
+2026-09-25,08:29,breakfast,Black coffee,5,0.3,0,0,0
+2026-09-25,12:24,lunch,Turkey & avocado sandwich,640,38,52,30,8
+2026-09-25,12:24,lunch,Kettle chips,150,2,16,9,1
+2026-09-25,15:33,snack,"Dark chocolate, 2 squares",120,1.5,9,9,
+2026-09-25,19:53,dinner,Salmon fillet,410,40,0,26,0
+2026-09-25,19:53,dinner,Jasmine rice,310,6,68,0.6,1
+2026-09-25,19:53,dinner,Roasted broccoli,110,5,14,5,5.1
+2026-09-25,21:47,snack,Apple,95,0.5,25,0.3,4.4
+2026-09-26,08:16,breakfast,Trader Joe's protein pancakes,450,30,58,10,5
+2026-09-26,08:16,breakfast,Maple syrup,105,0,27,0,0
+2026-09-26,08:16,breakfast,Latte (oat milk),160,3,22,6,1
+2026-09-26,12:46,lunch,Turkey & avocado sandwich,640,38,52,30,8
+2026-09-26,12:46,lunch,Kettle chips,150,2,16,9,1
+2026-09-26,18:24,post-workout,Whey shake with milk,280,34,18,7,0
+2026-09-26,19:30,dinner,"Margherita pizza, half",900,36,104,36,
+2026-09-26,21:30,snack,"Dark chocolate, 2 squares",120,1.5,9,9,
+2026-09-27,08:08,breakfast,Trader Joe's protein pancakes,450,30,58,10,5
+2026-09-27,08:08,breakfast,Maple syrup,105,0,27,0,0
+2026-09-27,08:08,breakfast,Latte (oat milk),160,3,22,6,1
+2026-09-27,12:29,lunch,"Poke bowl, salmon & tuna",720,44,88,18,6
+2026-09-27,15:43,snack,Apple,95,0.5,25,0.3,4.4
+2026-09-27,18:04,post-workout,Whey shake with milk,280,34,18,7,0
+2026-09-27,19:57,dinner,Spaghetti bolognese,820,42,96,26,8
+2026-09-27,19:57,dinner,Side salad,90,2,8,6,3
+2026-09-27,21:52,snack,Hummus & carrots,180,5,18,10,6
+2026-09-28,08:27,breakfast,Scrambled eggs (3) on sourdough,480,26,34,26,2
+2026-09-28,08:27,breakfast,Orange juice,110,1.7,26,0.5,
+2026-09-28,08:27,breakfast,Black coffee,5,0.3,0,0,0
+2026-09-28,12:18,lunch,Chicken burrito bowl,780,48,85,24,14
+2026-09-28,12:18,lunch,Sparkling water,0,0,0,0,0
+2026-09-28,19:52,dinner,Tofu & veggie stir-fry,560,30,58,22,10
+2026-09-28,19:52,dinner,Brown rice,330,7,69,2.6,5
+2026-09-28,21:48,snack,Cottage cheese & honey,230,22,22,5,0
+2026-09-29,08:27,breakfast,Scrambled eggs (3) on sourdough,480,26,34,26,2
+2026-09-29,08:27,breakfast,Orange juice,110,1.7,26,0.5,
+2026-09-29,08:27,breakfast,Black coffee,5,0.3,0,0,0
+2026-09-29,12:47,lunch,Sweetgreen Harvest Bowl,705,35,60,38,9
+2026-09-29,15:45,snack,"RXBAR ""Chocolate Sea Salt""",210,12,24,9,5
+2026-09-29,19:38,dinner,Tofu & veggie stir-fry,560,30,58,22,10
+2026-09-29,19:38,dinner,Brown rice,330,7,69,2.6,5
+2026-09-30,08:25,breakfast,Scrambled eggs (3) on sourdough,480,26,34,26,2
+2026-09-30,08:25,breakfast,Orange juice,110,1.7,26,0.5,
+2026-09-30,08:25,breakfast,Black coffee,5,0.3,0,0,0
+2026-09-30,12:29,lunch,Chicken burrito bowl,780,48,85,24,14
+2026-09-30,12:29,lunch,Sparkling water,0,0,0,0,0
+2026-09-30,15:17,snack,Hummus & carrots,180,5,18,10,6
+2026-09-30,18:13,post-workout,Chocolate milk,320,16,50,8,
+2026-09-30,19:42,dinner,Tofu & veggie stir-fry,560,30,58,22,10
+2026-09-30,19:42,dinner,Brown rice,330,7,69,2.6,5
+2026-10-02,08:22,breakfast,Trader Joe's protein pancakes,450,30,58,10,5
+2026-10-02,08:22,breakfast,Maple syrup,105,0,27,0,0
+2026-10-02,08:22,breakfast,Latte (oat milk),160,3,22,6,1
+2026-10-02,12:43,lunch,Sweetgreen Harvest Bowl,705,35,60,38,9
+2026-10-02,15:23,snack,Hummus & carrots,180,5,18,10,6
+2026-10-02,19:53,dinner,Spaghetti bolognese,820,42,96,26,8
+2026-10-02,19:53,dinner,Side salad,90,2,8,6,3
+2026-10-02,21:31,snack,"Almonds, 30 g",175,6,6,15,3.5
+2026-10-03,08:13,breakfast,Trader Joe's protein pancakes,450,30,58,10,5
+2026-10-03,08:13,breakfast,Maple syrup,105,0,27,0,0
+2026-10-03,08:13,breakfast,Latte (oat milk),160,3,22,6,1
+2026-10-03,12:53,lunch,Turkey & avocado sandwich,640,38,52,30,8
+2026-10-03,12:53,lunch,Kettle chips,150,2,16,9,1
+2026-10-03,15:00,snack,"RXBAR ""Chocolate Sea Salt""",210,12,24,9,5
+2026-10-03,19:37,dinner,Spaghetti bolognese,820,42,96,26,8
+2026-10-03,19:37,dinner,Side salad,90,2,8,6,3
+2026-10-04,08:03,breakfast,Greek yogurt & granola,420,28,52,11,4
+2026-10-04,08:03,breakfast,Banana,105,1.3,27,0.4,3.1
+2026-10-04,08:03,breakfast,Black coffee,5,0.3,0,0,0
+2026-10-04,12:29,lunch,Chicken teriyaki with rice,760,45,98,16,3
+2026-10-04,15:20,snack,Hummus & carrots,180,5,18,10,6
+2026-10-04,19:43,dinner,Spaghetti bolognese,820,42,96,26,8
+2026-10-04,19:43,dinner,Side salad,90,2,8,6,3
+2026-10-04,21:40,snack,Cottage cheese & honey,230,22,22,5,0
+2026-10-05,08:34,breakfast,Oatmeal with whey & blueberries,520,38,70,9,9
+2026-10-05,08:34,breakfast,Black coffee,5,0.3,0,0,0
+2026-10-05,12:43,lunch,Chicken burrito bowl,780,48,85,24,14
+2026-10-05,12:43,lunch,Sparkling water,0,0,0,0,0
+2026-10-05,15:27,snack,Cottage cheese & honey,230,22,22,5,0
+2026-10-05,19:44,dinner,"Margherita pizza, half",900,36,104,36,
+2026-10-06,08:27,breakfast,Trader Joe's protein pancakes,450,30,58,10,5
+2026-10-06,08:27,breakfast,Maple syrup,105,0,27,0,0
+2026-10-06,08:27,breakfast,Latte (oat milk),160,3,22,6,1
+2026-10-06,12:23,lunch,Sweetgreen Harvest Bowl,705,35,60,38,9
+2026-10-06,15:08,snack,"Dark chocolate, 2 squares",120,1.5,9,9,
+2026-10-06,18:29,post-workout,Whey shake & banana,225,26,29,2,3
+2026-10-06,19:58,dinner,Tofu & veggie stir-fry,560,30,58,22,10
+2026-10-06,19:58,dinner,Brown rice,330,7,69,2.6,5
+2026-10-07,08:01,breakfast,Scrambled eggs (3) on sourdough,480,26,34,26,2
+2026-10-07,08:01,breakfast,Orange juice,110,1.7,26,0.5,
+2026-10-07,08:01,breakfast,Black coffee,5,0.3,0,0,0
+2026-10-07,12:15,lunch,Chicken burrito bowl,780,48,85,24,14
+2026-10-07,12:15,lunch,Sparkling water,0,0,0,0,0
+2026-10-07,18:01,post-workout,Chocolate milk,320,16,50,8,
+2026-10-07,19:37,dinner,"Margherita pizza, half",900,36,104,36,
+2026-10-07,21:44,snack,Apple,95,0.5,25,0.3,4.4
+2026-10-08,08:29,breakfast,Trader Joe's protein pancakes,450,30,58,10,5
+2026-10-08,08:29,breakfast,Maple syrup,105,0,27,0,0
+2026-10-08,08:29,breakfast,Latte (oat milk),160,3,22,6,1
+2026-10-08,12:45,lunch,Turkey & avocado sandwich,640,38,52,30,8
+2026-10-08,12:45,lunch,Kettle chips,150,2,16,9,1
+2026-10-08,18:09,post-workout,Chocolate milk,320,16,50,8,
+2026-10-08,19:44,dinner,"Margherita pizza, half",900,36,104,36,
+2026-10-08,21:31,snack,Apple,95,0.5,25,0.3,4.4
+2026-10-09,08:37,breakfast,Scrambled eggs (3) on sourdough,480,26,34,26,2
+2026-10-09,08:37,breakfast,Orange juice,110,1.7,26,0.5,
+2026-10-09,08:37,breakfast,Black coffee,5,0.3,0,0,0
+2026-10-09,12:27,lunch,Sweetgreen Harvest Bowl,705,35,60,38,9
+2026-10-09,18:21,post-workout,Chocolate milk,320,16,50,8,
+2026-10-09,19:30,dinner,Salmon fillet,410,40,0,26,0
+2026-10-09,19:30,dinner,Jasmine rice,310,6,68,0.6,1
+2026-10-09,19:30,dinner,Roasted broccoli,110,5,14,5,5.1
+2026-10-10,08:17,breakfast,Oatmeal with whey & blueberries,520,38,70,9,9
+2026-10-10,08:17,breakfast,Black coffee,5,0.3,0,0,0
+2026-10-10,12:50,lunch,"Poke bowl, salmon & tuna",720,44,88,18,6
+2026-10-10,19:43,dinner,Spaghetti bolognese,820,42,96,26,8
+2026-10-10,19:43,dinner,Side salad,90,2,8,6,3
+2026-10-10,21:31,snack,"Dark chocolate, 2 squares",120,1.5,9,9,
+2026-10-11,08:27,breakfast,Oatmeal with whey & blueberries,520,38,70,9,9
+2026-10-11,08:27,breakfast,Black coffee,5,0.3,0,0,0
+2026-10-11,12:26,lunch,Chicken burrito bowl,780,48,85,24,14
+2026-10-11,12:26,lunch,Sparkling water,0,0,0,0,0
+2026-10-11,15:02,snack,Apple,95,0.5,25,0.3,4.4
+2026-10-11,19:48,dinner,"Margherita pizza, half",900,36,104,36,
+2026-10-12,08:10,breakfast,Scrambled eggs (3) on sourdough,480,26,34,26,2
+2026-10-12,08:10,breakfast,Orange juice,110,1.7,26,0.5,
+2026-10-12,08:10,breakfast,Black coffee,5,0.3,0,0,0
+2026-10-12,12:54,lunch,Chicken teriyaki with rice,760,45,98,16,3
+2026-10-12,15:17,snack,"Almonds, 30 g",175,6,6,15,3.5
+2026-10-12,18:22,post-workout,Whey shake with milk,280,34,18,7,0
+2026-10-12,19:55,dinner,Chicken thigh curry,690,44,30,40,5
+2026-10-12,19:55,dinner,Basmati rice,300,6,65,1,1
+2026-10-12,21:35,snack,Cottage cheese & honey,230,22,22,5,0
+2026-10-13,08:31,breakfast,Trader Joe's protein pancakes,450,30,58,10,5
+2026-10-13,08:31,breakfast,Maple syrup,105,0,27,0,0
+2026-10-13,08:31,breakfast,Latte (oat milk),160,3,22,6,1
+2026-10-13,12:37,lunch,Sweetgreen Harvest Bowl,705,35,60,38,9
+2026-10-13,15:35,snack,"Dark chocolate, 2 squares",120,1.5,9,9,
