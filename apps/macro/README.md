@@ -26,13 +26,15 @@ One row per food item.
 
 ```csv
 date,time,meal,item,kcal,protein_g,carbs_g,fat_g,fiber_g
-2026-10-13,08:31,breakfast,Trader Joe's protein pancakes,450,30,58,10,5
-2026-10-13,08:31,breakfast,Latte (oat milk),160,3,22,6,1
-2026-10-13,15:35,snack,"Dark chocolate, 2 squares",120,1.5,9,9,
+2026-10-08,10:04,breakfast,Strawberries 180g,58,1.2,13.8,0.5,3.6
+2026-10-08,13:55,lunch,CookUnity Pink Sauce Rigatoni with Chicken 422g,870,61,60,40,
+2026-10-10,12:30,lunch,Half CookUnity Mom's Sunday Sauce Rigatoni w/ fennel sausage & meatballs (211g),395,22.5,34,17.5,2
+2026-10-13,11:07,snack,"Strawberries, raspberries",30,0.6,7,0.3,2
 ```
 
-- `meal` is one of `breakfast`, `lunch`, `dinner`, `snack`, `post-workout`. Items logged
-  together share a `time`; consecutive rows of the same meal show as one card.
+- `meal` is one of `breakfast`, `lunch`, `dinner`, `snack`, `post-workout`. Consecutive
+  rows of the same meal show as one card. The last example row shows the quoting a comma
+  needs.
 - `fiber_g` may be left blank when unknown. It counts as 0 in the day's total, and the
   page notes how many items had none logged. Every other column is required.
 
@@ -42,13 +44,14 @@ One row per reading, in kilograms.
 
 ```csv
 date,time,kg
-2026-10-13,07:17,72.8
-2026-10-13,21:40,74.0
+2026-10-07,08:54,53.43
+2026-10-07,19:30,54.16
 ```
 
 Two readings a day are normal: in the morning after a shower and before breakfast, and
 in the evening. The first reading before 12:00 is the day's morning weight, the one
-charted and averaged; later readings are kept but not trended.
+charted and averaged; later readings are kept but not trended. To discard a mis-weigh, delete its row rather
+than adding a second morning reading after it.
 
 ### Validation
 

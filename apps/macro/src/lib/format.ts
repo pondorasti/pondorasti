@@ -19,7 +19,7 @@ const integer = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 })
 const decimal = new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 })
 const kgFormat = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 1,
-  maximumFractionDigits: 1
+  maximumFractionDigits: 2
 })
 
 export const kcal = (value: number) => integer.format(value)
