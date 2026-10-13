@@ -1,0 +1,92 @@
+@import "@fontsource-variable/geist";
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist Variable", sans-serif;
+  --color-page: #f2f2f2;
+  --color-surface: #ffffff;
+  --color-ink: #141414;
+  --color-muted: #6e6e6e;
+  --color-line: #e2e2e2;
+  --color-accent: #22c55e;
+  --color-warn: #a16207;
+  --color-track: #ebebeb;
+}
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+    background: var(--color-page);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-page: #0e0e0e;
+      --color-surface: #1a1a1a;
+      --color-ink: #ededed;
+      --color-muted: #949494;
+      --color-line: #2c2c2c;
+      --color-warn: #e1b97b;
+      --color-track: #262626;
+    }
+  }
+
+  body {
+    margin: 0;
+  }
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-page);
+  }
+}
+
+@layer components {
+  .page-width {
+    @apply mx-auto w-full max-w-[1200px] px-4 lg:px-6;
+  }
+  .display {
+    @apply text-[32px] leading-[1.1] font-medium tracking-[-0.02em] sm:text-4xl;
+  }
+  .control {
+    @apply inline-flex h-9 min-w-0 items-center justify-center gap-1.5 rounded-full bg-surface px-3.5 text-sm text-ink transition-opacity hover:opacity-80;
+  }
+  .icon-control {
+    @apply inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-surface text-ink transition-opacity hover:opacity-80 aria-disabled:pointer-events-none aria-disabled:opacity-35;
+  }
+  .card {
+    @apply rounded-2xl bg-surface p-5 sm:p-6;
+  }
+  .section-title {
+    @apply text-lg font-medium tracking-[-0.01em];
+  }
+  .eyebrow {
+    @apply text-sm text-muted;
+  }
+  .figure {
+    @apply text-[28px] leading-none font-medium tracking-[-0.02em] tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
