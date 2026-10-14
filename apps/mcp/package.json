@@ -4,8 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "wrangler dev --local-upstream localhost:8787",
-    "deploy": "wrangler deploy",
+    "deploy": "wrangler deploy && wrangler d1 migrations apply DB --remote",
     "typecheck": "wrangler types --check && vp check --no-fmt --no-lint",
+    "test": "vp test run",
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
@@ -17,6 +18,7 @@
   "devDependencies": {
     "typescript": "catalog:",
     "vite-plus": "catalog:",
+    "vitest": "catalog:",
     "wrangler": "catalog:"
   }
 }
