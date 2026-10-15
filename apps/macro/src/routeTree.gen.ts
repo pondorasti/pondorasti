@@ -12,6 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as DaysDateRouteImport } from './routes/days.$date'
+import { Route as ExploreIndexRouteImport } from './routes/explore.index'
+import { Route as ExploreARouteImport } from './routes/explore.a'
+import { Route as ExploreBRouteImport } from './routes/explore.b'
+import { Route as ExploreCRouteImport } from './routes/explore.c'
+import { Route as ExploreDRouteImport } from './routes/explore.d'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +33,105 @@ const DaysDateRoute = DaysDateRouteImport.update({
   path: '/days/$date',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreIndexRoute = ExploreIndexRouteImport.update({
+  id: '/explore/',
+  path: '/explore/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreARoute = ExploreARouteImport.update({
+  id: '/explore/a',
+  path: '/explore/a',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreBRoute = ExploreBRouteImport.update({
+  id: '/explore/b',
+  path: '/explore/b',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreCRoute = ExploreCRouteImport.update({
+  id: '/explore/c',
+  path: '/explore/c',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreDRoute = ExploreDRouteImport.update({
+  id: '/explore/d',
+  path: '/explore/d',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/days/$date': typeof DaysDateRoute
+  '/explore/a': typeof ExploreARoute
+  '/explore/b': typeof ExploreBRoute
+  '/explore/c': typeof ExploreCRoute
+  '/explore/d': typeof ExploreDRoute
+  '/explore/': typeof ExploreIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/days/$date': typeof DaysDateRoute
+  '/explore/a': typeof ExploreARoute
+  '/explore/b': typeof ExploreBRoute
+  '/explore/c': typeof ExploreCRoute
+  '/explore/d': typeof ExploreDRoute
+  '/explore': typeof ExploreIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/days/$date': typeof DaysDateRoute
+  '/explore/a': typeof ExploreARoute
+  '/explore/b': typeof ExploreBRoute
+  '/explore/c': typeof ExploreCRoute
+  '/explore/d': typeof ExploreDRoute
+  '/explore/': typeof ExploreIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/robots.txt' | '/days/$date'
+  fullPaths:
+    | '/'
+    | '/robots.txt'
+    | '/days/$date'
+    | '/explore/a'
+    | '/explore/b'
+    | '/explore/c'
+    | '/explore/d'
+    | '/explore/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/robots.txt' | '/days/$date'
-  id: '__root__' | '/' | '/robots.txt' | '/days/$date'
+  to:
+    | '/'
+    | '/robots.txt'
+    | '/days/$date'
+    | '/explore/a'
+    | '/explore/b'
+    | '/explore/c'
+    | '/explore/d'
+    | '/explore'
+  id:
+    | '__root__'
+    | '/'
+    | '/robots.txt'
+    | '/days/$date'
+    | '/explore/a'
+    | '/explore/b'
+    | '/explore/c'
+    | '/explore/d'
+    | '/explore/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   DaysDateRoute: typeof DaysDateRoute
+  ExploreARoute: typeof ExploreARoute
+  ExploreBRoute: typeof ExploreBRoute
+  ExploreCRoute: typeof ExploreCRoute
+  ExploreDRoute: typeof ExploreDRoute
+  ExploreIndexRoute: typeof ExploreIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +157,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DaysDateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/': {
+      id: '/explore/'
+      path: '/explore'
+      fullPath: '/explore/'
+      preLoaderRoute: typeof ExploreIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/a': {
+      id: '/explore/a'
+      path: '/explore/a'
+      fullPath: '/explore/a'
+      preLoaderRoute: typeof ExploreARouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/b': {
+      id: '/explore/b'
+      path: '/explore/b'
+      fullPath: '/explore/b'
+      preLoaderRoute: typeof ExploreBRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/c': {
+      id: '/explore/c'
+      path: '/explore/c'
+      fullPath: '/explore/c'
+      preLoaderRoute: typeof ExploreCRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/d': {
+      id: '/explore/d'
+      path: '/explore/d'
+      fullPath: '/explore/d'
+      preLoaderRoute: typeof ExploreDRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +199,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   DaysDateRoute: DaysDateRoute,
+  ExploreARoute: ExploreARoute,
+  ExploreBRoute: ExploreBRoute,
+  ExploreCRoute: ExploreCRoute,
+  ExploreDRoute: ExploreDRoute,
+  ExploreIndexRoute: ExploreIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
