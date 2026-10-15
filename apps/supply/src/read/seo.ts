@@ -1,11 +1,5 @@
 import { getCatalog } from "./catalog"
 
-export function robots(origin: string) {
-  return new Response(`User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`, {
-    headers: { "Content-Type": "text/plain; charset=utf-8" }
-  })
-}
-
 const escape = (value: string) =>
   value
     .replaceAll("&", "&amp;")

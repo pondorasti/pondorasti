@@ -84,8 +84,7 @@ many days and weeks the dashboard shows.
 - `src/lib/`: daily totals, meal grouping, morning weights, rolling and weekly averages,
   and formatting, shared by server and browser.
 - `src/read/`: the server functions and query options.
-- `src/components/` and `src/routes/`: the dashboard (`/`), day pages (`/days/<date>`),
-  and `robots.txt`, which asks search engines not to index the site.
+- `src/components/` and `src/routes/`: the dashboard (`/`) and day pages (`/days/<date>`).
 
 ## Local Development
 

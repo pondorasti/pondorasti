@@ -10,17 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as DaysDateRouteImport } from './routes/days.$date'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
-  id: '/robots.txt',
-  path: '/robots.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DaysDateRoute = DaysDateRouteImport.update({
@@ -31,31 +25,27 @@ const DaysDateRoute = DaysDateRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/robots.txt': typeof RobotsDottxtRoute
   '/days/$date': typeof DaysDateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/robots.txt': typeof RobotsDottxtRoute
   '/days/$date': typeof DaysDateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/robots.txt': typeof RobotsDottxtRoute
   '/days/$date': typeof DaysDateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/robots.txt' | '/days/$date'
+  fullPaths: '/' | '/days/$date'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/robots.txt' | '/days/$date'
-  id: '__root__' | '/' | '/robots.txt' | '/days/$date'
+  to: '/' | '/days/$date'
+  id: '__root__' | '/' | '/days/$date'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  RobotsDottxtRoute: typeof RobotsDottxtRoute
   DaysDateRoute: typeof DaysDateRoute
 }
 
@@ -66,13 +56,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/robots.txt': {
-      id: '/robots.txt'
-      path: '/robots.txt'
-      fullPath: '/robots.txt'
-      preLoaderRoute: typeof RobotsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/days/$date': {
@@ -87,7 +70,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  RobotsDottxtRoute: RobotsDottxtRoute,
   DaysDateRoute: DaysDateRoute,
 }
 export const routeTree = rootRouteImport

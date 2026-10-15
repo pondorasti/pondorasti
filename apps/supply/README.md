@@ -125,8 +125,8 @@ so a broken item never deploys.
 - `src/content/`: the Vite plugin that validates `content/`, renders notes to HTML and
   exposes the items as `virtual:supply-content` (server only) and the images as files.
 - `src/lib/`: code shared by server and browser (product types, statuses, tags, filters).
-- `src/read/`: the server functions, query options and robots/sitemap responses.
-- `src/routes/`: pages, plus the `robots.txt` and `sitemap.xml` server routes.
+- `src/read/`: the server functions, query options and sitemap response.
+- `src/routes/`: pages, plus the `sitemap.xml` server route.
 - `scripts/images.ts` and `scripts/cutout.swift`: the background removal and converter
   behind `bun run images`.
 
