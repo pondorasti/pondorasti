@@ -124,6 +124,7 @@
       "devDependencies": {
         "typescript": "catalog:",
         "vite-plus": "catalog:",
+        "vitest": "catalog:",
         "wrangler": "catalog:",
       },
     },

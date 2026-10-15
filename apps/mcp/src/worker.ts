@@ -1,6 +1,7 @@
 import { OAuthProvider } from "@cloudflare/workers-oauth-provider"
 import { authorize } from "./authorize"
 import { connect } from "./connect"
+import { INGEST_PATH, ingestHealth } from "./health/ingest"
 import { privacy } from "./privacy"
 import { SCOPE, mcpApi } from "./mcp"
 
@@ -15,6 +16,7 @@ function createProvider(origin: string) {
       async fetch(request, env) {
         const { pathname } = new URL(request.url)
         if (pathname === "/authorize") return authorize(request, env)
+        if (pathname === INGEST_PATH) return ingestHealth(request, env)
         const connected = await connect(request, env)
         if (connected) return connected
         if (pathname === "/privacy") return privacy()

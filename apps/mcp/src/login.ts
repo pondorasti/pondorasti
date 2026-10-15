@@ -4,13 +4,14 @@ export async function checkPassword(request: Request, form: FormData, env: Env) 
   if (!(await env.LOGIN_LIMITER.limit({ key: ip })).success) {
     return text("Too many attempts. Wait a minute, then go back and retry.", 429)
   }
-  if (!(await passwordMatches(field(form, "password"), env.LOGIN_PASSWORD))) {
+  if (!(await secretMatches(field(form, "password"), env.LOGIN_PASSWORD))) {
     return text("Wrong password. Go back and retry.", 401)
   }
   return undefined
 }
 
-async function passwordMatches(given: string, expected: string) {
+/** Constant-time comparison; an unset secret never matches. */
+export async function secretMatches(given: string, expected: string) {
   if (!expected) return false
   const encoder = new TextEncoder()
   const [a, b] = await Promise.all(
