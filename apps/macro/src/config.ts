@@ -2,6 +2,9 @@
 export const TARGETS = {
   kcal: 2850,
   protein: 110,
+  /** Lean-bulk split of the calories left after protein: ~27% from fat, the rest from carbs. */
+  carbs: 410,
+  fat: 85,
   fiber: { min: 25, max: 30 }
 } as const
 
