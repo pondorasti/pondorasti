@@ -14,6 +14,7 @@ import { Tooltip } from "@base-ui/react/tooltip"
 import { Button } from "@base-ui/react/button"
 import { ArrowLeft, RotateCcw } from "lucide-react"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { GitHubMark, IconLink } from "../components/controls"
 import { siteQuery } from "../read/queries"
 import { statusView, type View, VIEWS } from "../lib/product"
 import styles from "../styles.css?url"
@@ -182,6 +183,16 @@ function Root() {
               {"\u2009]"}
             </p>
             <ViewNav />
+            {/* Pulled out by the button's padding so the mark lines up with the grid's edge; phones
+                narrower than 400px drop it, so the centered nav still fits. */}
+            <div className="-mr-2 hidden justify-self-end min-[400px]:block">
+              <IconLink
+                label="Source on GitHub"
+                href="https://github.com/pondorasti/pondorasti/tree/main/apps/supply"
+              >
+                <GitHubMark size={20} />
+              </IconLink>
+            </div>
           </header>
           <Outlet />
         </Tooltip.Provider>
