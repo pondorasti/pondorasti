@@ -8,6 +8,7 @@ import {
 import { registerCalendar } from "./connectors/calendar"
 import { registerGmail } from "./connectors/gmail"
 import { isGoogleConnected } from "./connectors/google"
+import { registerHealth } from "./connectors/health"
 import { registerHevy } from "./connectors/hevy"
 import { UPSTREAMS, type UpstreamId, registerUpstream } from "./connectors/upstream"
 
@@ -26,7 +27,7 @@ const registerGoogle: Register = async (server, env) => {
  * Services the gateway calls directly, with hand-written tools under their own prefix.
  * Remote MCP servers it proxies (YC, Notion) are listed in UPSTREAMS instead.
  */
-const connectors: Register[] = [registerHevy, registerGoogle]
+const connectors: Register[] = [registerHevy, registerHealth, registerGoogle]
 
 const handler = createMcpHandler(async () => {
   const server = new McpServer({ name: "alexandru-mcp", version: "0.1.0" })
