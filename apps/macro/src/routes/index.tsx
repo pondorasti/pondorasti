@@ -132,9 +132,6 @@ function Dashboard() {
             </tbody>
           </table>
         </div>
-        <p className="mt-3 text-xs text-muted">
-          Weeks start on Monday. Food averages are over the days with anything logged.
-        </p>
       </Section>
     </main>
   )
