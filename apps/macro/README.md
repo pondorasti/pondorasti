@@ -63,7 +63,7 @@ amount, or a wrong number of fields fails with every problem listed as
 
 ## Targets and settings
 
-`src/config.ts` holds the targets (2,850 kcal, 110 g protein, 25–30 g fiber a day), the
+`src/config.ts` holds the targets (2,850 kcal, 110 g protein, 20 g fiber a day), the
 time zone, the morning cutoff, the rolling-average window (7 calendar days), and how
 many days and weeks the dashboard shows.
 

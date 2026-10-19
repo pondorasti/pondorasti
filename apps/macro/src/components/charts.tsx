@@ -2,8 +2,6 @@ import { Link } from "@tanstack/react-router"
 import { ROLLING_DAYS } from "../config"
 import type { DayTotals, WeightPoint } from "../lib/nutrition"
 import { dateMedium, dateShort, dayOfMonth, kg, weekdayInitial } from "../lib/format"
-import { type Goal, goalMin, goalText } from "./progress"
-
 const pct = (value: number) => `${value}%`
 
 /** Morning readings as dots, with their rolling average as a line, scaled by date. */
@@ -85,28 +83,22 @@ export function DailyBars({
 }: {
   days: { date: string; totals: DayTotals | null }[]
   metric: "kcal" | "protein" | "fiber"
-  goal: Goal
+  goal: number
   unit: string
   format: (value: number) => string
 }) {
   const values = days.map((day) => day.totals?.[metric] ?? 0)
-  const max = Math.max(...values, (typeof goal === "number" ? goal : goal.max) * 1.15)
+  const max = Math.max(...values, goal * 1.15)
   const h = (value: number) => (value / max) * 100
   return (
     <div>
       <div className="relative h-36">
-        {typeof goal !== "number" && (
-          <div
-            className="absolute inset-x-0 bg-accent/10"
-            style={{ bottom: pct(h(goal.min)), height: pct(h(goal.max - goal.min)) }}
-          />
-        )}
         <div
           className="absolute inset-x-0 z-10 border-t border-dashed border-muted"
-          style={{ bottom: pct(h(goalMin(goal))) }}
+          style={{ bottom: pct(h(goal)) }}
         >
           <span className="absolute right-0 bottom-1 rounded bg-surface px-1 text-[11px] text-muted">
-            {goalText(goal, format)}
+            {format(goal)}
           </span>
         </div>
         <div className="absolute inset-0 flex items-end gap-1 sm:gap-1.5">
@@ -117,7 +109,7 @@ export function DailyBars({
               : `${dateMedium(date)}: nothing logged`
             const bar = (
               <span
-                className={`block w-full rounded-t-md ${value >= goalMin(goal) ? "bg-accent" : "bg-ink/80"}`}
+                className={`block w-full rounded-t-md ${value >= goal ? "bg-accent" : "bg-ink/80"}`}
                 style={{ height: totals ? `max(${pct(h(value))}, 3px)` : 0 }}
               />
             )

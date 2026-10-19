@@ -123,7 +123,7 @@ function Dashboard() {
                   <td className="px-3 py-3 text-right text-muted">{week.days}</td>
                   <Cell value={week.kcal} goal={TARGETS.kcal} format={kcal} unit="kcal" />
                   <Cell value={week.protein} goal={TARGETS.protein} format={grams} unit="g" />
-                  <Cell value={week.fiber} goal={TARGETS.fiber.min} format={grams} unit="g" />
+                  <Cell value={week.fiber} goal={TARGETS.fiber} format={grams} unit="g" />
                   <td className="px-5 py-3 text-right sm:px-6">
                     {week.kg === null ? <span className="text-muted">–</span> : `${kg(week.kg)} kg`}
                   </td>

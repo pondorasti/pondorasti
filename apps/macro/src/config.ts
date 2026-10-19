@@ -1,8 +1,8 @@
-/** Daily targets. Fiber is a range: below `min` is short, within it is on target. */
+/** Daily targets: below one is short, at or above it is on target. */
 export const TARGETS = {
   kcal: 2850,
   protein: 110,
-  fiber: { min: 25, max: 30 }
+  fiber: 20
 } as const
 
 /** Every `date` and `time` in `content/` is wall-clock time here. */
