@@ -33,7 +33,7 @@ export const CatalogFilters = z.object({
     ),
     undefined
   ),
-  // Supply is the default view, so it never appears in the URL.
+  // Owned is the default view, so it never appears in the URL.
   view: z.catch(z.optional(z.enum(["wishlist", "retired"])), undefined)
 })
 export type CatalogFilters = z.output<typeof CatalogFilters>

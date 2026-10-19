@@ -23,7 +23,7 @@ describe("catalog URL filters", () => {
       tag: undefined,
       view: undefined
     })
-    expect(CatalogFilters.parse({ view: "supply" }).view).toBeUndefined()
+    expect(CatalogFilters.parse({ view: "owned" }).view).toBeUndefined()
     expect(CatalogFilters.parse({ view: "retired" }).view).toBe("retired")
     expect(CatalogFilters.parse({ tag: "office" }).tag).toBe("office")
     expect(CatalogFilters.parse({ tag: "skin" }).tag).toBe("bathroom")

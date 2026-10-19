@@ -85,7 +85,7 @@ function LoadError() {
 function ViewNav() {
   const product = useMatch({ from: "/items/$slug", shouldThrow: false })?.loaderData
   const search = useSearch({ strict: false })
-  const active = (product && statusView(product.status)) ?? search.view ?? "supply"
+  const active = (product && statusView(product.status)) ?? search.view ?? "owned"
   return (
     <nav aria-label="Collection" className="flex items-center gap-1">
       {VIEWS.map(({ id, label }) => (
@@ -99,7 +99,7 @@ function ViewNav() {
 
 // Link's own active matching treats "/" as a prefix of every view, so the state is set here.
 function ViewLink({ view, current, children }: { view: View; current: boolean; children: string }) {
-  const props = useLinkProps({ to: "/", search: view === "supply" ? {} : { view } })
+  const props = useLinkProps({ to: "/", search: view === "owned" ? {} : { view } })
   return (
     <a
       {...props}
@@ -127,13 +127,20 @@ function Root() {
             Skip to content
           </a>
           <header className="page-width grid h-[68px] grid-cols-[1fr_auto_1fr] items-center gap-4">
-            <Link to="/" className="justify-self-start text-xl font-medium tracking-[-0.02em]">
-              Supply<span className="text-accent">.</span>
-            </Link>
+            <p className="justify-self-start text-sm font-medium tracking-wide">
+              <Link to="/">[ supply.</Link>
+              {/* Phones keep the short form so the centered nav still fits. */}
+              <a
+                href="https://alexandru.so"
+                target="_blank"
+                rel="noreferrer"
+                className="hidden text-muted underline-offset-4 hover:underline sm:inline"
+              >
+                alexandru.so
+              </a>
+              {" ]"}
+            </p>
             <ViewNav />
-            <span className="hidden justify-self-end text-sm text-muted sm:block">
-              By Alexandru
-            </span>
           </header>
           <Outlet />
         </Tooltip.Provider>
