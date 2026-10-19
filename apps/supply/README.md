@@ -12,10 +12,13 @@ HTML is server-rendered on each request from the bundled catalog. Content change
 the site by deploying. Images are served at content-addressed `/images/<hash>.webp` URLs
 and cached by browsers for a year (`public/_headers`).
 
-Each item and view also gets a 1200×630 Open Graph card at `/og/<hash>.jpg`, rendered
-at build time (in dev, on first request) by `src/content/og.ts` with satori and sharp: the
-item's image on a white stage, its category and name, and the wordmark. A card's hash
-covers what it shows and `og.ts` itself, so editing the design gives every card a new URL.
+Each item and view also has a 1200×630 Open Graph card at `/og/<hash>.jpg`: the item's
+image on a white stage with its category, name and the wordmark, or a view's headline over
+a strip of its items. Like the images, cards are prepared locally and committed: `bun run
+images` draws them into `og/` with `src/content/og-render.ts` (satori and sharp), and the
+build only copies them. A card's hash covers what it shows and `og-render.ts` itself, so
+renaming an item, replacing its image or editing the design gives it a new name; a test
+and the build both fail until `bun run images` has drawn it.
 
 ## Content
 
@@ -119,7 +122,9 @@ Renaming a folder changes the URL.
    it to the item plus a thin transparent border, so every image sits on the card the same
    way. Book covers are kept whole. It then converts the image to WebP, at most 2000px on the
    long side, and deletes the original. Images that are already clean are left alone, so
-   it's safe to rerun. Conversion uses Bun's built-in `Bun.Image`: JPEG, PNG and WebP work
+   it's safe to rerun. Last, it draws the Open Graph card of every item and view that
+   lacks a current one into `og/` and deletes unused cards, so rerun it after renaming an
+   item or changing its category too. Conversion uses Bun's built-in `Bun.Image`: JPEG, PNG and WebP work
    anywhere, while HEIC, AVIF, TIFF and GIF rely on the OS codecs of macOS or Windows.
 4. Check the cutout, then run `bun run test` (or start the dev server) to validate, and
    commit and push.
@@ -132,14 +137,15 @@ so a broken item never deploys.
 ## Layout
 
 - `content/`: the catalog, one folder per item.
+- `og/`: the Open Graph cards, drawn by `bun run images`; never edit by hand.
 - `src/content/`: the Vite plugin that validates `content/`, renders notes to HTML and
   exposes the items as `virtual:supply-content` (server only) and the images and Open
   Graph cards as files.
 - `src/lib/`: code shared by server and browser (product types, statuses, tags, filters).
 - `src/read/`: the server functions, query options and sitemap response.
 - `src/routes/`: pages, plus the `sitemap.xml` server route.
-- `scripts/images.ts` and `scripts/cutout.swift`: the background removal and converter
-  behind `bun run images`.
+- `scripts/images.ts` and `scripts/cutout.swift`: the background removal, converter and
+  Open Graph card step behind `bun run images`.
 
 ## Local Development
 

@@ -136,7 +136,8 @@ function Root() {
           </a>
           <header className="page-width grid h-[68px] grid-cols-[1fr_auto_1fr] items-center gap-4">
             <p className="justify-self-start text-sm font-medium tracking-wide">
-              <Link to="/">[ supply.</Link>
+              {/* Thin spaces keep the brackets close to the name. */}
+              <Link to="/">{"[\u2009supply."}</Link>
               {/* Phones keep the short form so the centered nav still fits. */}
               <a
                 href="https://alexandru.so"
@@ -146,7 +147,7 @@ function Root() {
               >
                 alexandru.so
               </a>
-              {" ]"}
+              {"\u2009]"}
             </p>
             <ViewNav />
           </header>

@@ -9,7 +9,10 @@ import { content } from "./src/content/plugin"
 export default defineConfig({
   plugins: lazyPlugins(() => [
     // Before Cloudflare, so dev serves content images ahead of the Worker.
-    content(fileURLToPath(new URL("./content", import.meta.url))),
+    content(
+      fileURLToPath(new URL("./content", import.meta.url)),
+      fileURLToPath(new URL("./og", import.meta.url))
+    ),
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     tailwindcss(),
     tanstackStart(),

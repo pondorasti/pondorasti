@@ -3,14 +3,19 @@
 // its long side, in place. Book covers are kept whole. Drop a photo into an item's folder
 // (e.g. image.png), then run `bun run images`; images that are already clean are left alone.
 // JPEG, PNG and WebP work everywhere; HEIC, AVIF, TIFF and GIF need macOS or Windows.
-import { mkdtempSync, readdirSync, readFileSync, rmSync } from "node:fs"
+// Finally it draws the Open Graph card for every item and view that lacks one into og/, and
+// deletes cards nothing uses any more.
+import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync } from "node:fs"
 import { tmpdir } from "node:os"
 import path from "node:path"
+import { loadContent } from "../src/content/load"
+import { renderCard } from "../src/content/og-render"
 
 const MAX_SIDE = 2000
 const QUALITY = 85
 const SOURCE = /\.(avif|gif|heic|jpe?g|png|tiff?|webp)$/i
 const content = path.join(import.meta.dirname, "../content")
+const og = path.join(import.meta.dirname, "../og")
 
 const sources = readdirSync(content, { recursive: true, withFileTypes: true })
   .filter((entry) => entry.isFile() && SOURCE.test(entry.name))
@@ -54,3 +59,20 @@ for (const source of sources) {
   console.log(`${path.relative(content, source)} → ${path.relative(content, target)}`)
 }
 rmSync(work, { recursive: true })
+
+// Cards are named by a hash of what they show and how they're drawn, so any change to an item,
+// its image or og-render.ts shows up here as a missing file.
+const { images, cards } = loadContent(content)
+mkdirSync(og, { recursive: true })
+const wanted = new Set([...cards.keys()].map((url) => path.basename(url)))
+for (const file of readdirSync(og)) {
+  if (file.endsWith(".jpg") && !wanted.has(file)) rmSync(path.join(og, file))
+}
+let drawn = 0
+for (const [url, card] of cards) {
+  const target = path.join(og, path.basename(url))
+  if (existsSync(target)) continue
+  await Bun.write(target, await renderCard(card, (image) => images.get(image)))
+  drawn++
+}
+if (drawn) console.log(`og/: drew ${drawn} Open Graph cards`)
