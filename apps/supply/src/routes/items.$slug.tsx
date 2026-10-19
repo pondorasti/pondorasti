@@ -1,9 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router"
 import { useSuspenseQuery } from "@tanstack/react-query"
-import { Archive, ArrowLeft, ArrowUpRight, Check, Heart } from "lucide-react"
+import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import { productQuery } from "../read/queries"
 import { CatalogFilters } from "../lib/filters"
-import { label, Slug, statusView } from "../lib/product"
+import { label, Slug, statusView, viewOf } from "../lib/product"
 import { ProductImage } from "../components/product"
 
 export const Route = createFileRoute("/items/$slug")({
@@ -60,18 +60,10 @@ function Product() {
         </div>
         <div className="min-w-0 lg:pt-2">
           <p className="flex flex-wrap items-center gap-x-1.5 text-sm text-muted">
-            <span
-              className={`inline-flex items-center gap-1 ${product.status === "wishlist" ? "text-wishlist" : ""}`}
-            >
-              {product.status === "wishlist" ? (
-                <Heart size={13} />
-              ) : product.status === "owned" ? (
-                <Check size={14} />
-              ) : (
-                <Archive size={13} />
-              )}
-              {label(product.status)}
-            </span>
+            {/* A breadcrumb back into the catalog: view, tag, then group. */}
+            <Link to="/" search={{ view }} className="hover:text-ink">
+              {viewOf(productView).label}
+            </Link>
             <span aria-hidden="true">·</span>
             <Link to="/" search={{ tag: product.tag, view }} className="hover:text-ink">
               {label(product.tag)}
@@ -79,7 +71,14 @@ function Product() {
             {product.group && (
               <>
                 <span aria-hidden="true">·</span>
-                {label(product.group)}
+                <Link
+                  to="/"
+                  search={{ tag: product.tag, view }}
+                  hash={product.group}
+                  className="hover:text-ink"
+                >
+                  {label(product.group)}
+                </Link>
               </>
             )}
           </p>

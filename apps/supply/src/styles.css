@@ -8,7 +8,6 @@
   --color-ink: #141414;
   --color-muted: #6e6e6e;
   --color-line: #e2e2e2;
-  --color-wishlist: #a16207;
 }
 
 @layer base {
@@ -28,7 +27,6 @@
       --color-ink: #ededed;
       --color-muted: #949494;
       --color-line: #2c2c2c;
-      --color-wishlist: #e1b97b;
     }
   }
 
