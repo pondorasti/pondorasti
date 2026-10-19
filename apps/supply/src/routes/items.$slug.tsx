@@ -71,6 +71,12 @@ function Product() {
             <Link to="/" search={{ tag: product.tag, view }} className="hover:text-ink">
               {label(product.tag)}
             </Link>
+            {product.group && (
+              <>
+                <span aria-hidden="true">·</span>
+                {label(product.group)}
+              </>
+            )}
           </p>
           <h1 className="display mt-1 break-words">{product.name}</h1>
           {product.variant && <p className="mt-2 text-base text-muted">{product.variant}</p>}

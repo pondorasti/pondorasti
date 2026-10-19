@@ -2,7 +2,8 @@
 name: "Bruno Marc Driving Moccasins"
 variant: "Tan"
 status: owned
-tag: shoes
+tag: apparel
+group: shoes
 link: "https://www.amazon.com/dp/B01GQT8VO0"
 ---
 

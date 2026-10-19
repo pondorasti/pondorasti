@@ -2,7 +2,8 @@
 name: "CeraVe PM Facial Moisturizing Lotion"
 variant: "3 fl oz"
 status: retired
-tag: skin
+tag: bathroom
+group: skin
 link: "https://www.amazon.com/dp/B00365DABC"
 ---
 

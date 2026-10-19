@@ -3,6 +3,7 @@ name: "Brooklinen Super-Plush Bath Sheets"
 variant: "Marled Black"
 status: owned
 tag: bathroom
+group: towels
 link: "https://www.brooklinen.com/products/super-plush-bath-sheets"
 ---
 

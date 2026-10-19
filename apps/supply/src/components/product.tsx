@@ -40,12 +40,13 @@ export function ProductCard({
   product,
   filters,
   priority = false,
-  showTag = true
+  caption = label(product.tag)
 }: {
   product: ProductSummary
   filters?: CatalogFilters
   priority?: boolean
-  showTag?: boolean
+  /** Muted line above the name; null hides it. */
+  caption?: string | null
 }) {
   return (
     <article className="group min-w-0">
@@ -59,7 +60,7 @@ export function ProductCard({
           <ProductImage src={product.image} name={product.name} priority={priority} />
         </div>
         <div className="flex min-w-0 flex-1 flex-col justify-end px-2 pt-4 pb-2 text-sm leading-5">
-          {showTag && <p className="truncate text-muted">{label(product.tag)}</p>}
+          {caption && <p className="truncate text-muted">{caption}</p>}
           <h2 className="truncate">{product.name}</h2>
         </div>
       </Link>

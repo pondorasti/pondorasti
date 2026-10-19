@@ -10,20 +10,27 @@ export const Tag = z.enum([
   "technology",
   "office",
   "apparel",
-  "shoes",
-  "sunglasses",
   "watches",
   "carry",
   "bedroom",
   "bathroom",
-  "skin",
-  "oral",
   "supplements"
 ])
 export type Tag = z.infer<typeof Tag>
 
-/** Display name for a status or tag id, e.g. "technology" → "Technology". */
-export const label = (id: Status | Tag) => id[0].toUpperCase() + id.slice(1).replaceAll("-", " ")
+/** Sub groups, in display order. Each belongs to one tag in `TAG_GROUPS` and needs an icon in `components/controls.tsx`. */
+export const Group = z.enum(["shoes", "sunglasses", "skin", "oral", "towels", "hair", "laundry"])
+export type Group = z.infer<typeof Group>
+
+/** The sub groups an item with this tag may use; tags without an entry have none. */
+export const TAG_GROUPS: Partial<Record<Tag, Group[]>> = {
+  apparel: ["shoes", "sunglasses"],
+  bathroom: ["skin", "oral", "towels", "hair", "laundry"]
+}
+
+/** Display name for a status, tag or group id, e.g. "technology" → "Technology". */
+export const label = (id: Status | Tag | Group) =>
+  id[0].toUpperCase() + id.slice(1).replaceAll("-", " ")
 
 /** An item's folder name and URL segment. */
 export const Slug = z.string().check(z.maxLength(150), z.regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/))
@@ -33,6 +40,8 @@ export interface ProductSummary {
   name: string
   status: Status
   tag: Tag
+  /** Optional sub group within the tag, e.g. bathroom → skin. */
+  group: Group | null
   /** URL of the item's image, content-addressed so it can be cached forever. */
   image: string
 }

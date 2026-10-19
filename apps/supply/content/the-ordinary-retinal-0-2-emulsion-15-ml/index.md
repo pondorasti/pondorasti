@@ -2,7 +2,8 @@
 name: "The Ordinary Retinal 0.2% Emulsion"
 variant: "15 mL"
 status: retired
-tag: skin
+tag: bathroom
+group: skin
 link: "https://www.amazon.com/dp/B0CZ5VG3L1"
 ---
 

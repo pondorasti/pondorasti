@@ -58,6 +58,10 @@ ALL notifications are turned off.
 - `tag` (required) is the item's one category, an id from the `Tag` enum in
   `src/lib/product.ts`. Adding a category means adding it there and giving it an icon
   in `src/components/controls.tsx`.
+- `group` is an optional sub group within the tag, e.g. `tag: bathroom` with
+  `group: skin`. It must be one of the tag's groups in `TAG_GROUPS` in
+  `src/lib/product.ts`. A selected category with groups shows one section per group,
+  and "All" shows the group on the item's card.
 - `link` is an optional `http(s)` URL for the "Visit product" button.
 - Notes are markdown, in the format below. Links open in a new tab; non-`http(s)` links
   and raw HTML are not rendered as such. Notes are public, as is this repository's

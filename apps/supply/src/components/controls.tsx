@@ -14,17 +14,22 @@ import {
   Shirt,
   Smartphone,
   Smile,
-  Watch
+  SprayCan,
+  TowelRack,
+  Watch,
+  WashingMachine
 } from "lucide-react"
 import type { ReactNode } from "react"
-import { label, type Tag } from "../lib/product"
+import { type Group, label, type Tag } from "../lib/product"
 
-const TAG_ICONS: Record<Tag, LucideIcon> = {
+const TAG_ICONS: Record<Tag | Group, LucideIcon> = {
   apparel: Shirt,
   bathroom: Bath,
   bedroom: BedDouble,
   books: BookOpen,
   carry: Backpack,
+  hair: SprayCan,
+  laundry: WashingMachine,
   office: Monitor,
   oral: Smile,
   shoes: Footprints,
@@ -32,10 +37,11 @@ const TAG_ICONS: Record<Tag, LucideIcon> = {
   sunglasses: Glasses,
   supplements: Dumbbell,
   technology: Smartphone,
+  towels: TowelRack,
   watches: Watch
 }
 
-export function TagLabel({ tag }: { tag: Tag }) {
+export function TagLabel({ tag }: { tag: Tag | Group }) {
   const Icon = TAG_ICONS[tag]
   return (
     <>

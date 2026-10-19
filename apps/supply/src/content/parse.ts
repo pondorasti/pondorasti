@@ -1,15 +1,21 @@
 import { Marked } from "marked"
 import { parse as parseYaml } from "yaml"
 import { z } from "zod"
-import { type ProductDetail, Slug, Status, Tag } from "../lib/product"
+import { Group, type ProductDetail, Slug, Status, TAG_GROUPS, Tag } from "../lib/product"
 
-const FrontMatter = z.strictObject({
-  name: z.string().trim().min(1),
-  variant: z.string().trim().min(1).optional(),
-  status: Status,
-  tag: Tag,
-  link: z.url({ protocol: /^https?$/ }).optional()
-})
+const FrontMatter = z
+  .strictObject({
+    name: z.string().trim().min(1),
+    variant: z.string().trim().min(1).optional(),
+    status: Status,
+    tag: Tag,
+    group: z.optional(Group),
+    link: z.url({ protocol: /^https?$/ }).optional()
+  })
+  .refine(({ tag, group }) => !group || TAG_GROUPS[tag]?.includes(group), {
+    path: ["group"],
+    message: "group must be one of the tag's groups in TAG_GROUPS"
+  })
 
 const FENCE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/
 
@@ -32,12 +38,13 @@ export function parseItem(slug: string, source: string, image: ImageResolver): P
   if (!result.success) throw new Error(z.prettifyError(result.error))
   const cover = image("image.webp")
   if (!cover) throw new Error("missing image.webp")
-  const { name, variant, status, tag, link } = result.data
+  const { name, variant, status, tag, group, link } = result.data
   return {
     slug,
     name,
     status,
     tag,
+    group: group ?? null,
     variant: variant ?? null,
     link: link ?? null,
     image: cover,

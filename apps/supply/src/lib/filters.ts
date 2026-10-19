@@ -1,5 +1,12 @@
 import { z } from "zod/mini"
-import { type ProductSummary, Tag, type View, viewStatus } from "./product"
+import { Group, type ProductSummary, Tag, type View, viewStatus } from "./product"
+
+const FOLDED_TAGS = {
+  shoes: "apparel",
+  sunglasses: "apparel",
+  skin: "bathroom",
+  oral: "bathroom"
+} as const satisfies Record<string, Tag>
 
 /** Catalog URL search params. Malformed values are dropped rather than failing the page. */
 export const CatalogFilters = z.object({
@@ -12,7 +19,19 @@ export const CatalogFilters = z.object({
     ),
     undefined
   ),
-  tag: z.catch(z.optional(Tag), undefined),
+  // Tags that became groups send old links to their new tag.
+  tag: z.catch(
+    z.optional(
+      z.union([
+        Tag,
+        z.pipe(
+          z.enum(["shoes", "sunglasses", "skin", "oral"]),
+          z.transform((tag) => FOLDED_TAGS[tag])
+        )
+      ])
+    ),
+    undefined
+  ),
   // Supply is the default view, so it never appears in the URL.
   view: z.catch(z.optional(z.enum(["wishlist", "retired"])), undefined)
 })
@@ -27,7 +46,7 @@ export function filterCatalog(products: ProductSummary[], filters: CatalogFilter
   const terms = (filters.q ?? "").trim().toLocaleLowerCase("en").split(/\s+/).filter(Boolean)
   return productsInView(products, filters.view)
     .filter((product) => {
-      const text = `${product.name} ${product.tag}`.toLocaleLowerCase("en")
+      const text = `${product.name} ${product.tag} ${product.group ?? ""}`.toLocaleLowerCase("en")
       return (
         (!filters.tag || product.tag === filters.tag) && terms.every((term) => text.includes(term))
       )
@@ -35,9 +54,16 @@ export function filterCatalog(products: ProductSummary[], filters: CatalogFilter
     .sort((a, b) => a.name.localeCompare(b.name, "en", { numeric: true, sensitivity: "base" }))
 }
 
-/** Splits products into per-tag groups in pill order, keeping each group's order and skipping empty tags. */
-export function groupByTag(products: ProductSummary[]) {
+/** Splits products into per-tag sections in pill order, keeping each section's order and skipping empty tags. */
+export function sectionsByTag(products: ProductSummary[]) {
   return Tag.options
     .map((tag) => ({ tag, products: products.filter((product) => product.tag === tag) }))
-    .filter((group) => group.products.length)
+    .filter((section) => section.products.length)
+}
+
+/** Splits products into per-group sections: ungrouped first, then groups in display order, skipping empty ones. */
+export function sectionsByGroup(products: ProductSummary[]) {
+  return [null, ...Group.options]
+    .map((group) => ({ group, products: products.filter((product) => product.group === group) }))
+    .filter((section) => section.products.length)
 }

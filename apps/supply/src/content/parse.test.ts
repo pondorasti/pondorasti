@@ -23,6 +23,7 @@ describe("content items", () => {
       name: "Desk Lamp: Mk 2",
       status: "owned",
       tag: "office",
+      group: null,
       variant: "Brass",
       link: "https://example.com/lamp",
       image: "/images/image.webp",
@@ -39,6 +40,15 @@ describe("content items", () => {
     expect(parse("lamp", "name: Lamp\nstatus: owned\ntag: [office, carry]")).toThrow(/tag/)
     expect(parse("lamp", "name: Lamp\nstatus: owned")).toThrow(/tag/)
     expect(parse("lamp", "name: Lamp\nstatus: lent\ntag: office")).toThrow(/status/)
+    expect(
+      parse("serum", "name: Serum\nstatus: owned\ntag: bathroom\ngroup: skin")()
+    ).toMatchObject({
+      group: "skin"
+    })
+    expect(parse("lamp", "name: Lamp\nstatus: owned\ntag: office\ngroup: skin")).toThrow(/group/)
+    expect(parse("lamp", "name: Lamp\nstatus: owned\ntag: bathroom\ngroup: shaving")).toThrow(
+      /group/
+    )
     expect(parse("lamp", "name: Lamp\nstatus: owned\ntags: [office]")).toThrow(/tags/)
     expect(
       parse("lamp", "name: Lamp\nstatus: owned\ntag: office\nlink: javascript:alert(1)")

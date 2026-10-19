@@ -7,10 +7,16 @@ import { Toggle } from "@base-ui/react/toggle"
 import { ToggleGroup } from "@base-ui/react/toggle-group"
 import { LayoutGrid, Search, X } from "lucide-react"
 import { catalogQuery } from "../read/queries"
-import { CatalogFilters, filterCatalog, groupByTag, productsInView } from "../lib/filters"
+import {
+  CatalogFilters,
+  filterCatalog,
+  productsInView,
+  sectionsByGroup,
+  sectionsByTag
+} from "../lib/filters"
 import { CatalogGrid, CatalogPending, ProductCard } from "../components/product"
 import { IconButton, TagLabel } from "../components/controls"
-import { Tag } from "../lib/product"
+import { type Group, label, type ProductSummary, Tag } from "../lib/product"
 
 export const Route = createFileRoute("/")({
   validateSearch: CatalogFilters,
@@ -37,12 +43,25 @@ function Catalog() {
   // The active tag keeps its pill even when this view has nothing tagged with it.
   const tags = Tag.options.filter((tag) => used.has(tag) || tag === filters.tag)
   const hasFilters = Boolean(filters.q || filters.tag)
-  // "All" without a search reads better as one section per category.
-  const groups = hasFilters ? undefined : groupByTag(filtered)
   const showTag = (tag: Tag) => {
     update({ tag })
     tagsRef.current?.scrollIntoView({ block: "start" })
   }
+  // Without a search, "All" splits into a section per tag, and a tag into its groups.
+  const sections: Section[] = filters.q
+    ? [{ products: filtered }]
+    : filters.tag
+      ? sectionsByGroup(filtered).map(({ group, products }) => ({
+          heading: group ?? undefined,
+          products,
+          caption: () => null
+        }))
+      : sectionsByTag(filtered).map(({ tag, products }) => ({
+          heading: tag,
+          select: () => showTag(tag),
+          products,
+          caption: (product) => product.group && label(product.group)
+        }))
   const clear = () => {
     void navigate({ search: { view: filters.view }, resetScroll: false })
   }
@@ -96,43 +115,43 @@ function Catalog() {
           </Toggle>
         ))}
       </ToggleGroup>
-      {groups?.length ? (
+      {filtered.length ? (
         <div className="flex flex-col gap-12">
-          {groups.map(({ tag, products: group }, groupIndex) => (
-            <section key={tag} aria-labelledby={`group-${tag}`}>
-              <h2 id={`group-${tag}`} className="mb-3 flex pl-3">
-                <Button
-                  onClick={() => showTag(tag)}
-                  className="flex items-center gap-1.5 text-sm font-medium underline-offset-4 hover:underline [&_svg]:text-muted"
+          {sections.map(({ heading, select, products: section, caption }, sectionIndex) => (
+            <section key={heading ?? "items"} aria-labelledby={heading && `section-${heading}`}>
+              {heading && (
+                <h2
+                  id={`section-${heading}`}
+                  className="mb-3 flex pl-3 text-sm font-medium [&_svg]:text-muted"
                 >
-                  <TagLabel tag={tag} />
-                </Button>
-              </h2>
+                  {select ? (
+                    <Button
+                      onClick={select}
+                      className="flex items-center gap-1.5 underline-offset-4 hover:underline"
+                    >
+                      <TagLabel tag={heading} />
+                    </Button>
+                  ) : (
+                    <span className="flex items-center gap-1.5">
+                      <TagLabel tag={heading} />
+                    </span>
+                  )}
+                </h2>
+              )}
               <CatalogGrid>
-                {group.map((product, index) => (
+                {section.map((product, index) => (
                   <ProductCard
                     key={product.slug}
                     product={product}
                     filters={filters}
-                    priority={groupIndex === 0 && index < 5}
-                    showTag={false}
+                    priority={sectionIndex === 0 && index < 5}
+                    caption={caption?.(product)}
                   />
                 ))}
               </CatalogGrid>
             </section>
           ))}
         </div>
-      ) : filtered.length ? (
-        <CatalogGrid>
-          {filtered.map((product, index) => (
-            <ProductCard
-              key={product.slug}
-              product={product}
-              filters={filters}
-              priority={index < 5}
-            />
-          ))}
-        </CatalogGrid>
       ) : (
         <div className="flex flex-col items-center rounded-2xl bg-surface py-24 text-center">
           <h2 className="text-xl font-medium">
@@ -148,6 +167,15 @@ function Catalog() {
       )}
     </main>
   )
+}
+
+interface Section {
+  heading?: Tag | Group
+  /** Selects the heading's tag; group headings aren't links. */
+  select?: () => void
+  products: ProductSummary[]
+  /** Card caption override; the card shows its tag by default. */
+  caption?: (product: ProductSummary) => string | null
 }
 
 /** ⌘K / Ctrl+K anywhere, or "/" outside a text field, focuses the search box. */

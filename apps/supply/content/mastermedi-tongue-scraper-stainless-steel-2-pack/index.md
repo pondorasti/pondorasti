@@ -2,7 +2,8 @@
 name: "MasterMedi Tongue Scraper"
 variant: "Stainless Steel, 2-Pack"
 status: owned
-tag: oral
+tag: bathroom
+group: oral
 link: "https://www.amazon.com/dp/B01LAY47D0"
 ---
 

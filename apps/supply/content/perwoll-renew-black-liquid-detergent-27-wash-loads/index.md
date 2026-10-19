@@ -3,6 +3,7 @@ name: "Perwoll Renew Black Liquid Detergent"
 variant: "27 Wash Loads"
 status: owned
 tag: bathroom
+group: laundry
 link: "https://www.amazon.com/dp/B0CTN37M8T"
 ---
 

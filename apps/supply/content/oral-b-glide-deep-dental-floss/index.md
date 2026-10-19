@@ -1,7 +1,8 @@
 ---
 name: "Oral-B Glide Deep Dental Floss"
 status: owned
-tag: oral
+tag: bathroom
+group: oral
 link: "https://www.amazon.com/dp/B01NBRH9TF"
 ---
 

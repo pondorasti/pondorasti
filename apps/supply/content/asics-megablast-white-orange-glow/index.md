@@ -2,7 +2,8 @@
 name: "ASICS Megablast"
 variant: "White/Orange Glow"
 status: owned
-tag: shoes
+tag: apparel
+group: shoes
 link: "https://www.asics.com/nz/en-nz/megablast-unisex-1013a170-101"
 ---
 

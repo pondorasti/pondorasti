@@ -3,6 +3,7 @@ name: "CeraVe Daily Moisturizing Lotion"
 variant: "19 fl oz"
 status: owned
 tag: bathroom
+group: skin
 link: "https://www.amazon.com/dp/B07RK4HST7"
 ---
 

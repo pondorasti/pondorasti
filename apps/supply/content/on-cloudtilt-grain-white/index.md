@@ -2,7 +2,8 @@
 name: "On Cloudtilt"
 variant: "Grain/White"
 status: owned
-tag: shoes
+tag: apparel
+group: shoes
 link: "https://www.on.com/en-us/products/cloudtilt-m-3me1010/mens/grain-white-shoes-3ME10105217"
 ---
 

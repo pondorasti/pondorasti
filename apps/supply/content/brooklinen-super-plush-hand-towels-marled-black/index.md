@@ -3,6 +3,7 @@ name: "Brooklinen Super-Plush Hand Towels"
 variant: "Marled Black"
 status: owned
 tag: bathroom
+group: towels
 link: "https://www.brooklinen.com/products/super-plush-hand-towels"
 ---
 

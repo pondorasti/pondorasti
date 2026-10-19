@@ -3,6 +3,7 @@ name: "Grangers Performance Wash"
 variant: "300 mL"
 status: owned
 tag: bathroom
+group: laundry
 link: "https://www.amazon.com/dp/B08MPSF15X"
 ---
 

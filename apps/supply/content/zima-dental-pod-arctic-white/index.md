@@ -2,7 +2,8 @@
 name: "Zima Dental Pod"
 variant: "Arctic White"
 status: owned
-tag: oral
+tag: bathroom
+group: oral
 link: "https://www.zimadental.com/products/dentalpodbf?variant=42794548625568"
 ---
 

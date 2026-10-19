@@ -2,7 +2,8 @@
 name: "CeraVe Foaming Facial Cleanser"
 variant: "16 fl oz"
 status: retired
-tag: skin
+tag: bathroom
+group: skin
 link: "https://www.cerave.com/skincare/cleansers/foaming-facial-cleanser"
 ---
 
