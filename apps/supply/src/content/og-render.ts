@@ -135,7 +135,8 @@ export async function renderCard(card: OgCard, resolve: (url: string) => string 
               fontWeight: 500,
               lineHeight: 1.1,
               letterSpacing: "-0.02em",
-              whiteSpace: "pre-line"
+              whiteSpace: "pre-line",
+              textWrap: "balance"
             },
             card.headline
           ),
