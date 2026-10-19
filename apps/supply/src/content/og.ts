@@ -5,6 +5,9 @@ import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { label, type ProductSummary, Tag, type View, viewOf } from "../lib/product"
 
+/** A fixed-name copy of the collection card in og/, for the README, whose card names change. */
+export const README_PREVIEW = "collection.jpg"
+
 /** What an Open Graph card shows. Images are public `/images/…` URLs, which are content hashes. */
 export type OgCard =
   | { kind: "item"; eyebrow: string; title: string; image: string }

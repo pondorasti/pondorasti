@@ -5,10 +5,19 @@
 // JPEG, PNG and WebP work everywhere; HEIC, AVIF, TIFF and GIF need macOS or Windows.
 // Finally it draws the Open Graph card for every item and view that lacks one into og/, and
 // deletes cards nothing uses any more.
-import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync } from "node:fs"
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  rmSync
+} from "node:fs"
 import { tmpdir } from "node:os"
 import path from "node:path"
 import { loadContent } from "../src/content/load"
+import { README_PREVIEW } from "../src/content/og"
 import { renderCard } from "../src/content/og-render"
 
 const MAX_SIDE = 2000
@@ -62,9 +71,10 @@ rmSync(work, { recursive: true })
 
 // Cards are named by a hash of what they show and how they're drawn, so any change to an item,
 // its image or og-render.ts shows up here as a missing file.
-const { images, cards } = loadContent(content)
+const { images, cards, views } = loadContent(content)
 mkdirSync(og, { recursive: true })
 const wanted = new Set([...cards.keys()].map((url) => path.basename(url)))
+wanted.add(README_PREVIEW)
 for (const file of readdirSync(og)) {
   if (file.endsWith(".jpg") && !wanted.has(file)) rmSync(path.join(og, file))
 }
@@ -76,3 +86,4 @@ for (const [url, card] of cards) {
   drawn++
 }
 if (drawn) console.log(`og/: drew ${drawn} Open Graph cards`)
+copyFileSync(path.join(og, path.basename(views.collection)), path.join(og, README_PREVIEW))

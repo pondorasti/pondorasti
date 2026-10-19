@@ -2,6 +2,8 @@
 
 Alexandru's public, read-only collection. Items live in this repository as markdown files.
 
+[![Supply: things I currently own and use](og/collection.jpg)](https://supply.alexandru.so)
+
 ## Stack
 
 TanStack Start, Router and Query; React; Base UI; Tailwind CSS with system light/dark
@@ -137,7 +139,8 @@ so a broken item never deploys.
 ## Layout
 
 - `content/`: the catalog, one folder per item.
-- `og/`: the Open Graph cards, drawn by `bun run images`; never edit by hand.
+- `og/`: the Open Graph cards, drawn by `bun run images`; never edit by hand. `collection.jpg`
+  is a fixed-name copy of the collection card, shown at the top of this README.
 - `src/content/`: the Vite plugin that validates `content/`, renders notes to HTML and
   exposes the items as `virtual:supply-content` (server only) and the images and Open
   Graph cards as files.
