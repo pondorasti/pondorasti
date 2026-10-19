@@ -85,7 +85,7 @@ function LoadError() {
 function ViewNav() {
   const product = useMatch({ from: "/items/$slug", shouldThrow: false })?.loaderData
   const search = useSearch({ strict: false })
-  const active = (product && statusView(product.status)) ?? search.view ?? "owned"
+  const active = (product && statusView(product.status)) ?? search.view ?? "collection"
   return (
     <nav aria-label="Collection" className="flex items-center gap-1">
       {VIEWS.map(({ id, label }) => (
@@ -99,7 +99,7 @@ function ViewNav() {
 
 // Link's own active matching treats "/" as a prefix of every view, so the state is set here.
 function ViewLink({ view, current, children }: { view: View; current: boolean; children: string }) {
-  const props = useLinkProps({ to: "/", search: view === "owned" ? {} : { view } })
+  const props = useLinkProps({ to: "/", search: view === "collection" ? {} : { view } })
   return (
     <a
       {...props}

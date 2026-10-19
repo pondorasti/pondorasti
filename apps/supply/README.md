@@ -54,7 +54,8 @@ ALL notifications are turned off.
 - `name` (required) is the display name; quote it if it contains a colon.
 - `variant` is an optional color, size or edition, shown under the name on the item page.
   Keep it out of `name` so cards stay short.
-- `status` (required) is `owned`, `wishlist` or `retired`, one catalog view each.
+- `status` (required) is `owned`, `wishlist` or `retired`, shown in the Collection, Wishlist
+  and Archive views.
 - `tag` (required) is the item's one category, an id from the `Tag` enum in
   `src/lib/product.ts`. Adding a category means adding it there and giving it an icon
   in `src/components/controls.tsx`.

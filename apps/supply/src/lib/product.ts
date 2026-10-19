@@ -88,15 +88,15 @@ export interface ProductDetail extends ProductSummary {
   notes: string
 }
 
-/** Catalog views, one per status. Owned is the default and carries no URL value. */
+/** Catalog views, one per status. Collection is the default and carries no URL value. */
 export const VIEWS = [
-  { id: "owned", label: "Owned", status: "owned" },
+  { id: "collection", label: "Collection", status: "owned" },
   { id: "wishlist", label: "Wishlist", status: "wishlist" },
-  { id: "retired", label: "Retired", status: "retired" }
+  { id: "archive", label: "Archive", status: "retired" }
 ] as const satisfies { id: string; label: string; status: Status }[]
 export type View = (typeof VIEWS)[number]["id"]
 
-export const viewStatus = (view: View = "owned"): Status =>
+export const viewStatus = (view: View = "collection"): Status =>
   VIEWS.find(({ id }) => id === view)!.status
 
 export const statusView = (status: Status): View => VIEWS.find((view) => view.status === status)!.id

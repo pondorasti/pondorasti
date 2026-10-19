@@ -18,13 +18,13 @@ const product = (
 
 describe("catalog URL filters", () => {
   it("rejects malformed URL values and bounds text input", () => {
-    expect(CatalogFilters.parse({ q: {}, tag: "Office", view: "Retired" })).toEqual({
+    expect(CatalogFilters.parse({ q: {}, tag: "Office", view: "Archive" })).toEqual({
       q: undefined,
       tag: undefined,
       view: undefined
     })
-    expect(CatalogFilters.parse({ view: "owned" }).view).toBeUndefined()
-    expect(CatalogFilters.parse({ view: "retired" }).view).toBe("retired")
+    expect(CatalogFilters.parse({ view: "collection" }).view).toBeUndefined()
+    expect(CatalogFilters.parse({ view: "archive" }).view).toBe("archive")
     expect(CatalogFilters.parse({ tag: "office" }).tag).toBe("office")
     expect(CatalogFilters.parse({ tag: "skin" }).tag).toBe("bathroom")
     expect(CatalogFilters.parse({ tag: "oral" }).tag).toBe("bathroom")
@@ -45,7 +45,7 @@ describe("catalog URL filters", () => {
     ])
     expect(products[0].name).toBe("Keyboard 10")
     expect(filterCatalog(products, { view: "wishlist" })).toEqual([products[2]])
-    expect(filterCatalog(products, { view: "retired" })).toEqual([products[4]])
+    expect(filterCatalog(products, { view: "archive" })).toEqual([products[4]])
     expect(filterCatalog(products, { tag: "books" })).toEqual([])
   })
   it("splits products into tag sections in pill order without empty sections", () => {

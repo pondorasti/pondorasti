@@ -37,7 +37,7 @@ function Product() {
   if (!product) throw notFound()
   // Links back into the catalog stay in this product's view, even when it was opened directly.
   const productView = statusView(product.status)
-  const view = productView === "owned" ? undefined : productView
+  const view = productView === "collection" ? undefined : productView
   return (
     <main id="main" className="page-width pb-16">
       <Link
