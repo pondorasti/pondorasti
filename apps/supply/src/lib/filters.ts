@@ -34,3 +34,10 @@ export function filterCatalog(products: ProductSummary[], filters: CatalogFilter
     })
     .sort((a, b) => a.name.localeCompare(b.name, "en", { numeric: true, sensitivity: "base" }))
 }
+
+/** Splits products into per-tag groups in pill order, keeping each group's order and skipping empty tags. */
+export function groupByTag(products: ProductSummary[]) {
+  return Tag.options
+    .map((tag) => ({ tag, products: products.filter((product) => product.tag === tag) }))
+    .filter((group) => group.products.length)
+}

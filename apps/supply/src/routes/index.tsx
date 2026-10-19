@@ -7,7 +7,7 @@ import { Toggle } from "@base-ui/react/toggle"
 import { ToggleGroup } from "@base-ui/react/toggle-group"
 import { LayoutGrid, Search, X } from "lucide-react"
 import { catalogQuery } from "../read/queries"
-import { CatalogFilters, filterCatalog, productsInView } from "../lib/filters"
+import { CatalogFilters, filterCatalog, groupByTag, productsInView } from "../lib/filters"
 import { CatalogGrid, CatalogPending, ProductCard } from "../components/product"
 import { IconButton, TagLabel } from "../components/controls"
 import { Tag } from "../lib/product"
@@ -29,6 +29,7 @@ function Catalog() {
     void navigate({ search: { ...filters, ...values }, replace, resetScroll: false })
   }
   const searchRef = useRef<HTMLInputElement>(null)
+  const tagsRef = useRef<HTMLDivElement>(null)
   useSearchShortcut(searchRef)
   const inView = productsInView(products, filters.view)
   const filtered = filterCatalog(products, filters)
@@ -36,6 +37,12 @@ function Catalog() {
   // The active tag keeps its pill even when this view has nothing tagged with it.
   const tags = Tag.options.filter((tag) => used.has(tag) || tag === filters.tag)
   const hasFilters = Boolean(filters.q || filters.tag)
+  // "All" without a search reads better as one section per category.
+  const groups = hasFilters ? undefined : groupByTag(filtered)
+  const showTag = (tag: Tag) => {
+    update({ tag })
+    tagsRef.current?.scrollIntoView({ block: "start" })
+  }
   const clear = () => {
     void navigate({ search: { view: filters.view }, resetScroll: false })
   }
@@ -70,6 +77,7 @@ function Catalog() {
       </section>
       {/* The scroller clips overflow, so 5px of padding (offset netted out) fits the focus outline. */}
       <ToggleGroup
+        ref={tagsRef}
         aria-label="Category"
         value={[filters.tag ?? "all"]}
         onValueChange={(values) => {
@@ -88,7 +96,33 @@ function Catalog() {
           </Toggle>
         ))}
       </ToggleGroup>
-      {filtered.length ? (
+      {groups?.length ? (
+        <div className="flex flex-col gap-12">
+          {groups.map(({ tag, products: group }, groupIndex) => (
+            <section key={tag} aria-labelledby={`group-${tag}`}>
+              <h2 id={`group-${tag}`} className="mb-3 flex pl-3">
+                <Button
+                  onClick={() => showTag(tag)}
+                  className="flex items-center gap-1.5 text-sm font-medium underline-offset-4 hover:underline [&_svg]:text-muted"
+                >
+                  <TagLabel tag={tag} />
+                </Button>
+              </h2>
+              <CatalogGrid>
+                {group.map((product, index) => (
+                  <ProductCard
+                    key={product.slug}
+                    product={product}
+                    filters={filters}
+                    priority={groupIndex === 0 && index < 5}
+                    showTag={false}
+                  />
+                ))}
+              </CatalogGrid>
+            </section>
+          ))}
+        </div>
+      ) : filtered.length ? (
         <CatalogGrid>
           {filtered.map((product, index) => (
             <ProductCard

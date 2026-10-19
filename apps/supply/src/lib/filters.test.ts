@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test"
-import { CatalogFilters, filterCatalog } from "./filters"
+import { CatalogFilters, filterCatalog, groupByTag } from "./filters"
 import type { ProductSummary, Status, Tag } from "./product"
 
 const product = (name: string, status: Status = "owned", tag: Tag = "office"): ProductSummary => ({
@@ -38,5 +38,16 @@ describe("catalog URL filters", () => {
     expect(filterCatalog(products, { view: "wishlist" })).toEqual([products[2]])
     expect(filterCatalog(products, { view: "retired" })).toEqual([products[4]])
     expect(filterCatalog(products, { tag: "books" })).toEqual([])
+  })
+  it("groups products by tag in pill order without empty groups", () => {
+    const products = [
+      product("Notebook", "owned", "office"),
+      product("Dune", "owned", "books"),
+      product("Desk", "owned", "office")
+    ]
+    expect(groupByTag(products)).toEqual([
+      { tag: "books", products: [products[1]] },
+      { tag: "office", products: [products[0], products[2]] }
+    ])
   })
 })
