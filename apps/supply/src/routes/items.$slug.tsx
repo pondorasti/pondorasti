@@ -61,11 +61,15 @@ function Product() {
         <div className="min-w-0 lg:pt-2">
           <p className="flex flex-wrap items-center gap-x-1.5 text-sm text-muted">
             {/* A breadcrumb back into the catalog: view, tag, then group. */}
-            <Link to="/" search={{ view }} className="hover:text-ink">
+            <Link to="/" search={{ view }} className="underline-offset-4 hover:underline">
               {viewOf(productView).label}
             </Link>
             <span aria-hidden="true">·</span>
-            <Link to="/" search={{ tag: product.tag, view }} className="hover:text-ink">
+            <Link
+              to="/"
+              search={{ tag: product.tag, view }}
+              className="underline-offset-4 hover:underline"
+            >
               {label(product.tag)}
             </Link>
             {product.group && (
@@ -75,7 +79,7 @@ function Product() {
                   to="/"
                   search={{ tag: product.tag, view }}
                   hash={product.group}
-                  className="hover:text-ink"
+                  className="underline-offset-4 hover:underline"
                 >
                   {label(product.group)}
                 </Link>
