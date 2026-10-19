@@ -1,10 +1,11 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router"
+import { createFileRoute, Link, notFound, useCanGoBack, useRouter } from "@tanstack/react-router"
+import { useEffect } from "react"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import { productQuery } from "../read/queries"
 import { CatalogFilters } from "../lib/filters"
 import { Slug, statusView } from "../lib/product"
-import { ProductImage } from "../components/product"
+import { ProductImage, setCurrentItem } from "../components/product"
 import { TagLabel, ViewLabel } from "../components/controls"
 
 export const Route = createFileRoute("/items/$slug")({
@@ -40,6 +41,10 @@ function Product() {
   const { slug } = Route.useParams()
   const filters = Route.useSearch()
   const { data: product } = useSuspenseQuery(productQuery(slug))
+  const canGoBack = useCanGoBack()
+  const router = useRouter()
+  // Opened directly too: going back to the grid should land on this item's card.
+  useEffect(() => setCurrentItem(slug), [slug])
   if (!product) throw notFound()
   // Links back into the catalog stay in this product's view, even when it was opened directly.
   const productView = statusView(product.status)
@@ -49,6 +54,14 @@ function Product() {
       <Link
         to="/"
         search={{ ...filters, view }}
+        // A real back restores the grid's scroll, so the image can zoom back into its card;
+        // opened directly, it's a plain link home, without the zoom.
+        onClick={(event) => {
+          if (!canGoBack) return
+          event.preventDefault()
+          router.history.back()
+        }}
+        viewTransition={false}
         aria-label="Back to collection"
         className="mt-2 inline-flex size-9 items-center justify-center rounded-full bg-surface transition-opacity hover:opacity-80"
       >
@@ -57,7 +70,7 @@ function Product() {
       {/* Stacked on phones; from lg the image sits on the left and stays in view while the details scroll. */}
       <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,440px)] lg:items-start lg:gap-12 xl:grid-cols-[minmax(0,1fr)_480px]">
         <div className="product-stage aspect-square w-full rounded-3xl lg:sticky lg:top-6 lg:max-h-[calc(100svh-9rem)]">
-          <ProductImage src={product.image} name={product.name} priority />
+          <ProductImage src={product.image} name={product.name} priority morph />
         </div>
         <div className="min-w-0 lg:pt-2">
           <p className="flex flex-wrap items-center gap-x-2 text-sm text-muted">

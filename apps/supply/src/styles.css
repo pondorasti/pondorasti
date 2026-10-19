@@ -73,10 +73,11 @@
   }
   /* Product shots are transparent PNGs (or full-bleed book covers), so the stage follows the theme. */
   .product-stage {
-    @apply flex items-center justify-center overflow-hidden rounded-xl bg-surface;
+    @apply flex items-center justify-center overflow-hidden rounded-xl bg-surface p-[10%];
   }
+  /* Sized to the picture rather than the stage, so its view transition morphs just the item. */
   .product-stage img {
-    @apply h-full w-full object-contain p-[10%];
+    @apply h-auto max-h-full w-auto max-w-full;
   }
   .no-scrollbar {
     scrollbar-width: none;
@@ -134,6 +135,23 @@
   *::before,
   *::after {
     transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* An item's image zooms between its card and its page; the rest of the page swaps at once. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+::view-transition-group(item-image) {
+  animation-duration: 350ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
     animation: none !important;
   }
 }

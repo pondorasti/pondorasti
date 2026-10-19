@@ -7,11 +7,14 @@ import { label, type ProductSummary } from "../lib/product"
 export function ProductImage({
   src,
   name,
-  priority = false
+  priority = false,
+  morph = false
 }: {
   src: string
   name: string
   priority?: boolean
+  /** Carries ITEM_IMAGE, so the image zooms between the grid and the item's page. */
+  morph?: boolean
 }) {
   const [failed, setFailed] = useState<string | null>(null)
   return failed !== src ? (
@@ -22,6 +25,8 @@ export function ProductImage({
       height={720}
       loading={priority ? "eager" : "lazy"}
       decoding="async"
+      data-item-image
+      style={morph ? { viewTransitionName: ITEM_IMAGE } : undefined}
       onError={() => setFailed(src)}
     />
   ) : (
@@ -34,6 +39,16 @@ export function ProductImage({
       No image
     </span>
   )
+}
+
+/** The view-transition name shared by an item's image in the grid and on its page. */
+export const ITEM_IMAGE = "item-image"
+
+// The item that last opened or was last viewed. Its card carries ITEM_IMAGE, so returning to the
+// grid zooms the image back into it; only one element per page may hold the name.
+let current: string | undefined
+export const setCurrentItem = (slug: string) => {
+  current = slug
 }
 
 export function ProductCard({
@@ -54,10 +69,24 @@ export function ProductCard({
         to="/items/$slug"
         params={{ slug: product.slug }}
         search={filters ?? {}}
+        onClick={(event) => {
+          // Hand the name to this card before the router snapshots the page.
+          current = product.slug
+          for (const image of document.querySelectorAll<HTMLElement>("[data-item-image]")) {
+            image.style.viewTransitionName = ""
+          }
+          const image = event.currentTarget.querySelector<HTMLElement>("[data-item-image]")
+          if (image) image.style.viewTransitionName = ITEM_IMAGE
+        }}
         className="flex h-full flex-col rounded-2xl bg-surface p-2"
       >
         <div className="product-stage aspect-[7/6] [&_img]:transition-transform [&_img]:duration-300 group-hover:[&_img]:scale-[1.03]">
-          <ProductImage src={product.image} name={product.name} priority={priority} />
+          <ProductImage
+            src={product.image}
+            name={product.name}
+            priority={priority}
+            morph={product.slug === current}
+          />
         </div>
         <div className="flex min-w-0 flex-1 flex-col justify-end px-2 pt-4 pb-2 text-sm leading-5">
           {caption && <p className="truncate text-muted">{caption}</p>}

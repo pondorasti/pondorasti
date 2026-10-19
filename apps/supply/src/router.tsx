@@ -13,7 +13,17 @@ export function getRouter() {
     context: { queryClient },
     scrollRestoration: true,
     defaultPreload: "intent",
-    defaultPreloadStaleTime: 0
+    defaultPreloadStaleTime: 0,
+    // Opening or leaving an item zooms its image (see ITEM_IMAGE); every other navigation is
+    // instant. Covers browser back and forward too, which never pass a per-link option.
+    defaultViewTransition: {
+      types: ({ fromLocation, toLocation, pathChanged }) =>
+        Boolean(fromLocation) &&
+        pathChanged &&
+        [fromLocation?.pathname, toLocation.pathname].some((path) => path?.startsWith("/items/"))
+          ? ["item"]
+          : false
+    }
   })
   setupRouterSsrQueryIntegration({ router, queryClient })
   return router
