@@ -80,6 +80,8 @@ export async function renderCard(card: OgCard, resolve: (url: string) => string 
   const root = {
     ...OG_SIZE,
     display: "flex",
+    // satori defaults to content-box, which would grow the card by its padding.
+    boxSizing: "border-box",
     padding: 40,
     background: PAGE,
     color: INK,
