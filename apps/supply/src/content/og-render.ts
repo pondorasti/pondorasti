@@ -115,7 +115,8 @@ export async function renderCard(card: OgCard, resolve: (url: string) => string 
                   fontWeight: 500,
                   lineHeight: 1.1,
                   letterSpacing: "-0.02em",
-                  lineClamp: card.title.length > 28 ? 4 : 3
+                  lineClamp: card.title.length > 28 ? 4 : 3,
+                  textWrap: "balance"
                 },
                 card.title
               )

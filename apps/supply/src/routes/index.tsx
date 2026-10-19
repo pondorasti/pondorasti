@@ -84,9 +84,7 @@ function Catalog() {
   return (
     <main id="main" className="page-width pb-16">
       <section className="mx-auto flex max-w-[560px] flex-col items-center pt-14 pb-12 text-center sm:pt-20 sm:pb-16">
-        <h1 className="display text-balance whitespace-pre-line">
-          {viewOf(filters.view).headline}
-        </h1>
+        <h1 className="display whitespace-pre-line">{viewOf(filters.view).headline}</h1>
         <label className="mt-7 flex h-11 w-full max-w-[428px] items-center gap-2 rounded-full bg-surface pr-1 pl-4 ring-1 ring-transparent focus-within:ring-line">
           <Search size={16} className="shrink-0 text-muted" />
           <Input

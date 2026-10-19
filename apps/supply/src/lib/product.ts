@@ -103,8 +103,7 @@ export const VIEWS = [
     id: "wishlist",
     label: "Wishlist",
     status: "wishlist",
-    // Non-breaking spaces keep "I make it," together when the line wraps.
-    headline: "I won't tell anyone when I\u00a0make\u00a0it, but there will be signs."
+    headline: "I won't tell anyone when I make it, but there will be signs."
   },
   {
     id: "archive",
