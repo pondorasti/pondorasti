@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, Link } from "@tanstack/react-router"
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { type RefObject, useEffect, useRef } from "react"
 import { Input } from "@base-ui/react/input"
@@ -47,15 +47,14 @@ function Catalog() {
     update({ tag })
     tagsRef.current?.scrollIntoView({ block: "start" })
   }
-  // Without a search, "All" splits into a section per tag, and each tag into its groups.
+  // Without a search, "All" splits into a section per tag and group, and a tag into its groups.
   const sections: Section[] = filters.q
-    ? [{ groups: [{ group: null, products: filtered }] }]
+    ? [{ group: null, products: filtered }]
     : filters.tag
-      ? [{ groups: sectionsByGroup(filtered) }]
-      : sectionsByTag(filtered).map(({ tag, products }) => ({
-          tag,
-          groups: sectionsByGroup(products)
-        }))
+      ? sectionsByGroup(filtered)
+      : sectionsByTag(filtered).flatMap(({ tag, products }) =>
+          sectionsByGroup(products).map((section) => ({ tag, ...section }))
+        )
   // Search results keep each card's tag; elsewhere the headings already name it.
   const caption = filters.q ? undefined : null
   const clear = () => {
@@ -113,52 +112,57 @@ function Catalog() {
       </ToggleGroup>
       {filtered.length ? (
         <div className="flex flex-col gap-12">
-          {sections.map(({ tag, groups }, sectionIndex) => {
-            // Under a tag heading, group headings drop a level and recede.
-            const GroupHeading = tag ? "h3" : "h2"
+          {sections.map(({ tag, group, products: items }, sectionIndex) => {
+            // Groups and tags share one namespace, so `#outerwear` deep links to its section.
+            const id = group ?? tag
             return (
-              <section key={tag ?? "items"} aria-labelledby={tag && `section-${tag}`}>
-                {tag && (
+              <section
+                key={id ?? "items"}
+                id={id}
+                aria-labelledby={id && `${id}-heading`}
+                className="scroll-mt-6"
+              >
+                {id && (
                   <h2
-                    id={`section-${tag}`}
-                    className="mb-3 flex pl-3 text-sm font-medium [&_svg]:text-muted"
+                    id={`${id}-heading`}
+                    className="mb-3 flex items-center gap-2 pl-3 text-sm font-medium [&_svg]:text-muted"
                   >
-                    <Button
-                      onClick={() => showTag(tag)}
-                      className="flex items-center gap-1.5 underline-offset-4 hover:underline"
-                    >
-                      <TagLabel tag={tag} />
-                    </Button>
+                    {tag && (
+                      <Button
+                        onClick={() => showTag(tag)}
+                        className="flex items-center gap-1.5 underline-offset-4 hover:underline"
+                      >
+                        <TagLabel tag={tag} />
+                      </Button>
+                    )}
+                    {tag && group && (
+                      <span aria-hidden="true" className="font-normal text-muted">
+                        /
+                      </span>
+                    )}
+                    {group && (
+                      <Link
+                        to="/"
+                        search={{ ...filters, tag: tag ?? filters.tag }}
+                        hash={group}
+                        className="flex items-center gap-1.5 underline-offset-4 hover:underline"
+                      >
+                        <TagLabel tag={group} />
+                      </Link>
+                    )}
                   </h2>
                 )}
-                <div className="flex flex-col gap-8">
-                  {groups.map(({ group, products: items }, groupIndex) => (
-                    <section
-                      key={group ?? "ungrouped"}
-                      aria-labelledby={group ? `group-${group}` : undefined}
-                    >
-                      {group && (
-                        <GroupHeading
-                          id={`group-${group}`}
-                          className={`mb-3 flex items-center gap-1.5 pl-3 text-sm [&_svg]:text-muted ${tag ? "text-muted" : "font-medium"}`}
-                        >
-                          <TagLabel tag={group} />
-                        </GroupHeading>
-                      )}
-                      <CatalogGrid>
-                        {items.map((product, index) => (
-                          <ProductCard
-                            key={product.slug}
-                            product={product}
-                            filters={filters}
-                            priority={sectionIndex === 0 && groupIndex === 0 && index < 5}
-                            caption={caption}
-                          />
-                        ))}
-                      </CatalogGrid>
-                    </section>
+                <CatalogGrid>
+                  {items.map((product, index) => (
+                    <ProductCard
+                      key={product.slug}
+                      product={product}
+                      filters={filters}
+                      priority={sectionIndex === 0 && index < 5}
+                      caption={caption}
+                    />
                   ))}
-                </div>
+                </CatalogGrid>
               </section>
             )
           })}
@@ -181,9 +185,10 @@ function Catalog() {
 }
 
 interface Section {
-  /** Heading for the "All" view, which links to the tag. */
+  /** Named in "All" headings, where it links to the tag. */
   tag?: Tag
-  groups: { group: Group | null; products: ProductSummary[] }[]
+  group: Group | null
+  products: ProductSummary[]
 }
 
 /** ⌘K / Ctrl+K anywhere, or "/" outside a text field, focuses the search box. */
