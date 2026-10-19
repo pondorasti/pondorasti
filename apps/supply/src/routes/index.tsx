@@ -16,13 +16,32 @@ import {
 } from "../lib/filters"
 import { CatalogGrid, CatalogPending, ProductCard } from "../components/product"
 import { IconButton, TagLabel } from "../components/controls"
-import { type Group, type ProductSummary, Tag, type View } from "../lib/product"
+import { type Group, type ProductSummary, Tag, type View, VIEWS } from "../lib/product"
 
 export const Route = createFileRoute("/")({
   validateSearch: CatalogFilters,
   loader: ({ context }) => context.queryClient.fetchQuery(catalogQuery),
   headers: () => ({ "Cache-Control": "no-store" }),
-  head: ({ match }) => ({ links: [{ rel: "canonical", href: `${match.context.origin}/` }] }),
+  head: ({ match }) => {
+    const { view } = match.search
+    const url = `${match.context.origin}/${view ? `?view=${view}` : ""}`
+    // The collection is the homepage, so it keeps the site-wide title and description.
+    const title = view && `${VIEWS.find(({ id }) => id === view)!.label} | Supply`
+    return {
+      meta: [
+        ...(view
+          ? [
+              { title },
+              { property: "og:title", content: title },
+              { name: "description", content: HEADLINES[view] },
+              { property: "og:description", content: HEADLINES[view] }
+            ]
+          : []),
+        { property: "og:url", content: url }
+      ],
+      links: [{ rel: "canonical", href: url }]
+    }
+  },
   pendingComponent: CatalogPending,
   component: Catalog
 })

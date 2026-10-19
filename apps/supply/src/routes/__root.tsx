@@ -18,6 +18,8 @@ import { siteQuery } from "../read/queries"
 import { statusView, type View, VIEWS } from "../lib/product"
 import styles from "../styles.css?url"
 
+const DESCRIPTION = "Things I currently own and use, plus the wishlist and the archive."
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   beforeLoad: async ({ context }) => ({
     origin: (await context.queryClient.ensureQueryData(siteQuery)).origin
@@ -27,11 +29,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Supply | Alexandru's collection" },
-      {
-        name: "description",
-        content:
-          "A personal collection of things for everyday life, work, and everything in between."
-      },
+      { name: "description", content: DESCRIPTION },
+      { property: "og:site_name", content: "Supply" },
+      { property: "og:type", content: "website" },
+      { property: "og:title", content: "Supply | Alexandru's collection" },
+      { property: "og:description", content: DESCRIPTION },
+      { name: "twitter:card", content: "summary" },
       { name: "theme-color", content: "#f2f2f2", media: "(prefers-color-scheme: light)" },
       { name: "theme-color", content: "#0e0e0e", media: "(prefers-color-scheme: dark)" }
     ],
