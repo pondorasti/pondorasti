@@ -16,7 +16,7 @@ import {
 } from "../lib/filters"
 import { CatalogGrid, CatalogPending, ProductCard } from "../components/product"
 import { IconButton, TagLabel } from "../components/controls"
-import { type Group, type ProductSummary, Tag } from "../lib/product"
+import { type Group, type ProductSummary, Tag, type View } from "../lib/product"
 
 export const Route = createFileRoute("/")({
   validateSearch: CatalogFilters,
@@ -63,14 +63,9 @@ function Catalog() {
   return (
     <main id="main" className="page-width pb-16">
       <section className="mx-auto flex max-w-[560px] flex-col items-center pt-14 pb-12 text-center sm:pt-20 sm:pb-16">
-        <h1 className="display text-balance">
-          {filters.view === "wishlist"
-            ? "I won't tell anyone when I make it, but there will be signs."
-            : "Things for everyday life, work, and everything in between."}
+        <h1 className="display text-balance whitespace-pre-line">
+          {HEADLINES[filters.view ?? "collection"]}
         </h1>
-        <p className="mt-3 text-base leading-6 text-pretty text-muted">
-          A personal collection of what's owned, used every day, and still on the wishlist.
-        </p>
         <label className="mt-7 flex h-11 w-full max-w-[428px] items-center gap-2 rounded-full bg-surface pr-1 pl-4 ring-1 ring-transparent focus-within:ring-line">
           <Search size={16} className="shrink-0 text-muted" />
           <Input
@@ -182,6 +177,13 @@ function Catalog() {
       )}
     </main>
   )
+}
+
+const HEADLINES: Record<View, string> = {
+  // Short enough for one line, so it breaks by hand to match the others.
+  collection: "Things I currently\nown and use.",
+  wishlist: "I won't tell anyone when I make it, but there will be signs.",
+  archive: "Everything that got replaced by something better."
 }
 
 interface Section {
