@@ -13,7 +13,7 @@ import { type QueryClient, useQueryErrorResetBoundary } from "@tanstack/react-qu
 import { Tooltip } from "@base-ui/react/tooltip"
 import { Button } from "@base-ui/react/button"
 import { ArrowLeft, RotateCcw } from "lucide-react"
-import { useEffect } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { siteQuery } from "../read/queries"
 import { statusView, type View, VIEWS } from "../lib/product"
 import styles from "../styles.css?url"
@@ -94,10 +94,32 @@ function ViewNav() {
   const product = useMatch({ from: "/items/$slug", shouldThrow: false })?.loaderData
   const search = useSearch({ strict: false })
   const active = (product && statusView(product.status)) ?? search.view ?? "collection"
+  const nav = useRef<HTMLElement>(null)
+  // One pill slides between tabs once it's measured; until then the active tab fills itself.
+  const [pill, setPill] = useState<{ left: number; width: number }>()
+  useLayoutEffect(() => {
+    const element = nav.current
+    if (!element) return
+    const measure = () => {
+      const link = element.querySelector<HTMLElement>('[aria-current="page"]')
+      setPill(link ? { left: link.offsetLeft, width: link.offsetWidth } : undefined)
+    }
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [active])
   return (
-    <nav aria-label="Collection" className="flex items-center gap-1">
+    <nav ref={nav} aria-label="Collection" className="relative flex items-center gap-1">
+      {pill && (
+        <span
+          aria-hidden="true"
+          className="absolute inset-y-0 rounded-full bg-surface motion-safe:transition-[left,width] motion-safe:duration-300 motion-safe:ease-out"
+          style={pill}
+        />
+      )}
       {VIEWS.map(({ id, label }) => (
-        <ViewLink key={id} view={id} current={id === active}>
+        <ViewLink key={id} view={id} current={id === active} filled={id === active && !pill}>
           {label}
         </ViewLink>
       ))}
@@ -106,14 +128,24 @@ function ViewNav() {
 }
 
 // Link's own active matching treats "/" as a prefix of every view, so the state is set here.
-function ViewLink({ view, current, children }: { view: View; current: boolean; children: string }) {
+function ViewLink({
+  view,
+  current,
+  filled,
+  children
+}: {
+  view: View
+  current: boolean
+  filled: boolean
+  children: string
+}) {
   const props = useLinkProps({ to: "/", search: view === "collection" ? {} : { view } })
   return (
     <a
       {...props}
       aria-current={current ? "page" : undefined}
       data-status={undefined}
-      className="inline-flex h-9 items-center rounded-full px-3 text-sm text-muted transition-colors hover:text-ink aria-[current=page]:bg-surface aria-[current=page]:text-ink"
+      className={`relative inline-flex h-9 items-center rounded-full px-3 text-sm text-muted transition-colors hover:text-ink aria-[current=page]:text-ink ${filled ? "bg-surface" : ""}`}
     >
       {children}
     </a>
