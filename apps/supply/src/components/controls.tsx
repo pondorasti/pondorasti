@@ -1,24 +1,27 @@
 import { Button } from "@base-ui/react/button"
 import { Tooltip } from "@base-ui/react/tooltip"
 import {
+  Archive,
   Backpack,
   Bath,
   Bed,
   BedDouble,
   BedSingle,
   BookOpen,
+  Boxes,
   CloudRain,
   Columns2,
   Droplet,
   Dumbbell,
   Footprints,
   Gem,
+  Gift,
   Glasses,
   Layers,
   type LucideIcon,
   Monitor,
-  Pill,
   Package,
+  Pill,
   Scissors,
   Shirt,
   Smartphone,
@@ -30,7 +33,7 @@ import {
   Watch
 } from "lucide-react"
 import type { ReactNode } from "react"
-import { type Group, label, type Tag } from "../lib/product"
+import { type Group, label, type Tag, type View, viewOf } from "../lib/product"
 
 const TAG_ICONS: Record<Tag | Group, LucideIcon> = {
   accessories: Gem,
@@ -61,6 +64,22 @@ const TAG_ICONS: Record<Tag | Group, LucideIcon> = {
   vitamins: Pill,
   watches: Watch,
   workout: Dumbbell
+}
+
+const VIEW_ICONS: Record<View, LucideIcon> = {
+  collection: Boxes,
+  wishlist: Gift,
+  archive: Archive
+}
+
+export function ViewLabel({ view }: { view: View }) {
+  const Icon = VIEW_ICONS[view]
+  return (
+    <>
+      <Icon size={16} strokeWidth={1.75} className="shrink-0" aria-hidden="true" />
+      {viewOf(view).label}
+    </>
+  )
 }
 
 export function TagLabel({ tag }: { tag: Tag | Group }) {

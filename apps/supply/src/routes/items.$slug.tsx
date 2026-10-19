@@ -3,8 +3,9 @@ import { useSuspenseQuery } from "@tanstack/react-query"
 import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import { productQuery } from "../read/queries"
 import { CatalogFilters } from "../lib/filters"
-import { label, Slug, statusView, viewOf } from "../lib/product"
+import { Slug, statusView } from "../lib/product"
 import { ProductImage } from "../components/product"
+import { TagLabel, ViewLabel } from "../components/controls"
 
 export const Route = createFileRoute("/items/$slug")({
   validateSearch: CatalogFilters,
@@ -59,29 +60,33 @@ function Product() {
           <ProductImage src={product.image} name={product.name} priority />
         </div>
         <div className="min-w-0 lg:pt-2">
-          <p className="flex flex-wrap items-center gap-x-1.5 text-sm text-muted">
-            {/* A breadcrumb back into the catalog: view, tag, then group. */}
-            <Link to="/" search={{ view }} className="underline-offset-4 hover:underline">
-              {viewOf(productView).label}
+          <p className="flex flex-wrap items-center gap-x-2 text-sm text-muted">
+            {/* A breadcrumb back into the catalog, styled like the catalog's section headings. */}
+            <Link
+              to="/"
+              search={{ view }}
+              className="flex items-center gap-1.5 underline-offset-4 hover:underline"
+            >
+              <ViewLabel view={productView} />
             </Link>
-            <span aria-hidden="true">·</span>
+            <span aria-hidden="true">/</span>
             <Link
               to="/"
               search={{ tag: product.tag, view }}
-              className="underline-offset-4 hover:underline"
+              className="flex items-center gap-1.5 underline-offset-4 hover:underline"
             >
-              {label(product.tag)}
+              <TagLabel tag={product.tag} />
             </Link>
             {product.group && (
               <>
-                <span aria-hidden="true">·</span>
+                <span aria-hidden="true">/</span>
                 <Link
                   to="/"
                   search={{ tag: product.tag, view }}
                   hash={product.group}
-                  className="underline-offset-4 hover:underline"
+                  className="flex items-center gap-1.5 underline-offset-4 hover:underline"
                 >
-                  {label(product.group)}
+                  <TagLabel tag={product.group} />
                 </Link>
               </>
             )}
