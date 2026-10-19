@@ -55,6 +55,10 @@
   .page-width {
     @apply mx-auto w-full max-w-[1600px] px-4 lg:px-6;
   }
+  /* Inline text links: underlined on hover, with corners so the focus ring rounds like the rest. */
+  .text-link {
+    @apply rounded-md underline-offset-4 hover:underline;
+  }
   .display {
     @apply text-[32px] leading-[1.1] font-medium tracking-[-0.02em] text-balance sm:text-4xl;
   }
@@ -90,7 +94,7 @@
     overflow-wrap: anywhere;
   }
   .notes a {
-    @apply text-ink underline decoration-line underline-offset-4 hover:decoration-ink;
+    @apply rounded-sm text-ink underline decoration-line underline-offset-4 hover:decoration-ink;
   }
   .notes h2 {
     @apply mt-8 text-xl font-medium tracking-[-0.01em] text-balance text-ink;

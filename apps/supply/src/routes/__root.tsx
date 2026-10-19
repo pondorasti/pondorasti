@@ -171,7 +171,7 @@ function Root() {
             <p className="justify-self-start text-sm font-medium tracking-wide">
               {/* Thin spaces keep the brackets close to the name; only the words are links. */}
               {"[\u2009"}
-              <Link to="/" className="underline-offset-4 hover:underline">
+              <Link to="/" className="text-link">
                 supply
               </Link>
               .{/* Phones keep the short form so the centered nav still fits. */}
@@ -179,7 +179,7 @@ function Root() {
                 href="https://alexandru.so"
                 target="_blank"
                 rel="noreferrer"
-                className="hidden text-muted underline-offset-4 hover:underline sm:inline"
+                className="hidden text-muted text-link sm:inline"
               >
                 alexandru.so
               </a>

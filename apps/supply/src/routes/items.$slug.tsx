@@ -75,18 +75,14 @@ function Product() {
         <div className="min-w-0 lg:pt-2">
           <p className="flex flex-wrap items-center gap-x-2 text-sm text-muted">
             {/* A breadcrumb back into the catalog, styled like the catalog's section headings. */}
-            <Link
-              to="/"
-              search={{ view }}
-              className="flex items-center gap-1.5 underline-offset-4 hover:underline"
-            >
+            <Link to="/" search={{ view }} className="flex items-center gap-1.5 text-link">
               <ViewLabel view={productView} />
             </Link>
             <span aria-hidden="true">/</span>
             <Link
               to="/"
               search={{ tag: product.tag, view }}
-              className="flex items-center gap-1.5 underline-offset-4 hover:underline"
+              className="flex items-center gap-1.5 text-link"
             >
               <TagLabel tag={product.tag} />
             </Link>
@@ -97,7 +93,7 @@ function Product() {
                   to="/"
                   search={{ tag: product.tag, view }}
                   hash={product.group}
-                  className="flex items-center gap-1.5 underline-offset-4 hover:underline"
+                  className="flex items-center gap-1.5 text-link"
                 >
                   <TagLabel tag={product.group} />
                 </Link>

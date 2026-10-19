@@ -154,7 +154,7 @@ function Catalog() {
                       (linkTag ? (
                         <Button
                           onClick={() => showTag(tag)}
-                          className="flex items-center gap-1.5 underline-offset-4 hover:underline"
+                          className="flex items-center gap-1.5 text-link"
                         >
                           <TagLabel tag={tag} />
                         </Button>
@@ -173,7 +173,7 @@ function Catalog() {
                         to="/"
                         search={{ ...filters, tag: tag ?? filters.tag }}
                         hash={group}
-                        className="flex items-center gap-1.5 underline-offset-4 hover:underline"
+                        className="flex items-center gap-1.5 text-link"
                       >
                         <TagLabel tag={group} />
                       </Link>
