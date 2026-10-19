@@ -3,6 +3,7 @@ name: "Nutricost Collagen Peptides"
 variant: "Grass-Fed Bovine, 1 lb"
 status: retired
 tag: supplements
+group: workout
 link: "https://www.amazon.com/dp/B06XKM7P97"
 ---
 

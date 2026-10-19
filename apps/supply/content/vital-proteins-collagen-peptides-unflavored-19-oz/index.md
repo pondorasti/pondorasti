@@ -3,6 +3,7 @@ name: "Vital Proteins Collagen Peptides"
 variant: "Unflavored, 19.3 oz"
 status: retired
 tag: supplements
+group: workout
 link: "https://www.amazon.com/dp/B09QV3XG8B"
 ---
 

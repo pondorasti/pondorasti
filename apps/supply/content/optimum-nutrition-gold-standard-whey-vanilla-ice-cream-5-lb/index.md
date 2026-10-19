@@ -3,6 +3,7 @@ name: "Optimum Nutrition Gold Standard 100% Whey"
 variant: "Vanilla Ice Cream, 5 lb"
 status: retired
 tag: supplements
+group: workout
 link: "https://www.amazon.com/dp/B000GISU1M"
 ---
 

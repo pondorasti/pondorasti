@@ -3,6 +3,7 @@ name: "Thorne Basic B Complex"
 variant: "60 Capsules"
 status: retired
 tag: supplements
+group: vitamins
 link: "https://www.amazon.com/dp/B00HST919C"
 ---
 

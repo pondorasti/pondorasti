@@ -3,6 +3,7 @@ name: "Jarrow Formulas B-Right"
 variant: "Vitamin B Complex, 100 Capsules"
 status: owned
 tag: supplements
+group: vitamins
 link: "https://www.amazon.com/dp/B0016003Z0"
 ---
 

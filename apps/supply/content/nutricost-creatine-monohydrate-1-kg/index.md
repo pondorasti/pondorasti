@@ -3,6 +3,7 @@ name: "Nutricost Creatine Monohydrate"
 variant: "Micronized Powder, 1 kg"
 status: owned
 tag: supplements
+group: workout
 link: "https://www.amazon.com/dp/B01EVVQX9U"
 ---
 

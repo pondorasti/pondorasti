@@ -3,6 +3,7 @@ name: "Optimum Nutrition Gold Standard 100% Whey"
 variant: "Double Rich Chocolate, 10 lb"
 status: owned
 tag: supplements
+group: workout
 link: "https://www.amazon.com/dp/B000GIQT2O"
 ---
 

@@ -3,6 +3,7 @@ name: "Banana Republic Merino Crew-Neck Sweater"
 variant: "Charcoal Gray"
 status: owned
 tag: apparel
+group: knitwear
 link: "https://bananarepublic.gap.com/browse/product.do?pid=796005102"
 ---
 

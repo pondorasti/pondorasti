@@ -3,6 +3,7 @@ name: "Viva Naturals Omega-3 Fish Oil"
 variant: "Triple Strength, 180 Softgels"
 status: owned
 tag: supplements
+group: vitamins
 link: "https://www.amazon.com/dp/B014LDT0ZM"
 ---
 

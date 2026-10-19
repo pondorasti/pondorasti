@@ -3,6 +3,7 @@ name: "Solgar Gentle Iron"
 variant: "25 mg, 180 Vegetable Capsules"
 status: owned
 tag: supplements
+group: vitamins
 link: "https://www.amazon.com/dp/B0001OP028"
 ---
 

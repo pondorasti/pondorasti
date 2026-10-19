@@ -3,6 +3,7 @@ name: "lululemon ABC Warpstreme Jogger"
 variant: "Black"
 status: owned
 tag: apparel
+group: bottoms
 link: "https://shop.lululemon.com/p/abc-jogger/yse0idzlrl?color=0001"
 ---
 

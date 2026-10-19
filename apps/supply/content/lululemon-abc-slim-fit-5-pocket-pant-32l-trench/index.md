@@ -3,6 +3,7 @@ name: "lululemon ABC Slim-Fit 5 Pocket Pant 32L"
 variant: "Trench"
 status: retired
 tag: apparel
+group: bottoms
 link: "https://shop.lululemon.com/p/mens-trousers/Abc-Slim-5-Pocket-32-MD/_/prod10900247?color=43731&sz=28"
 ---
 

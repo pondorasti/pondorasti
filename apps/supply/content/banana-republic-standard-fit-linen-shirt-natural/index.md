@@ -3,6 +3,7 @@ name: "Banana Republic Standard-Fit Linen Shirt"
 variant: "Natural"
 status: owned
 tag: apparel
+group: shirts
 link: "https://bananarepublic.gap.com/browse/product.do?pid=893183122"
 ---
 

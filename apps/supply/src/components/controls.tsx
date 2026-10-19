@@ -5,40 +5,58 @@ import {
   Bath,
   BedDouble,
   BookOpen,
+  CloudRain,
+  Columns2,
   Droplet,
   Dumbbell,
   Footprints,
+  Gem,
   Glasses,
+  Layers,
   type LucideIcon,
   Monitor,
+  Pill,
+  Package,
+  Scissors,
   Shirt,
   Smartphone,
   Smile,
+  Spool,
   SprayCan,
   TowelRack,
-  Watch,
-  WashingMachine
+  WashingMachine,
+  Watch
 } from "lucide-react"
 import type { ReactNode } from "react"
 import { type Group, label, type Tag } from "../lib/product"
 
 const TAG_ICONS: Record<Tag | Group, LucideIcon> = {
+  accessories: Gem,
   apparel: Shirt,
+  basics: Package,
   bathroom: Bath,
   bedroom: BedDouble,
   books: BookOpen,
+  bottoms: Columns2,
   carry: Backpack,
   hair: SprayCan,
+  knitwear: Spool,
   laundry: WashingMachine,
+  layers: Layers,
   office: Monitor,
   oral: Smile,
+  outerwear: CloudRain,
+  shirts: Scissors,
   shoes: Footprints,
   skin: Droplet,
   sunglasses: Glasses,
   supplements: Dumbbell,
   technology: Smartphone,
+  tees: Shirt,
   towels: TowelRack,
-  watches: Watch
+  vitamins: Pill,
+  watches: Watch,
+  workout: Dumbbell
 }
 
 export function TagLabel({ tag }: { tag: Tag | Group }) {

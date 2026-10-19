@@ -3,6 +3,7 @@ name: "Banana Republic Luxury-Touch T-Shirt"
 variant: "Heather Oatmeal"
 status: owned
 tag: apparel
+group: tees
 link: "https://bananarepublic.gap.com/browse/product.do?pid=811426041"
 ---
 

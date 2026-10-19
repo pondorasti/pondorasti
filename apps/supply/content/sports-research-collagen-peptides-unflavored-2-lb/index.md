@@ -3,6 +3,7 @@ name: "Sports Research Collagen Peptides"
 variant: "Unflavored, 2 lb"
 status: owned
 tag: supplements
+group: workout
 link: "https://www.amazon.com/dp/B07C7S9Q4F"
 ---
 

@@ -3,6 +3,7 @@ name: "Nordic Naturals Ultimate Omega"
 variant: "Lemon, 180 Softgels"
 status: retired
 tag: supplements
+group: vitamins
 link: "https://www.amazon.com/dp/B002CQU564"
 ---
 

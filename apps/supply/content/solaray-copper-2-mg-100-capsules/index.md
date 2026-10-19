@@ -3,6 +3,7 @@ name: "Solaray Copper"
 variant: "2 mg, 100 Vegan Capsules"
 status: owned
 tag: supplements
+group: vitamins
 link: "https://www.amazon.com/dp/B00020I0OG"
 ---
 

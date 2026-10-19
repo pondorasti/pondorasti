@@ -10,7 +10,6 @@ export const Tag = z.enum([
   "technology",
   "office",
   "apparel",
-  "watches",
   "carry",
   "bedroom",
   "bathroom",
@@ -19,13 +18,45 @@ export const Tag = z.enum([
 export type Tag = z.infer<typeof Tag>
 
 /** Sub groups, in display order. Each belongs to one tag in `TAG_GROUPS` and needs an icon in `components/controls.tsx`. */
-export const Group = z.enum(["shoes", "sunglasses", "skin", "oral", "towels", "hair", "laundry"])
+export const Group = z.enum([
+  "outerwear",
+  "layers",
+  "knitwear",
+  "shirts",
+  "tees",
+  "bottoms",
+  "basics",
+  "shoes",
+  "sunglasses",
+  "watches",
+  "accessories",
+  "skin",
+  "oral",
+  "towels",
+  "hair",
+  "laundry",
+  "vitamins",
+  "workout"
+])
 export type Group = z.infer<typeof Group>
 
 /** The sub groups an item with this tag may use; tags without an entry have none. */
 export const TAG_GROUPS: Partial<Record<Tag, Group[]>> = {
-  apparel: ["shoes", "sunglasses"],
-  bathroom: ["skin", "oral", "towels", "hair", "laundry"]
+  apparel: [
+    "outerwear",
+    "layers",
+    "knitwear",
+    "shirts",
+    "tees",
+    "bottoms",
+    "basics",
+    "shoes",
+    "sunglasses",
+    "watches",
+    "accessories"
+  ],
+  bathroom: ["skin", "oral", "towels", "hair", "laundry"],
+  supplements: ["vitamins", "workout"]
 }
 
 /** Display name for a status, tag or group id, e.g. "technology" → "Technology". */

@@ -3,6 +3,7 @@ name: "The North Face Men’s Cyclone Wind Jacket"
 variant: "TNF Black"
 status: owned
 tag: apparel
+group: outerwear
 link: "https://www.thenorthface.com/fr-fr/p/homme-211701/veste-coupe-vent-cyclone-pour-homme-NF0A8B64?color=JK3"
 ---
 

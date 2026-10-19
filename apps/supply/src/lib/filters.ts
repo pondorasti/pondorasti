@@ -4,6 +4,7 @@ import { Group, type ProductSummary, Tag, type View, viewStatus } from "./produc
 const FOLDED_TAGS = {
   shoes: "apparel",
   sunglasses: "apparel",
+  watches: "apparel",
   skin: "bathroom",
   oral: "bathroom"
 } as const satisfies Record<string, Tag>
@@ -25,7 +26,7 @@ export const CatalogFilters = z.object({
       z.union([
         Tag,
         z.pipe(
-          z.enum(["shoes", "sunglasses", "skin", "oral"]),
+          z.enum(["shoes", "sunglasses", "watches", "skin", "oral"]),
           z.transform((tag) => FOLDED_TAGS[tag])
         )
       ])

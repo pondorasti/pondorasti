@@ -3,6 +3,7 @@ name: "Patagonia Capilene Cool Sun Hoody"
 variant: "Aquatic Blue X-Dye"
 status: owned
 tag: apparel
+group: layers
 link: "https://www.patagonia.com/product/mens-capilene-cool-sun-hoody/199346138284.html"
 ---
 

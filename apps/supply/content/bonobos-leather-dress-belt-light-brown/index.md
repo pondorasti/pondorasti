@@ -3,6 +3,7 @@ name: "Bonobos Leather Dress Belt"
 variant: "Light Brown"
 status: owned
 tag: apparel
+group: accessories
 link: "https://bonobos.com/products/leather-dress-belt-light-brown-with-silver-0"
 ---
 

@@ -3,6 +3,7 @@ name: "lululemon Soft Jersey Short-Sleeve Shirt"
 variant: "Heathered Black"
 status: owned
 tag: apparel
+group: tees
 link: "https://shop.lululemon.com/p/men-ss-tops/Soft-Jersey-Short-Sleeve-Shirt-MD/_/prod11570464?color=64587&sz=XS"
 ---
 

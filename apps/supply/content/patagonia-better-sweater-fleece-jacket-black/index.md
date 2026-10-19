@@ -3,6 +3,7 @@ name: "Patagonia Better Sweater Fleece Jacket"
 variant: "Black"
 status: owned
 tag: apparel
+group: layers
 link: "https://www.patagonia.com/product/mens-better-sweater-fleece-jacket/192964027008.html"
 ---
 

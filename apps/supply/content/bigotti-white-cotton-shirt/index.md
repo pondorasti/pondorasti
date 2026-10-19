@@ -2,6 +2,7 @@
 name: "Bigotti White Cotton Shirt"
 status: owned
 tag: apparel
+group: shirts
 link: "https://www.bigotti.ro/camasi-barbati/camasa-superslim-alba-uni-1429618"
 ---
 

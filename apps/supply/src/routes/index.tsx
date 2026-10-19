@@ -16,7 +16,7 @@ import {
 } from "../lib/filters"
 import { CatalogGrid, CatalogPending, ProductCard } from "../components/product"
 import { IconButton, TagLabel } from "../components/controls"
-import { type Group, label, type ProductSummary, Tag } from "../lib/product"
+import { type Group, type ProductSummary, Tag } from "../lib/product"
 
 export const Route = createFileRoute("/")({
   validateSearch: CatalogFilters,
@@ -47,21 +47,17 @@ function Catalog() {
     update({ tag })
     tagsRef.current?.scrollIntoView({ block: "start" })
   }
-  // Without a search, "All" splits into a section per tag, and a tag into its groups.
+  // Without a search, "All" splits into a section per tag, and each tag into its groups.
   const sections: Section[] = filters.q
-    ? [{ products: filtered }]
+    ? [{ groups: [{ group: null, products: filtered }] }]
     : filters.tag
-      ? sectionsByGroup(filtered).map(({ group, products }) => ({
-          heading: group ?? undefined,
-          products,
-          caption: () => null
-        }))
+      ? [{ groups: sectionsByGroup(filtered) }]
       : sectionsByTag(filtered).map(({ tag, products }) => ({
-          heading: tag,
-          select: () => showTag(tag),
-          products,
-          caption: (product) => product.group && label(product.group)
+          tag,
+          groups: sectionsByGroup(products)
         }))
+  // Search results keep each card's tag; elsewhere the headings already name it.
+  const caption = filters.q ? undefined : null
   const clear = () => {
     void navigate({ search: { view: filters.view }, resetScroll: false })
   }
@@ -117,40 +113,55 @@ function Catalog() {
       </ToggleGroup>
       {filtered.length ? (
         <div className="flex flex-col gap-12">
-          {sections.map(({ heading, select, products: section, caption }, sectionIndex) => (
-            <section key={heading ?? "items"} aria-labelledby={heading && `section-${heading}`}>
-              {heading && (
-                <h2
-                  id={`section-${heading}`}
-                  className="mb-3 flex pl-3 text-sm font-medium [&_svg]:text-muted"
-                >
-                  {select ? (
+          {sections.map(({ tag, groups }, sectionIndex) => {
+            // Under a tag heading, group headings drop a level and recede.
+            const GroupHeading = tag ? "h3" : "h2"
+            return (
+              <section key={tag ?? "items"} aria-labelledby={tag && `section-${tag}`}>
+                {tag && (
+                  <h2
+                    id={`section-${tag}`}
+                    className="mb-3 flex pl-3 text-sm font-medium [&_svg]:text-muted"
+                  >
                     <Button
-                      onClick={select}
+                      onClick={() => showTag(tag)}
                       className="flex items-center gap-1.5 underline-offset-4 hover:underline"
                     >
-                      <TagLabel tag={heading} />
+                      <TagLabel tag={tag} />
                     </Button>
-                  ) : (
-                    <span className="flex items-center gap-1.5">
-                      <TagLabel tag={heading} />
-                    </span>
-                  )}
-                </h2>
-              )}
-              <CatalogGrid>
-                {section.map((product, index) => (
-                  <ProductCard
-                    key={product.slug}
-                    product={product}
-                    filters={filters}
-                    priority={sectionIndex === 0 && index < 5}
-                    caption={caption?.(product)}
-                  />
-                ))}
-              </CatalogGrid>
-            </section>
-          ))}
+                  </h2>
+                )}
+                <div className="flex flex-col gap-8">
+                  {groups.map(({ group, products: items }, groupIndex) => (
+                    <section
+                      key={group ?? "ungrouped"}
+                      aria-labelledby={group ? `group-${group}` : undefined}
+                    >
+                      {group && (
+                        <GroupHeading
+                          id={`group-${group}`}
+                          className={`mb-3 flex items-center gap-1.5 pl-3 text-sm [&_svg]:text-muted ${tag ? "text-muted" : "font-medium"}`}
+                        >
+                          <TagLabel tag={group} />
+                        </GroupHeading>
+                      )}
+                      <CatalogGrid>
+                        {items.map((product, index) => (
+                          <ProductCard
+                            key={product.slug}
+                            product={product}
+                            filters={filters}
+                            priority={sectionIndex === 0 && groupIndex === 0 && index < 5}
+                            caption={caption}
+                          />
+                        ))}
+                      </CatalogGrid>
+                    </section>
+                  ))}
+                </div>
+              </section>
+            )
+          })}
         </div>
       ) : (
         <div className="flex flex-col items-center rounded-2xl bg-surface py-24 text-center">
@@ -170,12 +181,9 @@ function Catalog() {
 }
 
 interface Section {
-  heading?: Tag | Group
-  /** Selects the heading's tag; group headings aren't links. */
-  select?: () => void
-  products: ProductSummary[]
-  /** Card caption override; the card shows its tag by default. */
-  caption?: (product: ProductSummary) => string | null
+  /** Heading for the "All" view, which links to the tag. */
+  tag?: Tag
+  groups: { group: Group | null; products: ProductSummary[] }[]
 }
 
 /** ⌘K / Ctrl+K anywhere, or "/" outside a text field, focuses the search box. */
