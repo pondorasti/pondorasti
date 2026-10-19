@@ -12,5 +12,5 @@
     { "pattern": "alexandru.supply", "custom_domain": true },
     { "pattern": "supply.alexandru.so", "custom_domain": true }
   ],
-  "vars": { "PUBLIC_ORIGIN": "https://alexandru.supply" }
+  "vars": { "PUBLIC_ORIGIN": "https://supply.alexandru.so" }
 }

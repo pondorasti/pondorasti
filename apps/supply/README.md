@@ -147,7 +147,7 @@ The dev server reloads when anything under `content/` changes.
 Resources in account `630f294bcb2c1e9b751d9fe0655a453a` (851):
 
 - Worker name: `alexandru-supply`
-- Public origin: `https://alexandru.supply` (also served at `https://supply.alexandru.so`)
+- Public origin: `https://supply.alexandru.so` (`https://alexandru.supply` redirects to it)
 
 Pushing to `main` deploys automatically: the Worker is connected to this repository
 through Cloudflare Workers Builds, which runs
