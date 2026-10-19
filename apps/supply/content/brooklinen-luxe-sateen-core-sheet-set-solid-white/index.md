@@ -3,6 +3,7 @@ name: "Brooklinen Luxe Sateen Core Sheet Set"
 variant: "Solid White"
 status: owned
 tag: bedroom
+group: bedding
 link: "https://www.brooklinen.com/products/luxe-core-sheet-set?variant=43350202712154"
 ---
 

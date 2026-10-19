@@ -2,6 +2,7 @@
 name: "Brooklinen Marlow Pillow"
 status: owned
 tag: bedroom
+group: bedding
 link: "https://www.brooklinen.com/products/marlow-pillow?variant=39570864799834"
 ---
 

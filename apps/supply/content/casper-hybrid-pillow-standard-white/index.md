@@ -3,6 +3,7 @@ name: "Casper Hybrid Pillow"
 variant: "Standard, White"
 status: owned
 tag: bedroom
+group: bedding
 link: "https://www.amazon.com/dp/B09KZ4B54F"
 ---
 

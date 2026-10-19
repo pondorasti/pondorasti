@@ -3,6 +3,7 @@ name: "Linenspa 10-inch Hybrid Mattress"
 variant: "Full"
 status: owned
 tag: bedroom
+group: bed
 link: "https://www.amazon.com/dp/B07HNNKJ8V"
 ---
 

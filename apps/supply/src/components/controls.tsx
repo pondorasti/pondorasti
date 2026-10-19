@@ -3,7 +3,9 @@ import { Tooltip } from "@base-ui/react/tooltip"
 import {
   Backpack,
   Bath,
+  Bed,
   BedDouble,
+  BedSingle,
   BookOpen,
   CloudRain,
   Columns2,
@@ -35,6 +37,8 @@ const TAG_ICONS: Record<Tag | Group, LucideIcon> = {
   apparel: Shirt,
   basics: Package,
   bathroom: Bath,
+  bed: Bed,
+  bedding: BedSingle,
   bedroom: BedDouble,
   books: BookOpen,
   bottoms: Columns2,
