@@ -27,7 +27,7 @@ export const Route = createFileRoute("/")({
     const { origin } = match.context
     const url = `${origin}/${view ? `?view=${view}` : ""}`
     // The collection is the homepage, so it keeps the site-wide title and description.
-    const title = view && `${viewOf(view).label} | Supply`
+    const title = view && `Supply | Alexandru's ${viewOf(view).label}`
     return {
       meta: [
         ...(view

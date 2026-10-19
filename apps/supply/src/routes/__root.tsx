@@ -29,11 +29,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Supply | Alexandru's collection" },
+      { title: "Supply | Alexandru's Collection" },
       { name: "description", content: DESCRIPTION },
       { property: "og:site_name", content: "Supply" },
       { property: "og:type", content: "website" },
-      { property: "og:title", content: "Supply | Alexandru's collection" },
+      { property: "og:title", content: "Supply | Alexandru's Collection" },
       { property: "og:description", content: DESCRIPTION },
       // Every page has a card, so the collection's stands in until a route sets its own.
       { property: "og:image", content: `${context.origin}${context.cards.collection}` },
