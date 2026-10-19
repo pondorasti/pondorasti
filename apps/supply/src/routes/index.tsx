@@ -43,7 +43,9 @@ function Catalog() {
     <main id="main" className="page-width pb-16">
       <section className="mx-auto flex max-w-[560px] flex-col items-center pt-14 pb-12 text-center sm:pt-20 sm:pb-16">
         <h1 className="display text-balance">
-          Things for everyday life, work, and everything in between.
+          {filters.view === "wishlist"
+            ? "I won't tell anyone when I make it, but there will be signs."
+            : "Things for everyday life, work, and everything in between."}
         </h1>
         <p className="mt-3 text-base leading-6 text-pretty text-muted">
           A personal collection of what's owned, used every day, and still on the wishlist.
