@@ -9,4 +9,12 @@ describe("repo content", () => {
     expect(new Set(items.map((product) => product.slug)).size).toBe(items.length)
     for (const product of items) expect(images.has(product.image)).toBe(true)
   })
+  it("gives every item and view an Open Graph card", () => {
+    const { items, views, cards } = loadContent(
+      fileURLToPath(new URL("../../content", import.meta.url))
+    )
+    for (const url of [...items.map((product) => product.og), ...Object.values(views)]) {
+      expect(cards.has(url)).toBe(true)
+    }
+  })
 })

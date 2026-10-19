@@ -12,6 +12,11 @@ HTML is server-rendered on each request from the bundled catalog. Content change
 the site by deploying. Images are served at content-addressed `/images/<hash>.webp` URLs
 and cached by browsers for a year (`public/_headers`).
 
+Each item and view also gets a 1200×630 Open Graph card at `/og/<hash>.jpg`, rendered
+at build time (in dev, on first request) by `src/content/og.ts` with satori and sharp: the
+item's image on a white stage, its category and name, and the wordmark. A card's hash
+covers what it shows and `og.ts` itself, so editing the design gives every card a new URL.
+
 ## Content
 
 Each item is a folder under `content/`, named by its URL slug:
@@ -128,7 +133,8 @@ so a broken item never deploys.
 
 - `content/`: the catalog, one folder per item.
 - `src/content/`: the Vite plugin that validates `content/`, renders notes to HTML and
-  exposes the items as `virtual:supply-content` (server only) and the images as files.
+  exposes the items as `virtual:supply-content` (server only) and the images and Open
+  Graph cards as files.
 - `src/lib/`: code shared by server and browser (product types, statuses, tags, filters).
 - `src/read/`: the server functions, query options and sitemap response.
 - `src/routes/`: pages, plus the `sitemap.xml` server route.

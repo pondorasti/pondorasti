@@ -29,7 +29,12 @@ const escape = (value: string) =>
   )
 
 /** Parses one `content/<slug>/index.md`; throws a readable error for anything the site can't show. */
-export function parseItem(slug: string, source: string, image: ImageResolver): ProductDetail {
+/** The item as written; its Open Graph card is added once the whole catalog is loaded. */
+export function parseItem(
+  slug: string,
+  source: string,
+  image: ImageResolver
+): Omit<ProductDetail, "og"> {
   if (!Slug.safeParse(slug).success)
     throw new Error("folder name must be lowercase words joined by hyphens")
   const match = FENCE.exec(source)

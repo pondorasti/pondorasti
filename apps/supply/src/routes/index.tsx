@@ -16,7 +16,7 @@ import {
 } from "../lib/filters"
 import { CatalogGrid, CatalogPending, ProductCard } from "../components/product"
 import { IconButton, TagLabel } from "../components/controls"
-import { type Group, type ProductSummary, Tag, type View, VIEWS } from "../lib/product"
+import { type Group, type ProductSummary, Tag, viewOf } from "../lib/product"
 
 export const Route = createFileRoute("/")({
   validateSearch: CatalogFilters,
@@ -24,17 +24,19 @@ export const Route = createFileRoute("/")({
   headers: () => ({ "Cache-Control": "no-store" }),
   head: ({ match }) => {
     const { view } = match.search
-    const url = `${match.context.origin}/${view ? `?view=${view}` : ""}`
+    const { origin } = match.context
+    const url = `${origin}/${view ? `?view=${view}` : ""}`
     // The collection is the homepage, so it keeps the site-wide title and description.
-    const title = view && `${VIEWS.find(({ id }) => id === view)!.label} | Supply`
+    const title = view && `${viewOf(view).label} | Supply`
     return {
       meta: [
         ...(view
           ? [
               { title },
               { property: "og:title", content: title },
-              { name: "description", content: HEADLINES[view] },
-              { property: "og:description", content: HEADLINES[view] }
+              { name: "description", content: viewOf(view).headline },
+              { property: "og:description", content: viewOf(view).headline },
+              { property: "og:image", content: `${origin}${match.context.cards[view]}` }
             ]
           : []),
         { property: "og:url", content: url }
@@ -83,7 +85,7 @@ function Catalog() {
     <main id="main" className="page-width pb-16">
       <section className="mx-auto flex max-w-[560px] flex-col items-center pt-14 pb-12 text-center sm:pt-20 sm:pb-16">
         <h1 className="display text-balance whitespace-pre-line">
-          {HEADLINES[filters.view ?? "collection"]}
+          {viewOf(filters.view).headline}
         </h1>
         <label className="mt-7 flex h-11 w-full max-w-[428px] items-center gap-2 rounded-full bg-surface pr-1 pl-4 ring-1 ring-transparent focus-within:ring-line">
           <Search size={16} className="shrink-0 text-muted" />
@@ -196,13 +198,6 @@ function Catalog() {
       )}
     </main>
   )
-}
-
-const HEADLINES: Record<View, string> = {
-  // Short enough for one line, so it breaks by hand to match the others.
-  collection: "Things I currently\nown and use.",
-  wishlist: "I won't tell anyone when I make it, but there will be signs.",
-  archive: "Everything that got replaced by something better."
 }
 
 interface Section {

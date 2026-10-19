@@ -21,10 +21,11 @@ import styles from "../styles.css?url"
 const DESCRIPTION = "Things I currently own and use, plus the wishlist and the archive."
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  beforeLoad: async ({ context }) => ({
-    origin: (await context.queryClient.ensureQueryData(siteQuery)).origin
-  }),
-  head: () => ({
+  beforeLoad: async ({ context }) => {
+    const { origin, cards } = await context.queryClient.ensureQueryData(siteQuery)
+    return { origin, cards }
+  },
+  head: ({ match: { context } }) => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -34,7 +35,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:title", content: "Supply | Alexandru's collection" },
       { property: "og:description", content: DESCRIPTION },
-      { name: "twitter:card", content: "summary" },
+      // Every page has a card, so the collection's stands in until a route sets its own.
+      { property: "og:image", content: `${context.origin}${context.cards.collection}` },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#f2f2f2", media: "(prefers-color-scheme: light)" },
       { name: "theme-color", content: "#0e0e0e", media: "(prefers-color-scheme: dark)" }
     ],

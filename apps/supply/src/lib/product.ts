@@ -86,17 +86,36 @@ export interface ProductDetail extends ProductSummary {
   link: string | null
   /** Notes rendered to HTML at build time from the item's markdown. */
   notes: string
+  /** URL of the item's Open Graph card, rendered at build time. */
+  og: string
 }
 
 /** Catalog views, one per status. Collection is the default and carries no URL value. */
 export const VIEWS = [
-  { id: "collection", label: "Collection", status: "owned" },
-  { id: "wishlist", label: "Wishlist", status: "wishlist" },
-  { id: "archive", label: "Archive", status: "retired" }
-] as const satisfies { id: string; label: string; status: Status }[]
+  {
+    id: "collection",
+    label: "Collection",
+    status: "owned",
+    // Short enough for one line, so it breaks by hand to match the others.
+    headline: "Things I currently\nown and use."
+  },
+  {
+    id: "wishlist",
+    label: "Wishlist",
+    status: "wishlist",
+    headline: "I won't tell anyone when I make it, but there will be signs."
+  },
+  {
+    id: "archive",
+    label: "Archive",
+    status: "retired",
+    headline: "Everything that got replaced by something better."
+  }
+] as const satisfies { id: string; label: string; status: Status; headline: string }[]
 export type View = (typeof VIEWS)[number]["id"]
 
-export const viewStatus = (view: View = "collection"): Status =>
-  VIEWS.find(({ id }) => id === view)!.status
+export const viewOf = (view: View = "collection") => VIEWS.find(({ id }) => id === view)!
+
+export const viewStatus = (view?: View): Status => viewOf(view).status
 
 export const statusView = (status: Status): View => VIEWS.find((view) => view.status === status)!.id

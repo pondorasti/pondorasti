@@ -27,8 +27,7 @@ export const Route = createFileRoute("/items/$slug")({
               content: `${product.name} in Alexandru's personal collection.`
             },
             { property: "og:url", content: `${context.origin}/items/${product.slug}` },
-            { property: "og:image", content: `${context.origin}${product.image}` },
-            { name: "twitter:card", content: "summary_large_image" }
+            { property: "og:image", content: `${context.origin}${product.og}` }
           ],
           links: [{ rel: "canonical", href: `${context.origin}/items/${product.slug}` }]
         }
