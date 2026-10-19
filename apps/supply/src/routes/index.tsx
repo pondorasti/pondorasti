@@ -69,12 +69,21 @@ function Catalog() {
     tagsRef.current?.scrollIntoView({ block: "start" })
   }
   // Without a search, "All" splits into a section per tag and group, and a tag into its groups.
+  // Every section gets a heading, so the grid starts at the same height in every view.
   const sections: Section[] = filters.q
-    ? [{ group: null, products: filtered }]
+    ? [
+        {
+          group: null,
+          note: `${filtered.length} ${filtered.length === 1 ? "result" : "results"}`,
+          products: filtered
+        }
+      ]
     : filters.tag
-      ? sectionsByGroup(filtered)
+      ? sectionsByGroup(filtered).map((section) =>
+          section.group ? section : { ...section, tag: filters.tag }
+        )
       : sectionsByTag(filtered).flatMap(({ tag, products }) =>
-          sectionsByGroup(products).map((section) => ({ tag, ...section }))
+          sectionsByGroup(products).map((section) => ({ tag, linkTag: true, ...section }))
         )
   // Search results keep each card's tag; elsewhere the headings already name it.
   const caption = filters.q ? undefined : null
@@ -126,7 +135,7 @@ function Catalog() {
       </ToggleGroup>
       {filtered.length ? (
         <div className="flex flex-col gap-12">
-          {sections.map(({ tag, group, products: items }, sectionIndex) => {
+          {sections.map(({ tag, linkTag, group, note, products: items }, sectionIndex) => {
             // Groups and tags share one namespace, so `#outerwear` deep links to its section.
             const id = group ?? tag
             return (
@@ -136,19 +145,24 @@ function Catalog() {
                 aria-labelledby={id && `${id}-heading`}
                 className="scroll-mt-6"
               >
-                {id && (
+                {(id || note) && (
                   <h2
-                    id={`${id}-heading`}
+                    id={id && `${id}-heading`}
                     className="mb-3 flex items-center gap-2 pl-3 text-sm font-medium [&_svg]:text-muted"
                   >
-                    {tag && (
-                      <Button
-                        onClick={() => showTag(tag)}
-                        className="flex items-center gap-1.5 underline-offset-4 hover:underline"
-                      >
-                        <TagLabel tag={tag} />
-                      </Button>
-                    )}
+                    {tag &&
+                      (linkTag ? (
+                        <Button
+                          onClick={() => showTag(tag)}
+                          className="flex items-center gap-1.5 underline-offset-4 hover:underline"
+                        >
+                          <TagLabel tag={tag} />
+                        </Button>
+                      ) : (
+                        <span className="flex items-center gap-1.5">
+                          <TagLabel tag={tag} />
+                        </span>
+                      ))}
                     {tag && group && (
                       <span aria-hidden="true" className="font-normal text-muted">
                         /
@@ -163,6 +177,12 @@ function Catalog() {
                       >
                         <TagLabel tag={group} />
                       </Link>
+                    )}
+                    {note && (
+                      <span className="flex items-center gap-1.5">
+                        <Search size={16} strokeWidth={1.75} aria-hidden="true" />
+                        {note}
+                      </span>
                     )}
                   </h2>
                 )}
@@ -199,9 +219,12 @@ function Catalog() {
 }
 
 interface Section {
-  /** Named in "All" headings, where it links to the tag. */
   tag?: Tag
+  /** In "All", the tag heading selects the tag; on the tag's own page it's just a label. */
+  linkTag?: boolean
   group: Group | null
+  /** Heading text for a section with neither, e.g. the result count of a search. */
+  note?: string
   products: ProductSummary[]
 }
 
