@@ -7,7 +7,7 @@ describe("meals.csv", () => {
   it("parses rows, renaming gram columns and reading blank fiber as unknown", () => {
     expect(
       parseMeals(
-        `${MEALS}2026-10-13,08:31,breakfast,Trader Joe's pancakes & syrup,555,30,85,10,5\n2026-10-13,15:35,post-workout,"Chips, salted",150,2,16,9.5,\n`
+        `${MEALS}2026-10-13,08:31,breakfast,Trader Joe's pancakes & syrup,555,30,85,10,5\n2026-10-13,15:35,post-workout,"Chips, salted",150,2,16,9.5,\n2026-10-21,18:23,dessert,Häagen-Dazs Vanilla Milk Chocolate Almond bar,310,5,25,21,1\n`
       )
     ).toEqual([
       {
@@ -31,6 +31,17 @@ describe("meals.csv", () => {
         carbs: 16,
         fat: 9.5,
         fiber: null
+      },
+      {
+        date: "2026-10-21",
+        time: "18:23",
+        meal: "dessert",
+        item: "Häagen-Dazs Vanilla Milk Chocolate Almond bar",
+        kcal: 310,
+        protein: 5,
+        carbs: 25,
+        fat: 21,
+        fiber: 1
       }
     ])
   })

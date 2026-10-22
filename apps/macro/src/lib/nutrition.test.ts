@@ -90,6 +90,7 @@ describe("groupMeals", () => {
       entry("2026-10-01", "08:00", { meal: "breakfast", kcal: 300 }),
       entry("2026-10-01", "15:00", { meal: "snack" }),
       entry("2026-10-01", "15:05", { meal: "snack", kcal: 50 }),
+      entry("2026-10-01", "20:15", { meal: "dessert", kcal: 310 }),
       entry("2026-10-01", "21:30", { meal: "snack" }),
       entry("2026-10-01", "08:00", { meal: "breakfast", kcal: 5 })
     ])
@@ -97,6 +98,7 @@ describe("groupMeals", () => {
       ["breakfast", 305, 2],
       ["snack", 150, 2],
       ["dinner", 400, 1],
+      ["dessert", 310, 1],
       ["snack", 100, 1]
     ])
   })
