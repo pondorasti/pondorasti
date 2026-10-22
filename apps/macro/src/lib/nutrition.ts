@@ -1,7 +1,7 @@
 import { z } from "zod/mini"
 import { MORNING_BEFORE } from "../config"
 
-export const MEALS = ["breakfast", "lunch", "dinner", "snack", "post-workout"] as const
+export const MEALS = ["breakfast", "lunch", "dinner", "dessert", "snack", "post-workout"] as const
 export const Meal = z.enum(MEALS)
 export type Meal = z.infer<typeof Meal>
 

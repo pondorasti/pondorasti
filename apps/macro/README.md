@@ -32,9 +32,9 @@ date,time,meal,item,kcal,protein_g,carbs_g,fat_g,fiber_g
 2026-10-13,11:07,snack,"Strawberries, raspberries",30,0.6,7,0.3,2
 ```
 
-- `meal` is one of `breakfast`, `lunch`, `dinner`, `snack`, `post-workout`. Consecutive
-  rows of the same meal show as one card. The last example row shows the quoting a comma
-  needs.
+- `meal` is one of `breakfast`, `lunch`, `dinner`, `dessert`, `snack`, `post-workout`.
+  Consecutive rows of the same meal show as one card. The last example row shows the
+  quoting a comma needs.
 - `fiber_g` may be left blank when unknown. It counts as 0 in the day's total, and the
   page notes how many items had none logged. Every other column is required.
 
