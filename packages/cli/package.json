@@ -27,7 +27,7 @@
     "test": "bun test",
     "clean": "rm -rf dist .*.bun-build",
     "clean:bun-build": "rm -f .*.bun-build",
-    "build": "bun run clean && bun run build:compile && bun run build:sign && bun run clean:bun-build",
+    "build": "bun run clean && bun run build:compile && bun run clean:bun-build",
     "build:compile": "bun build --compile --minify --outfile=dist/pd src/index.ts",
     "build:sign": "codesign --deep --force --sign - --entitlements entitlements.plist dist/pd"
   },
