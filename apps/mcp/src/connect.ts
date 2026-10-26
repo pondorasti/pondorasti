@@ -3,7 +3,7 @@ import { KvOAuthProvider, UPSTREAMS, authorizeUpstream, isUpstreamId } from "./c
 import { STYLE, checkPassword, escape, html, text } from "./login"
 
 /**
- * Links the gateway to an account, for proxied MCP upstreams (yc, notion) and for
+ * Links the gateway to an account, for proxied MCP upstreams (yc) and for
  * Google (gmail_* and calendar_* tools):
  *   GET  /connect/<id>           password form
  *   POST /connect/<id>           password ok → redirect to the provider's sign-in
@@ -13,6 +13,17 @@ export async function connect(request: Request, env: Env): Promise<Response | un
   const match = new URL(request.url).pathname.match(/^\/connect\/([a-z]+)(\/callback)?$/)
   if (!match) return undefined
   const [, id, callback] = match
+  if (id === "notion") {
+    return html(
+      page(
+        "Notion page access",
+        `<p>Notion uses the gateway's internal integration.</p>
+<p>Open <a href="https://app.notion.com/developers/connections">Notion connections</a>,
+choose <b>mcp.alexandru.so</b>, then <b>Content access → Edit access</b> to choose pages.
+Sharing a parent page includes its child pages.</p>`
+      )
+    )
+  }
   if (id === "google") return connectGoogle(request, env, Boolean(callback))
   if (!isUpstreamId(id)) return text("Unknown connector", 404)
   const { name } = UPSTREAMS[id]

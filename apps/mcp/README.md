@@ -14,8 +14,14 @@ authorization server and the MCP server; the upstream credentials never leave it
 - `src/mcp.ts`: stateless MCP server (`createMcpHandler` from MCP SDK v2). Each
   connector registers prefixed tools.
 - `src/connectors/hevy.ts`: read-only Hevy tools, using `HEVY_API_KEY`.
+- `src/connectors/notion.ts`: Notion API tools using the `NOTION_TOKEN` internal
+  integration secret. Notion enforces access to explicitly shared pages and their
+  children; the gateway never signs into the hosted Notion MCP service.
+- `src/connectors/google.ts`: one Google sign-in for Gmail and Calendar, using the
+  OAuth client in the `alexandru-mcp` Google Cloud project. Client credentials are
+  Cloudflare secrets; account tokens stay in `OAUTH_KV`.
 - `src/connectors/upstream.ts`: remote MCP servers the gateway proxies as `<id>_<tool>`
-  (YC and Notion). The gateway is their OAuth client: sign in once at `/connect/<id>`
+  (YC). The gateway is their OAuth client: sign in once at `/connect/<id>`
   (behind the same password) and the registration and tokens stay in `OAUTH_KV`. Tool
   lists are cached there for an hour; calls always go live.
 
@@ -26,7 +32,7 @@ MCP server, add its URL to `UPSTREAMS` in `src/connectors/upstream.ts`.
 ## Local development
 
 ```sh
-cp .dev.vars.example .dev.vars   # fill in LOGIN_PASSWORD and HEVY_API_KEY
+cp .dev.vars.example .dev.vars   # fill in the gateway and service credentials
 bun run dev                      # http://localhost:8787/mcp
 ```
 
@@ -35,10 +41,51 @@ to the custom domain and OAuth discovery points at production.
 
 ## Deploy
 
+Production runs as the Cloudflare Worker `alexandru-mcp`. Its custom domain is
+`mcp.alexandru.so`, and its OAuth KV namespace ID is pinned in `wrangler.jsonc`.
+
+Cloudflare Workers Builds deploys `main` when `apps/mcp/**`, `package.json`, or
+`bun.lock` changes. It runs from `apps/mcp` with Bun 1.4.3, checks types with
+`bun run typecheck` and `bun run test`, then deploys with `bun run deploy`.
+
+For manual updates, authenticate Wrangler and set any missing secrets first:
+
 ```sh
-bunx wrangler secret put LOGIN_PASSWORD   # long and random
+bunx wrangler login
+bunx wrangler secret put LOGIN_PASSWORD   # long and random; also used at /connect/*
 bunx wrangler secret put HEVY_API_KEY
-bun run deploy                            # first deploy also creates OAUTH_KV
+bunx wrangler secret put GOOGLE_CLIENT_ID
+bunx wrangler secret put GOOGLE_CLIENT_SECRET
+bunx wrangler secret put NOTION_TOKEN     # internal integration token, not a personal token
+bun run deploy
 ```
 
-Then open `https://mcp.alexandru.so/connect/yc` and `/connect/notion` to link each upstream, and in Claude: Settings → Connectors → Add custom connector → `https://mcp.alexandru.so/mcp`.
+Link accounts once at `https://mcp.alexandru.so/connect/google` and `/connect/yc`.
+Google needs the callback URL
+`https://mcp.alexandru.so/connect/google/callback` on its OAuth client; local
+development uses `http://localhost:8787/connect/google/callback`.
+
+In your MCP client, add `https://mcp.alexandru.so/mcp` as a custom connector and
+sign in with the gateway password. Hevy is available immediately after its API
+key is configured. Google and YC tools appear after their account sign-in completes.
+
+## Notion page access
+
+1. Open [Notion connections](https://app.notion.com/developers/connections) and create
+   an **API token** internal connection named `mcp.alexandru.so` in the intended workspace.
+   Use its integration token, not a personal access token: a personal token inherits
+   the user's wider page permissions.
+2. Enable the content capabilities you need. The gateway supports reading, creating,
+   and updating pages and blocks, plus reading/querying databases and data sources.
+3. In **Content access → Edit access**, select only the pages/databases the gateway
+   should use. Selecting a parent includes all its child pages. New integrations have
+   no page access until content is shared.
+4. Store the token as the Cloudflare secret `NOTION_TOKEN`, then deploy. For local
+   development, add it to the ignored `.dev.vars` file.
+
+`/connect/notion` links to these access settings; it no longer starts OAuth. Changes
+to page access take effect on subsequent API calls without redeploying. Search is
+title-based over shared pages/data sources; hosted Notion MCP's AI, connected-app
+search, and agent tools are not exposed by this connector.
+
+Run `bun run test` for the connector's MCP and permission-error checks.
