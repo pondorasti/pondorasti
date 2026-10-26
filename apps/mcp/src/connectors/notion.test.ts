@@ -1,6 +1,6 @@
 import { Client, InMemoryTransport } from "@modelcontextprotocol/client"
 import { McpServer } from "@modelcontextprotocol/server"
-import { afterEach, beforeEach, expect, test, vi } from "vitest"
+import { afterEach, beforeEach, expect, test, vi } from "vite-plus/test"
 import { registerNotion } from "./notion"
 
 const pageId = "12345678-1234-4234-8234-123456789abc"
