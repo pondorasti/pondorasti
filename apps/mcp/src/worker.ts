@@ -1,8 +1,10 @@
 import { OAuthProvider } from "@cloudflare/workers-oauth-provider"
 import { authorize } from "./authorize"
+import { finishLogin, logout, startLogin } from "./auth"
 import { connect } from "./connect"
 import { privacy } from "./privacy"
-import { SCOPE, mcpApi } from "./mcp"
+import { mcpApi } from "./mcp"
+import { SCOPE } from "./oauth"
 
 let provider: OAuthProvider<Env> | undefined
 
@@ -15,6 +17,9 @@ function createProvider(origin: string) {
       async fetch(request, env) {
         const { pathname } = new URL(request.url)
         if (pathname === "/authorize") return authorize(request, env)
+        if (pathname === "/login/google") return startLogin(request, env)
+        if (pathname === "/login/google/callback") return finishLogin(request, env)
+        if (pathname === "/logout") return logout(request, env)
         const connected = await connect(request, env)
         if (connected) return connected
         if (pathname === "/privacy") return privacy()

@@ -12,8 +12,6 @@ import { registerHevy } from "./connectors/hevy"
 import { registerNotion } from "./connectors/notion"
 import { UPSTREAMS, type UpstreamId, registerUpstream } from "./connectors/upstream"
 
-export const SCOPE = "mcp"
-
 type Register = (server: McpServer, env: Env) => void | Promise<void>
 
 /** Gmail and Calendar share one Google sign-in (/connect/google); without it, no tools. */

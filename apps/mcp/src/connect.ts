@@ -1,12 +1,13 @@
 import { finishGoogleSignIn, isGoogleConnected, startGoogleSignIn } from "./connectors/google"
+import { getSession, rejectForeignPost, type Session } from "./auth"
 import { KvOAuthProvider, UPSTREAMS, authorizeUpstream, isUpstreamId } from "./connectors/upstream"
-import { STYLE, checkPassword, escape, html, text } from "./login"
+import { STYLE, escape, html, text } from "./login"
 
 /**
  * Links the gateway to an account, for proxied MCP upstreams (yc) and for
  * Google (gmail_* and calendar_* tools):
- *   GET  /connect/<id>           password form
- *   POST /connect/<id>           password ok → redirect to the provider's sign-in
+ *   GET  /connect/<id>           Google sign-in or connection form
+ *   POST /connect/<id>           owner session → redirect to the provider's sign-in
  *   GET  /connect/<id>/callback  exchange the code, store tokens in KV
  */
 export async function connect(request: Request, env: Env): Promise<Response | undefined> {
@@ -24,8 +25,24 @@ Sharing a parent page includes its child pages.</p>`
       )
     )
   }
-  if (id === "google") return connectGoogle(request, env, Boolean(callback))
-  if (!isUpstreamId(id)) return text("Unknown connector", 404)
+  if (id !== "google" && !isUpstreamId(id)) return text("Unknown connector", 404)
+  if (request.method !== "GET" && request.method !== "POST") return text("Method not allowed", 405)
+  const rejected = rejectForeignPost(request, env)
+  if (rejected) return rejected
+  const session = await getSession(request, env)
+  if (!session) {
+    if (callback || request.method === "POST")
+      return text("Sign in with Google and restart the connection.", 401)
+    return connectForm(
+      id === "google" ? "Google" : UPSTREAMS[id].name,
+      id === "google" ? "gmail_* and calendar_*" : `${id}_*`,
+      false,
+      undefined,
+      `/connect/${id}`
+    )
+  }
+  if (callback && request.method !== "GET") return text("Method not allowed", 405)
+  if (id === "google") return connectGoogle(request, env, Boolean(callback), session)
   const { name } = UPSTREAMS[id]
   const provider = new KvOAuthProvider(id, env)
 
@@ -46,8 +63,6 @@ Sharing a parent page includes its child pages.</p>`
   }
 
   if (request.method === "POST") {
-    const rejected = await checkPassword(request, await request.formData(), env)
-    if (rejected) return rejected
     await provider.invalidateCredentials("tokens")
     const result = await authorizeUpstream(id, provider)
     if (result === "REDIRECT" && provider.authorizationUrl) {
@@ -56,10 +71,16 @@ Sharing a parent page includes its child pages.</p>`
     return text(`${name} did not ask for sign-in (${result}).`, 502)
   }
 
-  return connectForm(name, `${id}_*`, (await provider.tokens()) !== undefined)
+  return connectForm(
+    name,
+    `${id}_*`,
+    (await provider.tokens()) !== undefined,
+    session,
+    `/connect/${id}`
+  )
 }
 
-async function connectGoogle(request: Request, env: Env, callback: boolean) {
+async function connectGoogle(request: Request, env: Env, callback: boolean, session: Session) {
   if (callback) {
     try {
       await finishGoogleSignIn(env, new URL(request.url).searchParams)
@@ -74,21 +95,32 @@ async function connectGoogle(request: Request, env: Env, callback: boolean) {
     )
   }
   if (request.method === "POST") {
-    const rejected = await checkPassword(request, await request.formData(), env)
-    if (rejected) return rejected
     return Response.redirect((await startGoogleSignIn(env)).href, 302)
   }
-  return connectForm("Google", "gmail_* and calendar_*", await isGoogleConnected(env))
+  return connectForm(
+    "Google",
+    "gmail_* and calendar_*",
+    await isGoogleConnected(env),
+    session,
+    "/connect/google"
+  )
 }
 
-function connectForm(name: string, tools: string, connected: boolean) {
+function connectForm(
+  name: string,
+  tools: string,
+  connected: boolean,
+  session: Session | undefined,
+  returnTo: string
+) {
   return html(
     page(
       `${connected ? "Reconnect" : "Connect"} ${escape(name)}`,
       `<p>Signs the gateway into ${escape(name)} so its tools appear as <b>${escape(tools)}</b>.</p>
 <form method="post">
-  <label>Password<input type="password" name="password" autocomplete="current-password" autofocus></label>
-  <div class="row"><button value="approve">Continue to ${escape(name)}</button></div>
+  <input type="hidden" name="returnTo" value="${escape(returnTo)}">
+  ${session ? `<p>Signed in as <b>${escape(session.email)}</b>.</p>` : "<p>Sign in with Google to manage this connection.</p>"}
+  <div class="row">${session ? `<button value="approve">Continue to ${escape(name)}</button>` : '<button formaction="/login/google" value="approve">Continue with Google</button>'}</div>
 </form>`
     )
   )

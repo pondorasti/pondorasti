@@ -13,8 +13,10 @@ ${STYLE}
 lets AI assistants he authorizes use his Gmail, Google Calendar and a few other services on
 his behalf. It has no other users.</p>
 <p>Google user data is read or written only when one of those assistants calls a tool on his
-request. The gateway stores the OAuth tokens it needs to do that, and nothing else from Google:
-no email or calendar content is kept, shared, sold, or used to train models. Use of data from
+request. Gateway sign-in is restricted to his verified Google account. The gateway stores
+his Google account identifier, email address and temporary browser sessions, plus the OAuth
+tokens needed for Gmail and Calendar. No email or calendar content is kept, shared, sold,
+or used to train models. Use of data from
 Google APIs follows the
 <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services
 User Data Policy</a>, including the Limited Use requirements.</p>

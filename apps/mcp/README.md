@@ -10,7 +10,11 @@ authorization server and the MCP server; the upstream credentials never leave it
   registration (DCR and Client ID Metadata Documents), the token endpoint, and guards
   `/mcp`. Grants live in the `OAUTH_KV` namespace.
 - `src/authorize.ts`: the consent page. It shows which app is asking and where the
-  tokens go, then checks `LOGIN_PASSWORD` (rate-limited to 5 attempts/min per IP).
+  tokens go, then requires the owner's Google session before approving access.
+- `src/auth.ts`: Google OpenID Connect sign-in, restricted to `LOGIN_GOOGLE_EMAIL`.
+  It verifies Google's signature, issuer, audience, nonce, token expiry, and verified
+  email. Login flows use PKCE and a browser-bound state cookie. Browser sessions
+  last eight hours; session identifiers are stored hashed in `OAUTH_KV`.
 - `src/mcp.ts`: stateless MCP server (`createMcpHandler` from MCP SDK v2). Each
   connector registers prefixed tools.
 - `src/connectors/hevy.ts`: read-only Hevy tools, using `HEVY_API_KEY`.
@@ -22,7 +26,7 @@ authorization server and the MCP server; the upstream credentials never leave it
   Cloudflare secrets; account tokens stay in `OAUTH_KV`.
 - `src/connectors/upstream.ts`: remote MCP servers the gateway proxies as `<id>_<tool>`
   (YC). The gateway is their OAuth client: sign in once at `/connect/<id>`
-  (behind the same password) and the registration and tokens stay in `OAUTH_KV`. Tool
+  (after signing in with Google) and the registration and tokens stay in `OAUTH_KV`. Tool
   lists are cached there for an hour; calls always go live.
 
 To add an API-key service, write `src/connectors/<name>.ts` exporting a
@@ -52,7 +56,6 @@ For manual updates, authenticate Wrangler and set any missing secrets first:
 
 ```sh
 bunx wrangler login
-bunx wrangler secret put LOGIN_PASSWORD   # long and random; also used at /connect/*
 bunx wrangler secret put HEVY_API_KEY
 bunx wrangler secret put GOOGLE_CLIENT_ID
 bunx wrangler secret put GOOGLE_CLIENT_SECRET
@@ -65,8 +68,15 @@ Google needs the callback URL
 `https://mcp.alexandru.so/connect/google/callback` on its OAuth client; local
 development uses `http://localhost:8787/connect/google/callback`.
 
+Gateway sign-in uses the same OAuth client with separate callbacks:
+`https://mcp.alexandru.so/login/google/callback` and
+`http://localhost:8787/login/google/callback`. It requests only `openid email` and
+does not store Google API tokens. Gmail/Calendar linking remains a separate flow.
+The allowed login account is configured by `LOGIN_GOOGLE_EMAIL` in `wrangler.jsonc`.
+Sign-in starts are limited to five per minute per IP.
+
 In your MCP client, add `https://mcp.alexandru.so/mcp` as a custom connector and
-sign in with the gateway password. Hevy is available immediately after its API
+sign in with Google, then approve the app. Hevy is available immediately after its API
 key is configured. Google and YC tools appear after their account sign-in completes.
 
 ## Notion page access
@@ -88,4 +98,4 @@ to page access take effect on subsequent API calls without redeploying. Search i
 title-based over shared pages/data sources; hosted Notion MCP's AI, connected-app
 search, and agent tools are not exposed by this connector.
 
-Run `bun run test` for the connector's MCP and permission-error checks.
+Run `bun run test` for the login, consent, and Notion permission-error checks.

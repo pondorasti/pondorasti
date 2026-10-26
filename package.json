@@ -30,6 +30,7 @@
       "dicom-parser": "1.8.21",
       "fflate": "0.8.3",
       "geist": "1.8.1",
+      "jose": "6.2.13",
       "lucide-react": "1.59.0",
       "marked": "18.1.1",
       "react": "19.3.1",

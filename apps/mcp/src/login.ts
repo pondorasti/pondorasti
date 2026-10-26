@@ -1,24 +1,3 @@
-/** The one password that gates both client consent and linking upstream accounts. */
-export async function checkPassword(request: Request, form: FormData, env: Env) {
-  const ip = request.headers.get("CF-Connecting-IP") ?? "unknown"
-  if (!(await env.LOGIN_LIMITER.limit({ key: ip })).success) {
-    return text("Too many attempts. Wait a minute, then go back and retry.", 429)
-  }
-  if (!(await passwordMatches(field(form, "password"), env.LOGIN_PASSWORD))) {
-    return text("Wrong password. Go back and retry.", 401)
-  }
-  return undefined
-}
-
-async function passwordMatches(given: string, expected: string) {
-  if (!expected) return false
-  const encoder = new TextEncoder()
-  const [a, b] = await Promise.all(
-    [given, expected].map((value) => crypto.subtle.digest("SHA-256", encoder.encode(value)))
-  )
-  return crypto.subtle.timingSafeEqual(a, b)
-}
-
 export function field(form: FormData, name: string) {
   const value = form.get(name)
   return typeof value === "string" ? value : ""
@@ -45,6 +24,8 @@ export function html(body: string, headers = new Headers(), status = 200) {
     "Content-Security-Policy",
     "default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'none'; base-uri 'none'"
   )
+  headers.set("Cache-Control", "no-store")
+  headers.set("Referrer-Policy", "no-referrer")
   return new Response(body, { status, headers })
 }
 

@@ -4,13 +4,14 @@ import {
   type AuthRequest,
   type ClientInfo
 } from "@cloudflare/workers-oauth-provider"
-import { checkPassword, escape, field, html, STYLE, text } from "./login"
-import { SCOPE } from "./mcp"
+import { getSession, rejectForeignPost, type Session } from "./auth"
+import { escape, field, html, STYLE, text } from "./login"
+import { SCOPE } from "./oauth"
 
 const USER_ID = "alexandru"
 
 /**
- * GET shows who is asking and where tokens will go; POST checks the password and
+ * GET shows who is asking and where tokens will go; POST checks the Google session and
  * approves. The library keeps the request server-side between the two, so the form
  * carries only a single-use, browser-bound handle (its CSRF protection).
  */
@@ -22,9 +23,14 @@ export async function authorize(request: Request, env: Env): Promise<Response> {
       const client = await oauth.lookupClient(authRequest.clientId)
       if (!client) return text("Unknown OAuth client", 400)
       const consent = await oauth.beginConsent(authRequest)
-      return html(page(client, authRequest, consent.handle), consent.headers)
+      return html(
+        page(client, authRequest, consent.handle, request, await getSession(request, env)),
+        consent.headers
+      )
     }
     if (request.method !== "POST") return text("Method not allowed", 405)
+    const rejected = rejectForeignPost(request, env)
+    if (rejected) return rejected
 
     const form = await request.formData()
     const handle = field(form, "handle")
@@ -33,14 +39,14 @@ export async function authorize(request: Request, env: Env): Promise<Response> {
       return new Response(null, { status: 302, headers: denied.headers })
     }
 
-    const rejected = await checkPassword(request, form, env)
-    if (rejected) return rejected
+    const session = await getSession(request, env)
+    if (!session) return text("Sign in with Google before approving this app.", 401)
 
     const approved = await oauth.approveConsent(request, handle, { scope: [SCOPE] })
     const { redirectTo } = await oauth.completeAuthorization({
       request: approved.request,
       userId: USER_ID,
-      metadata: {},
+      metadata: { email: session.email },
       scope: [SCOPE],
       props: { userId: USER_ID }
     })
@@ -61,7 +67,13 @@ export async function authorize(request: Request, env: Env): Promise<Response> {
   }
 }
 
-function page(client: ClientInfo, request: AuthRequest, handle: string) {
+function page(
+  client: ClientInfo,
+  request: AuthRequest,
+  handle: string,
+  httpRequest: Request,
+  session: Session | undefined
+) {
   const name = escape(client.clientName ?? client.clientId)
   const redirectHost = escape(new URL(request.redirectUri).hostname)
   const local = /^(localhost|127(\.\d{1,3}){3}|\[::1\])$/.test(
@@ -81,11 +93,13 @@ ${STYLE}
 ${local ? '<p class="warn">This sends access to an app on your computer. Continue only if you just started connecting from it.</p>' : ""}
 <form method="post">
   <input type="hidden" name="handle" value="${escape(handle)}">
-  <label>Password<input type="password" name="password" autocomplete="current-password" autofocus></label>
+  <input type="hidden" name="returnTo" value="${escape(new URL(httpRequest.url).pathname + new URL(httpRequest.url).search)}">
+  ${session ? `<p>Signed in as <b>${escape(session.email)}</b>.</p>` : "<p>Sign in with Google to authorize this app.</p>"}
   <div class="row">
     <button name="decision" value="deny" formnovalidate>Deny</button>
-    <button name="decision" value="approve">Allow</button>
+    ${session ? '<button name="decision" value="approve">Allow</button>' : '<button formaction="/login/google" value="approve">Continue with Google</button>'}
   </div>
+  ${session ? '<p><button formaction="/logout">Sign out</button></p>' : ""}
 </form>
 </html>`
 }
