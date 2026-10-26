@@ -43,6 +43,27 @@ Sharing a parent page includes its child pages.</p>`
   }
   if (callback && request.method !== "GET") return text("Method not allowed", 405)
   if (id === "google") return connectGoogle(request, env, Boolean(callback), session)
+  if (id === "robinhood") {
+    // Robinhood's DCR echoes arbitrary redirect URIs, but its authorization server
+    // only accepts approved platforms and localhost. Never erase working tokens
+    // by starting a hosted flow that cannot finish.
+    if (callback || request.method === "POST") {
+      return text(
+        "Robinhood requires localhost linking. Run bun run connect:robinhood in apps/mcp.",
+        409
+      )
+    }
+    const connected = (await new KvOAuthProvider(id, env).tokens()) !== undefined
+    return html(
+      page(
+        connected ? "Robinhood connected" : "Connect Robinhood",
+        `<p>Signed in as <b>${escape(session.email)}</b>.</p>
+<p>${connected ? "Its tools are available as <b>robinhood_*</b>." : "Robinhood is not connected yet."}</p>
+<p>Robinhood requires a local sign-in callback. To ${connected ? "reconnect" : "connect"}, run
+<code>bun run connect:robinhood</code> from <code>apps/mcp</code> on your computer, then approve access in the browser.</p>`
+      )
+    )
+  }
   const { name } = UPSTREAMS[id]
   const provider = new KvOAuthProvider(id, env)
 

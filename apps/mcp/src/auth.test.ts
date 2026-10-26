@@ -317,10 +317,25 @@ test("Robinhood linking resumes after Google login and requires the owner sessio
     env
   )
   expect(page?.status).toBe(200)
-  expect(await page?.text()).toContain("Continue to Robinhood")
+  expect(await page?.text()).toContain("bun run connect:robinhood")
   expect((await connect(post("/connect/robinhood", {}), env))?.status).toBe(401)
   expect(
     (await connect(new Request(origin + "/connect/robinhood/callback?code=code&state=state"), env))
       ?.status
   ).toBe(401)
+})
+
+test("hosted Robinhood retries preserve the working localhost credentials", async () => {
+  const { cookie } = await signIn("/connect/robinhood")
+  const key = "upstream:robinhood:tokens"
+  const saved = JSON.stringify({ access_token: "existing-token" })
+  store.set(key, saved)
+  const response = await connect(post("/connect/robinhood", {}, cookie), env)
+  expect(response?.status).toBe(409)
+  expect(store.get(key)).toBe(saved)
+  const page = await connect(
+    new Request(origin + "/connect/robinhood", { headers: { Cookie: cookie } }),
+    env
+  )
+  expect(await page?.text()).toContain("Robinhood connected")
 })

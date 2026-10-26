@@ -82,17 +82,29 @@ key is configured. Google, YC, and Robinhood tools appear after their account si
 
 ## Robinhood
 
-`/connect/robinhood` links the gateway to Robinhood's official hosted Trading MCP
-at `https://agent.robinhood.com/mcp/trading`. Sign in to the gateway with Google,
-then continue to Robinhood to authenticate and approve the connection. Robinhood
-may require account onboarding, which you complete directly with Robinhood.
+Robinhood uses its official hosted Trading MCP at
+`https://agent.robinhood.com/mcp/trading`. Its registration endpoint echoes our
+hosted callback, but authorization rejects it with `Mismatching Redirect URI`.
+Robinhood supports localhost callbacks, so link from a local checkout instead:
 
-The callback is `https://mcp.alexandru.so/connect/robinhood/callback`. Client
-registration, OAuth tokens, and the tool-list cache use the `upstream:robinhood:*`
-keys in `OAUTH_KV`; there is no additional Worker secret or API key to configure.
-Tools appear with the `robinhood_` prefix and preserve the upstream's annotations
-and input schemas, including its account, market-data, and trading tools. Linking
-the account does not place any orders. Reconnect at the same URL if authorization expires.
+```sh
+cd apps/mcp
+bunx wrangler login    # unless already authenticated with Cloudflare
+bun run connect:robinhood
+```
+
+The helper opens Robinhood, receives its localhost callback with PKCE and
+single-use state, then saves the client and OAuth tokens in the production
+`OAUTH_KV` under `upstream:robinhood:*`. Credentials stay in memory until upload;
+mode-600 temporary upload files are removed afterward. No additional Worker
+secret or API key is required. The Worker refreshes tokens as needed. Run the
+same command if Robinhood requires a new authorization.
+
+`/connect/robinhood` shows connection status after the owner signs in with Google.
+It does not start the unsupported hosted flow or erase existing credentials.
+Tools use the `robinhood_` prefix and preserve upstream schemas and annotations.
+They include account, market-data, and trading tools. Linking places no orders.
+Robinhood may require account onboarding, which you complete directly with Robinhood.
 
 ## Notion page access
 

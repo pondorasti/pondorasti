@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "wrangler dev --local-upstream localhost:8787",
     "deploy": "wrangler deploy",
+    "connect:robinhood": "node scripts/connect-robinhood.mjs",
     "typecheck": "wrangler types --check && vp check --no-fmt --no-lint",
     "test": "vp test run",
     "cf-typegen": "wrangler types"

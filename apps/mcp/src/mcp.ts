@@ -27,14 +27,16 @@ const registerGoogle: Register = async (server, env) => {
  */
 const connectors: Register[] = [registerHevy, registerGoogle, registerNotion]
 
-const handler = createMcpHandler(async () => {
-  const server = new McpServer({ name: "alexandru-mcp", version: "0.1.0" })
-  await Promise.all(connectors.map(async (register) => register(server, env)))
-  // Upstreams that were never connected at /connect/<id> contribute no tools
-  const upstreams = Object.keys(UPSTREAMS) as UpstreamId[]
-  await Promise.all(upstreams.map((id) => registerUpstream(server, env, id)))
-  return server
-})
+const handler = createMcpHandler(
+  async () => {
+    const server = new McpServer({ name: "alexandru-mcp", version: "0.1.0" })
+    await Promise.all(connectors.map(async (register) => register(server, env)))
+    const upstreams = Object.keys(UPSTREAMS) as UpstreamId[]
+    await Promise.all(upstreams.map((id) => registerUpstream(server, env, id)))
+    return server
+  },
+  { onerror: (error) => console.error("MCP request failed", error) }
+)
 
 /**
  * Stateless: a fresh McpServer per request, behind the OAuth provider's token check.
