@@ -4,7 +4,7 @@ import { KvOAuthProvider, UPSTREAMS, authorizeUpstream, isUpstreamId } from "./c
 import { STYLE, escape, html, text } from "./login"
 
 /**
- * Links the gateway to an account, for proxied MCP upstreams (yc) and for
+ * Links the gateway to an account, for proxied MCP upstreams (yc, robinhood) and for
  * Google (gmail_* and calendar_* tools):
  *   GET  /connect/<id>           Google sign-in or connection form
  *   POST /connect/<id>           owner session → redirect to the provider's sign-in

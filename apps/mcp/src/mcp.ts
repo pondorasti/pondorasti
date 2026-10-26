@@ -23,7 +23,7 @@ const registerGoogle: Register = async (server, env) => {
 
 /**
  * Services the gateway calls directly, with hand-written tools under their own prefix.
- * Remote MCP servers it proxies (YC) are listed in UPSTREAMS instead.
+ * Remote MCP servers it proxies (YC and Robinhood) are listed in UPSTREAMS instead.
  */
 const connectors: Register[] = [registerHevy, registerGoogle, registerNotion]
 

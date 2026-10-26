@@ -9,6 +9,7 @@ const returnPaths = new Set([
   "/authorize",
   "/connect/google",
   "/connect/yc",
+  "/connect/robinhood",
   "/connect/notion"
 ])
 

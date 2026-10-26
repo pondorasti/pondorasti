@@ -124,8 +124,8 @@ async function begin(returnTo = "/authorize?client_id=client") {
   }
 }
 
-async function signIn() {
-  const flow = await begin()
+async function signIn(returnTo?: string) {
+  const flow = await begin(returnTo)
   const response = await finishLogin(
     new Request(flow.callback, { headers: { Cookie: flow.cookie } }),
     env
@@ -307,4 +307,20 @@ test("anonymous connector callbacks cannot replace the gateway's upstream creden
   ).toBe(401)
   expect(requestGoogle).not.toHaveBeenCalled()
   expect(store.size).toBe(0)
+})
+
+test("Robinhood linking resumes after Google login and requires the owner session", async () => {
+  const { response, cookie } = await signIn("/connect/robinhood")
+  expect(response.headers.get("Location")).toBe(origin + "/connect/robinhood")
+  const page = await connect(
+    new Request(origin + "/connect/robinhood", { headers: { Cookie: cookie } }),
+    env
+  )
+  expect(page?.status).toBe(200)
+  expect(await page?.text()).toContain("Continue to Robinhood")
+  expect((await connect(post("/connect/robinhood", {}), env))?.status).toBe(401)
+  expect(
+    (await connect(new Request(origin + "/connect/robinhood/callback?code=code&state=state"), env))
+      ?.status
+  ).toBe(401)
 })
