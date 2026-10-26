@@ -29,6 +29,10 @@ jobs:
         run: bun run build
         working-directory: packages/cli
 
+      - name: Sign binary
+        run: bun run build:sign
+        working-directory: packages/cli
+
       - name: Rename binary
         run: mv packages/cli/dist/pd packages/cli/dist/pd-darwin-arm64
 
