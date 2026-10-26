@@ -25,9 +25,9 @@ authorization server and the MCP server; the upstream credentials never leave it
   OAuth client in the `alexandru-mcp` Google Cloud project. Client credentials are
   Cloudflare secrets; account tokens stay in `OAUTH_KV`.
 - `src/connectors/upstream.ts`: remote MCP servers the gateway proxies as `<id>_<tool>`
-  (YC and Robinhood). The gateway is their OAuth client: sign in once at `/connect/<id>`
-  (after signing in with Google) and the registration and tokens stay in `OAUTH_KV`. Tool
-  lists are cached there for an hour; calls always go live.
+  (YC and Robinhood). Link YC at `/connect/yc` after signing in with Google; link
+  Robinhood with the local helper below. Registration and tokens stay in `OAUTH_KV`.
+  Tool lists are cached there for an hour; calls always go live.
 
 To add an API-key service, write `src/connectors/<name>.ts` exporting a
 `register<Name>(server, env)` and add it to `connectors` in `src/mcp.ts`. To add a remote
@@ -63,8 +63,8 @@ bunx wrangler secret put NOTION_TOKEN     # internal integration token, not a pe
 bun run deploy
 ```
 
-Link accounts once at `https://mcp.alexandru.so/connect/google`, `/connect/yc`, and
-`/connect/robinhood`.
+Link Google and YC once at `https://mcp.alexandru.so/connect/google` and `/connect/yc`.
+For Robinhood, use the local helper below; `/connect/robinhood` shows its status.
 Google needs the callback URL
 `https://mcp.alexandru.so/connect/google/callback` on its OAuth client; local
 development uses `http://localhost:8787/connect/google/callback`.
