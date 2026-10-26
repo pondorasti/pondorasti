@@ -36,7 +36,7 @@ test("Notion page requests use only the internal token and the fixed Notion API 
       Authorization: "Bearer ntn_test_internal_connection",
       "Notion-Version": "2026-03-11"
     },
-    redirect: "error"
+    redirect: "manual"
   })
 })
 
@@ -65,6 +65,19 @@ test("URL-shaped IDs are rejected before any request can leave the gateway", asy
   })
   expect(result.isError).toBe(true)
   expect(request).not.toHaveBeenCalled()
+})
+
+test("unexpected redirects fail without forwarding the integration token", async () => {
+  request.mockResolvedValue(
+    new Response(null, { status: 302, headers: { Location: "https://other.example/" } })
+  )
+  const result = await client.callTool({ name: "notion_get_page", arguments: { page_id: pageId } })
+  expect(result).toMatchObject({
+    isError: true,
+    content: [{ text: expect.stringContaining("Notion 302") }]
+  })
+  expect(request).toHaveBeenCalledTimes(1)
+  expect(request.mock.calls[0][1]?.redirect).toBe("manual")
 })
 
 test("opaque pagination cursors survive both GET and POST requests", async () => {

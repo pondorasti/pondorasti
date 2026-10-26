@@ -54,7 +54,7 @@ export function registerNotion(server: McpServer, env: Pick<Env, "NOTION_TOKEN">
         "Content-Type": "application/json"
       },
       body: init.body === undefined ? undefined : JSON.stringify(init.body),
-      redirect: "error",
+      redirect: "manual",
       signal: AbortSignal.timeout(30_000)
     })
     if (!response.ok) {
