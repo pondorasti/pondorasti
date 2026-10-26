@@ -25,7 +25,8 @@ export function html(body: string, headers = new Headers(), status = 200) {
     "default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'none'; base-uri 'none'"
   )
   headers.set("Cache-Control", "no-store")
-  headers.set("Referrer-Policy", "no-referrer")
+  // Preserve Origin on our form posts while suppressing cross-origin referrers.
+  headers.set("Referrer-Policy", "same-origin")
   return new Response(body, { status, headers })
 }
 

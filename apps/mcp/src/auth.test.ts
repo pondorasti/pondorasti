@@ -270,6 +270,7 @@ test("logout revokes the server-side session", async () => {
 test("anonymous consent shows Google sign-in and the old password cannot grant access", async () => {
   const response = await authorize(new Request(origin + "/authorize?client_id=client"), env)
   const body = await response.text()
+  expect(response.headers.get("Referrer-Policy")).toBe("same-origin")
   expect(body).toContain("Continue with Google")
   expect(body).not.toContain('type="password"')
   expect(
