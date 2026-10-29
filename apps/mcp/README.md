@@ -17,7 +17,8 @@ authorization server and the MCP server; the upstream credentials never leave it
   last eight hours; session identifiers are stored hashed in `OAUTH_KV`.
 - `src/mcp.ts`: stateless MCP server (`createMcpHandler` from MCP SDK v2). Each
   connector registers prefixed tools.
-- `src/connectors/hevy.ts`: read-only Hevy tools, using `HEVY_API_KEY`.
+- `src/connectors/hevy.ts`: Hevy tools using `HEVY_API_KEY`: read workouts, routines and
+  exercise history; create and update routines, routine folders and custom exercises.
 - `src/connectors/notion.ts`: Notion API tools using the `NOTION_TOKEN` internal
   integration secret. Notion enforces access to explicitly shared pages and their
   children; the gateway never signs into the hosted Notion MCP service.
