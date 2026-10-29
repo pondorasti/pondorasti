@@ -8,7 +8,9 @@ let server: McpServer
 let request: ReturnType<typeof vi.fn<typeof fetch>>
 
 beforeEach(async () => {
-  request = vi.fn<typeof fetch>().mockResolvedValue(Response.json({ routine: { id: "r1" } }))
+  request = vi
+    .fn<typeof fetch>()
+    .mockImplementation(async () => Response.json({ routine: { id: "r1" } }))
   vi.stubGlobal("fetch", request)
   server = new McpServer({ name: "hevy-test", version: "1.0.0" })
   registerHevy(server, { HEVY_API_KEY: "hevy-test-key" })
@@ -90,8 +92,11 @@ test("create posts the routine with folder_id defaulting to My Routines", async 
 })
 
 test("folders and custom exercises post the bodies Hevy expects", async () => {
-  await client.callTool({ name: "hevy_create_routine_folder", arguments: { title: "Block 1" } })
-  await client.callTool({
+  const folder = await client.callTool({
+    name: "hevy_create_routine_folder",
+    arguments: { title: "Block 1" }
+  })
+  const template = await client.callTool({
     name: "hevy_create_exercise_template",
     arguments: {
       title: "Banded Face Pull",
@@ -114,12 +119,47 @@ test("folders and custom exercises post the bodies Hevy expects", async () => {
       other_muscles: []
     }
   })
+  expect(folder.isError).not.toBe(true)
+  expect(template.isError).not.toBe(true)
 })
 
-test("invalid routines are rejected before reaching Hevy", async () => {
+test("a successful write with a non-JSON body is still reported as success", async () => {
+  request.mockImplementation(async () => new Response("9F1A2B3C", { status: 200 }))
+  const result = await client.callTool({
+    name: "hevy_create_exercise_template",
+    arguments: {
+      title: "Banded Face Pull",
+      exercise_type: "reps_only",
+      equipment_category: "resistance_band",
+      muscle_group: "shoulders"
+    }
+  })
+  expect(result).toMatchObject({
+    content: [{ text: JSON.stringify({ status: 200, body: "9F1A2B3C" }) }]
+  })
+  expect(result.isError).not.toBe(true)
+})
+
+test("redirects fail without forwarding the api key", async () => {
+  request.mockImplementation(
+    async () => new Response(null, { status: 302, headers: { Location: "https://other.example/" } })
+  )
+  const result = await client.callTool({ name: "hevy_get_routine", arguments: { routineId: "r1" } })
+  expect(result).toMatchObject({
+    isError: true,
+    content: [{ text: expect.stringContaining("Hevy 302") }]
+  })
+  expect(request).toHaveBeenCalledTimes(1)
+  expect(request.mock.calls[0][1]?.redirect).toBe("manual")
+})
+
+test.each([
+  ["no sets", []],
+  ["an inverted rep_range", [{ rep_range: { start: 12, end: 8 } }]]
+])("routines with %s are rejected before reaching Hevy", async (_, sets) => {
   const result = await client.callTool({
     name: "hevy_create_routine",
-    arguments: { title: "Empty", exercises: [{ exercise_template_id: "X", sets: [] }] }
+    arguments: { title: "Bad", exercises: [{ exercise_template_id: "X", sets }] }
   })
   expect(result.isError).toBe(true)
   expect(request).not.toHaveBeenCalled()

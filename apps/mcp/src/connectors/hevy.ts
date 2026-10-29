@@ -33,6 +33,7 @@ const set = z.object({
   reps: count.nullable().default(null).describe("Fixed rep target; null when using rep_range"),
   rep_range: z
     .object({ start: count, end: count })
+    .refine((range) => range.start <= range.end, "rep_range start must not exceed end")
     .nullish()
     .describe("Rep target range, e.g. { start: 8, end: 12 }"),
   duration_seconds: count.nullish().describe("For timed sets (planks, carries)"),
@@ -113,10 +114,18 @@ export function registerHevy(server: McpServer, env: Pick<Env, "HEVY_API_KEY">) 
     const res = await fetch(url, {
       method,
       headers,
-      body: body === undefined ? undefined : JSON.stringify(body)
+      body: body === undefined ? undefined : JSON.stringify(body),
+      redirect: "manual",
+      signal: AbortSignal.timeout(30_000)
     })
-    if (!res.ok) throw new Error(`Hevy ${res.status}: ${(await res.text()).slice(0, 300)}`)
-    return res.json<T>()
+    const text = await res.text()
+    if (!res.ok) throw new Error(`Hevy ${res.status}: ${text.slice(0, 300)}`)
+    // A write that succeeded must not read as an error, or the model retries and duplicates it.
+    try {
+      return JSON.parse(text) as T
+    } catch {
+      return { status: res.status, body: text } as T
+    }
   }
 
   server.registerTool(
