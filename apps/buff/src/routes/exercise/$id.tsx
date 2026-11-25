@@ -2,6 +2,8 @@ import { Fragment } from "react"
 import { createFileRoute, Link, notFound } from "@tanstack/react-router"
 import { equipment, exerciseUsage, getExercise, loadsForExercise } from "~/data"
 import { ScreenHeader, Pad, BlockTitle } from "~/components/screen-header"
+import { IconForm } from "~/components/icons"
+import { movementsForExercise } from "~/form/catalog"
 
 export const Route = createFileRoute("/exercise/$id")({
   loader: ({ params }) => {
@@ -17,6 +19,7 @@ function ExercisePage() {
   const usage = exerciseUsage(ex.id)
   const loadRows = loadsForExercise(ex.id)
   const gearIds = [...new Set(usage.map((u) => u.item.gear))]
+  const demos = movementsForExercise(ex.id)
 
   return (
     <>
@@ -43,6 +46,20 @@ function ExercisePage() {
                 </span>
               ))}
             </div>
+            {demos.map((m) => (
+              <Link
+                key={m.id}
+                to="/form/$id"
+                params={{ id: m.id }}
+                className="mt-3 flex items-center gap-3 rounded-card border border-line bg-panel p-3 hover:border-dim"
+              >
+                <IconForm className="h-5 w-5 flex-none text-accent" />
+                <div className="min-w-0">
+                  <div className="text-[13px] font-bold text-txt">Form: good vs bad</div>
+                  <div className="text-[12px] text-muted">{m.cue}</div>
+                </div>
+              </Link>
+            ))}
           </div>
 
           <div className="min-w-0 flex-1">

@@ -10,16 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FormRouteRouteImport } from './routes/form/route'
 import { Route as LoadsRouteImport } from './routes/loads'
 import { Route as EquipmentIndexRouteImport } from './routes/equipment/index'
 import { Route as EquipmentIdRouteImport } from './routes/equipment/$id'
 import { Route as ExerciseIdRouteImport } from './routes/exercise/$id'
+import { Route as FormIndexRouteImport } from './routes/form/index'
+import { Route as FormIdRouteImport } from './routes/form/$id'
 import { Route as RoutineIndexRouteImport } from './routes/routine/index'
 import { Route as RoutineDayRouteImport } from './routes/routine/$day'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FormRouteRoute = FormRouteRouteImport.update({
+  id: '/form',
+  path: '/form',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoadsRoute = LoadsRouteImport.update({
@@ -42,6 +50,16 @@ const ExerciseIdRoute = ExerciseIdRouteImport.update({
   path: '/exercise/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FormIndexRoute = FormIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => FormRouteRoute,
+} as any)
+const FormIdRoute = FormIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => FormRouteRoute,
+} as any)
 const RoutineIndexRoute = RoutineIndexRouteImport.update({
   id: '/routine/',
   path: '/routine/',
@@ -55,11 +73,14 @@ const RoutineDayRoute = RoutineDayRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/form': typeof FormRouteRouteWithChildren
   '/loads': typeof LoadsRoute
   '/equipment/$id': typeof EquipmentIdRoute
   '/exercise/$id': typeof ExerciseIdRoute
+  '/form/$id': typeof FormIdRoute
   '/routine/$day': typeof RoutineDayRoute
   '/equipment/': typeof EquipmentIndexRoute
+  '/form/': typeof FormIndexRoute
   '/routine/': typeof RoutineIndexRoute
 }
 export interface FileRoutesByTo {
@@ -67,29 +88,37 @@ export interface FileRoutesByTo {
   '/loads': typeof LoadsRoute
   '/equipment/$id': typeof EquipmentIdRoute
   '/exercise/$id': typeof ExerciseIdRoute
+  '/form/$id': typeof FormIdRoute
   '/routine/$day': typeof RoutineDayRoute
   '/equipment': typeof EquipmentIndexRoute
+  '/form': typeof FormIndexRoute
   '/routine': typeof RoutineIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/form': typeof FormRouteRouteWithChildren
   '/loads': typeof LoadsRoute
   '/equipment/$id': typeof EquipmentIdRoute
   '/exercise/$id': typeof ExerciseIdRoute
+  '/form/$id': typeof FormIdRoute
   '/routine/$day': typeof RoutineDayRoute
   '/equipment/': typeof EquipmentIndexRoute
+  '/form/': typeof FormIndexRoute
   '/routine/': typeof RoutineIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/form'
     | '/loads'
     | '/equipment/$id'
     | '/exercise/$id'
+    | '/form/$id'
     | '/routine/$day'
     | '/equipment/'
+    | '/form/'
     | '/routine/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -97,22 +126,28 @@ export interface FileRouteTypes {
     | '/loads'
     | '/equipment/$id'
     | '/exercise/$id'
+    | '/form/$id'
     | '/routine/$day'
     | '/equipment'
+    | '/form'
     | '/routine'
   id:
     | '__root__'
     | '/'
+    | '/form'
     | '/loads'
     | '/equipment/$id'
     | '/exercise/$id'
+    | '/form/$id'
     | '/routine/$day'
     | '/equipment/'
+    | '/form/'
     | '/routine/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FormRouteRoute: typeof FormRouteRouteWithChildren
   LoadsRoute: typeof LoadsRoute
   EquipmentIdRoute: typeof EquipmentIdRoute
   ExerciseIdRoute: typeof ExerciseIdRoute
@@ -128,6 +163,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/form': {
+      id: '/form'
+      path: '/form'
+      fullPath: '/form'
+      preLoaderRoute: typeof FormRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/loads': {
@@ -158,6 +200,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExerciseIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/form/': {
+      id: '/form/'
+      path: '/'
+      fullPath: '/form/'
+      preLoaderRoute: typeof FormIndexRouteImport
+      parentRoute: typeof FormRouteRoute
+    }
+    '/form/$id': {
+      id: '/form/$id'
+      path: '/$id'
+      fullPath: '/form/$id'
+      preLoaderRoute: typeof FormIdRouteImport
+      parentRoute: typeof FormRouteRoute
+    }
     '/routine/': {
       id: '/routine/'
       path: '/routine'
@@ -175,8 +231,23 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface FormRouteRouteChildren {
+  FormIdRoute: typeof FormIdRoute
+  FormIndexRoute: typeof FormIndexRoute
+}
+
+const FormRouteRouteChildren: FormRouteRouteChildren = {
+  FormIdRoute: FormIdRoute,
+  FormIndexRoute: FormIndexRoute,
+}
+
+const FormRouteRouteWithChildren = FormRouteRoute._addFileChildren(
+  FormRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FormRouteRoute: FormRouteRouteWithChildren,
   LoadsRoute: LoadsRoute,
   EquipmentIdRoute: EquipmentIdRoute,
   ExerciseIdRoute: ExerciseIdRoute,

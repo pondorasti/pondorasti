@@ -1,4 +1,4 @@
-import { Dumbbell, Gauge, Warehouse, type LucideProps } from "lucide-react"
+import { Dumbbell, Gauge, PersonStanding, Warehouse, type LucideProps } from "lucide-react"
 
 const make = (Icon: typeof Dumbbell) => (props: LucideProps) => (
   <Icon strokeWidth={1.9} {...props} />
@@ -10,3 +10,5 @@ export const IconBarbell = make(Dumbbell)
 export const IconGauge = make(Gauge)
 /** Equipment / gear */
 export const IconBox = make(Warehouse)
+/** Form demos (good vs bad technique) */
+export const IconForm = make(PersonStanding)
