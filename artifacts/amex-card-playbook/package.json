@@ -33,7 +33,7 @@
     "eslint": "9.39.4",
     "eslint-config-next": "16.2.6",
     "node-addon-api": "8.9.2",
-    "node-gyp": "11.5.0",
+    "node-gyp": "13.1.0",
     "react-server-dom-webpack": "19.2.6",
     "tailwindcss": "4.2.1",
     "typescript": "5.9.3",
