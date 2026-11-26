@@ -30,6 +30,7 @@ Each item is a folder under `content/`, named by its URL slug:
 content/apple-watch-series-10/
   index.md       front matter + notes
   image.webp     the item's image (required)
+  original.webp  the photo the image was cut out of (kept by `bun run images`)
 ```
 
 ```md
@@ -119,15 +120,17 @@ Renaming a folder changes the URL.
 1. Create `content/<slug>/index.md` with the front matter above.
 2. Drop the image into the folder as `image.jpg`, `.png`, `.heic` or any common format: a
    product shot of the item on its own, or for a book, the flat front cover.
-3. Run `bun run images` from this directory. On macOS it lifts the item off its background
-   with Vision (`scripts/cutout.swift`, the model behind "Copy Subject" in Photos) and crops
-   it to the item plus a thin transparent border, so every image sits on the card the same
-   way. Book covers are kept whole. It then converts the image to WebP, at most 2000px on the
-   long side, and deletes the original. Images that are already clean are left alone, so
-   it's safe to rerun. Last, it draws the Open Graph card of every item and view that
-   lacks a current one into `og/` and deletes unused cards, so rerun it after renaming an
-   item or changing its category too. Conversion uses Bun's built-in `Bun.Image`: JPEG, PNG and WebP work
-   anywhere, while HEIC, AVIF, TIFF and GIF rely on the OS codecs of macOS or Windows.
+3. Run `bun run images` from this directory. It lifts the item off its background with
+   BiRefNet (`scripts/cutout.py`, see [Cut-outs](#cut-outs)) and crops it to the item plus a
+   thin transparent border, so every image sits on the card the same way. Book covers are kept
+   whole. It then converts the image to WebP, at most 2000px on the long side, and replaces
+   the dropped file with it. The photo it was cut out of is kept as `original.webp` (at most
+   3000px, metadata stripped), so the item can be cut again later. Images that are already
+   clean are left alone, so it's safe to rerun. Last, it draws the Open Graph card of every
+   item and view that lacks a current one into `og/` and deletes unused cards, so rerun it
+   after renaming an item or changing its category too. Conversion uses Bun's built-in
+   `Bun.Image`: JPEG, PNG and WebP work anywhere, while HEIC, AVIF, TIFF and GIF rely on the
+   OS codecs of macOS or Windows.
 4. Check the cutout, then run `bun run test` (or start the dev server) to validate, and
    commit and push.
 
@@ -135,6 +138,31 @@ The content is validated by `src/content/` whenever the site builds, the dev ser
 loads it, or the tests run. An unknown tag or status, a misspelled key, an invalid link,
 a missing `image.webp` or a missing notes image fails with a message naming the folder,
 so a broken item never deploys.
+
+### Cut-outs
+
+`scripts/cutout.py` runs [BiRefNet](https://github.com/ZhengPeng7/BiRefNet) (MIT) locally at
+1024×1024: nothing is uploaded anywhere. It keeps the model's soft mask as the alpha, so edges
+are anti-aliased, and re-estimates the colour of every edge pixel without the background
+showing through (pymatting's foreground estimation), so they stay clean on both the light and
+dark cards.
+
+It needs [uv](https://docs.astral.sh/uv/) (`brew install uv`). `bun run images` runs the script
+with `uv run --locked --script`, which on first use installs Python 3.12 and the exact versions
+pinned in the script's header and `scripts/cutout.py.lock` (about 1 GB, in uv's cache, outside
+the repository). The model is pinned to a Hugging Face revision in the script and downloaded on
+the first cut-out (about 450 MB, in `~/.cache/huggingface`). Without uv, `bun run images` warns
+and converts images without removing their backgrounds.
+
+It runs on the GPU on Apple silicon (a few seconds per image) or CUDA, and on the CPU anywhere
+else (a minute or two per image). Runs with nothing to cut out don't load the model.
+
+To cut an item again from its `original.webp`, e.g. after a model update, run
+`bun run images --recut <slug>...`, or `bun run images --recut` for every item that has one.
+Items added before originals were kept have none.
+
+To update the dependencies, edit the versions in the script's header and run
+`uv lock --script scripts/cutout.py`.
 
 ## Layout
 
@@ -147,8 +175,8 @@ so a broken item never deploys.
 - `src/lib/`: code shared by server and browser (product types, statuses, tags, filters).
 - `src/read/`: the server functions, query options and sitemap response.
 - `src/routes/`: pages, plus the `sitemap.xml` server route.
-- `scripts/images.ts` and `scripts/cutout.swift`: the background removal, converter and
-  Open Graph card step behind `bun run images`.
+- `scripts/images.ts` and `scripts/cutout.py` (with its lockfile `scripts/cutout.py.lock`):
+  the background removal, converter and Open Graph card step behind `bun run images`.
 
 ## Local Development
 
