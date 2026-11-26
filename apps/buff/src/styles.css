@@ -85,3 +85,47 @@ body {
   -webkit-font-smoothing: antialiased;
   font-synthesis: none;
 }
+
+/* ---- Form demos: floating label next to the highlighted body part ---- */
+.form-hl-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  pointer-events: none;
+  color: #059669;
+  transition: opacity 0.2s;
+}
+.form-hl-label[data-stress="hot"] {
+  color: var(--red);
+}
+.form-hl-label::before {
+  /* leader line from the glow up to the pill */
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: -4px;
+  width: 30px;
+  height: 1.5px;
+  background: currentColor;
+  transform-origin: 0 50%;
+  transform: rotate(-38deg);
+}
+.form-hl-label > span {
+  position: absolute;
+  left: 26px;
+  top: -36px;
+  padding: 4px 8px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: var(--panel);
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+@media (prefers-color-scheme: dark) {
+  .form-hl-label {
+    color: #34d399;
+  }
+}

@@ -1,8 +1,8 @@
 import type { ComponentType } from "react"
-import { IconBarbell, IconGauge, IconBox } from "./icons"
+import { IconBarbell, IconGauge, IconBox, IconForm } from "./icons"
 
 export interface NavItem {
-  to: "/routine/$day" | "/loads" | "/equipment"
+  to: "/routine/$day" | "/loads" | "/equipment" | "/form"
   params?: Record<string, string>
   label: string
   mobile: string
@@ -22,6 +22,7 @@ export const NAV: NavItem[] = [
     section: "/routine"
   },
   { to: "/loads", label: "Loads", mobile: "Loads", icon: IconGauge },
+  { to: "/form", label: "Form", mobile: "Form", icon: IconForm, section: "/form" },
   { to: "/equipment", label: "Equipment", mobile: "Gear", icon: IconBox, section: "/equipment" }
 ]
 

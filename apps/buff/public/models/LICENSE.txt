@@ -1,0 +1,9 @@
+body.glb — "Universal Base Characters [Standard]" by Quaternius
+https://quaternius.com/packs/universalbasecharacters.html
+https://quaternius.itch.io/universal-base-characters
+
+License: CC0 1.0 Universal (public domain dedication)
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Converted with scripts/build-body-model.py (male base body + "Simple Parted"
+hair parented to the head bone, textures downsized to WebP).
