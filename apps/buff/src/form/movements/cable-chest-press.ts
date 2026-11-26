@@ -1,18 +1,16 @@
 import { seated, seatProps } from "../bases"
-import { merge, rep, sym } from "../pose"
+import { grips, merge, poles, rep, sym } from "../pose"
 import type { Movement } from "../types"
 
-const SEAT = 0.47
+/* Hands are IK targets on the handles; each handle hangs from a cable running back to a
+   pulley behind and to the side, at chest height. */
+const PULLEY = { x: 0.72, y: 1.0, z: -0.42 }
 
 /** arms pressed out in front — same for both variants */
 const lockout = merge(
-  sym({
-    scapula: { protract: 6 },
-    shoulder: { flex: 74, abd: 20, rot: -8 },
-    elbow: { flex: 14, pron: 70 },
-    wrist: { flex: -8 },
-    grip: 0.85
-  }),
+  sym({ scapula: { protract: 6 } }),
+  grips(0.2, 0.98, 0.47),
+  poles(1, -0.6, -0.2),
   { stress: 0 }
 )
 
@@ -23,18 +21,30 @@ const cableChestPress: Movement = {
   group: "Push",
   order: 20,
   duration: 3.4,
-  base: merge(seated(SEAT), { spine: { flex: -3 }, neck: { flex: 4 } }),
+  base: merge(seated(), sym({ elbow: { pron: 70 }, wrist: { flex: -8 }, grip: 0.85 }), {
+    spine: { flex: -3 },
+    neck: { flex: 4 }
+  }),
   camera: { position: [-2.7, 1.95, 1.55], target: [0, 0.95, 0.12] },
   highlight: { bone: "upperarm_r", offset: [0, -0.02, 0.06], label: "Front of right shoulder" },
   props: [
-    ...seatProps(SEAT, { back: true }),
-    // cable columns behind, handles at chest height
-    { type: "box", position: [-0.62, 1.0, -0.42], size: [0.07, 2.0, 0.07] },
-    { type: "box", position: [0.62, 1.0, -0.42], size: [0.07, 2.0, 0.07] },
-    { type: "pulley", position: [-0.58, 0.98, -0.42] },
-    { type: "pulley", position: [0.58, 0.98, -0.42] },
-    { type: "cable", from: "gripR", to: [-0.58, 0.98, -0.42] },
-    { type: "cable", from: "gripL", to: [0.58, 0.98, -0.42] },
+    ...seatProps(undefined, { back: { z: -0.19, top: 1.08 } }),
+    // cable columns behind, pulleys at chest height
+    { type: "box", position: [-PULLEY.x - 0.05, 1.0, PULLEY.z], size: [0.07, 2.0, 0.07] },
+    { type: "box", position: [PULLEY.x + 0.05, 1.0, PULLEY.z], size: [0.07, 2.0, 0.07] },
+    { type: "pulley", position: [-PULLEY.x, PULLEY.y, PULLEY.z] },
+    { type: "pulley", position: [PULLEY.x, PULLEY.y, PULLEY.z] },
+    // each cable runs from the handle's outer end (by the little finger) back to its pulley
+    {
+      type: "cable",
+      from: { bone: "hand_r", offset: [0.03, -0.075, -0.09] },
+      to: [-PULLEY.x, PULLEY.y, PULLEY.z]
+    },
+    {
+      type: "cable",
+      from: { bone: "hand_l", offset: [-0.03, -0.075, -0.09] },
+      to: [PULLEY.x, PULLEY.y, PULLEY.z]
+    },
     {
       type: "bar",
       from: { bone: "hand_r", offset: [0.03, -0.075, 0.07] },
@@ -64,16 +74,9 @@ const cableChestPress: Movement = {
       "The handles come back to 1–2 fists in front of the chest, elbows still a little in front of the body. The front of the shoulder stays out of the stretch.",
     keyframes: rep(
       lockout,
-      merge(
-        sym({
-          scapula: { protract: 0 },
-          shoulder: { flex: 32, abd: 60, rot: 6 },
-          elbow: { flex: 100, pron: 70 },
-          wrist: { flex: -12 },
-          grip: 0.85
-        }),
-        { stress: 0.12 }
-      ),
+      merge(sym({ scapula: { protract: 0 } }), grips(0.25, 0.95, 0.27), poles(1, -0.4, -0.25), {
+        stress: 0.12
+      }),
       { out: 0.38 }
     )
   },
@@ -84,14 +87,11 @@ const cableChestPress: Movement = {
     keyframes: rep(
       lockout,
       merge(
-        sym({
-          scapula: { protract: -14, elev: 3 },
-          shoulder: { flex: -20, abd: 64, rot: 30 },
-          elbow: { flex: 96, pron: 70 },
-          wrist: { flex: -15 },
-          grip: 0.85
-        }),
-        { spine: { flex: -9 }, neck: { flex: 7 }, stress: 1 }
+        sym({ scapula: { protract: -14, elev: 3 } }),
+        grips(0.32, 0.94, 0.06),
+        poles(1, -0.3, -1),
+        // chest lifts off the pad as the blades pinch back
+        { spine: { flex: -9 }, pelvis: { flex: 4 }, neck: { flex: 7 }, stress: 1 }
       ),
       { out: 0.38 }
     )

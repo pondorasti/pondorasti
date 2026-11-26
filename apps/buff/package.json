@@ -6,6 +6,7 @@
     "dev": "vp dev",
     "build": "vp build",
     "preview": "vp preview",
+    "test": "vp test run",
     "deploy": "bun run build && wrangler deploy",
     "typecheck": "vp check --no-fmt --no-lint"
   },

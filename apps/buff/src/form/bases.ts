@@ -3,50 +3,70 @@ import { merge, sym } from "./pose"
 import type { Pose, Prop } from "./types"
 
 /** Relaxed standing: arms hang slightly away from the thighs, soft elbows, loose hands. */
-export const standing: Pose = sym({
-  shoulder: { abd: 7 },
-  elbow: { flex: 12 },
-  grip: 0.3,
-  hip: { abd: 2, rot: 6 }
-})
+export const standing: Pose = merge(
+  sym({
+    shoulder: { abd: 7 },
+    elbow: { flex: 12 },
+    grip: 0.3,
+    hip: { abd: 2, rot: 6 }
+  }),
+  { root: { ground: 1 } }
+)
 
 /**
- * Sitting upright on a seat whose top is `seat` metres off the floor, thighs level,
- * shins vertical. Returns the pose plus a seat prop to put under it.
+ * Sitting upright, thighs level, shins vertical, feet flat on the floor (the body is
+ * grounded through the feet). The seat must then sit right under the hips: use SEAT_HEIGHT.
  */
-export function seated(seat = 0.47, opts: { knee?: number; hip?: number } = {}): Pose {
+export function seated(opts: { knee?: number; hip?: number } = {}): Pose {
   const hip = opts.hip ?? 90
   const knee = opts.knee ?? 90
-  // pelvis (hip joint) sits ~9 cm above the seat; standing hip height is 0.97 m
   return merge(
     sym({
-      hip: { flex: hip, abd: 8, rot: 8 },
+      hip: { flex: hip, abd: 6, rot: 6 },
       knee: { flex: knee },
       ankle: { flex: knee - hip },
       grip: 0.3
     }),
-    { root: { y: seat + 0.09 - 0.971, z: -0.02 } }
+    { root: { ground: 1, z: -0.02 } }
   )
 }
 
-/** A padded bench seat, centred under the hips, plus an optional backrest. */
+/** Top of the seat under `seated()` (measured on the mesh: lowest point of the hips + 0.8 cm squish). */
+export const SEAT_HEIGHT = 0.458
+
+/**
+ * A padded seat under the hips (front edge well short of the knees), its post, and optionally
+ * a backrest that the upper back leans on.
+ */
 export function seatProps(
-  seat = 0.47,
-  opts: { back?: boolean; depth?: number; z?: number } = {}
+  seat = SEAT_HEIGHT,
+  opts: { back?: { z: number; top: number }; front?: number; rear?: number } = {}
 ): Prop[] {
-  const depth = opts.depth ?? 0.42
-  const z = opts.z ?? 0.1
+  const front = opts.front ?? 0.26
+  const rear = opts.rear ?? -0.21
   const props: Prop[] = [
-    { type: "box", position: [0, seat - 0.04, z], size: [0.42, 0.08, depth], color: "#2a2e35" },
-    { type: "box", position: [0, (seat - 0.08) / 2, z], size: [0.08, seat - 0.08, 0.08] }
+    {
+      type: "box",
+      position: [0, seat - 0.04, (front + rear) / 2],
+      size: [0.42, 0.08, front - rear],
+      color: "#2a2e35",
+      contact: "seat"
+    },
+    {
+      type: "box",
+      position: [0, (seat - 0.08) / 2, (front + rear) / 2],
+      size: [0.08, seat - 0.08, 0.08]
+    }
   ]
-  if (opts.back)
+  if (opts.back) {
+    const bottom = seat + 0.12
     props.push({
       type: "box",
-      position: [0, seat + 0.36, z - depth / 2 - 0.06],
-      size: [0.4, 0.62, 0.08],
-      rotation: [-8, 0, 0],
-      color: "#2a2e35"
+      position: [0, (bottom + opts.back.top) / 2, opts.back.z - 0.04],
+      size: [0.26, opts.back.top - bottom, 0.08],
+      color: "#2a2e35",
+      contact: "back"
     })
+  }
   return props
 }

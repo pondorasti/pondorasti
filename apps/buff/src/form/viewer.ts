@@ -32,8 +32,10 @@ import { GLTFLoader, type GLTF } from "three/addons/loaders/GLTFLoader.js"
 import { OrbitControls } from "three/addons/controls/OrbitControls.js"
 import { clone as cloneSkinned } from "three/addons/utils/SkeletonUtils.js"
 import { Rig } from "./rig"
-import { buildTrack, sample, type Track } from "./pose"
-import type { Anchor, Movement, Prop, Vec3 } from "./types"
+import { breathe, buildTrack, sample, type Track } from "./pose"
+import { boxRotation, isLinear, pathOf, propRadius, type LinearProp } from "./props"
+import { measureTorso, type Slice } from "./torso"
+import type { Movement, Prop, Vec3 } from "./types"
 
 export const MODEL_URL = "/models/body.glb"
 
@@ -48,15 +50,15 @@ const HOT = new Color("#ff3b30")
 const UP = new Vector3(0, 1, 0)
 
 interface DynamicProp {
-  mesh: Object3D
-  from: Anchor
-  to: Anchor
-  overhang: number
+  /** one cylinder per path segment (bands can wrap, so they get a pool) */
+  meshes: Object3D[]
+  prop: LinearProp
 }
 
 interface Stage {
   scene: Scene
   rig: Rig
+  torso: Slice[]
   track: Track | null
   props: Group
   dynamic: DynamicProp[]
@@ -204,6 +206,7 @@ export class FormViewer {
     })
     scene.add(model)
     const rig = new Rig(model)
+    const torso = measureTorso(model, rig)
 
     const props = new Group()
     scene.add(props)
@@ -216,6 +219,7 @@ export class FormViewer {
     return {
       scene,
       rig,
+      torso,
       track: null,
       props,
       dynamic: [],
@@ -263,10 +267,7 @@ export class FormViewer {
         const mesh = new Mesh(this.geometries.box, mat(p.color, dark ? 0x3a3f48 : 0x5b6270, 0.8, 0))
         mesh.position.set(...p.position)
         mesh.scale.set(...p.size)
-        if (p.rotation)
-          mesh.rotation.set(
-            ...(p.rotation.map((d) => (d * Math.PI) / 180) as [number, number, number])
-          )
+        mesh.quaternion.copy(boxRotation(p))
         mesh.castShadow = mesh.receiveShadow = true
         stage.props.add(mesh)
       } else if (p.type === "pulley") {
@@ -275,28 +276,20 @@ export class FormViewer {
         mesh.rotation.y = Math.PI / 2
         mesh.castShadow = true
         stage.props.add(mesh)
-      } else {
-        const radius =
-          p.type === "band" ? 0.011 : p.type === "bar" ? (p.radius ?? 0.014) : (p.radius ?? 0.005)
-        const color =
-          p.type === "band" ? (p.color ?? "#f59e0b") : p.type === "bar" ? p.color : p.color
-        const mesh = new Mesh(
-          this.geometries.cyl,
+      } else if (isLinear(p)) {
+        const material =
           p.type === "band"
-            ? mat(color, 0xf59e0b, 0.55, 0)
+            ? mat(p.color, 0xf59e0b, 0.55, 0)
             : p.type === "bar"
-              ? mat(color, 0xb8bec7, 0.3, 0.85)
-              : mat(color, 0x2b2f36, 0.5, 0.3)
-        )
-        mesh.userData.radius = radius
-        mesh.castShadow = true
-        stage.props.add(mesh)
-        stage.dynamic.push({
-          mesh,
-          from: p.from,
-          to: p.to,
-          overhang: p.type === "bar" ? (p.overhang ?? 0.2) : 0
+              ? mat(p.color, 0xb8bec7, 0.3, 0.85)
+              : mat(p.color, 0x2b2f36, 0.5, 0.3)
+        const meshes = Array.from({ length: p.type === "band" ? 40 : 1 }, () => {
+          const mesh = new Mesh(this.geometries.cyl, material)
+          mesh.castShadow = true
+          stage.props.add(mesh)
+          return mesh
         })
+        stage.dynamic.push({ meshes, prop: p })
       }
     }
   }
@@ -357,37 +350,31 @@ export class FormViewer {
 
     const { clientWidth: w, clientHeight: h } = this.container
     const pulse = 0.82 + 0.18 * Math.sin(now / 260)
-    const tmpA = new Vector3()
-    const tmpB = new Vector3()
+    const dir = new Vector3()
     const q = new Quaternion()
 
     for (const s of this.stages) {
       if (!s.track) continue
       const c = sample(s.track, phase)
       // a little life: slow breathing, independent of the movement loop
-      const breath = Math.sin(this.time * ((Math.PI * 2) / 4.2))
-      c["spine.flex"] = (c["spine.flex"] ?? 0) - breath * 0.8
-      c["scapulaL.elev"] = (c["scapulaL.elev"] ?? 0) + breath * 0.8
-      c["scapulaR.elev"] = (c["scapulaR.elev"] ?? 0) + breath * 0.8
-      c["head.flex"] = (c["head.flex"] ?? 0) + breath * 0.5
+      breathe(c, Math.sin(this.time * ((Math.PI * 2) / 4.2)))
       s.rig.apply(c)
 
       // props that follow the body
       for (const d of s.dynamic) {
-        s.rig.anchor(d.from, tmpA)
-        s.rig.anchor(d.to, tmpB)
-        const dir = tmpB.clone().sub(tmpA)
-        let len = dir.length()
-        if (len < 1e-4) continue
-        dir.divideScalar(len)
-        if (d.overhang) {
-          tmpA.addScaledVector(dir, -d.overhang)
-          len += d.overhang * 2
-        }
-        const r = d.mesh.userData.radius as number
-        d.mesh.position.copy(tmpA)
-        d.mesh.quaternion.copy(q.setFromUnitVectors(UP, dir))
-        d.mesh.scale.set(r, len, r)
+        const path = pathOf(s.rig, d.prop, s.torso)
+        const r = propRadius(d.prop)
+        d.meshes.forEach((mesh, i) => {
+          const a = path[i]
+          const b = path[i + 1]
+          const len = a && b ? dir.subVectors(b, a).length() : 0
+          mesh.visible = len > 1e-5
+          if (!mesh.visible) return
+          mesh.position.copy(a)
+          mesh.quaternion.copy(q.setFromUnitVectors(UP, dir.divideScalar(len)))
+          // a touch longer so wrapped segments join without gaps
+          mesh.scale.set(r, len + (path.length > 2 ? r : 0), r)
+        })
       }
 
       // highlight

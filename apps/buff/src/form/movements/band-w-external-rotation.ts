@@ -57,7 +57,7 @@ const bandW: Movement = {
       merge(
         sym({
           scapula: { protract: -20, elev: 5 },
-          shoulder: { flex: -10, abd: 13, rot: 98 },
+          shoulder: { flex: -10, abd: 13, rot: 88 },
           elbow: { flex: 92, pron: -70 },
           grip: 0.85
         }),

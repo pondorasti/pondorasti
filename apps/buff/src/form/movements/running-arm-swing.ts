@@ -10,7 +10,6 @@ import type { Movement, Pose } from "../types"
      0.75  mirror of 0.25                                                  */
 
 const pushOffR_driveL: Pose = {
-  root: { y: -0.025 },
   hipR: { flex: -16, abd: 2 },
   kneeR: { flex: 24 },
   ankleR: { flex: -18 },
@@ -20,7 +19,6 @@ const pushOffR_driveL: Pose = {
   ankleL: { flex: 8 }
 }
 const stanceL_swingR: Pose = {
-  root: { y: -0.075 },
   hipL: { flex: 14, abd: 2 },
   kneeL: { flex: 40 },
   ankleL: { flex: 24 },
@@ -79,6 +77,8 @@ const runningArmSwing: Movement = {
   order: 10,
   duration: 0.95,
   interpolation: "smooth",
+  // running in place: the body is grounded through whichever sole is lowest; feet move
+  feet: "free",
   base: merge(standing, { spine: { flex: 5 } }),
   camera: { position: [-3.3, 1.35, 1.1], target: [0, 0.98, 0] },
   highlight: {

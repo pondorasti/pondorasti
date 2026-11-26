@@ -16,7 +16,7 @@
    against the ribcage (not the collarbone), and the thigh against upright
    (not the pelvis).
    ========================================================================== */
-import { Bone, Object3D, Quaternion, Vector3 } from "three"
+import { Bone, Euler, Matrix4, Object3D, Quaternion, Vector3 } from "three"
 import type { Anchor, BoneName } from "./types"
 import type { Channels } from "./pose"
 
@@ -135,6 +135,27 @@ const NEUTRAL_DIR: Record<string, { child: string; target: Vector3 }> = {
 /** Grip centre, in the hand's neutral frame (hand hanging, palm facing in). */
 const GRIP_OFFSET = { L: new Vector3(-0.025, -0.075, 0.005), R: new Vector3(0.025, -0.075, 0.005) }
 
+/** Lowest points of each sole (heel, ball, toe tip), measured on the mesh, in neutral bone frames. */
+const SOLE: Record<"l" | "r", [string, Vector3][]> = { l: [], r: [] }
+for (const s of ["l", "r"] as const) {
+  const m = s === "l" ? -1 : 1
+  SOLE[s] = [
+    [`foot_${s}`, new Vector3(-0.008 * m, -0.092, -0.027)],
+    [`foot_${s}`, new Vector3(0.022 * m, -0.09, -0.02)],
+    [`foot_${s}`, new Vector3(-0.035 * m, -0.088, -0.02)],
+    [`ball_${s}`, new Vector3(0.014 * m, -0.024, 0.003)],
+    [`ball_${s}`, new Vector3(0.04 * m, -0.022, -0.005)],
+    [`ball_${s}`, new Vector3(-0.04 * m, -0.02, -0.01)],
+    [`ball_leaf_${s}`, new Vector3(0, -0.012, -0.012)]
+  ]
+}
+/** The model's soles sit this far below its origin; lift it so standing feet rest on y = 0. */
+const FLOOR_LIFT = 0.009
+
+/** Default elbow direction for arm IK: down and a little out. */
+const DEFAULT_POLE = { L: new Vector3(0.5, -1, -0.2), R: new Vector3(-0.5, -1, -0.2) }
+const IK_ITERATIONS = 4
+
 interface RigBone {
   bone: Bone
   name: string
@@ -207,14 +228,39 @@ export class Rig {
     }
     this.pelvis = this.byName.get("pelvis")!
     this.pelvis.bone.getWorldPosition(this.pelvisRestWorld)
+    this.pelvisRestWorld.y += FLOOR_LIFT
   }
 
   has(name: string) {
     return this.byName.has(name)
   }
 
-  /** Pose the skeleton from flat channels. */
-  apply(c: Channels) {
+  /** a body part's rotation away from relaxed standing (call after apply) */
+  anatomical(name: string): Quaternion {
+    return (this.byName.get(name)?.anat ?? IDENTITY).clone()
+  }
+
+  bonePosition(name: string, out = new Vector3()): Vector3 {
+    const rb = this.byName.get(name)
+    return rb ? rb.bone.getWorldPosition(out) : out.set(0, 0, 0)
+  }
+
+  /**
+   * Pose the skeleton from flat channels. Returns the channels actually used: arm IK
+   * (reachL/reachR targets) fills in the shoulder and elbow angles.
+   */
+  apply(input: Channels): Channels {
+    const c = { ...input }
+    const sides = (["L", "R"] as const).filter((s) => `reach${s}.x` in c)
+    this.pose(c)
+    for (let i = 0; i < IK_ITERATIONS && sides.length; i++) {
+      for (const s of sides) this.solveArm(c, s, i === 0)
+      this.pose(c)
+    }
+    return c
+  }
+
+  private pose(c: Channels) {
     const parentInv = new Quaternion()
     for (const rb of this.bones) {
       rb.anat.copy(rb.anatParent ? rb.anatParent.anat : IDENTITY)
@@ -224,16 +270,127 @@ export class Rig {
       rb.bone.quaternion.copy(parentInv).multiply(rb.world)
     }
     // whole-body translation (sitting, bouncing): move the pelvis in world space
+    const offset = new Vector3(ch(c, "root.x"), ch(c, "root.y"), ch(c, "root.z"))
+    this.placePelvis(offset)
+    // root.ground: drop/raise the body so the lowest sole point is root.lift above the floor
+    if (ch(c, "root.ground")) {
+      let low = Infinity
+      const p = new Vector3()
+      for (const s of ["l", "r"] as const)
+        for (const [bone, o] of SOLE[s]) low = Math.min(low, this.offsetFrom(bone, o, p).y)
+      offset.y += ch(c, "root.lift") - low
+      this.placePelvis(offset)
+    }
+  }
+
+  private placePelvis(offset: Vector3) {
     const p = this.pelvis.bone
-    const target = this.pelvisRestWorld
-      .clone()
-      .add(new Vector3(ch(c, "root.x"), ch(c, "root.y"), ch(c, "root.z")))
     p.position.copy(this.pelvis.restPos)
     if (p.parent) {
       p.parent.updateWorldMatrix(true, false)
-      p.position.copy(p.parent.worldToLocal(target))
+      p.position.copy(p.parent.worldToLocal(this.pelvisRestWorld.clone().add(offset)))
     }
     this.model.updateMatrixWorld(true)
+  }
+
+  /** Target for the grip, nudged each iteration to cancel the palm offset. */
+  private ikAim = { L: new Vector3(), R: new Vector3() }
+
+  /**
+   * Two-bone arm IK: put the grip on reach{s}, with the elbow bent toward pole{s}.
+   * Writes shoulder flex/abd/rot and elbow flex into `c` (forearm twist and wrist stay as authored).
+   */
+  private solveArm(c: Channels, s: "L" | "R", first: boolean) {
+    const b = s.toLowerCase()
+    const target = new Vector3(c[`reach${s}.x`], c[`reach${s}.y`], c[`reach${s}.z`])
+    const aim = this.ikAim[s]
+    if (first) aim.copy(target)
+    else aim.add(target.clone().sub(this.anchor(`grip${s}`)))
+
+    const S = this.byName.get(`upperarm_${b}`)!.bone.getWorldPosition(new Vector3())
+    const E0 = this.byName.get(`lowerarm_${b}`)!.bone.getWorldPosition(new Vector3())
+    const G0 = this.anchor(`grip${s}`)
+    const L1 = S.distanceTo(E0)
+    const L2 = E0.distanceTo(G0)
+    const toT = aim.clone().sub(S)
+    const d = Math.min(Math.max(toT.length(), Math.abs(L1 - L2) + 1e-4), L1 + L2 - 1e-4)
+    const a = toT.normalize()
+    const pole =
+      `pole${s}.x` in c
+        ? new Vector3(c[`pole${s}.x`], c[`pole${s}.y`], c[`pole${s}.z`])
+        : DEFAULT_POLE[s].clone()
+    const perp = pole.sub(a.clone().multiplyScalar(pole.dot(a)))
+    if (perp.lengthSq() < 1e-8) perp.set(0, 0, -1).sub(a.clone().multiplyScalar(-a.z))
+    perp.normalize()
+    const cosA = (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d)
+    const sinA = Math.sqrt(Math.max(1 - cosA * cosA, 0))
+    const u = a.clone().multiplyScalar(cosA).addScaledVector(perp, sinA) // upper arm direction
+    const E = S.clone().addScaledVector(u, L1)
+    const f = S.clone().addScaledVector(a, d).sub(E).normalize() // forearm direction
+    let h = u.clone().cross(f)
+    if (h.lengthSq() < 1e-8) h = u.clone().cross(perp).negate()
+    h.normalize()
+    // neutral arm: hangs along -y, flexes about -x; map that frame onto (u, h)
+    const w = u.clone().cross(h)
+    const target3 = new Matrix4().makeBasis(u, h, w)
+    const neutral3 = new Matrix4().makeBasis(
+      new Vector3(0, -1, 0),
+      new Vector3(-1, 0, 0),
+      new Vector3(0, 0, -1)
+    )
+    const A = new Quaternion().setFromRotationMatrix(target3.multiply(neutral3.transpose()))
+    const thorax = this.byName.get("spine_03")!.anat
+    const J = thorax.clone().invert().multiply(A)
+    const e = new Euler().setFromQuaternion(J, "XZY")
+    const m = s === "L" ? 1 : -1
+    c[`shoulder${s}.flex`] = -e.x / DEG
+    c[`shoulder${s}.abd`] = (m * e.z) / DEG
+    c[`shoulder${s}.rot`] = (m * e.y) / DEG
+    c[`elbow${s}.flex`] = Math.acos(Math.min(Math.max(u.dot(f), -1), 1)) / DEG
+  }
+
+  /**
+   * Shoulder position measured without Euler angles (which are path-dependent for raised arms):
+   * elevation = angle of the upper arm from hanging, behind = how far it points behind the
+   * body, rotation = external (+) / internal (−) rotation of the humerus about its own axis.
+   */
+  shoulder(s: "L" | "R") {
+    const J = this.anatomical("spine_03")
+      .invert()
+      .multiply(this.anatomical(`upperarm_${s.toLowerCase()}`))
+    const down = new Vector3(0, -1, 0)
+    const d = down.clone().applyQuaternion(J)
+    const swing = new Quaternion().setFromUnitVectors(down, d)
+    const twist = swing.invert().multiply(J)
+    let deg = (2 * Math.atan2(twist.y, twist.w)) / DEG
+    if (deg > 180) deg -= 360
+    if (deg < -180) deg += 360
+    return {
+      elevation: Math.acos(Math.min(Math.max(-d.y, -1), 1)) / DEG,
+      behind: Math.asin(Math.min(Math.max(-d.z, 0), 1)) / DEG,
+      rotation: (s === "L" ? 1 : -1) * deg
+    }
+  }
+
+  /**
+   * Twist (degrees) of a bone about its own long axis relative to its parent, compared with
+   * relaxed standing. Large values at the elbow/wrist read as a broken "candy wrapper" twist.
+   */
+  twist(name: string): number {
+    const rb = this.byName.get(name)
+    if (!rb?.parent) return 0
+    const neutralRel = rb.parent.neutral.clone().invert().multiply(rb.neutral)
+    const rel = rb.parent.world.clone().invert().multiply(rb.world)
+    const d = neutralRel.invert().multiply(rel)
+    let deg = (2 * Math.atan2(d.y, d.w)) / DEG
+    if (deg > 180) deg -= 360
+    if (deg < -180) deg += 360
+    return deg
+  }
+
+  /** World positions of the sole contact points of one foot (call after apply). */
+  sole(side: "l" | "r"): Vector3[] {
+    return SOLE[side].map(([bone, o]) => this.offsetFrom(bone, o, new Vector3()))
   }
 
   /** World position of an anchor (call after apply). */

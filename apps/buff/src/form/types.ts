@@ -55,7 +55,8 @@ export interface Hinge {
 }
 
 export interface Pose {
-  root?: { x?: number; y?: number; z?: number }
+  /** ground: 1 = keep the lowest sole point exactly `lift` metres above the floor (running) */
+  root?: { x?: number; y?: number; z?: number; ground?: number; lift?: number }
   pelvis?: Axial
   spine?: Axial
   neck?: Axial
@@ -79,6 +80,15 @@ export interface Pose {
   toesL?: Hinge
   toesR?: Hinge
   stress?: number
+  /**
+   * Arm IK: put the centre of the grip on this world point (metres) and let the rig work out
+   * the shoulder and elbow angles. Use it whenever the hands hold equipment, so a bar stays
+   * rigid and level and the hands can't drift off it. pole = which way the elbow points.
+   */
+  reachL?: Vec3
+  reachR?: Vec3
+  poleL?: Vec3
+  poleR?: Vec3
 }
 
 /** Bones of the rig that props/highlights can attach to. */
@@ -103,7 +113,16 @@ export type Anchor = Vec3 | "gripL" | "gripR" | "grips" | { bone: BoneName; offs
 
 export type Prop =
   /** a box, e.g. a seat, pad or foot plate; position = centre */
-  | { type: "box"; position: Vec3; size: Vec3; rotation?: Vec3; color?: string }
+  | {
+      type: "box"
+      position: Vec3
+      size: Vec3
+      /** degrees, XYZ order */
+      rotation?: Vec3
+      color?: string
+      /** the checks require the body to rest on it: hips/thighs ("seat"), the back ("back") or soles ("feet") */
+      contact?: "seat" | "back" | "feet"
+    }
   /** a cylinder between two anchors */
   | { type: "cable"; from: Anchor; to: Anchor; radius?: number; color?: string }
   /** a straight bar through two anchors, extended past them by `overhang` m */
@@ -159,6 +178,8 @@ export interface Movement {
   exercise?: string
   /** seconds per loop at 1× speed */
   duration: number
+  /** "planted" (default): feet must stay put on the floor or a "feet" contact box. "free": running etc. */
+  feet?: "planted" | "free"
   /** "ease" (default): eased moves between keyframes. "smooth": spline through them (cyclic motion like running) */
   interpolation?: "ease" | "smooth"
   /** merged under every keyframe of both variants */

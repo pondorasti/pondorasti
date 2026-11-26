@@ -37,6 +37,16 @@ export function sym(limbs: Limbs): Pose {
   return out as Pose
 }
 
+/** Both hands on symmetric points: grips(0.4, 1.3, 0.2) → reachL [0.4, …], reachR [-0.4, …] */
+export function grips(x: number, y: number, z: number): Pose {
+  return { reachL: [x, y, z], reachR: [-x, y, z] }
+}
+
+/** Both elbows pointing the same (mirrored) way, e.g. poles(1, -1, 0) = out and down. */
+export function poles(x: number, y: number, z: number): Pose {
+  return { poleL: [x, y, z], poleR: [-x, y, z] }
+}
+
 /** One side only: side("R", { shoulder: { flex: 30 } }) → { shoulderR } */
 export function side(s: "L" | "R", limbs: Limbs): Pose {
   const out: Record<string, unknown> = {}
@@ -49,7 +59,8 @@ export function mirror(pose: Pose): Pose {
   const out: Record<string, unknown> = {}
   for (const [k, v] of Object.entries(pose)) {
     const m = /^(.*)([LR])$/.exec(k)
-    if (m) out[m[1] + (m[2] === "L" ? "R" : "L")] = v
+    if (m && Array.isArray(v)) out[m[1] + (m[2] === "L" ? "R" : "L")] = [-v[0], v[1], v[2]]
+    else if (m) out[m[1] + (m[2] === "L" ? "R" : "L")] = v
     else if (k === "pelvis" || k === "spine" || k === "neck" || k === "head") {
       const a = v as { flex?: number; side?: number; twist?: number }
       out[k] = { ...a, side: a.side && -a.side, twist: a.twist && -a.twist }
@@ -68,7 +79,7 @@ export function merge(...poses: (Pose | undefined)[]): Pose {
     if (!p) continue
     for (const [k, v] of Object.entries(p)) {
       out[k] =
-        typeof v === "object" && v !== null
+        typeof v === "object" && v !== null && !Array.isArray(v)
           ? { ...(out[k] as object | undefined), ...(v as object) }
           : v
     }
@@ -80,6 +91,7 @@ export function flatten(pose: Pose): Channels {
   const out: Channels = {}
   for (const [k, v] of Object.entries(pose)) {
     if (typeof v === "number") out[k] = v
+    else if (Array.isArray(v)) ["x", "y", "z"].forEach((c, i) => (out[`${k}.${c}`] = v[i]))
     else if (v)
       for (const [c, n] of Object.entries(v)) if (typeof n === "number") out[`${k}.${c}`] = n
   }
@@ -147,12 +159,14 @@ export function sample(track: Track, phase: number): Channels {
       const p1 = a[k] ?? 0
       const p2 = b[k] ?? 0
       const p3 = q[k] ?? 0
-      out[k] =
+      const v =
         0.5 *
         (2 * p1 +
           (-p0 + p2) * u +
           (2 * p0 - 5 * p1 + 4 * p2 - p3) * u2 +
           (-p0 + 3 * p1 - 3 * p2 + p3) * u3)
+      // no overshoot past the neighbouring keyframes (would push joints past their range)
+      out[k] = Math.min(Math.max(v, Math.min(p1, p2)), Math.max(p1, p2))
     }
   } else {
     const e = EASE[track.eases[i]](u)
@@ -181,4 +195,12 @@ export function rep(
     { at: pause + out, pose: end },
     { at: pause * 2 + out, pose: end }
   ]
+}
+
+/** Slow breathing layered on any pose; `breath` runs -1…1. */
+export function breathe(c: Channels, breath: number) {
+  c["spine.flex"] = (c["spine.flex"] ?? 0) - breath * 0.8
+  c["scapulaL.elev"] = (c["scapulaL.elev"] ?? 0) + breath * 0.8
+  c["scapulaR.elev"] = (c["scapulaR.elev"] ?? 0) + breath * 0.8
+  c["head.flex"] = (c["head.flex"] ?? 0) + breath * 0.5
 }
