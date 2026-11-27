@@ -9,5 +9,11 @@
   "workers_dev": false,
   "preview_urls": false,
   "routes": [{ "pattern": "macro.alexandru.so", "custom_domain": true }],
-  "vars": { "PUBLIC_ORIGIN": "https://macro.alexandru.so" }
+  "vars": {
+    "PUBLIC_ORIGIN": "https://macro.alexandru.so",
+    "GITHUB_REPOSITORY": "pondorasti/pondorasti",
+    "GITHUB_BRANCH": "main"
+  },
+  // Set on the Worker in the Cloudflare dashboard; deploys fail until both exist.
+  "secrets": { "required": ["HEALTH_INGEST_TOKEN", "GITHUB_TOKEN"] }
 }

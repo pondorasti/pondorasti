@@ -10,7 +10,8 @@ this repository's history.
 TanStack Start, Router and Query; React; Tailwind CSS with system light/dark mode; a
 Cloudflare Worker. No database: `content/` is validated at build time and bundled into
 the Worker. Pages are server-rendered on each request; changes to the logs reach the
-site by deploying.
+site by deploying. Weigh-ins and burned energy arrive from Apple Health on their own (see
+[Apple Health sync](#apple-health-sync)), as commits to these files.
 
 ## Data
 
@@ -53,7 +54,8 @@ Only the morning reading is logged, taken after a shower and before breakfast, a
 time the scale recorded it. It comes from the Fitdays scale through Apple Health. The
 first reading before 12:00 is the day's morning weight, the one charted and averaged;
 afternoon and evening readings aren't logged. To discard a mis-weigh, delete its row
-rather than adding a second morning reading after it.
+rather than adding a second morning reading after it, and delete the reading in Apple
+Health too, or the next sync logs it again.
 
 ### `content/energy.csv`
 
@@ -69,6 +71,50 @@ date,resting_kcal,active_kcal
 
 A date appears at most once. A day still in progress isn't logged, so today shows no
 balance until tomorrow.
+
+## Apple Health sync
+
+[Health Auto Export](https://help.healthyapps.dev/en/health-auto-export/automations/rest-api)
+on the iPhone POSTs Apple Health data as JSON (version 2) to
+`https://macro.alexandru.so/api/health-auto-export`, with the header
+`Authorization: Bearer <HEALTH_INGEST_TOKEN>`. `src/ingest/` reads the
+`weight_body_mass`, `basal_energy_burned` and `active_energy` metrics (in kg or lb,
+kcal or kJ) and ignores every other metric. It commits any new rows to `main` through
+the GitHub API, as one commit named `macro: sync … from Apple Health`, and Workers
+Builds deploys that commit like any other. The phone only syncs while it's unlocked, so
+the same data arrives many times; a payload with nothing new commits nothing.
+
+- Weigh-ins: each day's first reading before 12:00, converted to Los Angeles time at the
+  minute the scale recorded it, in kg to 2 decimals. Readings 5 minutes apart or less are
+  a re-weigh, and the last of them counts; a reading less than 5 minutes old waits for
+  the next sync in case a re-weigh follows. A day with a morning row already gets no
+  second one, and a reading on the same day within 10 minutes of a logged row, or the
+  same kg ±0.01, is that row.
+- Energy: each day's resting and active totals, rounded, for days before today in Los
+  Angeles and dated by the phone's calendar day. A day under 1,500 kcal resting, or
+  missing either number, hasn't finished syncing from the watch; a later sync logs it.
+  A logged day is never rewritten.
+
+Every new row is validated with the same rules as the build before it's committed, and a
+commit only lands as a fast-forward of the commit its files were read from, so a
+concurrent push is never overwritten; the ingest rereads and retries instead. The
+response lists the rows added and why the others were skipped, and each run is logged
+to the Worker's observability logs.
+
+Two automations, because energy needs daily totals and weight needs each reading:
+
+| Setting        | Weigh-ins                     | Energy                             |
+| -------------- | ----------------------------- | ---------------------------------- |
+| Data Type      | Health Metrics                | Health Metrics                     |
+| Metrics        | Weight & Body Mass            | Active Energy, Basal Energy Burned |
+| Format         | JSON, Version 2               | JSON, Version 2                    |
+| Date Range     | Default (yesterday and today) | Previous 7 Days                    |
+| Summarize Data | Off                           | On, Time Grouping: Day             |
+| Batch Requests | Off                           | Off                                |
+| Sources        | the scale's app               | the Apple Watch                    |
+| Sync Frequency | every 15 minutes              | every 1 hour                       |
+
+Use Manual Upload in an automation to send older dates.
 
 ### Validation
 
@@ -110,6 +156,10 @@ days), and how many days and weeks the dashboard shows.
 - `src/config.ts`: targets and dashboard settings.
 - `src/content/`: the CSV parser, row validation, and the Vite plugin behind
   `virtual:macro-content`.
+- `src/ingest/`: the Apple Health endpoint: the Health Auto Export payload, the logging
+  rules, and the GitHub commit.
+- `src/worker.ts`: routes `/api/health-auto-export` to `src/ingest/` and everything else
+  to TanStack Start.
 - `src/lib/`: daily totals, meal grouping, morning weights, energy balance, rolling and
   weekly averages, and formatting, shared by server and browser.
 - `src/read/`: the server functions and query options.
@@ -140,6 +190,18 @@ through Cloudflare Workers Builds, which runs
 `apps/macro` when a push touches `apps/macro/*` or `bun.lock`. `bun run deploy`
 deploys manually through an authorized Wrangler login.
 
+The Worker needs two secrets, declared under `secrets.required` in `wrangler.jsonc`, so a
+deploy fails while either is missing. Set them in the dashboard under Workers & Pages →
+`alexandru-macro` → Settings → Variables and Secrets, as type Secret:
+
+- `HEALTH_INGEST_TOKEN`: a random string, also entered in each Health Auto Export
+  automation as `Authorization: Bearer <token>`.
+- `GITHUB_TOKEN`: a fine-grained personal access token limited to this repository, with
+  Contents: Read and write and nothing else.
+
+Locally, put both in `.dev.vars` (ignored by git). `GITHUB_REPOSITORY` and
+`GITHUB_BRANCH` in `wrangler.jsonc` name where the ingest commits.
+
 The Workers Custom Domain is declared in `wrangler.jsonc`; deploying configures its DNS
 record and TLS certificate through Cloudflare. Both `workers_dev` and `preview_urls`
 remain disabled. Regenerate Worker types with `bun run cf-typegen` after changing
@@ -149,6 +211,8 @@ remain disabled. Regenerate Worker types with `bun run cf-typegen` after changin
 
 `bun run test` in this directory runs the unit tests, colocated as `*.test.ts`: CSV
 parsing, row validation, daily totals, meal grouping, morning weights, energy balance,
-rolling and weekly averages, and a load of every file in `content/`. `bun run check` at the
+rolling and weekly averages, a load of every file in `content/`, and the Apple Health
+ingest: payload parsing, the weigh-in and energy rules, and the commit against a fake
+GitHub, including repeated payloads and a concurrent push. `bun run check` at the
 repository root runs formatting, lint and type checks, then every workspace's tests and
 builds.
