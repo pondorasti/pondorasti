@@ -76,6 +76,8 @@ export interface ProductSummary {
   tag: Tag
   /** Optional sub group within the tag, e.g. bathroom → skin. */
   group: Group | null
+  /** Optional position within the item's group (or tag, without one): 1 is first. Unordered items follow, by name. */
+  order: number | null
   /** URL of the item's image, content-addressed so it can be cached forever. */
   image: string
 }

@@ -62,9 +62,21 @@ export function sectionsByTag(products: ProductSummary[]) {
     .filter((section) => section.products.length)
 }
 
-/** Splits products into per-group sections: ungrouped first, then groups in display order, skipping empty ones. */
+const rank = (product: ProductSummary) => product.order ?? Number.POSITIVE_INFINITY
+
+/** Items with an `order` first, lowest first; the sort is stable, so ties and the rest keep their order. */
+const byOrder = (a: ProductSummary, b: ProductSummary) =>
+  a.order === b.order ? 0 : rank(a) - rank(b)
+
+/**
+ * Splits products into per-group sections: ungrouped first, then groups in display order, skipping
+ * empty ones. Within a section, ordered items come first; the rest keep their (alphabetical) order.
+ */
 export function sectionsByGroup(products: ProductSummary[]) {
   return [null, ...Group.options]
-    .map((group) => ({ group, products: products.filter((product) => product.group === group) }))
+    .map((group) => ({
+      group,
+      products: products.filter((product) => product.group === group).sort(byOrder)
+    }))
     .filter((section) => section.products.length)
 }

@@ -74,6 +74,11 @@ ALL notifications are turned off.
   `group: skin`. It must be one of the tag's groups in `TAG_GROUPS` in
   `src/lib/product.ts`. A selected category with groups shows one section per group,
   and "All" shows the group on the item's card.
+- `order` is an optional position within the item's group (or its tag, for an item without
+  a group), a whole number from 1: `order: 1` puts the item first. Items with an `order`
+  come first, lowest first, and everything else follows alphabetically by `name`, so only
+  the items you want to move need one. Equal numbers fall back to alphabetical order.
+  Search results stay alphabetical.
 - `link` is an optional `http(s)` URL for the "Visit product" button.
 - Notes are markdown, in the format below. Links open in a new tab; non-`http(s)` links
   and raw HTML are not rendered as such. Notes are public, as is this repository's
@@ -135,9 +140,9 @@ Renaming a folder changes the URL.
    commit and push.
 
 The content is validated by `src/content/` whenever the site builds, the dev server
-loads it, or the tests run. An unknown tag or status, a misspelled key, an invalid link,
-a missing `image.webp` or a missing notes image fails with a message naming the folder,
-so a broken item never deploys.
+loads it, or the tests run. An unknown tag or status, a misspelled key, an `order` that
+isn't a whole number from 1, an invalid link, a missing `image.webp` or a missing notes
+image fails with a message naming the folder, so a broken item never deploys.
 
 ### Cut-outs
 
