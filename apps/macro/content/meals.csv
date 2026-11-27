@@ -339,3 +339,7 @@ date,time,meal,item,kcal,protein_g,carbs_g,fat_g,fiber_g
 2026-11-27,11:05,breakfast,McDonald's 4 pc Chicken McNuggets with tangy BBQ sauce (leftover),215,9,21,10,1
 2026-11-27,11:05,breakfast,Emergen-C Immune+ drink mix (1 packet 9.4g in water),30,0,7,0,0
 2026-11-27,11:21,snack,Jasmine milk tea drink (320 ml bottle; label says 660 cal but macros add up to ~158 kcal so 660 is likely kJ),158,5,16,8,0
+2026-11-26,19:00,dinner,Homemade beef & vegetable hotpot stew (1 bowl: beef + potato + carrot + cabbage + tomato; est; time est),350,20,30,15,5
+2026-11-26,19:00,dinner,Grilled steak (2 slices ~100g cooked; est),290,25,0,21,0
+2026-11-26,19:00,dinner,Garlic bread (3 pieces; est),330,8,39,16,2
+2026-11-26,19:00,dinner,Salmon sushi hand rolls (3; salmon + rice + nori; est),360,21,36,12,1.5
