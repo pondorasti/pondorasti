@@ -24,6 +24,7 @@ describe("content items", () => {
       status: "owned",
       tag: "office",
       group: null,
+      order: null,
       variant: "Brass",
       link: "https://example.com/lamp",
       image: "/images/image.webp",
@@ -49,6 +50,13 @@ describe("content items", () => {
     expect(parse("lamp", "name: Lamp\nstatus: owned\ntag: bathroom\ngroup: shaving")).toThrow(
       /group/
     )
+    expect(parse("lamp", "name: Lamp\nstatus: owned\ntag: office\norder: 1")()).toMatchObject({
+      order: 1
+    })
+    for (const order of ["0", "-1", "1.5", '"1"', "first"])
+      expect(parse("lamp", `name: Lamp\nstatus: owned\ntag: office\norder: ${order}`)).toThrow(
+        /order/
+      )
     expect(parse("lamp", "name: Lamp\nstatus: owned\ntags: [office]")).toThrow(/tags/)
     expect(
       parse("lamp", "name: Lamp\nstatus: owned\ntag: office\nlink: javascript:alert(1)")

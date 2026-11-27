@@ -10,6 +10,7 @@ const FrontMatter = z
     status: Status,
     tag: Tag,
     group: z.optional(Group),
+    order: z.int().min(1).optional(),
     link: z.url({ protocol: /^https?$/ }).optional()
   })
   .refine(({ tag, group }) => !group || TAG_GROUPS[tag]?.includes(group), {
@@ -43,13 +44,14 @@ export function parseItem(
   if (!result.success) throw new Error(z.prettifyError(result.error))
   const cover = image("image.webp")
   if (!cover) throw new Error("missing image.webp")
-  const { name, variant, status, tag, group, link } = result.data
+  const { name, variant, status, tag, group, order, link } = result.data
   return {
     slug,
     name,
     status,
     tag,
     group: group ?? null,
+    order: order ?? null,
     variant: variant ?? null,
     link: link ?? null,
     image: cover,

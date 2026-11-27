@@ -6,12 +6,14 @@ const product = (
   name: string,
   status: Status = "owned",
   tag: Tag = "office",
-  group: Group | null = null
+  group: Group | null = null,
+  order: number | null = null
 ): ProductSummary => ({
   name,
   status,
   tag,
   group,
+  order,
   slug: name,
   image: "/images/x.webp"
 })
@@ -71,5 +73,26 @@ describe("catalog URL filters", () => {
       { group: "oral", products: [products[0]] }
     ])
     expect(filterCatalog(products, { q: "skin" })).toEqual([products[2]])
+  })
+  it("puts ordered items first within their group, lowest first, keeping the rest in order", () => {
+    const products = [
+      product("Detergent", "owned", "bathroom", "laundry"),
+      product("Hamper", "owned", "bathroom", "laundry", 1),
+      product("Iron", "owned", "bathroom", "laundry", 2),
+      product("Ironing Board", "owned", "bathroom", "laundry"),
+      product("Mesh Bags", "owned", "bathroom", "laundry", 2),
+      product("Serum", "owned", "bathroom", "skin"),
+      product("Toner", "owned", "bathroom", "skin", 1)
+    ]
+    expect(sectionsByGroup(products)).toEqual([
+      { group: "skin", products: [products[6], products[5]] },
+      {
+        group: "laundry",
+        products: [products[1], products[2], products[4], products[0], products[3]]
+      }
+    ])
+    // Search results stay alphabetical; the source isn't mutated.
+    expect(filterCatalog(products, { q: "o" })[0]).toBe(products[0])
+    expect(products[1].name).toBe("Hamper")
   })
 })

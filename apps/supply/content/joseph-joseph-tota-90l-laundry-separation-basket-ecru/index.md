@@ -4,6 +4,7 @@ variant: "Ecru"
 status: owned
 tag: bathroom
 group: laundry
+order: 1
 link: "https://us.josephjoseph.com/products/tota-90l-laundry-separation-basket-ecru"
 ---
 
