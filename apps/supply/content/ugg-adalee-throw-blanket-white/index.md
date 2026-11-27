@@ -3,7 +3,8 @@ name: "UGG Adalee Throw Blanket"
 variant: "White"
 status: owned
 tag: bedroom
-group: bedding
+group: blankets
+order: 1
 link: "https://www.amazon.com/dp/B08KTQVGDN"
 ---
 

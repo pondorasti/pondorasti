@@ -37,6 +37,7 @@ export const Group = z.enum([
   "laundry",
   "bed",
   "bedding",
+  "blankets",
   "vitamins",
   "workout"
 ])
@@ -58,7 +59,7 @@ export const TAG_GROUPS: Partial<Record<Tag, Group[]>> = {
     "accessories"
   ],
   bathroom: ["skin", "oral", "towels", "hair", "laundry"],
-  bedroom: ["bed", "bedding"],
+  bedroom: ["bed", "bedding", "blankets"],
   supplements: ["vitamins", "workout"]
 }
 
