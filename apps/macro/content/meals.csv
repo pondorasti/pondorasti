@@ -343,4 +343,5 @@ date,time,meal,item,kcal,protein_g,carbs_g,fat_g,fiber_g
 2026-11-26,19:00,dinner,Grilled steak (2 slices ~100g cooked; est),290,25,0,21,0
 2026-11-26,19:00,dinner,Garlic bread (3 pieces; est),330,8,39,16,2
 2026-11-26,19:00,dinner,Salmon sushi hand rolls (3; salmon + rice + nori; est),360,21,36,12,1.5
-2026-11-27,15:19,lunch,Homemade beef noodle soup (ramen noodles + thin-sliced beef + creamy broth + bok choy + scallions; est),650,35,75,22,4
+2026-11-27,15:19,lunch,Ichiran tonkotsu ramen kit (1 serving 129g; label 443 kcal),443,17,58,16,0
+2026-11-27,15:19,lunch,Thin-sliced beef for ramen (~100g; est) + bok choy + scallions,215,26,3,13,1.5
