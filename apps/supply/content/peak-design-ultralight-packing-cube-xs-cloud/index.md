@@ -3,6 +3,7 @@ name: "Peak Design Ultralight Packing Cube XS"
 variant: "Cloud"
 status: owned
 tag: carry
+group: packing
 link: "https://www.peakdesign.com/eu/products/ultralight-packing-cube?Size=XS&Color=Cloud&Material=Fabric"
 ---
 

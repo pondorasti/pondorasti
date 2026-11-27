@@ -3,6 +3,7 @@ name: "Bellroy Lite Duffel 30L"
 variant: "Ash"
 status: owned
 tag: carry
+group: bags
 link: "https://bellroy.com/products/lite-duffel?color=ash&material=dura_lite_nylon&size=30l"
 ---
 
