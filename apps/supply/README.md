@@ -155,6 +155,11 @@ foreground estimation), so no background shows through them: no grey fringe or b
 for a white item on a white or grey background, and edges stay clean on both the light and dark
 cards. Items cut before this change keep their images until they're cut again.
 
+The model sometimes keeps the backdrop seen through an opening in the item, like the loop of a
+Dyson fan, as part of it. On a plain backdrop, the script clears any large patch of the
+backdrop's colour that the item encloses and that has a crisp rim, so the opening shows the card
+behind it. Highlights that fade into a white item don't count, and no other item's cut changes.
+
 It needs [uv](https://docs.astral.sh/uv/) (`brew install uv`). `bun run images` runs the script
 with `uv run --locked --script`, which on first use installs Python 3.12 and the exact versions
 pinned in the script's header and `scripts/cutout.py.lock` (about 1 GB, in uv's cache, outside
