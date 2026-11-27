@@ -26,6 +26,15 @@ export const TIME_ZONE = "America/Los_Angeles"
 /** Weigh-ins logged before this local time (HH:MM) are morning readings, the ones trended. */
 export const MORNING_BEFORE = "12:00"
 
+/** Scale readings this many minutes apart or less are a re-weigh: the later one counts. */
+export const REWEIGH_MINUTES = 5
+
+/** A synced reading this close to a logged one on the same day is the same reading. */
+export const DUPLICATE_MINUTES = 10
+
+/** A synced day with less resting energy than this hasn't finished syncing from the watch. */
+export const MIN_RESTING_KCAL = 1500
+
 /** Days of morning readings averaged into each point of the weight trend. */
 export const ROLLING_DAYS = 7
 
