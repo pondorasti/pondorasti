@@ -5,29 +5,26 @@ version: 2
 #
 # `exclude-paths` and `open-pull-requests-limit` only affect version updates,
 # so they can't stop security PRs. `ignore` does apply to security updates, so
-# artifacts/ gets its own blocks that ignore every dependency. Blocks for one
-# ecosystem must not overlap, and `directories` can't be negated, so the main
-# blocks list the remaining top-level directories instead of "/**".
+# artifacts/ and zold/ get their own blocks that ignore every dependency.
+# Blocks for one ecosystem must not overlap, and `directories` can't be
+# negated, so the main blocks list the remaining top-level directories instead
+# of "/**".
 updates:
   - package-ecosystem: npm
-    directories: ["/", "/apps/**", "/packages/**", "/zold/**"]
+    directories: ["/", "/apps/**", "/packages/**"]
     schedule:
       interval: weekly
     open-pull-requests-limit: 0
-    exclude-paths:
-      - "zold/**"
 
   - package-ecosystem: bun
-    directories: ["/", "/apps/**", "/packages/**", "/zold/**"]
+    directories: ["/", "/apps/**", "/packages/**"]
     schedule:
       interval: weekly
     open-pull-requests-limit: 0
-    exclude-paths:
-      - "zold/**"
 
-  # artifacts/: no PRs at all, security or version.
+  # artifacts/ and zold/: no PRs at all, security or version.
   - package-ecosystem: npm
-    directories: ["/artifacts/**"]
+    directories: ["/artifacts/**", "/zold/**"]
     schedule:
       interval: weekly
     open-pull-requests-limit: 0
@@ -35,7 +32,7 @@ updates:
       - dependency-name: "*"
 
   - package-ecosystem: bun
-    directories: ["/artifacts/**"]
+    directories: ["/artifacts/**", "/zold/**"]
     schedule:
       interval: weekly
     open-pull-requests-limit: 0
