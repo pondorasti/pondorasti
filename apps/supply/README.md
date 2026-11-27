@@ -148,9 +148,12 @@ image fails with a message naming the folder, so a broken item never deploys.
 
 `scripts/cutout.py` runs [BiRefNet](https://github.com/ZhengPeng7/BiRefNet) (MIT) locally at
 1024×1024: nothing is uploaded anywhere. It keeps the model's soft mask as the alpha, so edges
-are anti-aliased, and re-estimates the colour of every edge pixel without the background
-showing through (pymatting's foreground estimation), so they stay clean on both the light and
-dark cards.
+are anti-aliased, steepened back to the model's own edge width after scaling the mask up to the
+photo's size (scaling alone fades a crisp edge out over several pixels of background). Edge
+pixels take their colour from the pixels the model is sure belong to the subject (pymatting's
+foreground estimation), so no background shows through them: no grey fringe or bright rim, even
+for a white item on a white or grey background, and edges stay clean on both the light and dark
+cards. Items cut before this change keep their images until they're cut again.
 
 It needs [uv](https://docs.astral.sh/uv/) (`brew install uv`). `bun run images` runs the script
 with `uv run --locked --script`, which on first use installs Python 3.12 and the exact versions
