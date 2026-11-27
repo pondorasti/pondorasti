@@ -3,7 +3,8 @@ name: "Bedsure Checkered Fleece Throw Blanket"
 variant: "White"
 status: owned
 tag: bedroom
-group: bedding
+group: blankets
+order: 2
 link: "https://www.amazon.com/dp/B0CG16ZBQ8"
 ---
 
