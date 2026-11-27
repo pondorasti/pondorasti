@@ -3,6 +3,7 @@ name: "Peak Design Wash Pouch Small"
 variant: "Sage"
 status: owned
 tag: carry
+group: packing
 link: "https://www.peakdesign.com/eu/products/wash-pouch?Size=Small&Color=Sage"
 ---
 

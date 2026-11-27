@@ -3,6 +3,7 @@ name: "Peak Design Everyday Totepack 20L"
 variant: "Bone"
 status: owned
 tag: carry
+group: bags
 link: "https://www.peakdesign.com/eu/products/everyday-totepack"
 ---
 

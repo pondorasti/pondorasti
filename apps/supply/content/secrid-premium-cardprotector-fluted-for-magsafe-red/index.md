@@ -3,6 +3,7 @@ name: "Secrid Premium Cardprotector+ Fluted for MagSafe"
 variant: "Red"
 status: wishlist
 tag: carry
+group: carry-accessories
 link: "https://secrid.com/en-us/premium-cardprotector-fluted-for-magsafe-red--/"
 ---
 

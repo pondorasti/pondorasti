@@ -3,6 +3,7 @@ name: "Peak Design Shoe Pouch"
 variant: "Charcoal"
 status: owned
 tag: carry
+group: packing
 link: "https://www.peakdesign.com/eu/products/shoe-pouch"
 ---
 

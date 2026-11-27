@@ -30,6 +30,9 @@ export const Group = z.enum([
   "sunglasses",
   "watches",
   "accessories",
+  "bags",
+  "packing",
+  "carry-accessories",
   "skin",
   "oral",
   "towels",
@@ -58,14 +61,21 @@ export const TAG_GROUPS: Partial<Record<Tag, Group[]>> = {
     "watches",
     "accessories"
   ],
+  // Apparel already has "accessories", and ids double as section anchors, so Carry's gets its own.
+  carry: ["bags", "packing", "carry-accessories"],
   bathroom: ["skin", "oral", "towels", "hair", "laundry"],
   bedroom: ["bed", "bedding", "blankets"],
   supplements: ["vitamins", "workout"]
 }
 
+/** Display names that the id alone can't give, e.g. when an id is prefixed to stay unique. */
+const LABELS: Partial<Record<Status | Tag | Group, string>> = {
+  "carry-accessories": "Accessories"
+}
+
 /** Display name for a status, tag or group id, e.g. "technology" → "Technology". */
 export const label = (id: Status | Tag | Group) =>
-  id[0].toUpperCase() + id.slice(1).replaceAll("-", " ")
+  LABELS[id] ?? id[0].toUpperCase() + id.slice(1).replaceAll("-", " ")
 
 /** An item's folder name and URL segment. */
 export const Slug = z.string().check(z.maxLength(150), z.regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/))

@@ -3,6 +3,7 @@ name: "Peak Design Field Pouch v1 with Leash"
 variant: "Charcoal"
 status: owned
 tag: carry
+group: bags
 link: "https://www.peakdesign.com/eu/products/field-pouch"
 ---
 
