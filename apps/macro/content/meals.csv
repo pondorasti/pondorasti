@@ -330,3 +330,7 @@ date,time,meal,item,kcal,protein_g,carbs_g,fat_g,fiber_g
 2026-11-26,10:38,breakfast,La Cuisine Café berry danish with custard (strawberries + blueberries; est),400,7,45,21,2
 2026-11-26,10:38,breakfast,La Cuisine Café hot chocolate (~12 oz / 355 ml; est),300,12,40,11,2
 2026-11-26,10:38,breakfast,Apple juice (8 oz),114,0.2,28,0.3,0.5
+2026-11-26,15:00,lunch,McDonald's McDouble,400,22,33,20,2
+2026-11-26,15:00,lunch,McDonald's small french fries,230,3,30,11,3
+2026-11-26,15:00,lunch,McDonald's small Coke (16 oz / 475 ml),150,0,40,0,0
+2026-11-26,15:05,dessert,McDonald's hot caramel sundae,340,7,60,8,0
