@@ -49,6 +49,15 @@ CLEAR = 8
 BORDER_SHARE = 0.01
 # Alpha at or above this is the subject itself; softer pixels take their colour from it.
 SOLID = 0.98
+# Enclosed holes (see enclosed_background): how far, out of 255 in any channel, a pixel may be from
+# the background colour to count as background, ...
+HOLE_TOLERANCE = 2
+# ... the smallest hole, as a share of the image, ...
+HOLE_MIN_SHARE = 0.002
+# ... and how far, out of 255, the pixels just around a hole must be from the background colour, so
+# only a flat patch of backdrop behind a crisp rim counts, not a highlight fading into a white
+# subject.
+HOLE_RIM = 12
 
 
 def edge(a: np.ndarray) -> np.ndarray:
@@ -125,6 +134,50 @@ def decontaminate(rgb: np.ndarray, alpha: np.ndarray) -> np.ndarray:
     return np.clip(estimate_foreground_ml(rgb, solid.astype(np.float64) if solid.any() else alpha), 0, 1)
 
 
+def enclosed_background(rgb: np.ndarray, alpha: np.ndarray):
+    """The model sometimes keeps the backdrop seen through an opening in the subject (the loop of
+    a Dyson fan) as part of the subject. Finds each such hole: a patch, not touching the image's
+    edges, of the backdrop's colour (the colour of a plain, uniform outer edge), large,
+    behind a crisp rim, and kept as subject by the model. Returns the alpha to multiply the mask
+    by, 0 in the holes and ramping up over their rims by how far each pixel is from the backdrop's
+    colour, or None when there are none, so every other cut-out is left exactly as it was."""
+    from scipy import ndimage
+
+    image = rgb * 255
+    border = edge(image)
+    backdrop = np.median(border, axis=0)
+    if (np.abs(border - backdrop).max(-1) <= HOLE_TOLERANCE).mean() < 0.9:
+        return None
+    distance = np.abs(image - backdrop).max(-1)
+    labels, _ = ndimage.label(distance <= HOLE_TOLERANCE)
+    outside = set(np.unique(edge(labels)))
+    keep = np.ones_like(alpha)
+    found = False
+    for label, (rows, cols) in enumerate(ndimage.find_objects(labels), 1):
+        if label in outside:
+            continue
+        # Room for the rim around the hole, which may reach past its bounding box.
+        rows = slice(max(rows.start - 3, 0), rows.stop + 3)
+        cols = slice(max(cols.start - 3, 0), cols.stop + 3)
+        hole = labels[rows, cols] == label
+        if hole.sum() < HOLE_MIN_SHARE * alpha.size or alpha[rows, cols][hole].mean() < 0.5:
+            continue
+        rim = ndimage.binary_dilation(hole, iterations=3) & ~ndimage.binary_dilation(hole)
+        contrast = np.median(distance[rows, cols][rim])
+        if contrast < HOLE_RIM:
+            continue
+        found = True
+        # Compression leaves specks and edge pixels a little off the backdrop's colour: grow the
+        # hole through pixels much closer to the backdrop than to its rim, and fill it in.
+        grown, _ = ndimage.label(distance[rows, cols] < contrast / 3)
+        hole = ndimage.binary_fill_holes(grown == grown[hole][0])
+        near = ndimage.binary_dilation(hole, iterations=2) & ~hole
+        patch = keep[rows, cols]
+        patch[hole] = 0
+        patch[near] = np.minimum(patch[near], np.clip(distance[rows, cols][near] / contrast, 0, 1))
+    return keep if found else None
+
+
 def clear_white_background(rgba: np.ndarray):
     """Fallback when the model finds no subject: clears the near-white background connected to
     the image's edges."""
@@ -159,8 +212,14 @@ def main():
             rgb = original[..., :3].astype(np.float64) / 255
             alpha = matte(rgb)
             if (alpha * 255 > CLEAR).any():
-                fg = decontaminate(rgb, alpha)
-                image = (np.dstack([fg, sharpen(alpha)]) * 255).round().astype(np.uint8)
+                if (holes := enclosed_background(rgb, alpha)) is None:
+                    fg = decontaminate(rgb, alpha)
+                    alpha = sharpen(alpha)
+                else:
+                    print(f"{path}: cleared the backdrop seen through the subject", file=sys.stderr)
+                    fg = decontaminate(rgb, alpha * holes)
+                    alpha = sharpen(alpha) * holes
+                image = (np.dstack([fg, alpha]) * 255).round().astype(np.uint8)
             elif (cleared := clear_white_background(original)) is not None:
                 print(f"{path}: no subject found, cleared the white background instead", file=sys.stderr)
                 image = cleared
