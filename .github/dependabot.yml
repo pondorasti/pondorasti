@@ -2,9 +2,15 @@ version: 2
 
 # Only used to scope Dependabot security updates (enabled in repo settings).
 # `open-pull-requests-limit: 0` keeps routine version-update PRs off.
+#
+# `exclude-paths` and `open-pull-requests-limit` only affect version updates,
+# so they can't stop security PRs. `ignore` does apply to security updates, so
+# artifacts/ gets its own blocks that ignore every dependency. Blocks for one
+# ecosystem must not overlap, and `directories` can't be negated, so the main
+# blocks list the remaining top-level directories instead of "/**".
 updates:
   - package-ecosystem: npm
-    directories: ["/**"]
+    directories: ["/", "/apps/**", "/packages/**", "/zold/**"]
     schedule:
       interval: weekly
     open-pull-requests-limit: 0
@@ -12,9 +18,26 @@ updates:
       - "zold/**"
 
   - package-ecosystem: bun
-    directories: ["/**"]
+    directories: ["/", "/apps/**", "/packages/**", "/zold/**"]
     schedule:
       interval: weekly
     open-pull-requests-limit: 0
     exclude-paths:
       - "zold/**"
+
+  # artifacts/: no PRs at all, security or version.
+  - package-ecosystem: npm
+    directories: ["/artifacts/**"]
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "*"
+
+  - package-ecosystem: bun
+    directories: ["/artifacts/**"]
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "*"
