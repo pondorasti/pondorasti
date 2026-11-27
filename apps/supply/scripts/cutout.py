@@ -26,8 +26,10 @@ for it, where <action> is "lifted" when a background was removed and "cropped" o
 The model is BiRefNet (MIT, https://github.com/ZhengPeng7/BiRefNet) at 1024x1024, pinned to a
 Hugging Face revision and downloaded to the Hugging Face cache on first use (about 450 MB). It
 runs on Apple silicon (MPS), CUDA, or the CPU (much slower). Its soft mask is kept as the alpha,
-and each edge pixel's colour is re-estimated without the background showing through it
-(pymatting's multilevel foreground estimation), so edges stay clean on light and dark cards.
+narrowed back to the model's own edge width after scaling up from 1024x1024, and the colour of
+each edge pixel is carried out from the pixels the model is sure belong to the subject (pymatting's
+multilevel foreground estimation), so no background shows through it. Edges stay clean on light
+and dark cards, even for a white subject on a white or grey background.
 """
 
 import math
@@ -45,6 +47,8 @@ SIZE = 1024
 CLEAR = 8
 # The transparent border left around the subject, as a share of its longer side.
 BORDER_SHARE = 0.01
+# Alpha at or above this is the subject itself; softer pixels take their colour from it.
+SOLID = 0.98
 
 
 def edge(a: np.ndarray) -> np.ndarray:
@@ -101,11 +105,24 @@ class Matte:
         return pred[0, 0].clamp(0, 1).cpu().numpy().astype(np.float64)
 
 
+def sharpen(alpha: np.ndarray) -> np.ndarray:
+    """Scaling the model's mask up from SIZE widens every edge by the same factor, so a crisp edge
+    fades out over several pixels, with background around it. Steepens the ramp by that factor
+    around its midpoint, which is where the edge lies, so edges are as wide as the model drew them."""
+    factor = max(alpha.shape) / SIZE
+    if factor <= 1:
+        return alpha
+    return np.clip((alpha - 0.5) * factor + 0.5, 0, 1)
+
+
 def decontaminate(rgb: np.ndarray, alpha: np.ndarray) -> np.ndarray:
-    """The subject's own colour at its edges, with the background taken back out."""
+    """The subject's own colour at its edges, carried out from the pixels the model is sure belong
+    to it. Solving each edge pixel for its own colour instead trusts the soft alpha, and where that
+    is off, the background shows through: a grey fringe, or a bright rim around a white subject."""
     from pymatting import estimate_foreground_ml
 
-    return np.clip(estimate_foreground_ml(rgb, alpha), 0, 1)
+    solid = alpha >= SOLID
+    return np.clip(estimate_foreground_ml(rgb, solid.astype(np.float64) if solid.any() else alpha), 0, 1)
 
 
 def clear_white_background(rgba: np.ndarray):
@@ -143,7 +160,7 @@ def main():
             alpha = matte(rgb)
             if (alpha * 255 > CLEAR).any():
                 fg = decontaminate(rgb, alpha)
-                image = (np.dstack([fg, alpha]) * 255).round().astype(np.uint8)
+                image = (np.dstack([fg, sharpen(alpha)]) * 255).round().astype(np.uint8)
             elif (cleared := clear_white_background(original)) is not None:
                 print(f"{path}: no subject found, cleared the white background instead", file=sys.stderr)
                 image = cleared
